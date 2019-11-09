@@ -10,6 +10,12 @@ Each module contains seprate README file for instructions on how to run.
 - nuXmv/isolation/dot2smv.py : Converter to nuXmv from UE and AMF finite state machines.
 - nuXmv/isolation/NAS_poperty.smv: Properties and counter-examples for NAS layer.
 
+- Lustre/dot2lustre.py : Converter to Lustre.
+- Lustre/properties-guarantees/UE_NAS_guarantees.txt : Properties for NAS conformance tests.
+- Lustre/FSM/NAS/UE-NAS-5G.dot : Fine state machine (FSM) for UE.
+- Lustre/FSM/AMF-NAS-5G.dot : Finite state machine (FSM) for AMF.
+- Lustre/NAS.lus : Lustre file for NAS layer with conformance guarantees.
+
 ## RRC Layer
 * nuXmv/isolation/FSM/BS-RRC-5G.dot: Finite state machine (FSM) for Base station.
 
@@ -18,6 +24,16 @@ Each module contains seprate README file for instructions on how to run.
 * nuXmv/isolation/dot2smv.py : Converter to nuXmv from UE-RRC and base station finite state machines.
 
 * nuXmv/isolation/RRC_poperty.smv: Properties and counter-examples for RRC layer.
+
+* Lustre/dot2lustre.py : Convert to Lustre.
+
+* Lustre/properties-guarantees/UE_RRC_guarantees.txt : Properties for RRC conformance tests.
+
+* Lustre/FSM/RRC/UE-RRC-5G.dot : Finite state machine (FSM) for RRC of UE.
+
+* Lustre/FSM/RRC/BS-RRC-5G.dot : Finite state machine (FSM) for Base station.
+
+* Lustre/RRC.lus : Lustre file for RRC layer with conformance guarantees.
 
 ## Cross Layer
 

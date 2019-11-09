@@ -1,0 +1,249 @@
+
+    guarantee "Primary_Authentication_2" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_auth_req) and not(pre ue_auth_seq_check) and ue_auth_fail_count_check and not(authreq_mac_failure) and not(ta_changed) and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(enable_N1) and not(Happened(uederegrequested)) and not(power_off)=> UE_NAS_message = UE_NAS_auth_failure_seq;
+
+    guarantee "Primary_Authentication_4" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_auth_req) and not Happened(ue_auth_fail_count_check)=> UE_NAS_message = UE_NAS_auth_response;
+
+    guarantee "Implicit_Authentication_MAC" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_auth_req) and authreq_mac_failure and not Happened(ue_auth_fail_count_check) =>  UE_NAS_message = UE_NAS_auth_failure_mac;
+
+    guarantee "Implicit_Authentication_MAC2" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_auth_req) and authreq_mac_failure and not(ta_changed) and ue_auth_fail_count_check and not(power_off) and not(enable_N1) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) => UE_NAS_message = UE_NAS_auth_failure_mac;
+    
+    guarantee "Implicit_Authentication_MAC3" true -> (pre UE_NAS_state = ue_dereg_inited) and (AMF_NAS_message = AMF_NAS_auth_req) 
+        and authreq_mac_failure and not(ta_changed) and ue_auth_fail_count_check and not(power_off) and not(enable_N1)
+        and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested))
+        => UE_NAS_message = UE_NAS_auth_failure_mac;
+     
+    guarantee "SMC_1_1" true -> (AMF_NAS_message = AMF_NAS_sm_command) and not(sec_cap_match) and not(power_on) and (pre UE_NAS_state = ue_registered) and ue_partial_sec_ctx_exist and not(smcmd_mac_failure) and not(ta_changed) and not(enable_N1) and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and not(ue_complete_sec_ctx_exist)=> UE_NAS_message = UE_NAS_sm_reject and not(ue_sec_ctx_updated);
+
+    guarantee "SMC_1_2" true -> (AMF_NAS_message = AMF_NAS_sm_command) and not(sec_cap_match) and not(power_on) and (pre UE_NAS_state = ue_reg_inited) and ue_partial_sec_ctx_exist and not(smcmd_mac_failure) and not(ta_changed) and not(enable_N1) and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and not(ue_complete_sec_ctx_exist)=> UE_NAS_message = UE_NAS_sm_reject and not(ue_sec_ctx_updated);
+
+
+    guarantee "SMC_5" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_reg_inited) and ue_partial_sec_ctx_exist and not(ue_complete_sec_ctx_exist) and ue_sec_ctx_updated and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(smcmd_mac_failure) and not(ta_changed) and not(enable_N1) and not(uederegrequested) and not(power_off)=> UE_NAS_message = UE_NAS_sm_complete;
+
+  
+
+    guarantee "Implicit_SMC_1_1" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_registered) and not(ue_complete_sec_ctx_exist) and not(smcmd_mac_failure) and not(sec_cap_match) and not(uederegrequested) and not(enable_N1) and not(power_off)=> UE_NAS_message = UE_NAS_sm_reject;
+    
+    guarantee "Implicit_SMC_1_2" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_registered) and not(ue_complete_sec_ctx_exist) and smcmd_mac_failure and sec_cap_match and ue_partial_sec_ctx_exist and not(uederegrequested) and not(enable_N1) and not(power_off) and not(ta_changed) => UE_NAS_message = UE_NAS_sm_reject;
+
+    guarantee "Implicit_SMC_2_1" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_reg_inited) and not(ue_complete_sec_ctx_exist) and not(smcmd_mac_failure) and not(sec_cap_match) and not(uederegrequested) and not(enable_N1) and not(power_off) and (ue_partial_sec_ctx_exist) and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(ta_changed)=> UE_NAS_message = UE_NAS_sm_reject;
+
+    guarantee "Implicit_SMC_2_2" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_reg_inited) and not(ue_complete_sec_ctx_exist) and smcmd_mac_failure and sec_cap_match and not(uederegrequested) and not(enable_N1) and not(power_off) and (ue_partial_sec_ctx_exist) and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(ta_changed)=> UE_NAS_message = UE_NAS_sm_reject;
+
+    guarantee "Implicit_SMC_3_1" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_reg_inited) and not(sec_cap_match) => not(UE_NAS_message = UE_NAS_sm_complete);
+
+    guarantee "Implicitx_SMC_3_2" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_registered) and not(sec_cap_match) => not(UE_NAS_message = UE_NAS_sm_complete);
+
+
+
+    guarantee "Initial_Signal_1" true -> pre(UE_NAS_state= ue_deregistered) and Happened(power_on) and Happened(power_off) and enable_N1 and not(power_off)=> UE_NAS_message = UE_NAS_reg_req;
+
+
+    -- UE REGISTERED
+
+    guarantee "Implicit_Identification_Procedure_reg_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_registered) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_2_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_registered) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_3_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_registered) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_4_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_registered) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+
+
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_registered) and not(idreq_mac_failure) => UE_NAS_message = UE_NAS_id_res and idrestype = res_imsi;
+        
+    guarantee "Implicit_Identification_Procedurereg_2_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_registered) and not(idreq_mac_failure) => UE_NAS_message = UE_NAS_id_res and idrestype = res_imei;
+        
+    guarantee "Implicit_Identification_Procedurereg_3_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_registered) and not(idreq_mac_failure) => UE_NAS_message = UE_NAS_id_res and idrestype = res_imeisv;
+        
+    guarantee "Implicit_Identification_Procedurereg_4_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_registered) and not(idreq_mac_failure) and config_update_complete_flag => UE_NAS_message = UE_NAS_id_res and idrestype = res_guti;
+        
+    guarantee "Implicit_Identification_Procedurereg_5_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_registered) and not(idreq_mac_failure) and not(config_update_complete_flag) => UE_NAS_message = UE_NAS_id_res and idrestype = res_id_null;
+
+
+      
+
+    -- UE REGISTERED INITATED
+
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and not(transmission_failure) and
+        (pre UE_NAS_state = ue_reg_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) 
+        and not(enable_N1) and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imsi;
+    
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and not(transmission_failure) and
+        (pre UE_NAS_state = ue_reg_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) 
+        and not(enable_N1) and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imei;
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and not(transmission_failure) and
+        (pre UE_NAS_state = ue_reg_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) 
+        and not(enable_N1) and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imeisv;
+    
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and not(transmission_failure) and
+        (pre UE_NAS_state = ue_reg_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) 
+        and not(enable_N1) and not(ta_changed) and config_update_complete_flag
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_guti;
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and not(transmission_failure) and
+        (pre UE_NAS_state = ue_reg_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) 
+        and not(enable_N1) and not(ta_changed) and not(config_update_complete_flag)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_id_null;
+
+
+
+
+    -- UE DEREGISTER INITATED
+
+    guarantee "Implicit_Identification_Procedure_reg_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_dereg_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_2_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_dereg_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_3_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_dereg_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_4_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_dereg_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+      
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_dereg_inited) and not(idreq_mac_failure) and ue_complete_sec_ctx_exist and not(power_off) and not(uederegrequested) and not(enable_N1)
+        and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imsi;
+    
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_dereg_inited) and not(idreq_mac_failure) and ue_complete_sec_ctx_exist and not(power_off) and not(uederegrequested) and not(enable_N1)
+        and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imei;
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_dereg_inited) and not(idreq_mac_failure) and ue_complete_sec_ctx_exist and not(power_off) and not(uederegrequested) and not(enable_N1)
+        and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imeisv;
+    
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_dereg_inited) and not(idreq_mac_failure) and ue_complete_sec_ctx_exist and not(power_off) and not(uederegrequested) and not(enable_N1)
+        and not(ta_changed) and config_update_complete_flag
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_guti;
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_dereg_inited) and not(idreq_mac_failure) and ue_complete_sec_ctx_exist and not(power_off) and not(uederegrequested) and not(enable_N1)
+        and not(ta_changed) and not(config_update_complete_flag)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_id_null;
+
+
+
+    -- UE SERVICE INITIATED
+
+
+    guarantee "Implicit_Identification_Procedure_serv_inited_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_service_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_serv_inited_2_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_service_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_serv_inited_3_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_service_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_serv_inited_4_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_service_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_service_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(enable_N1) and not(ta_changed)=> UE_NAS_message = UE_NAS_id_res and idrestype = res_imsi;
+
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_service_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(enable_N1) and not(ta_changed)=> UE_NAS_message = UE_NAS_id_res and idrestype = res_imei;
+
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_service_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(enable_N1) and not(ta_changed)=> UE_NAS_message = UE_NAS_id_res and idrestype = res_imeisv;
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_service_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(enable_N1) and not(ta_changed) and config_update_complete_flag => UE_NAS_message = UE_NAS_id_res and idrestype = res_guti;
+    
+    guarantee "Implicit_Identification_Procedurereg_5_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_service_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(enable_N1) and not(ta_changed) and not(config_update_complete_flag) => UE_NAS_message = UE_NAS_id_res and idrestype = res_id_null;    
+       
+
+
+
+    guarantee "Initial_Registration_Abnormal_Ctr_4_1" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_null_action) and not(pre reg_count_check) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and enable_N1 and not(ta_changed) => downgrade;
+
+    guarantee "Initial_Registration_Abnormal_Ctr_4_2" true -> (pre UE_NAS_state = ue_registered) and (AMF_NAS_message = AMF_NAS_null_action) and not(pre reg_count_check) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and enable_N1 and not(ta_changed) => downgrade;
+
+    guarantee "Initial_Registration_Abnormal_Ctr_4_3" true -> (pre UE_NAS_state = ue_dereg_inited) and (AMF_NAS_message = AMF_NAS_null_action) and not(pre reg_count_check) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and enable_N1 and not(ta_changed) => downgrade;
+
+    guarantee "Initial_Registration_Abnormal_Ctr_4_4" true -> (pre UE_NAS_state = ue_service_inited) and (AMF_NAS_message = AMF_NAS_null_action) and not(pre reg_count_check) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and enable_N1 and not(ta_changed) => downgrade;
+
+
+
+
+    guarantee "Deregistration_implicit_1" true -> (pre UE_NAS_state = ue_registered) and power_off and (AMF_NAS_message = AMF_NAS_null_action)=> UE_NAS_message = UE_NAS_dereg_req_switch_off;
+    
+    guarantee "Deregistration_implicit_2" true -> (pre UE_NAS_state = ue_reg_inited) and power_off => UE_NAS_message = UE_NAS_dereg_req_switch_off;
+
+    guarantee "Deregistration_implicit_3" true -> (pre UE_NAS_state = ue_deregistered) and power_off => UE_NAS_message = UE_NAS_dereg_req_switch_off;
+
+    guarantee "Deregistration_implicit_4" true -> (pre UE_NAS_state = ue_dereg_inited) and power_off => UE_NAS_message = UE_NAS_dereg_req_switch_off;
+
+    guarantee "Deregistration_implicit_5" true -> (pre UE_NAS_state = ue_service_inited) and power_off => UE_NAS_message = UE_NAS_dereg_req_switch_off;
+
+    guarantee "Deregistration_implicit_6" true -> (pre UE_NAS_state = ue_idle) and power_off and not(service_notification) and (AMF_NAS_message = AMF_NAS_null_action) => UE_NAS_message = UE_NAS_dereg_req_switch_off;
+    
+    guarantee "Deregistration_1_1" true -> (pre UE_NAS_state = ue_registered) and not(enable_N1) and (AMF_NAS_message = AMF_NAS_null_action) and uederegrequested and not(dereg_cause_switch_off) and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_reg_reject and AMF_NAS_message <> AMF_NAS_nwk_dereg_req and AMF_NAS_message <> AMF_NAS_service_reject and not(enable_N1) and not(power_off) and AMF_NAS_message <> AMF_NAS_ue_ctx_release => UE_NAS_message = UE_NAS_dereg_req_not_switch_off;
+
+    guarantee "Deregistration_1_2" true -> (pre UE_NAS_state = ue_reg_inited) and uederegrequested and not(dereg_cause_switch_off) and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_reg_reject and AMF_NAS_message <> AMF_NAS_nwk_dereg_req and AMF_NAS_message <> AMF_NAS_service_reject and not(enable_N1) and not(power_off) and AMF_NAS_message <> AMF_NAS_ue_ctx_release => UE_NAS_message = UE_NAS_dereg_req_not_switch_off;
+    
+    guarantee "Deregistration_1_3" true -> (pre UE_NAS_state = ue_dereg_inited) and uederegrequested and not(dereg_cause_switch_off) and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_reg_reject and AMF_NAS_message <> AMF_NAS_nwk_dereg_req and AMF_NAS_message <> AMF_NAS_service_reject and not(enable_N1) and not(power_off) and AMF_NAS_message <> AMF_NAS_ue_ctx_release => UE_NAS_message = UE_NAS_dereg_req_not_switch_off;
+
+    guarantee "Deregistration_1_4" true -> (pre UE_NAS_state = ue_service_inited) and (AMF_NAS_message = AMF_NAS_null_action) and uederegrequested and not(dereg_cause_switch_off) and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_reg_reject and AMF_NAS_message <> AMF_NAS_nwk_dereg_req and AMF_NAS_message <> AMF_NAS_service_reject and not(enable_N1) and not(power_off) and AMF_NAS_message <> AMF_NAS_ue_ctx_release => UE_NAS_message = UE_NAS_dereg_req_not_switch_off;
+
+    guarantee "nwk_initiated_de_registration_1" true -> (pre UE_NAS_state = ue_registered) and AMF_NAS_message = AMF_NAS_nwk_dereg_req and not(power_off)=> not(ue_partial_sec_ctx_exist) and not(ue_complete_sec_ctx_exist);
+    
+    guarantee "Service_Request_1_1" true -> (pre UE_NAS_state = ue_registered) and (AMF_NAS_message = AMF_NAS_null_action) and not(uederegrequested) and not(power_off) and not(enable_N1) and service_notification and ue_complete_sec_ctx_exist and not(ta_changed) and not(ue_sec_ctx_updated) => UE_NAS_message = UE_NAS_service_req;
+    
+    guarantee "Service_Request_1_2" true -> (pre UE_NAS_state = ue_idle) and (AMF_NAS_message = AMF_NAS_null_action) and not(uederegrequested) and not(power_off) and not(enable_N1) and service_notification and ue_complete_sec_ctx_exist and not(ta_changed) => UE_NAS_message = UE_NAS_service_req;
+    
+    guarantee "SMC_PART_2_1" true -> (pre UE_NAS_state = ue_registered) and (AMF_NAS_message = AMF_NAS_sm_command) and not(smcmd_mac_failure) and not(sec_cap_match) and not(uederegrequested) and not(enable_N1) and not(power_off) and not(ue_sec_ctx_updated) => UE_NAS_message = UE_NAS_sm_reject;
+    
+    guarantee "Implicit_configupdate_mac_failure_1" true -> (pre UE_NAS_state = ue_registered) and (AMF_NAS_message = AMF_NAS_config_update_cmd) and configupdate_mac_failure => not(UE_NAS_message = UE_NAS_config_update_complete);
+
+    guarantee "Identification_Procedure_1" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_id_req) and transmission_failure 
+    and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) and not(enable_N1)
+    => UE_NAS_message = UE_NAS_reg_req;
+        
+    guarantee "Deregistration_transmission_failure" true -> (pre UE_NAS_state = ue_registered) and uederegrequested and not(dereg_cause_switch_off) 
+    and transmission_failure and AMF_NAS_message = AMF_NAS_null_action and not(power_off) and not(enable_N1)
+    => UE_NAS_message = UE_NAS_dereg_req_not_switch_off;
+
+    guarantee "limited_service_not_reg_req" true -> (pre UE_NAS_state = ue_dereg_limited) => not(UE_NAS_message = UE_NAS_reg_req);
+
+
+
+    guarantee "initial_registration_reject_cause_11_implicit" true -> (pre UE_NAS_state = ue_deregistered) and (AMF_NAS_message = AMF_NAS_reg_reject) and not(power_off) and not(enable_N1)
+        => not(ue_partial_sec_ctx_exist) and not(config_update_complete_flag) and not(ue_complete_sec_ctx_exist);
+    
+    guarantee "initial_registration_reject_cause_11" true -> (pre UE_NAS_state = ue_dereg_inited) and (AMF_NAS_message = AMF_NAS_reg_reject) and not(power_off) and not(enable_N1)
+        => not(ue_complete_sec_ctx_exist) and not(ue_partial_sec_ctx_exist) and not(config_update_complete_flag);
+
+    
+    guarantee "initial_registration_reject_cause_11_implicit" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_reg_reject) and not(power_off) and not(enable_N1)
+        => not(ue_complete_sec_ctx_exist) and not(ue_partial_sec_ctx_exist) and not(config_update_complete_flag);
+    
+    guarantee "initial_registration_reject_cause_11_implicit" true -> (pre UE_NAS_state = ue_registered) and (AMF_NAS_message = AMF_NAS_reg_reject) and not(power_off) and not(enable_N1) 
+        => not(ue_complete_sec_ctx_exist) and not(ue_partial_sec_ctx_exist) and not(config_update_complete_flag);
+        
+    guarantee "initial_registration_reject_cause_11_implicit" true -> (pre UE_NAS_state = ue_service_inited) and (AMF_NAS_message = AMF_NAS_reg_reject) 
+        => not(ue_complete_sec_ctx_exist) and not(ue_partial_sec_ctx_exist) and not(config_update_complete_flag);
+
+

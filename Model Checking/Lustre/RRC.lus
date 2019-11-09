@@ -1,0 +1,1835 @@
+---- STATES ----
+---- UE_RRC states ----
+type UE_RRC_states = enum{
+	ue_rrc_idle,
+	ue_rrc_setup_requested,
+	ue_rrc_inactive,
+	ue_rrc_resume_requested,
+	ue_rrc_connected,
+	ue_rrc_reestab_requested
+};
+---- BS_RRC states ----
+type BS_RRC_states = enum{
+	gnb_rrc_idle,
+	gnb_rrc_inactive,
+	gnb_rrc_wait_for_setup_req,
+	gnb_rrc_wait_for_resume_req,
+	gnb_rrc_connected,
+	gnb_rrc_wait_for_setup_complete,
+	gnb_rrc_wait_for_reconf_complete,
+	gnb_rrc_wait_for_resume_complete,
+	gnb_rrc_wait_for_reestab_complete
+};
+---- ENUMERATE VARIABLES ----
+---- chan_UE_rrc_nas ----
+type chan_UE_rrc_nas_enum = enum{
+	UE_dl_info_transfer,
+	UE_RRC_null
+};
+---- chan_UE_nas_rrc ----
+type chan_UE_nas_rrc_enum = enum{
+	UE_ul_info_transfer,
+	UE_downgrade_requested,
+	UE_ctx_release_requested,
+	UE_NAS_null
+};
+---- chan_AMF_rrc_nas ----
+type chan_AMF_rrc_nas_enum = enum{
+	AMF_ul_info_transfer,
+	AMF_RRC_NAS_null
+};
+---- chan_AMF_nas_rrc ----
+type chan_AMF_nas_rrc_enum = enum{
+	AMF_dl_info_transfer,
+	AMF_paging_requested,
+	AMF_NAS_RRC_null
+};
+---- MESSAGES ----
+type UE_RRC_transitions = enum{
+	UE_RRC_T1 , UE_RRC_T2 , UE_RRC_T3 , UE_RRC_T4 , UE_RRC_T5 , UE_RRC_T6 , UE_RRC_T7 , UE_RRC_T8 , UE_RRC_T9 , UE_RRC_T10 , 
+	UE_RRC_T11 , UE_RRC_T12 , UE_RRC_T13 , UE_RRC_T14 , UE_RRC_T15 , UE_RRC_T16 , UE_RRC_T17 , UE_RRC_T18 , UE_RRC_T19 , UE_RRC_T20 , 
+	UE_RRC_T21 , UE_RRC_T22 , UE_RRC_T23 , UE_RRC_T24 , UE_RRC_T25 , UE_RRC_T26 , UE_RRC_T27 , UE_RRC_T28 , UE_RRC_T29 , UE_RRC_T30 , 
+	UE_RRC_T31 , UE_RRC_T32 , UE_RRC_T33 , UE_RRC_T34 , UE_RRC_T35 , UE_RRC_T36 , UE_RRC_T37 , UE_RRC_T38 , UE_RRC_T39 , UE_RRC_T40 , 
+	UE_RRC_T41 , UE_RRC_T42 , UE_RRC_T43 , UE_RRC_T44 , UE_RRC_T45 , UE_RRC_T46 , UE_RRC_T47 , UE_RRC_T48 , UE_RRC_T49 , UE_RRC_T50 , 
+	UE_RRC_T51 , UE_RRC_T52 , UE_RRC_T53 , UE_RRC_T54 , UE_RRC_null_transition
+};
+type BS_RRC_transitions = enum{
+	BS_RRC_T1 , BS_RRC_T2 , BS_RRC_T3 , BS_RRC_T4 , BS_RRC_T5 , BS_RRC_T6 , BS_RRC_T7 , BS_RRC_T8 , BS_RRC_T9 , BS_RRC_T10 , 
+	BS_RRC_T11 , BS_RRC_T12 , BS_RRC_T13 , BS_RRC_T14 , BS_RRC_T15 , BS_RRC_T16 , BS_RRC_T17 , BS_RRC_T18 , BS_RRC_T19 , BS_RRC_T20 , 
+	BS_RRC_T21 , BS_RRC_T22 , BS_RRC_T23 , BS_RRC_T24 , BS_RRC_T25 , BS_RRC_T26 , BS_RRC_T27 , BS_RRC_T28 , BS_RRC_T29 , BS_RRC_T30 , 
+	BS_RRC_T31 , BS_RRC_T32 , BS_RRC_T33 , BS_RRC_T34 , BS_RRC_T35 , BS_RRC_T36 , BS_RRC_T37 , BS_RRC_null_transition
+};
+---- MESSAGES ----
+---- UE_RRC outgoing messages ----
+type UE_RRC_messages = enum{
+	UE_RRC_null_action,
+	UE_RRC_rrc_setup_req,
+	UE_RRC_rrc_setup_complete,
+	UE_RRC_rrc_sm_complete,
+	UE_RRC_rrc_sm_failure,
+	UE_RRC_rrc_resume_req,
+	UE_RRC_rrc_resume_complete,
+	UE_RRC_rrc_reconf_complete,
+	UE_RRC_rrc_reestab_req,
+	UE_RRC_rrc_reestab_complete,
+	UE_RRC_ul_info_transfer,
+	UE_RRC_ue_cap_info,
+	UE_RRC_ul_user_data
+};
+---- BS_RRC outgoing messages ----
+type BS_RRC_messages = enum{
+	BS_RRC_null_action,
+	BS_RRC_rrc_release,
+	BS_RRC_rrc_reject,
+	BS_RRC_rrc_setup,
+	BS_RRC_rrc_release_suspend,
+	BS_RRC_rrc_sm_command,
+	BS_RRC_rrc_reconf,
+	BS_RRC_rrc_reestab,
+	BS_RRC_rrc_resume,
+	BS_RRC_paging_tmsi,
+	BS_RRC_paging_irnti,
+	BS_RRC_dl_info_transfer,
+	BS_RRC_rrc_resume,
+	BS_RRC_ue_cap_enquiry,
+	BS_RRC_dl_user_data
+};
+
+-- Happened: Returns true iff X was ever true
+node Happened(X : bool) 
+returns (Y : bool);
+let  
+	Y = X or (false -> pre Y);
+tel
+
+-- HeldSinceBeginning: Returns true iff x has been true since beginning
+node HeldSinceBeginning (X : bool)
+returns (Y : bool;)
+let
+	Y = not Happened(not(X));
+tel
+    
+---- Controller Contract Node ----
+contract UE_RRC_controller_contract (
+	BS_RRC_message : BS_RRC_messages;
+	rrc_smcommand_mac_failure : bool;
+	reconf_mac_failure : bool;
+	ul_transfer_required : bool;
+	dlinfotransfer_mac_failure : bool;
+	resume_mac_failure : bool;
+	suspend_mac_failure : bool;
+	reject_mac_failure : bool;
+	release_mac_failure : bool;
+	ue_cap_enq_mac_failure : bool;
+	reestab_mac_failure : bool;
+	ue_bearer_setup_required : bool;
+)
+returns (
+	UE_RRC_state : UE_RRC_states;
+	UE_RRC_message : UE_RRC_messages;
+	ue_pdcp_ul_count : int;
+	ue_pdcp_dl_count : int;
+	ue_rrc_sec_ctx_exist : bool;
+	ue_bearer_established : bool;
+	ue_rrc_sec_ctx_updated : bool;
+	chan_UE_rrc_nas : chan_UE_rrc_nas_enum;
+	chan_UE_nas_rrc : chan_UE_nas_rrc_enum;
+	UE_RRC_transition : UE_RRC_transitions;
+);
+let
+	guarantee "paging_irnti" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_paging_irnti) 
+	and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+	=> UE_RRC_message = UE_RRC_rrc_resume_req;
+	
+	guarantee "paging_tmsi" true -> (pre UE_RRC_state = ue_rrc_idle) and (BS_RRC_message = BS_RRC_paging_tmsi) 
+	and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+	=> UE_RRC_message = UE_RRC_rrc_setup_req;
+	
+	guarantee "paging_irnti2" true -> (pre UE_RRC_state = ue_rrc_inactive) and not(BS_RRC_message = BS_RRC_paging_irnti) 
+	and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+	and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+	=> not(UE_RRC_message = UE_RRC_rrc_resume_req);
+	
+	guarantee "paging_tmsi2" true -> (pre UE_RRC_state = ue_rrc_idle) and not(BS_RRC_message = BS_RRC_paging_tmsi) 
+	and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+	and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+	=> not(UE_RRC_message = UE_RRC_rrc_setup_req);
+	
+	guarantee "paging_irnti3" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_null_action) 
+	and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+	and pre chan_UE_nas_rrc = UE_ul_info_transfer
+	=> (UE_RRC_message = UE_RRC_rrc_resume_req);
+	
+	guarantee "paging_tmsi3" true -> (pre UE_RRC_state = ue_rrc_idle) and (BS_RRC_message = BS_RRC_null_action) 
+	and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+	and pre chan_UE_nas_rrc = UE_ul_info_transfer
+	=> (UE_RRC_message = UE_RRC_rrc_setup_req);
+	
+	guarantee "setup_complete1" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_setup)
+	and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+	=> (UE_RRC_message = UE_RRC_rrc_setup_complete);
+	
+	guarantee "setup_complete2" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_setup)
+	and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+	and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+	=> (UE_RRC_message = UE_RRC_rrc_setup_complete);
+	
+	guarantee "setup_complete3" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_setup)
+	and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+	=> (UE_RRC_message = UE_RRC_rrc_setup_complete);
+	
+	guarantee "setup_complete4" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_setup)
+	and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+    => (UE_RRC_message = UE_RRC_rrc_setup_complete);
+
+    guarantee "rrc_reject1" true -> (pre UE_RRC_state = ue_rrc_setup_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    => (UE_RRC_message = UE_RRC_null_action);
+
+    guarantee "rrc_reject2" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_reject)
+    => (UE_RRC_message = UE_RRC_null_action);
+    
+    guarantee "rrc_reject3_1" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and not(ue_rrc_sec_ctx_exist)
+    => (UE_RRC_message = UE_RRC_null_action);
+    
+    guarantee "rrc_reject3_2" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and (ue_rrc_sec_ctx_exist) and not(reject_mac_failure)
+    => (UE_RRC_message = UE_RRC_null_action);
+    
+    guarantee "rrc_reject4_1" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and not(ue_rrc_sec_ctx_exist)
+    => (UE_RRC_message = UE_RRC_null_action);
+    
+    guarantee "rrc_reject4_2" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and (ue_rrc_sec_ctx_exist) and not(reject_mac_failure)
+    => (UE_RRC_message = UE_RRC_null_action);
+    
+    guarantee "rrc_reject5_1" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and not(ue_rrc_sec_ctx_exist)
+    => (UE_RRC_message = UE_RRC_null_action);
+    
+    guarantee "rrc_reject5_2" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and (ue_rrc_sec_ctx_exist) and not(reject_mac_failure)
+    => (UE_RRC_message = UE_RRC_null_action);
+    
+     guarantee "rrc_reject_ctx_delete_1" true -> (pre UE_RRC_state = ue_rrc_setup_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+     and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    => ue_rrc_sec_ctx_exist = false;
+
+    guarantee "rrc_reject_ctx_delete_2" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    => ue_rrc_sec_ctx_exist = false;
+    
+    guarantee "rrc_reject_ctx_delete_3_1" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and not(ue_rrc_sec_ctx_exist)
+    => ue_rrc_sec_ctx_exist = false;
+    
+    guarantee "rrc_reject_ctx_delete_3_2" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and (ue_rrc_sec_ctx_exist) and not(reject_mac_failure)
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    => ue_rrc_sec_ctx_exist = false;
+    
+    guarantee "rrc_reject_ctx_delete_3_3" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and (ue_rrc_sec_ctx_exist) and (reject_mac_failure)
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    and pre ue_rrc_sec_ctx_exist = true
+    => ue_rrc_sec_ctx_exist = true;
+    
+    guarantee "rrc_reject_ctx_delete_3_4" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and (ue_rrc_sec_ctx_exist) and (reject_mac_failure)
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    and pre ue_rrc_sec_ctx_exist = true
+    => UE_RRC_transition = UE_RRC_null_transition;
+    
+    guarantee "rrc_reject_ctx_delete_4_1" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and not(ue_rrc_sec_ctx_exist)
+    => ue_rrc_sec_ctx_exist = false;
+    
+    guarantee "rrc_reject_ctx_delete_4_2" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+    and (ue_rrc_sec_ctx_exist) and not(reject_mac_failure)
+    => ue_rrc_sec_ctx_exist = false;
+    
+    guarantee "rrc_reject_ctx_delete_4_3" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+    and (ue_rrc_sec_ctx_exist) and (reject_mac_failure)
+    and pre ue_rrc_sec_ctx_exist = true
+    => ue_rrc_sec_ctx_exist = true;
+    
+    guarantee "rrc_reject_ctx_delete_4_4" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+    and (ue_rrc_sec_ctx_exist) and (reject_mac_failure)
+    and pre ue_rrc_sec_ctx_exist = true
+    => UE_RRC_transition = UE_RRC_null_transition;
+    
+    guarantee "rrc_reject_ctx_delete_5_1" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and not(ue_rrc_sec_ctx_exist)
+    => ue_rrc_sec_ctx_exist = false;
+    
+    guarantee "rrc_reject_ctx_delete_5_2" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and (ue_rrc_sec_ctx_exist) and not(reject_mac_failure)
+    => ue_rrc_sec_ctx_exist = false;
+    
+    guarantee "rrc_reject_ctx_delete_5_3" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and (ue_rrc_sec_ctx_exist) and (reject_mac_failure)
+    and pre ue_rrc_sec_ctx_exist = true
+    => ue_rrc_sec_ctx_exist = true;
+    
+    guarantee "rrc_reject_ctx_delete_5_4" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_reject)
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    and (ue_rrc_sec_ctx_exist) and (reject_mac_failure)
+    and pre ue_rrc_sec_ctx_exist = true
+    => UE_RRC_transition = UE_RRC_null_transition;
+    
+    guarantee "rrc_smc_1" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_sm_command)
+    and not(rrc_smcommand_mac_failure)
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    => UE_RRC_message = UE_RRC_rrc_sm_complete;
+    
+    guarantee "rrc_smc_2" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_sm_command)
+    and rrc_smcommand_mac_failure
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    => UE_RRC_message = UE_RRC_rrc_sm_failure;
+    
+    guarantee "rrc_release_suspend_mac_1" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_release_suspend)
+    and suspend_mac_failure
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    => UE_RRC_transition = UE_RRC_null_transition;
+    
+    guarantee "rrc_release_suspend_mac_2" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_release_suspend)
+    and suspend_mac_failure
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    => UE_RRC_transition = UE_RRC_null_transition;
+    
+    guarantee "rrc_reconf_1" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_reconf)
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    and ue_rrc_sec_ctx_exist
+    and not(reconf_mac_failure)
+    => UE_RRC_message = UE_RRC_rrc_reconf_complete;
+    
+    guarantee "rrc_reconf_2" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_reconf)
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    and ue_rrc_sec_ctx_exist
+    and reconf_mac_failure
+    => UE_RRC_message = UE_RRC_rrc_reestab_req;
+    
+    guarantee "rrc_reconf_3" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_reconf)
+    and not(ue_rrc_sec_ctx_exist)
+    => UE_RRC_message = UE_RRC_null_action;
+    
+    guarantee "rrc_reconf_bearer_established" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_reconf)
+    and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+    and ue_rrc_sec_ctx_exist
+    and not(reconf_mac_failure)
+    => ue_bearer_established;
+    
+    guarantee "rrc_reconf_4" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_reconf)
+    and not(ue_rrc_sec_ctx_exist)
+    => ue_rrc_sec_ctx_exist = false;
+    
+    guarantee "rrc_dl_info_transfer_mac_1" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_dl_info_transfer)
+    and not(dlinfotransfer_mac_failure)
+    and not(Happened(chan_UE_rrc_nas = UE_RRC_null))
+    => chan_UE_rrc_nas = UE_dl_info_transfer;
+    
+    guarantee "rrc_dl_info_transfer_mac_2" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_dl_info_transfer)
+    and dlinfotransfer_mac_failure
+    and not(Happened(chan_UE_rrc_nas = UE_RRC_null))
+    and not(Happened(chan_UE_rrc_nas = UE_dl_info_transfer))
+    => not(chan_UE_rrc_nas = UE_dl_info_transfer);
+    
+    guarantee "ue_cap_enquiry_1" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_ue_cap_enquiry)
+    and not(ue_rrc_sec_ctx_exist)
+    and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    => UE_RRC_message = UE_RRC_ue_cap_info;
+    
+    guarantee "ue_cap_enquiry_2" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_ue_cap_enquiry)
+    and ue_rrc_sec_ctx_exist
+    and not(ue_cap_enq_mac_failure)
+    and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    => UE_RRC_message = UE_RRC_ue_cap_info;
+    
+    guarantee "ue_cap_enquiry_3" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_ue_cap_enquiry)
+    and ue_rrc_sec_ctx_exist
+    and ue_cap_enq_mac_failure
+    and not(Happened(chan_UE_nas_rrc = UE_downgrade_requested))
+    and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+    => UE_RRC_message = UE_RRC_null_action;
+
+	guarantee "ul_info_transfer_delete_context" true -> (pre UE_RRC_state = ue_rrc_idle)
+	and pre chan_UE_nas_rrc = UE_ul_info_transfer
+	=> ue_rrc_sec_ctx_exist=false;
+	
+	guarantee "paging_tmsi_delete_context" true -> (pre UE_RRC_state = ue_rrc_idle) and (BS_RRC_message = BS_RRC_paging_tmsi)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	=> ue_rrc_sec_ctx_exist=false;
+	
+	guarantee "release_delete_context_1" true -> (pre UE_RRC_state = ue_rrc_setup_requested) and (BS_RRC_message = BS_RRC_rrc_release)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+	guarantee "release_delete_context_2" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_release)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+	guarantee "release_delete_context_3" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_release)
+	and ue_rrc_sec_ctx_exist
+	and not(release_mac_failure)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+	guarantee "release_delete_context_4" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_release)
+	and ue_rrc_sec_ctx_exist
+	and not(release_mac_failure)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+	guarantee "release_delete_context_5" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_release)
+	and ue_rrc_sec_ctx_exist
+	and not(release_mac_failure)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+	guarantee "mac_fail_release_not_delete_context_1" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_release)
+	and ue_rrc_sec_ctx_exist
+	and release_mac_failure
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+	and ue_rrc_sec_ctx_exist = true
+	=> ue_rrc_sec_ctx_exist = true;
+	
+	guarantee "mac_fail_release_not_delete_context_2" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_release)
+	and ue_rrc_sec_ctx_exist
+	and release_mac_failure
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	and ue_rrc_sec_ctx_exist = true
+	=> ue_rrc_sec_ctx_exist = true;
+	
+	guarantee "mac_fail_release_not_delete_context_3" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_release)
+	and ue_rrc_sec_ctx_exist
+	and release_mac_failure
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	and ue_rrc_sec_ctx_exist = true
+	=> ue_rrc_sec_ctx_exist = true;
+	
+	
+	guarantee "fail_rrc_resume_delete_context_1" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_resume)
+	and resume_mac_failure
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+    guarantee "fail_rrc_resume_delete_context_2" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_resume)
+	and resume_mac_failure
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+	guarantee "rrc_resume_1" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_resume)
+	and not(resume_mac_failure)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+	=> UE_RRC_message = UE_RRC_rrc_resume_complete;
+	
+	guarantee "rrc_resume_2" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_resume)
+	and not(resume_mac_failure)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+	=> UE_RRC_message = UE_RRC_rrc_resume_complete;
+	
+	guarantee "rrc_set_up_delete_context_1" true -> (pre UE_RRC_state = ue_rrc_setup_requested) and (BS_RRC_message = BS_RRC_rrc_setup)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+	guarantee "rrc_set_up_delete_context_2" true -> (pre UE_RRC_state = ue_rrc_connected) and (BS_RRC_message = BS_RRC_rrc_setup)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+	guarantee "rrc_set_up_delete_context_3" true -> (pre UE_RRC_state = ue_rrc_inactive) and (BS_RRC_message = BS_RRC_rrc_setup)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	and not(Happened(chan_UE_nas_rrc = UE_ul_info_transfer))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+	guarantee "rrc_set_up_delete_context_4" true -> (pre UE_RRC_state = ue_rrc_resume_requested) and (BS_RRC_message = BS_RRC_rrc_setup)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+	guarantee "rrc_set_up_delete_context_2" true -> (pre UE_RRC_state = ue_rrc_reestab_requested) and (BS_RRC_message = BS_RRC_rrc_setup)
+	and not(Happened(chan_UE_nas_rrc=UE_downgrade_requested))
+	=> ue_rrc_sec_ctx_exist = false;
+	
+tel
+
+---- Controller Contract Node ----
+contract BS_RRC_controller_contract (
+	UE_RRC_message : UE_RRC_messages;
+	gnb_bearer_setup_required : bool;
+	paging_timer_expired : bool;
+	as_sec_ctx_setup_required : bool;
+	rrc_smcomplete_mac_failure : bool;
+	dl_info_transfer_required : bool;
+	ulinfotransfer_mac_failure : bool;
+	idle_mode_required : bool;
+	resumereq_mac_failure : bool;
+	rrc_suspend_required : bool;
+	resumecomplete_mac_failure : bool;
+	reconf_complete_mac_failure : bool;
+	ue_cap_required : bool;
+	reestabreq_mac_failure : bool;
+	reestabcomplete_mac_failure : bool;
+	dl_data_transfer_required : bool;
+)
+returns (
+	BS_RRC_state : BS_RRC_states;
+	BS_RRC_message : BS_RRC_messages;
+	gnb_pdcp_ul_count : int;
+	gnb_pdcp_dl_count : int;
+	gnb_rrc_sec_ctx_exist : bool;
+	paging_sent : bool;
+	gnb_bearer_established : bool;
+	gnb_rrc_sec_ctx_updated : bool;
+	chan_AMF_rrc_nas : chan_AMF_rrc_nas_enum;
+	chan_AMF_nas_rrc : chan_AMF_nas_rrc_enum;
+	BS_RRC_transition : BS_RRC_transitions;
+);
+let
+	guarantee "g1" true;
+tel
+
+---- Transition Node ----
+node UE_RRC (
+	UE_RRC_prev_state : UE_RRC_states;
+	BS_RRC_message : BS_RRC_messages;
+	rrc_smcommand_mac_failure : bool;
+	reconf_mac_failure : bool;
+	ul_transfer_required : bool;
+	dlinfotransfer_mac_failure : bool;
+	resume_mac_failure : bool;
+	suspend_mac_failure : bool;
+	reject_mac_failure : bool;
+	release_mac_failure : bool;
+	ue_cap_enq_mac_failure : bool;
+	reestab_mac_failure : bool;
+	ue_bearer_setup_required : bool;
+	ue_rrc_sec_ctx_exist : bool;
+	ue_bearer_established : bool;
+	ue_rrc_sec_ctx_updated : bool;
+	chan_UE_rrc_nas : chan_UE_rrc_nas_enum;
+	chan_UE_nas_rrc : chan_UE_nas_rrc_enum;
+)
+returns (
+	UE_RRC_transition : UE_RRC_transitions;
+)
+let
+	UE_RRC_transition = 
+	if (
+		UE_RRC_prev_state = ue_rrc_idle and 
+		chan_UE_nas_rrc=UE_downgrade_requested
+	) then
+		UE_RRC_T1
+	else if (
+		UE_RRC_prev_state = ue_rrc_setup_requested and 
+		chan_UE_nas_rrc=UE_downgrade_requested
+	) then
+		UE_RRC_T2
+	else if (
+		UE_RRC_prev_state = ue_rrc_inactive and 
+		chan_UE_nas_rrc=UE_downgrade_requested
+	) then
+		UE_RRC_T3
+	else if (
+		UE_RRC_prev_state = ue_rrc_resume_requested and 
+		chan_UE_nas_rrc=UE_downgrade_requested
+	) then
+		UE_RRC_T4
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		chan_UE_nas_rrc=UE_downgrade_requested
+	) then
+		UE_RRC_T5
+	else if (
+		UE_RRC_prev_state = ue_rrc_reestab_requested and 
+		chan_UE_nas_rrc=UE_downgrade_requested
+	) then
+		UE_RRC_T6
+	else if (
+		UE_RRC_prev_state = ue_rrc_idle and 
+		( chan_UE_nas_rrc = UE_ul_info_transfer or BS_RRC_message=BS_RRC_paging_tmsi)
+	) then
+		UE_RRC_T7
+	else if (
+		UE_RRC_prev_state = ue_rrc_setup_requested and 
+		BS_RRC_message=BS_RRC_rrc_release
+	) then
+		UE_RRC_T8
+	else if (
+		UE_RRC_prev_state = ue_rrc_setup_requested and 
+		BS_RRC_message=BS_RRC_rrc_reject
+	) then
+		UE_RRC_T9
+	else if (
+		UE_RRC_prev_state = ue_rrc_setup_requested and 
+		BS_RRC_message=BS_RRC_rrc_setup
+	) then
+		UE_RRC_T10
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_rrc_setup
+	) then
+		UE_RRC_T11
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_rrc_release
+	) then
+		UE_RRC_T12
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_rrc_reject
+	) then
+		UE_RRC_T13
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_rrc_release_suspend and ue_rrc_sec_ctx_exist and not(suspend_mac_failure)
+	) then
+		UE_RRC_T14
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_rrc_release_suspend
+	) then
+		UE_RRC_T15
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_rrc_sm_command and not(rrc_smcommand_mac_failure)
+	) then
+		UE_RRC_T16
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_rrc_sm_command and rrc_smcommand_mac_failure
+	) then
+		UE_RRC_T17
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_rrc_reconf and ue_rrc_sec_ctx_exist and not(reconf_mac_failure)
+	) then
+		UE_RRC_T18
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_rrc_reconf and ue_rrc_sec_ctx_exist and reconf_mac_failure
+	) then
+		UE_RRC_T19
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_rrc_reconf and not(ue_rrc_sec_ctx_exist)
+	) then
+		UE_RRC_T20
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		chan_UE_nas_rrc = UE_ul_info_transfer and ue_rrc_sec_ctx_exist
+	) then
+		UE_RRC_T21
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		chan_UE_nas_rrc = UE_ul_info_transfer
+	) then
+		UE_RRC_T22
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_dl_info_transfer and not(dlinfotransfer_mac_failure) and chan_UE_rrc_nas = UE_RRC_null
+	) then
+		UE_RRC_T23
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_dl_info_transfer and dlinfotransfer_mac_failure
+	) then
+		UE_RRC_T24
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_ue_cap_enquiry and not(ue_rrc_sec_ctx_exist)
+	) then
+		UE_RRC_T25
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_ue_cap_enquiry and ue_rrc_sec_ctx_exist and not(ue_cap_enq_mac_failure)
+	) then
+		UE_RRC_T26
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		BS_RRC_message=BS_RRC_ue_cap_enquiry and ue_rrc_sec_ctx_exist and ue_cap_enq_mac_failure
+	) then
+		UE_RRC_T27
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		chan_UE_nas_rrc = UE_ul_info_transfer
+	) then
+		UE_RRC_T28
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		ue_bearer_established
+	) then
+		UE_RRC_T29
+	else if (
+		UE_RRC_prev_state = ue_rrc_connected and 
+		ue_bearer_established and BS_RRC_message=BS_RRC_dl_user_data
+	) then
+		UE_RRC_T30
+	else if (
+		UE_RRC_prev_state = ue_rrc_inactive and 
+		( chan_UE_nas_rrc = UE_ul_info_transfer or BS_RRC_message=BS_RRC_paging_irnti)
+	) then
+		UE_RRC_T31
+	else if (
+		UE_RRC_prev_state = ue_rrc_inactive and 
+		BS_RRC_message=BS_RRC_rrc_resume and not(resume_mac_failure)
+	) then
+		UE_RRC_T32
+	else if (
+		UE_RRC_prev_state = ue_rrc_inactive and 
+		BS_RRC_message=BS_RRC_rrc_resume and resume_mac_failure
+	) then
+		UE_RRC_T33
+	else if (
+		UE_RRC_prev_state = ue_rrc_inactive and 
+		BS_RRC_message=BS_RRC_rrc_setup
+	) then
+		UE_RRC_T34
+	else if (
+		UE_RRC_prev_state = ue_rrc_inactive and 
+		BS_RRC_message=BS_RRC_rrc_release and not(ue_rrc_sec_ctx_exist)
+	) then
+		UE_RRC_T35
+	else if (
+		UE_RRC_prev_state = ue_rrc_inactive and 
+		BS_RRC_message=BS_RRC_rrc_release and ue_rrc_sec_ctx_exist and not(release_mac_failure)
+	) then
+		UE_RRC_T36
+	else if (
+		UE_RRC_prev_state = ue_rrc_inactive and 
+		BS_RRC_message=BS_RRC_rrc_reject and not(ue_rrc_sec_ctx_exist)
+	) then
+		UE_RRC_T37
+	else if (
+		UE_RRC_prev_state = ue_rrc_inactive and 
+		BS_RRC_message=BS_RRC_rrc_reject and ue_rrc_sec_ctx_exist and not(reject_mac_failure)
+	) then
+		UE_RRC_T38
+	else if (
+		UE_RRC_prev_state = ue_rrc_resume_requested and 
+		BS_RRC_message=BS_RRC_rrc_resume and not(resume_mac_failure)
+	) then
+		UE_RRC_T39
+	else if (
+		UE_RRC_prev_state = ue_rrc_resume_requested and 
+		BS_RRC_message=BS_RRC_rrc_resume and resume_mac_failure
+	) then
+		UE_RRC_T40
+	else if (
+		UE_RRC_prev_state = ue_rrc_resume_requested and 
+		BS_RRC_message=BS_RRC_rrc_setup
+	) then
+		UE_RRC_T41
+	else if (
+		UE_RRC_prev_state = ue_rrc_resume_requested and 
+		BS_RRC_message=BS_RRC_rrc_release and not(ue_rrc_sec_ctx_exist)
+	) then
+		UE_RRC_T42
+	else if (
+		UE_RRC_prev_state = ue_rrc_resume_requested and 
+		BS_RRC_message=BS_RRC_rrc_release and ue_rrc_sec_ctx_exist and not(release_mac_failure)
+	) then
+		UE_RRC_T43
+	else if (
+		UE_RRC_prev_state = ue_rrc_resume_requested and 
+		BS_RRC_message=BS_RRC_rrc_reject and not(ue_rrc_sec_ctx_exist)
+	) then
+		UE_RRC_T44
+	else if (
+		UE_RRC_prev_state = ue_rrc_resume_requested and 
+		BS_RRC_message=BS_RRC_rrc_reject and ue_rrc_sec_ctx_exist and not(reject_mac_failure)
+	) then
+		UE_RRC_T45
+	else if (
+		UE_RRC_prev_state = ue_rrc_resume_requested and 
+		BS_RRC_message=BS_RRC_rrc_release_suspend and not(suspend_mac_failure)
+	) then
+		UE_RRC_T46
+	else if (
+		UE_RRC_prev_state = ue_rrc_reestab_requested and 
+		BS_RRC_message=BS_RRC_rrc_reestab and not(reestab_mac_failure)
+	) then
+		UE_RRC_T47
+	else if (
+		UE_RRC_prev_state = ue_rrc_reestab_requested and 
+		BS_RRC_message=BS_RRC_rrc_reestab and reestab_mac_failure
+	) then
+		UE_RRC_T48
+	else if (
+		UE_RRC_prev_state = ue_rrc_reestab_requested and 
+		BS_RRC_message=BS_RRC_rrc_setup
+	) then
+		UE_RRC_T49
+	else if (
+		UE_RRC_prev_state = ue_rrc_reestab_requested and 
+		BS_RRC_message=BS_RRC_rrc_release and not(ue_rrc_sec_ctx_exist)
+	) then
+		UE_RRC_T50
+	else if (
+		UE_RRC_prev_state = ue_rrc_reestab_requested and 
+		BS_RRC_message=BS_RRC_rrc_release and ue_rrc_sec_ctx_exist and not(release_mac_failure)
+	) then
+		UE_RRC_T51
+	else if (
+		UE_RRC_prev_state = ue_rrc_reestab_requested and 
+		BS_RRC_message=BS_RRC_rrc_reject and not(ue_rrc_sec_ctx_exist)
+	) then
+		UE_RRC_T52
+	else if (
+		UE_RRC_prev_state = ue_rrc_reestab_requested and 
+		BS_RRC_message=BS_RRC_rrc_reject and ue_rrc_sec_ctx_exist and not(reject_mac_failure)
+	) then
+		UE_RRC_T53
+	else if (
+		UE_RRC_prev_state = ue_rrc_reestab_requested and 
+		BS_RRC_message=BS_RRC_rrc_release_suspend and not(suspend_mac_failure)
+	) then
+		UE_RRC_T54
+	else
+		UE_RRC_null_transition;
+tel
+
+---- Transition Node ----
+node BS_RRC (
+	BS_RRC_prev_state : BS_RRC_states;
+	UE_RRC_message : UE_RRC_messages;
+	gnb_bearer_setup_required : bool;
+	paging_timer_expired : bool;
+	as_sec_ctx_setup_required : bool;
+	rrc_smcomplete_mac_failure : bool;
+	dl_info_transfer_required : bool;
+	ulinfotransfer_mac_failure : bool;
+	idle_mode_required : bool;
+	resumereq_mac_failure : bool;
+	rrc_suspend_required : bool;
+	resumecomplete_mac_failure : bool;
+	reconf_complete_mac_failure : bool;
+	ue_cap_required : bool;
+	reestabreq_mac_failure : bool;
+	reestabcomplete_mac_failure : bool;
+	dl_data_transfer_required : bool;
+	gnb_rrc_sec_ctx_exist : bool;
+	paging_sent : bool;
+	gnb_bearer_established : bool;
+	gnb_rrc_sec_ctx_updated : bool;
+	chan_AMF_rrc_nas : chan_AMF_rrc_nas_enum;
+	chan_AMF_nas_rrc : chan_AMF_nas_rrc_enum;
+)
+returns (
+	BS_RRC_transition : BS_RRC_transitions;
+)
+let
+	BS_RRC_transition = 
+	if (
+		BS_RRC_prev_state = gnb_rrc_idle and 
+		UE_RRC_message=UE_RRC_rrc_setup_req
+	) then
+		BS_RRC_T1
+	else if (
+		BS_RRC_prev_state = gnb_rrc_idle and 
+		chan_AMF_nas_rrc = AMF_paging_requested
+	) then
+		BS_RRC_T2
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_setup_req and 
+		paging_sent and paging_timer_expired
+	) then
+		BS_RRC_T3
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_setup_complete and 
+		UE_RRC_message=UE_RRC_rrc_setup_req
+	) then
+		BS_RRC_T4
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_setup_complete and 
+		UE_RRC_message=UE_RRC_rrc_setup_complete
+	) then
+		BS_RRC_T5
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		UE_RRC_message=UE_RRC_rrc_setup_req
+	) then
+		BS_RRC_T6
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		rrc_suspend_required
+	) then
+		BS_RRC_T7
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		as_sec_ctx_setup_required
+	) then
+		BS_RRC_T8
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		UE_RRC_message=UE_RRC_rrc_sm_complete and not(rrc_smcomplete_mac_failure)
+	) then
+		BS_RRC_T9
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		UE_RRC_message=UE_RRC_rrc_sm_complete and rrc_smcomplete_mac_failure
+	) then
+		BS_RRC_T10
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		gnb_bearer_setup_required
+	) then
+		BS_RRC_T11
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		chan_AMF_nas_rrc = AMF_dl_info_transfer
+	) then
+		BS_RRC_T12
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		UE_RRC_message=UE_RRC_ul_info_transfer and ulinfotransfer_mac_failure
+	) then
+		BS_RRC_T13
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		UE_RRC_message=UE_RRC_ul_info_transfer and not(ulinfotransfer_mac_failure)
+	) then
+		BS_RRC_T14
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		ue_cap_required
+	) then
+		BS_RRC_T15
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		UE_RRC_message=UE_RRC_ue_cap_info
+	) then
+		BS_RRC_T16
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		UE_RRC_message=UE_RRC_rrc_reestab_req and gnb_rrc_sec_ctx_exist and not(reestabreq_mac_failure)
+	) then
+		BS_RRC_T17
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		UE_RRC_message=UE_RRC_rrc_reestab_req and ( not(gnb_rrc_sec_ctx_exist) or reestabreq_mac_failure)
+	) then
+		BS_RRC_T18
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		gnb_bearer_established and dl_data_transfer_required
+	) then
+		BS_RRC_T19
+	else if (
+		BS_RRC_prev_state = gnb_rrc_connected and 
+		gnb_bearer_established and UE_RRC_message=UE_RRC_ul_user_data
+	) then
+		BS_RRC_T20
+	else if (
+		BS_RRC_prev_state = gnb_rrc_inactive and 
+		idle_mode_required
+	) then
+		BS_RRC_T21
+	else if (
+		BS_RRC_prev_state = gnb_rrc_inactive and 
+		UE_RRC_message=UE_RRC_rrc_resume_req and ( not(gnb_rrc_sec_ctx_exist) or resumereq_mac_failure)
+	) then
+		BS_RRC_T22
+	else if (
+		BS_RRC_prev_state = gnb_rrc_inactive and 
+		UE_RRC_message=UE_RRC_rrc_resume_req and gnb_rrc_sec_ctx_exist and not(resumereq_mac_failure)
+	) then
+		BS_RRC_T23
+	else if (
+		BS_RRC_prev_state = gnb_rrc_inactive and 
+		UE_RRC_message=UE_RRC_rrc_resume_req and gnb_rrc_sec_ctx_exist and resumereq_mac_failure
+	) then
+		BS_RRC_T24
+	else if (
+		BS_RRC_prev_state = gnb_rrc_inactive and 
+		UE_RRC_message=UE_RRC_rrc_resume_req and rrc_suspend_required
+	) then
+		BS_RRC_T25
+	else if (
+		BS_RRC_prev_state = gnb_rrc_inactive and 
+		chan_AMF_nas_rrc = AMF_paging_requested
+	) then
+		BS_RRC_T26
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_resume_req and 
+		paging_timer_expired
+	) then
+		BS_RRC_T27
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_resume_req and 
+		UE_RRC_message=UE_RRC_rrc_resume_req and ( not(gnb_rrc_sec_ctx_exist) or resumereq_mac_failure)
+	) then
+		BS_RRC_T28
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_resume_req and 
+		UE_RRC_message=UE_RRC_rrc_resume_req and gnb_rrc_sec_ctx_exist and not(resumereq_mac_failure)
+	) then
+		BS_RRC_T29
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_resume_req and 
+		UE_RRC_message=UE_RRC_rrc_resume_req and gnb_rrc_sec_ctx_exist and resumereq_mac_failure
+	) then
+		BS_RRC_T30
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_resume_req and 
+		UE_RRC_message=UE_RRC_rrc_setup_req
+	) then
+		BS_RRC_T31
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_resume_complete and 
+		UE_RRC_message=UE_RRC_rrc_resume_complete and gnb_rrc_sec_ctx_exist and not(resumecomplete_mac_failure)
+	) then
+		BS_RRC_T32
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_resume_complete and 
+		UE_RRC_message=UE_RRC_rrc_resume_complete and ( not(gnb_rrc_sec_ctx_exist) or resumecomplete_mac_failure)
+	) then
+		BS_RRC_T33
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_reestab_complete and 
+		UE_RRC_message=UE_RRC_rrc_reestab_complete and gnb_rrc_sec_ctx_exist and not(resumecomplete_mac_failure)
+	) then
+		BS_RRC_T34
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_reestab_complete and 
+		UE_RRC_message=UE_RRC_rrc_reestab_complete and ( not(gnb_rrc_sec_ctx_exist) or resumecomplete_mac_failure)
+	) then
+		BS_RRC_T35
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_reconf_complete and 
+		UE_RRC_message=UE_RRC_rrc_reconf_complete and not(reconf_complete_mac_failure)
+	) then
+		BS_RRC_T36
+	else if (
+		BS_RRC_prev_state = gnb_rrc_wait_for_reconf_complete and 
+		UE_RRC_message=UE_RRC_rrc_reconf_complete and ( not(gnb_rrc_sec_ctx_exist) or reconf_complete_mac_failure )
+	) then
+		BS_RRC_T37
+	else
+		BS_RRC_null_transition;
+tel
+
+---- Controller Node ----
+node UE_RRC_controller (
+	BS_RRC_message : BS_RRC_messages;
+	rrc_smcommand_mac_failure : bool;
+	reconf_mac_failure : bool;
+	ul_transfer_required : bool;
+	dlinfotransfer_mac_failure : bool;
+	resume_mac_failure : bool;
+	suspend_mac_failure : bool;
+	reject_mac_failure : bool;
+	release_mac_failure : bool;
+	ue_cap_enq_mac_failure : bool;
+	reestab_mac_failure : bool;
+	ue_bearer_setup_required : bool;
+)
+returns (
+	UE_RRC_state : UE_RRC_states;
+	UE_RRC_message : UE_RRC_messages;
+	ue_pdcp_ul_count : int;
+	ue_pdcp_dl_count : int;
+	ue_rrc_sec_ctx_exist : bool;
+	ue_bearer_established : bool;
+	ue_rrc_sec_ctx_updated : bool;
+	chan_UE_rrc_nas : chan_UE_rrc_nas_enum;
+	chan_UE_nas_rrc : chan_UE_nas_rrc_enum;
+	UE_RRC_transition : UE_RRC_transitions;
+)
+
+---- Controller Contract Node ----
+(*@contract import
+UE_RRC_controller_contract (
+	BS_RRC_message,
+	rrc_smcommand_mac_failure,
+	reconf_mac_failure,
+	ul_transfer_required,
+	dlinfotransfer_mac_failure,
+	resume_mac_failure,
+	suspend_mac_failure,
+	reject_mac_failure,
+	release_mac_failure,
+	ue_cap_enq_mac_failure,
+	reestab_mac_failure,
+	ue_bearer_setup_required
+)
+returns (
+	UE_RRC_state,
+	UE_RRC_message,
+	ue_pdcp_ul_count,
+	ue_pdcp_dl_count,
+	ue_rrc_sec_ctx_exist,
+	ue_bearer_established,
+	ue_rrc_sec_ctx_updated,
+	chan_UE_rrc_nas,
+	chan_UE_nas_rrc,
+	UE_RRC_transition
+);
+*)
+let
+	UE_RRC_transition = UE_RRC(
+		ue_rrc_idle -> pre UE_RRC_state,
+		BS_RRC_message,
+		rrc_smcommand_mac_failure,
+		reconf_mac_failure,
+		ul_transfer_required,
+		dlinfotransfer_mac_failure,
+		resume_mac_failure,
+		suspend_mac_failure,
+		reject_mac_failure,
+		release_mac_failure,
+		ue_cap_enq_mac_failure,
+		reestab_mac_failure,
+		ue_bearer_setup_required,
+		false -> pre ue_rrc_sec_ctx_exist,
+		false -> pre ue_bearer_established,
+		false -> pre ue_rrc_sec_ctx_updated,
+		UE_RRC_null -> pre chan_UE_rrc_nas,
+		UE_NAS_null -> pre chan_UE_nas_rrc
+	);
+	UE_RRC_state = 
+		if (
+			UE_RRC_transition = UE_RRC_T10 or UE_RRC_transition = UE_RRC_T11 or UE_RRC_transition = UE_RRC_T16 or UE_RRC_transition = UE_RRC_T17 or UE_RRC_transition = UE_RRC_T18 or UE_RRC_transition = UE_RRC_T19 or UE_RRC_transition = UE_RRC_T22 or UE_RRC_transition = UE_RRC_T23 or UE_RRC_transition = UE_RRC_T24 or UE_RRC_transition = UE_RRC_T25 or UE_RRC_transition = UE_RRC_T26 or UE_RRC_transition = UE_RRC_T27 or UE_RRC_transition = UE_RRC_T29 or UE_RRC_transition = UE_RRC_T30 or UE_RRC_transition = UE_RRC_T32 or UE_RRC_transition = UE_RRC_T34 or UE_RRC_transition = UE_RRC_T39 or UE_RRC_transition = UE_RRC_T41 or UE_RRC_transition = UE_RRC_T47 or UE_RRC_transition = UE_RRC_T49
+			)
+			then ue_rrc_connected
+		else if (
+			UE_RRC_transition = UE_RRC_T21 or UE_RRC_transition = UE_RRC_T28
+			)
+			then ue_rrc_reestab_requested
+		else if (
+			UE_RRC_transition = UE_RRC_T14 or UE_RRC_transition = UE_RRC_T15 or UE_RRC_transition = UE_RRC_T37 or UE_RRC_transition = UE_RRC_T46 or UE_RRC_transition = UE_RRC_T54
+			)
+			then ue_rrc_inactive
+		else if (
+			UE_RRC_transition = UE_RRC_T1 or UE_RRC_transition = UE_RRC_T2 or UE_RRC_transition = UE_RRC_T3 or UE_RRC_transition = UE_RRC_T4 or UE_RRC_transition = UE_RRC_T5 or UE_RRC_transition = UE_RRC_T6 or UE_RRC_transition = UE_RRC_T8 or UE_RRC_transition = UE_RRC_T9 or UE_RRC_transition = UE_RRC_T12 or UE_RRC_transition = UE_RRC_T13 or UE_RRC_transition = UE_RRC_T20 or UE_RRC_transition = UE_RRC_T33 or UE_RRC_transition = UE_RRC_T35 or UE_RRC_transition = UE_RRC_T36 or UE_RRC_transition = UE_RRC_T38 or UE_RRC_transition = UE_RRC_T40 or UE_RRC_transition = UE_RRC_T42 or UE_RRC_transition = UE_RRC_T43 or UE_RRC_transition = UE_RRC_T44 or UE_RRC_transition = UE_RRC_T45 or UE_RRC_transition = UE_RRC_T48 or UE_RRC_transition = UE_RRC_T50 or UE_RRC_transition = UE_RRC_T51 or UE_RRC_transition = UE_RRC_T52 or UE_RRC_transition = UE_RRC_T53
+			)
+			then ue_rrc_idle
+		else if (
+			UE_RRC_transition = UE_RRC_T31
+			)
+			then ue_rrc_resume_requested
+		else
+			ue_rrc_setup_requested;
+	UE_RRC_message = 
+		if (
+			UE_RRC_transition = UE_RRC_T18
+			)
+			then UE_RRC_rrc_reconf_complete
+		else if (
+			UE_RRC_transition = UE_RRC_T25 or UE_RRC_transition = UE_RRC_T26
+			)
+			then UE_RRC_ue_cap_info
+		else if (
+			UE_RRC_transition = UE_RRC_T32 or UE_RRC_transition = UE_RRC_T39
+			)
+			then UE_RRC_rrc_resume_complete
+		else if (
+			UE_RRC_transition = UE_RRC_T7
+			)
+			then UE_RRC_rrc_setup_req
+		else if (
+			UE_RRC_transition = UE_RRC_T16
+			)
+			then UE_RRC_rrc_sm_complete
+		else if (
+			UE_RRC_transition = UE_RRC_T22
+			)
+			then UE_RRC_ul_info_transfer
+		else if (
+			UE_RRC_transition = UE_RRC_T19 or UE_RRC_transition = UE_RRC_T21 or UE_RRC_transition = UE_RRC_T28
+			)
+			then UE_RRC_rrc_reestab_req
+		else if (
+			UE_RRC_transition = UE_RRC_T47
+			)
+			then UE_RRC_rrc_reestab_complete
+		else if (
+			UE_RRC_transition = UE_RRC_T29
+			)
+			then UE_RRC_ul_user_data
+		else if (
+			UE_RRC_transition = UE_RRC_T17
+			)
+			then UE_RRC_rrc_sm_failure
+		else if (
+			UE_RRC_transition = UE_RRC_T31
+			)
+			then UE_RRC_rrc_resume_req
+		else if (
+			UE_RRC_transition = UE_RRC_T10 or UE_RRC_transition = UE_RRC_T11 or UE_RRC_transition = UE_RRC_T34 or UE_RRC_transition = UE_RRC_T41 or UE_RRC_transition = UE_RRC_T49
+			)
+			then UE_RRC_rrc_setup_complete
+		else UE_RRC_null_action;
+
+
+	ue_pdcp_ul_count = 
+		if (
+			UE_RRC_transition = UE_RRC_T18
+			)
+			then 0
+		else if (
+			UE_RRC_transition = UE_RRC_T29
+			)
+			then (0 -> pre ue_pdcp_ul_count) + 1
+		else 0 -> pre ue_pdcp_ul_count;
+
+	ue_pdcp_dl_count = 
+		if (
+			UE_RRC_transition = UE_RRC_T18
+			)
+			then 0
+		else if (
+			UE_RRC_transition = UE_RRC_T30
+			)
+			then (0 -> pre ue_pdcp_dl_count) + 1
+		else 0 -> pre ue_pdcp_dl_count;
+
+	ue_rrc_sec_ctx_exist = 
+		if (
+			UE_RRC_transition = UE_RRC_T16
+			)
+			then true
+		else if (
+			UE_RRC_transition = UE_RRC_T7 or UE_RRC_transition = UE_RRC_T8 or UE_RRC_transition = UE_RRC_T9 or UE_RRC_transition = UE_RRC_T10 or UE_RRC_transition = UE_RRC_T11 or UE_RRC_transition = UE_RRC_T12 or UE_RRC_transition = UE_RRC_T13 or UE_RRC_transition = UE_RRC_T20 or UE_RRC_transition = UE_RRC_T33 or UE_RRC_transition = UE_RRC_T34 or UE_RRC_transition = UE_RRC_T35 or UE_RRC_transition = UE_RRC_T36 or UE_RRC_transition = UE_RRC_T37 or UE_RRC_transition = UE_RRC_T38 or UE_RRC_transition = UE_RRC_T40 or UE_RRC_transition = UE_RRC_T41 or UE_RRC_transition = UE_RRC_T42 or UE_RRC_transition = UE_RRC_T43 or UE_RRC_transition = UE_RRC_T44 or UE_RRC_transition = UE_RRC_T45 or UE_RRC_transition = UE_RRC_T48 or UE_RRC_transition = UE_RRC_T49 or UE_RRC_transition = UE_RRC_T50 or UE_RRC_transition = UE_RRC_T51 or UE_RRC_transition = UE_RRC_T52 or UE_RRC_transition = UE_RRC_T53
+			)
+			then false
+		else false -> pre ue_rrc_sec_ctx_exist;
+
+	ue_bearer_established = 
+		if (
+			UE_RRC_transition = UE_RRC_T18
+			)
+			then true
+		else if (
+			false
+			)
+			then false
+		else false -> pre ue_bearer_established;
+
+	ue_rrc_sec_ctx_updated = 
+		if (
+			false
+			)
+			then true
+		else if (
+			UE_RRC_transition = UE_RRC_T16 or UE_RRC_transition = UE_RRC_T17
+			)
+			then false
+		else false -> pre ue_rrc_sec_ctx_updated;
+--%MAIN;
+tel
+
+---- Controller Node ----
+node BS_RRC_controller (
+	UE_RRC_message : UE_RRC_messages;
+	gnb_bearer_setup_required : bool;
+	paging_timer_expired : bool;
+	as_sec_ctx_setup_required : bool;
+	rrc_smcomplete_mac_failure : bool;
+	dl_info_transfer_required : bool;
+	ulinfotransfer_mac_failure : bool;
+	idle_mode_required : bool;
+	resumereq_mac_failure : bool;
+	rrc_suspend_required : bool;
+	resumecomplete_mac_failure : bool;
+	reconf_complete_mac_failure : bool;
+	ue_cap_required : bool;
+	reestabreq_mac_failure : bool;
+	reestabcomplete_mac_failure : bool;
+	dl_data_transfer_required : bool;
+)
+returns (
+	BS_RRC_state : BS_RRC_states;
+	BS_RRC_message : BS_RRC_messages;
+	gnb_pdcp_ul_count : int;
+	gnb_pdcp_dl_count : int;
+	gnb_rrc_sec_ctx_exist : bool;
+	paging_sent : bool;
+	gnb_bearer_established : bool;
+	gnb_rrc_sec_ctx_updated : bool;
+	chan_AMF_rrc_nas : chan_AMF_rrc_nas_enum;
+	chan_AMF_nas_rrc : chan_AMF_nas_rrc_enum;
+	BS_RRC_transition : BS_RRC_transitions;
+)
+
+---- Controller Contract Node ----
+(*@contract import
+BS_RRC_controller_contract (
+	UE_RRC_message,
+	gnb_bearer_setup_required,
+	paging_timer_expired,
+	as_sec_ctx_setup_required,
+	rrc_smcomplete_mac_failure,
+	dl_info_transfer_required,
+	ulinfotransfer_mac_failure,
+	idle_mode_required,
+	resumereq_mac_failure,
+	rrc_suspend_required,
+	resumecomplete_mac_failure,
+	reconf_complete_mac_failure,
+	ue_cap_required,
+	reestabreq_mac_failure,
+	reestabcomplete_mac_failure,
+	dl_data_transfer_required
+)
+returns (
+	BS_RRC_state,
+	BS_RRC_message,
+	gnb_pdcp_ul_count,
+	gnb_pdcp_dl_count,
+	gnb_rrc_sec_ctx_exist,
+	paging_sent,
+	gnb_bearer_established,
+	gnb_rrc_sec_ctx_updated,
+	chan_AMF_rrc_nas,
+	chan_AMF_nas_rrc,
+	BS_RRC_transition
+);
+*)
+let
+	BS_RRC_transition = BS_RRC(
+		gnb_rrc_idle -> pre BS_RRC_state,
+		UE_RRC_message,
+		gnb_bearer_setup_required,
+		paging_timer_expired,
+		as_sec_ctx_setup_required,
+		rrc_smcomplete_mac_failure,
+		dl_info_transfer_required,
+		ulinfotransfer_mac_failure,
+		idle_mode_required,
+		resumereq_mac_failure,
+		rrc_suspend_required,
+		resumecomplete_mac_failure,
+		reconf_complete_mac_failure,
+		ue_cap_required,
+		reestabreq_mac_failure,
+		reestabcomplete_mac_failure,
+		dl_data_transfer_required,
+		false -> pre gnb_rrc_sec_ctx_exist,
+		false -> pre paging_sent,
+		false -> pre gnb_bearer_established,
+		false -> pre gnb_rrc_sec_ctx_updated,
+		AMF_RRC_NAS_null -> pre chan_AMF_rrc_nas,
+		AMF_NAS_RRC_null -> pre chan_AMF_nas_rrc
+	);
+	BS_RRC_state = 
+		if (
+			BS_RRC_transition = BS_RRC_T1 or BS_RRC_transition = BS_RRC_T4 or BS_RRC_transition = BS_RRC_T6 or BS_RRC_transition = BS_RRC_T18 or BS_RRC_transition = BS_RRC_T28 or BS_RRC_transition = BS_RRC_T30 or BS_RRC_transition = BS_RRC_T31
+			)
+			then gnb_rrc_wait_for_setup_complete
+		else if (
+			BS_RRC_transition = BS_RRC_T11
+			)
+			then gnb_rrc_wait_for_reconf_complete
+		else if (
+			BS_RRC_transition = BS_RRC_T26
+			)
+			then gnb_rrc_wait_for_resume_req
+		else if (
+			BS_RRC_transition = BS_RRC_T7 or BS_RRC_transition = BS_RRC_T22 or BS_RRC_transition = BS_RRC_T25
+			)
+			then gnb_rrc_inactive
+		else if (
+			BS_RRC_transition = BS_RRC_T5 or BS_RRC_transition = BS_RRC_T8 or BS_RRC_transition = BS_RRC_T9 or BS_RRC_transition = BS_RRC_T10 or BS_RRC_transition = BS_RRC_T12 or BS_RRC_transition = BS_RRC_T13 or BS_RRC_transition = BS_RRC_T14 or BS_RRC_transition = BS_RRC_T15 or BS_RRC_transition = BS_RRC_T16 or BS_RRC_transition = BS_RRC_T19 or BS_RRC_transition = BS_RRC_T20 or BS_RRC_transition = BS_RRC_T32 or BS_RRC_transition = BS_RRC_T33 or BS_RRC_transition = BS_RRC_T34 or BS_RRC_transition = BS_RRC_T35 or BS_RRC_transition = BS_RRC_T36 or BS_RRC_transition = BS_RRC_T37
+			)
+			then gnb_rrc_connected
+		else if (
+			BS_RRC_transition = BS_RRC_T2 or BS_RRC_transition = BS_RRC_T3 or BS_RRC_transition = BS_RRC_T27
+			)
+			then gnb_rrc_wait_for_setup_req
+		else if (
+			BS_RRC_transition = BS_RRC_T17
+			)
+			then gnb_rrc_wait_for_reestab_complete
+		else if (
+			BS_RRC_transition = BS_RRC_T21 or BS_RRC_transition = BS_RRC_T24
+			)
+			then gnb_rrc_idle
+		else
+			gnb_rrc_wait_for_resume_complete;
+	BS_RRC_message = 
+		if (
+			BS_RRC_transition = BS_RRC_T23 or BS_RRC_transition = BS_RRC_T29
+			)
+			then BS_RRC_rrc_resume
+		else if (
+			BS_RRC_transition = BS_RRC_T15
+			)
+			then BS_RRC_ue_cap_enquiry
+		else if (
+			BS_RRC_transition = BS_RRC_T24 or BS_RRC_transition = BS_RRC_T30
+			)
+			then BS_RRC_rrc_reject
+		else if (
+			BS_RRC_transition = BS_RRC_T26 or BS_RRC_transition = BS_RRC_T27
+			)
+			then BS_RRC_paging_irnti
+		else if (
+			BS_RRC_transition = BS_RRC_T17
+			)
+			then BS_RRC_rrc_reestab
+		else if (
+			BS_RRC_transition = BS_RRC_T19
+			)
+			then BS_RRC_dl_user_data
+		else if (
+			BS_RRC_transition = BS_RRC_T2 or BS_RRC_transition = BS_RRC_T3
+			)
+			then BS_RRC_paging_tmsi
+		else if (
+			BS_RRC_transition = BS_RRC_T8
+			)
+			then BS_RRC_rrc_sm_command
+		else if (
+			BS_RRC_transition = BS_RRC_T7 or BS_RRC_transition = BS_RRC_T25
+			)
+			then BS_RRC_rrc_release_suspend
+		else if (
+			BS_RRC_transition = BS_RRC_T1 or BS_RRC_transition = BS_RRC_T4 or BS_RRC_transition = BS_RRC_T6 or BS_RRC_transition = BS_RRC_T18 or BS_RRC_transition = BS_RRC_T22 or BS_RRC_transition = BS_RRC_T28 or BS_RRC_transition = BS_RRC_T31
+			)
+			then BS_RRC_rrc_setup
+		else if (
+			BS_RRC_transition = BS_RRC_T11
+			)
+			then BS_RRC_rrc_reconf
+		else if (
+			BS_RRC_transition = BS_RRC_T21
+			)
+			then BS_RRC_rrc_release
+		else if (
+			BS_RRC_transition = BS_RRC_T12
+			)
+			then BS_RRC_dl_info_transfer
+		else BS_RRC_null_action;
+
+
+	gnb_pdcp_ul_count = 
+		if (
+			BS_RRC_transition = BS_RRC_T11 or BS_RRC_transition = BS_RRC_T36
+			)
+			then 0
+		else if (
+			BS_RRC_transition = BS_RRC_T20
+			)
+			then (0 -> pre gnb_pdcp_ul_count) + 1
+		else 0 -> pre gnb_pdcp_ul_count;
+
+	gnb_pdcp_dl_count = 
+		if (
+			BS_RRC_transition = BS_RRC_T11 or BS_RRC_transition = BS_RRC_T36
+			)
+			then 0
+		else if (
+			BS_RRC_transition = BS_RRC_T19
+			)
+			then (0 -> pre gnb_pdcp_dl_count) + 1
+		else 0 -> pre gnb_pdcp_dl_count;
+
+	gnb_rrc_sec_ctx_exist = 
+		if (
+			BS_RRC_transition = BS_RRC_T9
+			)
+			then true
+		else if (
+			BS_RRC_transition = BS_RRC_T1 or BS_RRC_transition = BS_RRC_T4 or BS_RRC_transition = BS_RRC_T6 or BS_RRC_transition = BS_RRC_T18 or BS_RRC_transition = BS_RRC_T28 or BS_RRC_transition = BS_RRC_T31
+			)
+			then false
+		else false -> pre gnb_rrc_sec_ctx_exist;
+
+	paging_sent = 
+		if (
+			BS_RRC_transition = BS_RRC_T2 or BS_RRC_transition = BS_RRC_T3 or BS_RRC_transition = BS_RRC_T26 or BS_RRC_transition = BS_RRC_T27
+			)
+			then true
+		else if (
+			BS_RRC_transition = BS_RRC_T4 or BS_RRC_transition = BS_RRC_T6 or BS_RRC_transition = BS_RRC_T23 or BS_RRC_transition = BS_RRC_T29 or BS_RRC_transition = BS_RRC_T30 or BS_RRC_transition = BS_RRC_T31
+			)
+			then false
+		else false -> pre paging_sent;
+
+	gnb_bearer_established = 
+		if (
+			BS_RRC_transition = BS_RRC_T11 or BS_RRC_transition = BS_RRC_T36
+			)
+			then true
+		else if (
+			false
+			)
+			then false
+		else false -> pre gnb_bearer_established;
+
+	gnb_rrc_sec_ctx_updated = 
+		if (
+			BS_RRC_transition = BS_RRC_T9
+			)
+			then true
+		else if (
+			BS_RRC_transition = BS_RRC_T10
+			)
+			then false
+		else false -> pre gnb_rrc_sec_ctx_updated;
+tel
+
+node UE_RRC_to_BS_RRC_adversarial_channel(
+	benign_UE_RRC_message : UE_RRC_messages;
+	malicious_UE_RRC_message : UE_RRC_messages;
+	noisy : bool;
+	malicious : bool;
+)
+returns (
+	UE_RRC_message_to_BS_RRC : UE_RRC_messages;
+)
+let
+	UE_RRC_message_to_BS_RRC =
+	if ( noisy or malicious )
+		then malicious_UE_RRC_message
+	else benign_UE_RRC_message;
+tel
+
+node BS_RRC_to_UE_RRC_adversarial_channel(
+	benign_BS_RRC_message : BS_RRC_messages;
+	malicious_BS_RRC_message : BS_RRC_messages;
+	noisy : bool;
+	malicious : bool;
+)
+returns (
+	BS_RRC_message_to_UE_RRC : BS_RRC_messages;
+)
+let
+	BS_RRC_message_to_UE_RRC =
+	if ( noisy or malicious )
+		then malicious_BS_RRC_message
+	else benign_BS_RRC_message;
+tel
+
+contract Run_5G_FSM_contract(
+
+---- UE_RRC_to_BS_RRC adversarial channel variables ----
+	malicious_UE_RRC_message : UE_RRC_messages;
+	UE_RRC_to_BS_RRC_noisy : bool;
+	UE_RRC_to_BS_RRC_malicious : bool;
+
+---- UE_RRC environment variables ----
+	rrc_smcommand_mac_failure : bool;
+	reconf_mac_failure : bool;
+	ul_transfer_required : bool;
+	dlinfotransfer_mac_failure : bool;
+	resume_mac_failure : bool;
+	suspend_mac_failure : bool;
+	reject_mac_failure : bool;
+	release_mac_failure : bool;
+	ue_cap_enq_mac_failure : bool;
+	reestab_mac_failure : bool;
+	ue_bearer_setup_required : bool;
+
+---- BS_RRC_to_UE_RRC adversarial channel variables ----
+	malicious_BS_RRC_message : BS_RRC_messages;
+	BS_RRC_to_UE_RRC_noisy : bool;
+	BS_RRC_to_UE_RRC_malicious : bool;
+
+---- BS_RRC environment variables ----
+	gnb_bearer_setup_required : bool;
+	paging_timer_expired : bool;
+	as_sec_ctx_setup_required : bool;
+	rrc_smcomplete_mac_failure : bool;
+	dl_info_transfer_required : bool;
+	ulinfotransfer_mac_failure : bool;
+	idle_mode_required : bool;
+	resumereq_mac_failure : bool;
+	rrc_suspend_required : bool;
+	resumecomplete_mac_failure : bool;
+	reconf_complete_mac_failure : bool;
+	ue_cap_required : bool;
+	reestabreq_mac_failure : bool;
+	reestabcomplete_mac_failure : bool;
+	dl_data_transfer_required : bool;
+)
+returns (
+---- UE_RRC state and messages ----
+	UE_RRC_state : UE_RRC_states;
+	UE_RRC_message : UE_RRC_messages;
+---- UE_RRC STATE VARIABLES ----
+	ue_rrc_sec_ctx_exist : bool;
+	ue_bearer_established : bool;
+	ue_rrc_sec_ctx_updated : bool;
+	chan_UE_rrc_nas : chan_UE_rrc_nas_enum;
+	chan_UE_nas_rrc : chan_UE_nas_rrc_enum;
+---- UE_RRC TRANSITION ----
+	UE_RRC_transition : UE_RRC_transitions;
+---- BS_RRC state and messages ----
+	BS_RRC_state : BS_RRC_states;
+	BS_RRC_message : BS_RRC_messages;
+---- BS_RRC STATE VARIABLES ----
+	gnb_rrc_sec_ctx_exist : bool;
+	paging_sent : bool;
+	gnb_bearer_established : bool;
+	gnb_rrc_sec_ctx_updated : bool;
+	chan_AMF_rrc_nas : chan_AMF_rrc_nas_enum;
+	chan_AMF_nas_rrc : chan_AMF_nas_rrc_enum;
+---- BS_RRC TRANSITION ----
+	BS_RRC_transition : BS_RRC_transitions;
+---- SEQUENCE NUMBERS ----
+	ue_pdcp_ul_count : int;
+	ue_pdcp_dl_count : int;
+	gnb_pdcp_ul_count : int;
+	gnb_pdcp_dl_count : int;
+---- MANUAL CHECKS ----
+	UE_RRC_message_to_BS_RRC : UE_RRC_messages;
+	BS_RRC_message_to_UE_RRC : BS_RRC_messages;
+);
+let
+	guarantee "g1" true;
+tel
+
+node Run_5G_FSM(
+
+---- UE_RRC_to_BS_RRC adversarial channel variables ----
+	malicious_UE_RRC_message : UE_RRC_messages;
+	UE_RRC_to_BS_RRC_noisy : bool;
+	UE_RRC_to_BS_RRC_malicious : bool;
+
+---- UE_RRC environment variables ----
+	rrc_smcommand_mac_failure : bool;
+	reconf_mac_failure : bool;
+	ul_transfer_required : bool;
+	dlinfotransfer_mac_failure : bool;
+	resume_mac_failure : bool;
+	suspend_mac_failure : bool;
+	reject_mac_failure : bool;
+	release_mac_failure : bool;
+	ue_cap_enq_mac_failure : bool;
+	reestab_mac_failure : bool;
+	ue_bearer_setup_required : bool;
+
+---- BS_RRC_to_UE_RRC adversarial channel variables ----
+	malicious_BS_RRC_message : BS_RRC_messages;
+	BS_RRC_to_UE_RRC_noisy : bool;
+	BS_RRC_to_UE_RRC_malicious : bool;
+
+---- BS_RRC environment variables ----
+	gnb_bearer_setup_required : bool;
+	paging_timer_expired : bool;
+	as_sec_ctx_setup_required : bool;
+	rrc_smcomplete_mac_failure : bool;
+	dl_info_transfer_required : bool;
+	ulinfotransfer_mac_failure : bool;
+	idle_mode_required : bool;
+	resumereq_mac_failure : bool;
+	rrc_suspend_required : bool;
+	resumecomplete_mac_failure : bool;
+	reconf_complete_mac_failure : bool;
+	ue_cap_required : bool;
+	reestabreq_mac_failure : bool;
+	reestabcomplete_mac_failure : bool;
+	dl_data_transfer_required : bool;
+)
+returns (
+---- UE_RRC state and messages ----
+	UE_RRC_state : UE_RRC_states;
+	UE_RRC_message : UE_RRC_messages;
+---- UE_RRC STATE VARIABLES ----
+	ue_rrc_sec_ctx_exist : bool;
+	ue_bearer_established : bool;
+	ue_rrc_sec_ctx_updated : bool;
+	chan_UE_rrc_nas : chan_UE_rrc_nas_enum;
+	chan_UE_nas_rrc : chan_UE_nas_rrc_enum;
+---- UE_RRC TRANSITION ----
+	UE_RRC_transition : UE_RRC_transitions;
+---- BS_RRC state and messages ----
+	BS_RRC_state : BS_RRC_states;
+	BS_RRC_message : BS_RRC_messages;
+---- BS_RRC STATE VARIABLES ----
+	gnb_rrc_sec_ctx_exist : bool;
+	paging_sent : bool;
+	gnb_bearer_established : bool;
+	gnb_rrc_sec_ctx_updated : bool;
+	chan_AMF_rrc_nas : chan_AMF_rrc_nas_enum;
+	chan_AMF_nas_rrc : chan_AMF_nas_rrc_enum;
+---- BS_RRC TRANSITION ----
+	BS_RRC_transition : BS_RRC_transitions;
+---- SEQUENCE NUMBERS ----
+	ue_pdcp_ul_count : int;
+	ue_pdcp_dl_count : int;
+	gnb_pdcp_ul_count : int;
+	gnb_pdcp_dl_count : int;
+---- MANUAL CHECKS ----
+	UE_RRC_message_to_BS_RRC : UE_RRC_messages;
+	BS_RRC_message_to_UE_RRC : BS_RRC_messages;
+);
+(*@contract import 
+Run_5G_FSM_contract(
+
+---- UE_RRC_to_BS_RRC adversarial channel variables ----
+	malicious_UE_RRC_message,
+	UE_RRC_to_BS_RRC_noisy,
+	UE_RRC_to_BS_RRC_malicious,
+
+---- UE_RRC environment variables ----
+	rrc_smcommand_mac_failure,
+	reconf_mac_failure,
+	ul_transfer_required,
+	dlinfotransfer_mac_failure,
+	resume_mac_failure,
+	suspend_mac_failure,
+	reject_mac_failure,
+	release_mac_failure,
+	ue_cap_enq_mac_failure,
+	reestab_mac_failure,
+	ue_bearer_setup_required,
+
+---- BS_RRC_to_UE_RRC adversarial channel variables ----
+	malicious_BS_RRC_message,
+	BS_RRC_to_UE_RRC_noisy,
+	BS_RRC_to_UE_RRC_malicious,
+
+---- BS_RRC environment variables ----
+	gnb_bearer_setup_required,
+	paging_timer_expired,
+	as_sec_ctx_setup_required,
+	rrc_smcomplete_mac_failure,
+	dl_info_transfer_required,
+	ulinfotransfer_mac_failure,
+	idle_mode_required,
+	resumereq_mac_failure,
+	rrc_suspend_required,
+	resumecomplete_mac_failure,
+	reconf_complete_mac_failure,
+	ue_cap_required,
+	reestabreq_mac_failure,
+	reestabcomplete_mac_failure,
+	dl_data_transfer_required
+)
+returns (
+---- UE_RRC state and messages ----
+	UE_RRC_state,
+	UE_RRC_message,
+---- UE_RRC STATE VARIABLES ----
+	ue_rrc_sec_ctx_exist,
+	ue_bearer_established,
+	ue_rrc_sec_ctx_updated,
+	chan_UE_rrc_nas,
+	chan_UE_nas_rrc,
+---- UE_RRC TRANSITION ----
+	UE_RRC_transition,
+---- BS_RRC state and messages ----
+	BS_RRC_state,
+	BS_RRC_message,
+---- BS_RRC STATE VARIABLES ----
+	gnb_rrc_sec_ctx_exist,
+	paging_sent,
+	gnb_bearer_established,
+	gnb_rrc_sec_ctx_updated,
+	chan_AMF_rrc_nas,
+	chan_AMF_nas_rrc,
+---- BS_RRC TRANSITION ----
+	BS_RRC_transition,
+---- SEQUENCE NUMBERS ----
+	ue_pdcp_ul_count,
+	ue_pdcp_dl_count,
+	gnb_pdcp_ul_count,
+	gnb_pdcp_dl_count,
+---- MANUAL CHECKS ----
+	UE_RRC_message_to_BS_RRC,
+	BS_RRC_message_to_UE_RRC
+);
+*)
+let
+---- Check Adversarial channel to see what message should be sent to UE----
+	BS_RRC_message_to_UE_RRC = 
+		BS_RRC_to_UE_RRC_adversarial_channel(
+			BS_RRC_null_action -> pre BS_RRC_message,
+			malicious_BS_RRC_message,
+			BS_RRC_to_UE_RRC_noisy,
+			BS_RRC_to_UE_RRC_malicious
+		);
+---- Update state variables for UE ----
+	(UE_RRC_state,
+	UE_RRC_message,
+	ue_pdcp_ul_count,
+	ue_pdcp_dl_count,
+	ue_rrc_sec_ctx_exist,
+	ue_bearer_established,
+	ue_rrc_sec_ctx_updated,
+	chan_UE_rrc_nas,
+	chan_UE_nas_rrc,
+	UE_RRC_transition) =
+	UE_RRC_controller (
+		BS_RRC_message_to_UE_RRC,
+		rrc_smcommand_mac_failure,
+		reconf_mac_failure,
+		ul_transfer_required,
+		dlinfotransfer_mac_failure,
+		resume_mac_failure,
+		suspend_mac_failure,
+		reject_mac_failure,
+		release_mac_failure,
+		ue_cap_enq_mac_failure,
+		reestab_mac_failure,
+		ue_bearer_setup_required
+	);
+---- Check Adversarial channel to see what message should be sent to Network----
+	UE_RRC_message_to_BS_RRC = 
+		UE_RRC_to_BS_RRC_adversarial_channel(
+			UE_RRC_null_action -> pre UE_RRC_message,
+			malicious_UE_RRC_message,
+			UE_RRC_to_BS_RRC_noisy,
+			UE_RRC_to_BS_RRC_malicious
+		);
+---- Update state variables for Network ----
+	(BS_RRC_state,
+	BS_RRC_message,
+	gnb_pdcp_ul_count,
+	gnb_pdcp_dl_count,
+	gnb_rrc_sec_ctx_exist,
+	paging_sent,
+	gnb_bearer_established,
+	gnb_rrc_sec_ctx_updated,
+	chan_AMF_rrc_nas,
+	chan_AMF_nas_rrc,
+	BS_RRC_transition) =
+	BS_RRC_controller (
+		UE_RRC_message_to_BS_RRC,
+		gnb_bearer_setup_required,
+		paging_timer_expired,
+		as_sec_ctx_setup_required,
+		rrc_smcomplete_mac_failure,
+		dl_info_transfer_required,
+		ulinfotransfer_mac_failure,
+		idle_mode_required,
+		resumereq_mac_failure,
+		rrc_suspend_required,
+		resumecomplete_mac_failure,
+		reconf_complete_mac_failure,
+		ue_cap_required,
+		reestabreq_mac_failure,
+		reestabcomplete_mac_failure,
+		dl_data_transfer_required
+	);
+tel

@@ -1,0 +1,237 @@
+If the UE is in RRC Inactive state and it receives paging with its irnti
+	then the UE sends a RRC Resume Request message
+
+If the UE is in RRC Idle state and it receives a paging with its tmsi
+	then the UE sends a RRC Setup Request message
+
+If the UE is in RRC Inactive state and it has no pending uplink data and paging with its irnti does not occur
+	then the UE does not a RRC Resume Request message
+
+If the UE is in RRC Idle state and it has no pending uplink data and it does not  receive paging with its tmsi
+	then the UE does not send a RRC Setup Request message
+
+If the UE is in RRC Inactive state and it has pending uplink data
+	then the UE sends a RRC Resume Request message
+
+If the UE is in RRC Idle state and it has pending uplink data
+	then the UE sends a RRC Setup Request
+
+If the UE is in RRC Connected state and it receives a RRC Setup message
+	then the UE sends a RRC Setup Complete message
+
+If the UE is in RRC Inactive state and it receives a RRC Setup message
+	then the UE sends a RRC Setup Complete Message
+
+If the UE is in RRC Resume Requested state and it receives a RRC Setup message
+	then the UE sends a RRC Setup Complete Message
+
+If the UE is in RRC Reestablishment Requested state and it receives a RRC Setup message
+	then the UE sends a RRC Setup Complete Message
+
+If the UE is in RRC Setup Requested state and it receives a RRC Reject message
+	then the UE does not send any message
+
+If the UE is in RRC Connected state and it receives a RRC Reject message
+	then the UE does not send any message
+
+If the UE is in RRC Inactive state and it receives a RRC Reject message
+	if no security context exists
+		then the UE does not send any message
+
+
+If the UE is in RRC Inactive state and it receives a RRC Reject message
+	If security context exists and the mac verification passes
+		then the UE does not send any message
+
+If the UE is in RRC Resume Requested state and it receives a RRC Reject message
+	then the UE does not send any message
+
+If the UE is in RRC Resume Requested state and it receives a RRC Reject message
+	If security context exists and the mac verification passes
+		then the UE does not send any message
+
+
+If the UE is in RRC Reestablishment Requested state and it receives a RRC Reject message
+	then the UE does not send any message
+
+If the UE is in RRC Reestablishment Requested state and it receives a RRC Reject message
+	If security context exists and the mac verification passes
+		then the UE does not send any message
+
+If the UE is in RRC Setup Requested state and it receives a RRC Reject message
+	then the security context is deleted
+
+If the UE is in RRC Connected state and it receives a RRC Reject message
+	then the security context is deleted
+
+If the UE is in RRC Inactive state and it receives a RRC Reject message
+	if no security context had been established
+		then no changes occur
+
+If the UE is in RRC Inactive state and it receives a RRC Reject message
+	if security context exists and mac verification passes
+		then the security context is deleted
+
+If the UE is in RRC Inactive state and it receives a RRC Reject message
+	if security context exists and mac verification fails
+		then the UE keeps its security context
+
+If the UE is in RRC Inactive state and it receives a RRC Reject message
+	if security context exists and mac verification fails
+		then the UE ignores this message and does not take any transition
+
+If the UE is in RRC Resume Requested state and it receives a RRC Reject message
+	if no security context had been established
+		then no changes occur
+
+If the UE is in RRC Resume Requested state and it receives a RRC Reject message
+	if security context exists and mac verification passes
+		then the security context is deleted
+
+If the UE is in RRC Resume Requested state and it receives a RRC Reject message
+	if security context exists and mac verification fails
+		then the UE keeps its security context
+
+If the UE is in RRC Resume Requested state and it receives a RRC Reject message
+	if security context exists and mac verification fails
+		then the UE ignores this message and does not take any transition
+
+If the UE is in RRC Reestablishment Request state and it receives a RRC Reject message
+	if no security context had been established
+		then no changes occur
+
+If the UE is in RRC Reestablishment Requested state and it receives a RRC Reject message
+	if security context exists and mac verification passes
+		then the security context is deleted
+
+If the UE is in RRC Reestablishment Requested state and it receives a RRC Reject message
+	if security context exists and mac verification fails
+		then the UE keeps its security context
+
+If the UE is in RRC Reestablishment Requested state and it receives a RRC Reject message
+	if security context exists and mac verification fails
+		then the UE ignores this message and does not take any transition
+
+If the UE is in RRC Connected state and it receives a Security Mode Command message
+	if MAC verification passes
+		then the UE sends a Security Mode Complete message
+
+If the UE is in RRC connected state and it receives a Security Mode Command message
+	if MAC verification fails
+		then the UE sends a Security Mode Failure message
+
+If the UE is in RRC Resume Requested and it receives a RRC Release Suspend message
+	if MAC verification fails
+		then the UE ignores this message and no transition is made
+
+If the UE is in RRC Reestablishment Requested and it receives a RRC Release Suspend message
+	if MAC verification fails
+		then the UE ignores this message and no transition is made
+
+If the UE is in RRC Connected state and it receives a RRC Reconfiguration message
+	If security context exists and mac verification passes
+		then the UE sends a RRC Reconfiguration Complete message
+
+If the UE is in RRC Connected state and it receives a RRC Reconfiguration message
+	if security context exists and mac verification fails
+		then the UE sends a RRC Reestablishment Request message
+
+If the UE is in RRC Connected state and it receives a RRC Reconfiguration message
+	if no security context exists
+		then the UE ignores this message and no transition is made
+
+If the UE is in RRC Connected state and it receives a RRC Reconfiguration message
+	if security context exists and mac verification passes
+		then the UE bearer is established
+
+If the UE is in RRC Connected state and it receives a RRC Reconfiguration message
+	if not security context exists
+		then no changes occur
+
+If the UE is in RRC Connected state and it receives a RRC Downlink Info Transfer message
+	if the MAC verification passes
+		then RRC passes the Downlink Information Transfer to NAS Layer
+
+If the UE is in RRC Connected state and it receives a RRC Downlink Info Transfer message
+	if the MAC verification fail
+		then RRC does not pass the Downlink Information Transfer to NAS Layer
+
+If the UE is in RRC Connected state and it receives a RRC UE Capability Enquiry message
+	if no security context exists
+		then the UE sends a RRC UE Capability Info message
+
+If the UE is in RRC Connected state and it receives a RRC UE Capability Enquiry message
+	if security context exists and MAC verification passes
+		then the UE sends a RRC UE Capability Info message
+
+If the UE is in RRC Connected state and it receives a RRC UE Capability Enquiry message
+	if security context exists and MAC verification fails
+		then the UE does not send a RRC UE Capability Info message
+
+If the UE is in RRC Idle state and it has pending uplink data
+	then the UE deletes the security context
+
+If the UE is in RRC Idle state and it receives paging with its tmsi
+	then the UE deletes the security context
+
+If the UE is in RRC Setup Requested state and it receives a RRC Release message
+	then the UE deletes the security context
+
+If the UE is in RRC Connected state and it receives a RRC Release message
+	then the UE deletes the security context
+
+If the UE is in RRC Inactive state and it receives a RRC Release message
+	if security context exists and MAC verification passes
+		then the UE deletes the security context
+
+If the UE is in RRC Resume Requested state and it receives a RRC Release message
+	if security context exists and MAC verification passes
+		then the UE deletes the security context
+
+If the UE is in RRC Reestablishment Requested state and it receives a RRC Release message
+	if security context exists and MAC verification passes
+		then the UE deletes the security context
+
+If the UE is in RRC Inactive state and it receives a RRC Release message
+	if security context exists and MAC verification fails
+		then the UE does not delete the security context
+
+If the UE is in RRC Resume Requested state and it receives a RRC Release message
+	if security context exists and MAC verification fails
+		then the UE does not delete the security context
+
+If the UE is in RRC Reestablishment Requested state and it receives a RRC Release message
+	if security context exists and MAC verification fails
+		then the UE does not delete the security context
+
+If the UE is in RRC Inactive state and it receives a RRC Resume message
+	if security context exists and MAC verification fails
+		then the UE does not delete the security context
+
+If the UE is in RRC Resume Requested state and it receives a RRC Resume message
+	if security context exists and MAC verification fails
+		then the UE does not delete the security context
+
+If the UE is in RRC Inactive state and it receives a RRC Resume message
+	if security context exists and MAC verification passes
+		then the UE sends a RRC Resume Complete message
+
+If the UE is in RRC Resume Requested state and it receives a RRC Resume message
+	if security context exists and MAC verification passes
+		then the UE sends a RRC Resume Complete message
+
+If the UE is in RRC Setup Requested state and it receives a RRC Setup message
+	then the UE does not delete the security context
+
+If the UE is in RRC Connected state and it receives a RRC Setup message
+	then the UE does not delete the security context
+
+If the UE is in RRC Inactive state and it receives a RRC Setup message
+	then the UE does not delete the security context
+
+If the UE is in RRC Resume Requested state and it receives a RRC Setup message
+	then the UE does not delete the security context
+
+If the UE is in RRC Reestablishment Requested state and it receives a RRC Setup message
+	then the UE does not delete the security context
+

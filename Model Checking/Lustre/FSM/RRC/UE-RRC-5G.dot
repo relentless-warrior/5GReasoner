@@ -1,0 +1,123 @@
+digraph UE{
+rankdir = LR;
+size = "8,5"
+node [shape = circle, label="ue_rrc_idle"]ue_rrc_idle;
+node [shape = circle, label="ue_rrc_setup_requested"]ue_rrc_setup_requested;
+node [shape = circle, label="ue_rrc_inactive"]ue_rrc_inactive;
+node [shape = circle, label="ue_rrc_resume_requested"]ue_rrc_resume_requested;
+node [shape = circle, label="ue_rrc_connected"]ue_rrc_connected;
+node [shape = circle, label="ue_rrc_reestab_requested"]ue_rrc_reestab_requested;
+
+//initial_state: ue_rrc_idle
+//incoming messages: rrc_release; rrc_reject; rrc_setup; rrc_release_suspend; rrc_sm_command; rrc_reconf; rrc_reestab; rrc_resume; paging_tmsi; paging_irnti; dl_info_transfer; rrc_resume; ue_cap_enquiry; dl_user_data; 
+//outgoing messages: null_action; rrc_setup_req; rrc_setup_complete; rrc_sm_complete; rrc_sm_failure; rrc_resume_req; rrc_resume_complete; rrc_reconf_complete; rrc_reestab_req; rrc_reestab_complete; ul_info_transfer; ue_cap_info; ul_user_data;
+//environment variables: rrc_smcommand_mac_failure; reconf_mac_failure; ul_transfer_required; dlinfotransfer_mac_failure; resume_mac_failure; suspend_mac_failure; reject_mac_failure; release_mac_failure; ue_cap_enq_mac_failure; reestab_mac_failure; ue_bearer_setup_required
+//state variables: ue_rrc_sec_ctx_exist{true, false}<false>; ue_bearer_established{true, false}<false>; ue_rrc_sec_ctx_updated{true, false}<false> ;chan_UE_rrc_nas{UE_dl_info_transfer,UE_RRC_null}<UE_RRC_null>; chan_UE_nas_rrc{UE_ul_info_transfer, UE_downgrade_requested, UE_ctx_release_requested, UE_NAS_null}<UE_NAS_null>
+//sequence variables: ue_pdcp_ul_count {0, 32}<0, ((ue_pdcp_ul_count + 1) mod 32)>; ue_pdcp_dl_count {0, 32}<0, ((ue_pdcp_dl_count + 1) mod 32)> 
+
+ue_rrc_idle -> ue_rrc_idle [label = "chan_UE_nas_rrc=UE_downgrade_requested / _ "]
+ue_rrc_setup_requested -> ue_rrc_idle [label = "chan_UE_nas_rrc=UE_downgrade_requested / _ "]
+ue_rrc_inactive -> ue_rrc_idle [label = "chan_UE_nas_rrc=UE_downgrade_requested / _ "]
+ue_rrc_resume_requested -> ue_rrc_idle [label = "chan_UE_nas_rrc=UE_downgrade_requested / _ "]
+ue_rrc_connected -> ue_rrc_idle [label = "chan_UE_nas_rrc=UE_downgrade_requested / _ "]
+ue_rrc_reestab_requested -> ue_rrc_idle [label = "chan_UE_nas_rrc=UE_downgrade_requested / _ "]
+
+
+
+ue_rrc_idle -> ue_rrc_setup_requested [label = "(chan_UE_nas_rrc = UE_ul_info_transfer | paging_tmsi) / 
+    rrc_setup_req, ue_rrc_sec_ctx_exist=false"]
+
+ue_rrc_setup_requested -> ue_rrc_idle [label = "rrc_release /  ue_rrc_sec_ctx_exist=false, chan_UE_rrc_nas=UE_ctx_release_requested"]
+ue_rrc_setup_requested -> ue_rrc_idle [label = "rrc_reject / ue_rrc_sec_ctx_exist=false"]
+ue_rrc_setup_requested -> ue_rrc_connected [label = "rrc_setup/ue_rrc_sec_ctx_exist = false, 
+    rrc_setup_complete"]
+//TODO: if upper layer provides TMSI, set the content of rrc_setup_complete msg with TMSI.
+
+ue_rrc_connected -> ue_rrc_connected [label = "rrc_setup/rrc_setup_complete, ue_rrc_sec_ctx_exist = false"]
+
+ue_rrc_connected -> ue_rrc_idle [label = "rrc_release / ue_rrc_sec_ctx_exist=false, chan_UE_rrc_nas=UE_ctx_release_requested"]
+
+ue_rrc_connected -> ue_rrc_idle [label = "rrc_reject / ue_rrc_sec_ctx_exist=false"]
+
+ue_rrc_connected -> ue_rrc_inactive [label = "rrc_release_suspend & ue_rrc_sec_ctx_exist & 
+    !suspend_mac_failure/_"]
+
+ue_rrc_connected -> ue_rrc_inactive [label = "rrc_release_suspend /_"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "rrc_sm_command & !rrc_smcommand_mac_failure/ rrc_sm_complete, 
+    ue_rrc_sec_ctx_exist=true, ue_rrc_sec_ctx_updated=false"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "rrc_sm_command & rrc_smcommand_mac_failure/ 
+    rrc_sm_failure, ue_rrc_sec_ctx_updated=false"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "rrc_reconf & ue_rrc_sec_ctx_exist & !reconf_mac_failure/ 
+    rrc_reconf_complete, ue_bearer_established=true, ue_pdcp_ul_count=0, ue_pdcp_dl_count=0"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "rrc_reconf & 
+    ue_rrc_sec_ctx_exist & reconf_mac_failure/ rrc_reestab_req"]
+
+ue_rrc_connected -> ue_rrc_idle [label = "rrc_reconf & 
+    !ue_rrc_sec_ctx_exist /  ue_rrc_sec_ctx_exist=false"]        
+
+ue_rrc_connected -> ue_rrc_reestab_requested [label = "chan_UE_nas_rrc = UE_ul_info_transfer &  ue_rrc_sec_ctx_exist / rrc_reestab_req"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "chan_UE_nas_rrc = UE_ul_info_transfer / ul_info_transfer, chan_UE_nas_rrc = UE_NAS_null"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "dl_info_transfer & !dlinfotransfer_mac_failure & chan_UE_rrc_nas = UE_RRC_null / 
+    chan_UE_rrc_nas = UE_dl_info_transfer"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "dl_info_transfer &  dlinfotransfer_mac_failure / _"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "ue_cap_enquiry & !ue_rrc_sec_ctx_exist 
+    / ue_cap_info"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "ue_cap_enquiry & ue_rrc_sec_ctx_exist & 
+    !ue_cap_enq_mac_failure / ue_cap_info"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "ue_cap_enquiry & ue_rrc_sec_ctx_exist & 
+    ue_cap_enq_mac_failure / _ "]
+
+ue_rrc_connected -> ue_rrc_reestab_requested [label = "chan_UE_nas_rrc = UE_ul_info_transfer / rrc_reestab_req"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "ue_bearer_established / ul_user_data, ue_pdcp_ul_count = ((ue_pdcp_ul_count + 1) mod 32)"]
+
+ue_rrc_connected -> ue_rrc_connected [label = "ue_bearer_established &  dl_user_data / ue_pdcp_dl_count = ((ue_pdcp_dl_count + 1) mod 32)"]        
+
+
+ue_rrc_inactive -> ue_rrc_resume_requested [label = "(chan_UE_nas_rrc = UE_ul_info_transfer | paging_irnti) / 
+    rrc_resume_req"]
+ue_rrc_inactive -> ue_rrc_connected [label = "rrc_resume & !resume_mac_failure /
+    rrc_resume_complete"]
+ue_rrc_inactive -> ue_rrc_idle [label = "rrc_resume & resume_mac_failure /  ue_rrc_sec_ctx_exist=false"]
+ue_rrc_inactive -> ue_rrc_connected [label = "rrc_setup / rrc_setup_complete, ue_rrc_sec_ctx_exist=false"]
+ue_rrc_inactive -> ue_rrc_idle [label = "rrc_release & !ue_rrc_sec_ctx_exist / ue_rrc_sec_ctx_exist=false, chan_UE_rrc_nas=UE_ctx_release_requested"]
+ue_rrc_inactive -> ue_rrc_idle [label = "rrc_release & ue_rrc_sec_ctx_exist & !release_mac_failure / ue_rrc_sec_ctx_exist=false, chan_UE_rrc_nas=UE_ctx_release_requested"]
+ue_rrc_inactive -> ue_rrc_inactive [label = "rrc_reject & !ue_rrc_sec_ctx_exist / ue_rrc_sec_ctx_exist=false"]
+ue_rrc_inactive -> ue_rrc_idle [label = "rrc_reject & ue_rrc_sec_ctx_exist & !reject_mac_failure / ue_rrc_sec_ctx_exist=false"]
+
+
+
+ue_rrc_resume_requested -> ue_rrc_connected [label = "rrc_resume & !resume_mac_failure /
+    rrc_resume_complete"]
+ue_rrc_resume_requested -> ue_rrc_idle [label = "rrc_resume & resume_mac_failure /  ue_rrc_sec_ctx_exist=false"]    
+ue_rrc_resume_requested -> ue_rrc_connected [label = "rrc_setup / rrc_setup_complete, ue_rrc_sec_ctx_exist=false, chan_UE_rrc_nas=UE_ctx_release_requested"]
+ue_rrc_resume_requested -> ue_rrc_idle [label = "rrc_release & !ue_rrc_sec_ctx_exist / ue_rrc_sec_ctx_exist=false, chan_UE_rrc_nas=UE_ctx_release_requested"]
+ue_rrc_resume_requested -> ue_rrc_idle [label = "rrc_release & ue_rrc_sec_ctx_exist & !release_mac_failure / ue_rrc_sec_ctx_exist=false"]
+ue_rrc_resume_requested -> ue_rrc_idle [label = "rrc_reject & !ue_rrc_sec_ctx_exist / ue_rrc_sec_ctx_exist=false"]
+ue_rrc_resume_requested -> ue_rrc_idle [label = "rrc_reject & ue_rrc_sec_ctx_exist & !reject_mac_failure / ue_rrc_sec_ctx_exist=false"]
+ue_rrc_resume_requested -> ue_rrc_inactive [label = "rrc_release_suspend & !suspend_mac_failure/ _"]
+
+
+ue_rrc_reestab_requested -> ue_rrc_connected [label = "rrc_reestab & !reestab_mac_failure /
+    rrc_reestab_complete"]
+ue_rrc_reestab_requested -> ue_rrc_idle [label = "rrc_reestab & reestab_mac_failure /  ue_rrc_sec_ctx_exist=false"]    
+ue_rrc_reestab_requested -> ue_rrc_connected [label = "rrc_setup / rrc_setup_complete, ue_rrc_sec_ctx_exist=false"]
+ue_rrc_reestab_requested -> ue_rrc_idle [label = "rrc_release & !ue_rrc_sec_ctx_exist / ue_rrc_sec_ctx_exist=false, chan_UE_rrc_nas=UE_ctx_release_requested"]
+ue_rrc_reestab_requested -> ue_rrc_idle [label = "rrc_release & ue_rrc_sec_ctx_exist & !release_mac_failure / ue_rrc_sec_ctx_exist=false, chan_UE_rrc_nas=UE_ctx_release_requested"]
+ue_rrc_reestab_requested -> ue_rrc_idle [label = "rrc_reject & !ue_rrc_sec_ctx_exist / ue_rrc_sec_ctx_exist=false"]
+ue_rrc_reestab_requested -> ue_rrc_idle [label = "rrc_reject & ue_rrc_sec_ctx_exist & !reject_mac_failure / ue_rrc_sec_ctx_exist=false"]
+ue_rrc_reestab_requested -> ue_rrc_inactive [label = "rrc_release_suspend & !suspend_mac_failure/ _"]
+
+}
+
+

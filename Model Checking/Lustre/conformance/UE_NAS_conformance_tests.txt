@@ -1,0 +1,285 @@
+If the UE is in registered initiated and it receives an authentication request message
+	if sequence number failure occurs
+		then the UE should reply with an authentication reject with failure sequence message
+
+If the UE is in registered initiated and it receives an authentication request message
+	if all checks pass
+		then the UE should reply with an authentication response
+
+If the UE is in registered initiated and it receives an authentication request message
+	if the MAC verification fails
+		then the UE should reply with an authentication reject due to MAC verification failure message
+
+If the UE is in registered initiated and it receives an authentication request message
+	if the sequence number to calculate the MAC is not appropriate and MAC fails
+		then the UE should reply with an authentication reject due to MAC verification failure message
+
+If the UE is in deregistered initiated and it receives an authentication request message
+	if the MAC verification fails
+		then the UE should reply with an authentication reject due to MAC verification failure message
+
+If the UE is in registered state and it receives a Security Mode Command message
+	if the replayed security capabilities do not match
+		then the UE should reply with a security mode reject message and delete any security context
+
+If the UE is in registered initiated and it receives a Security Mode Command message
+	if the replayed capabilities do not match
+		then the UE should reply with a security mode reject message and delete any security context
+
+If the UE is in registered initiates and it receives a Security Mode Command message
+	if all checks pass
+		then the UE should reply with a security mode complete message
+
+If the UE is in registered state and it receives a Security Mode Command message
+	if the replayed security capabilities do not match
+		then the UE should reply with a security mode reject message
+
+If the UE is in registered state and it receives a Security Mode Command message
+	if the MAC verification fails
+		then the UE should reply with a security mode reject message
+
+If the UE is in registered initiated state it receives a Security Mode command message
+	if the replayed security capabilities do not match
+		then the UE should reply with a security mode reject message
+
+If the UE is in registered initiated state it receives a Security Mode command message
+	if the MAC verification fails
+		then the UE should reply with a security mode reject message
+
+If the UE is in registered initiated state and it receives a Security Mode command message
+	if the security capabilities do not match
+		then the UE should not send a Security Mode complete message
+
+If the UE is in registered state and it receives a Security Mode command message
+	if the security capabilities do not match
+		then the UE should not send a Security Mode complete message
+
+
+
+If the UE enables N1 connectivity
+	then the UE should send a registration request message
+
+
+If the UE is in registered state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+If the UE is in registered state and it receives an authentication request message with identity type as IMEI
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+
+If the UE is in registered state and it receives an authentication request message with identity type as GUTI
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+If the UE is in registered state and it receives an authentication request message with identity type as IMEISV
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+If the UE is in registered state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the SUCI
+
+If the UE is in registered state and it receives an authentication request message with identity type as IMEI
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the IMEI
+
+If the UE is in registered state and it receives an authentication request message with identity type as IMEISV
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the IMEISV
+
+If the UE is in registered state and it receives an authentication request message with identity type as GUTI
+	if the MAC verification is successful and a GUTI has been assigned
+		then the UE should reply with an authentication response with the GUTI
+
+If the UE is in registered state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification is successful and the UE does not have GUTI assigned
+		then the UE should reply with an authentication response with the identity type set as null
+
+
+If the UE is in registered initiated state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the SUCI
+
+If the UE is in registered initiated state and it receives an authentication request message with identity type as IMEI
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the IMEI
+
+If the UE is in registered initiated state and it receives an authentication request message with identity type as IMEISV
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the IMEISV
+
+If the UE is in registered initiated state and it receives an authentication request message with identity type as GUTI
+	if the MAC verification is successful and a GUTI has been assigned
+		then the UE should reply with an authentication response with the GUTI
+
+If the UE is in registered initiated state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification is successful and the UE does not have GUTI assigned
+		then the UE should reply with an authentication response with the identity type set as null
+
+
+
+If the UE is in deregistered initiated state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+If the UE is in deregistered initiated state and it receives an authentication request message with identity type as IMEI
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+
+If the UE is in deregistered initiated state and it receives an authentication request message with identity type as GUTI
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+If the UE is in deregistered initiated state and it receives an authentication request message with identity type as IMEISV
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+If the UE is in deregistered initiated state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the SUCI
+
+If the UE is in deregistered initiated state and it receives an authentication request message with identity type as IMEI
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the IMEI
+
+If the UE is in deregistered initiated state and it receives an authentication request message with identity type as IMEISV
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the IMEISV
+
+If the UE is in deregistered initiated state and it receives an authentication request message with identity type as GUTI
+	if the MAC verification is successful and a GUTI has been assigned
+		then the UE should reply with an authentication response with the GUTI
+
+If the UE is in deregistered initiated state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification is successful and the UE does not have GUTI assigned
+		then the UE should reply with an authentication response with the identity type set as null
+
+
+If the UE is in service initiated state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+If the UE is in service initiated state and it receives an authentication request message with identity type as IMEI
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+
+If the UE is in service initiated state and it receives an authentication request message with identity type as GUTI
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+If the UE is in service initiated state and it receives an authentication request message with identity type as IMEISV
+	if the MAC verification fails
+		then do not respond with an authentication response
+
+If the UE is in service initiated state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the SUCI
+
+If the UE is in service initiated state and it receives an authentication request message with identity type as IMEI
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the IMEI
+
+If the UE is in service initiated state and it receives an authentication request message with identity type as IMEISV
+	if the MAC verification is successful
+		then the UE should reply with an authentication response with the IMEISV
+
+If the UE is in service initiated state and it receives an authentication request message with identity type as GUTI
+	if the MAC verification is successful and a GUTI has been assigned
+		then the UE should reply with an authentication response with the GUTI
+
+If the UE is in service initiated state and it receives an authentication request message with identity type as SUCI
+	if the MAC verification is successful and the UE does not have GUTI assigned
+		then the UE should reply with an authentication response with the identity type set as null
+
+If the UE is in registered initiated state and the registration counter check has failed
+	then downgrade to 4G
+
+If the UE is in registered state and the registration counter check has failed
+	then downgrade to 4G
+
+If the UE is in deregistered initiated state and the registration counter check has failed
+	then downgrade to 4G
+
+If the UE is in service initiated state and the registration counter check has failed
+	then downgrade to 4G
+
+If the UE is in registered state and the device is powered off
+	then send a deregistration request do to switch off
+
+If the UE is in registered initiated state and the device is powered off
+	then send a deregistration request do to switch off
+
+If the UE is in deregistered state and the device is powered off
+	then send a deregistration request do to switch off
+
+If the UE is in deregistered initiated state and the device is powered off
+	then send a deregistration request do to switch off
+
+If the UE is in service initiated state and the device is powered off
+	then send a deregistration request do to switch off
+
+If the UE is in idle state and the device is powered off
+	then send a deregistration request do to switch off
+
+If the UE is in registered state and the device wishes to deregister
+	then send a deregistration request not do to switch off
+
+If the UE is in registered initiated state and the device wishes to deregister
+	then send a deregistration request not do to switch off
+
+If the UE is in deregistered initiated state and the device wishes to deregister
+	then send a deregistration request not do to switch off
+
+If the UE is in service initiated state and the device wishes to deregister
+	then send a deregistration request not do to switch off
+
+
+If the UE is in registered state and it receives a network initiated deregistration request
+	then the UE should delete all security context
+
+If the UE is in registered state and it has pending data
+	then the UE should send a service request message
+
+If the UE is in idle state and it has pending data
+	then the UE should send service request message
+
+If the UE is in registered state and it receives a Security Mode Command message
+	if the replayed security capabilities do not match
+		then the UE should reply with a security mode reject message and abort the procedure
+
+If the UE is in registered state and it receives a Configuration Update Command message
+	if the MAC verification fails
+		then do not respond with a Configuration Update Complete message
+
+If the UE is in registered initiated state and it receives an Identity Request message
+	if a transmission failure occurs
+		then the UE should restart the registration procedure
+
+If the UE is in registered state and the UE initiates a deregistration procedure not do to switch off
+	if a transmission failure occurs
+		then the UE should restart the deregistration procedure
+
+If the UE is in deregistered limited state
+	then the UE should not attempt the registration procedure
+
+If the UE is in deregistered state and it receives a registration reject message
+	then the UE should delete any context and delete the existing GUTI
+
+
+If the UE is in deregistered initiated state and it receives a registration reject message
+	then the UE should delete any context and delete the existing GUTI
+
+If the UE is in registered initiated state and it receives a registration reject message
+	then the UE should delete any context and delete the existing GUTI
+
+If the UE is in registered state and it receives a registration reject message
+	then the UE should delete any context and delete the existing GUTI
+
+If the UE is in service initiated state and it receives a registration reject message
+	then the UE should delete any context and delete the existing GUTI
+
+

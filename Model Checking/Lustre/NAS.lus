@@ -1,0 +1,2772 @@
+---- STATES ----
+---- UE_NAS states ----
+type UE_NAS_states = enum{
+	ue_null,
+	ue_reg_inited,
+	ue_registered,
+	ue_deregistered,
+	ue_dereg_limited,
+	ue_dereg_inited,
+	ue_service_inited,
+	ue_idle
+};
+---- AMF_NAS states ----
+type AMF_NAS_states = enum{
+	amf_deregistered,
+	amf_com_proc_inited,
+	amf_registered,
+	amf_idle
+};
+---- ENUMERATE VARIABLES ----
+---- id_type ----
+type id_type_enum = enum{
+	imsi,
+	guti,
+	imei,
+	imeisv,
+	id_type_null
+};
+---- chan_UE_rrc_nas ----
+type chan_UE_rrc_nas_enum = enum{
+	UE_dl_info_transfer,
+	UE_ctx_release_requested,
+	UE_rrc_nas_null
+};
+---- chan_UE_nas_rrc ----
+type chan_UE_nas_rrc_enum = enum{
+	UE_ul_info_transfer,
+	UE_downgrade_requested,
+	UE_nas_rrc_null
+};
+---- idrestype ----
+type idrestype_enum = enum{
+	res_imsi,
+	res_guti,
+	res_imei,
+	res_imeisv,
+	res_id_null
+};
+---- amf_wait_for ----
+type amf_wait_for_enum = enum{
+	null,
+	idresponse,
+	authresponse,
+	smresponse,
+	regacceptresponse,
+	configupdateresponse,
+	servicerequest
+};
+---- chan_AMF_rrc_nas ----
+type chan_AMF_rrc_nas_enum = enum{
+	AMF_ul_info_transfer,
+	AMF_rrc_nas_null
+};
+---- chan_AMF_nas_rrc ----
+type chan_AMF_nas_rrc_enum = enum{
+	AMF_dl_info_transfer,
+	AMF_paging_requested,
+	AMF_ctx_release_requested,
+	AMF_nas_rrc_null
+};
+---- MESSAGES ----
+type UE_NAS_transitions = enum{
+	UE_NAS_T1 , UE_NAS_T2 , UE_NAS_T3 , UE_NAS_T4 , UE_NAS_T5 , UE_NAS_T6 , UE_NAS_T7 , UE_NAS_T8 , UE_NAS_T9 , UE_NAS_T10 , 
+	UE_NAS_T11 , UE_NAS_T12 , UE_NAS_T13 , UE_NAS_T14 , UE_NAS_T15 , UE_NAS_T16 , UE_NAS_T17 , UE_NAS_T18 , UE_NAS_T19 , UE_NAS_T20 , 
+	UE_NAS_T21 , UE_NAS_T22 , UE_NAS_T23 , UE_NAS_T24 , UE_NAS_T25 , UE_NAS_T26 , UE_NAS_T27 , UE_NAS_T28 , UE_NAS_T29 , UE_NAS_T30 , 
+	UE_NAS_T31 , UE_NAS_T32 , UE_NAS_T33 , UE_NAS_T34 , UE_NAS_T35 , UE_NAS_T36 , UE_NAS_T37 , UE_NAS_T38 , UE_NAS_T39 , UE_NAS_T40 , 
+	UE_NAS_T41 , UE_NAS_T42 , UE_NAS_T43 , UE_NAS_T44 , UE_NAS_T45 , UE_NAS_T46 , UE_NAS_T47 , UE_NAS_T48 , UE_NAS_T49 , UE_NAS_T50 , 
+	UE_NAS_T51 , UE_NAS_T52 , UE_NAS_T53 , UE_NAS_T54 , UE_NAS_T55 , UE_NAS_T56 , UE_NAS_T57 , UE_NAS_T58 , UE_NAS_T59 , UE_NAS_T60 , 
+	UE_NAS_T61 , UE_NAS_T62 , UE_NAS_T63 , UE_NAS_T64 , UE_NAS_T65 , UE_NAS_T66 , UE_NAS_T67 , UE_NAS_T68 , UE_NAS_T69 , UE_NAS_T70 , 
+	UE_NAS_T71 , UE_NAS_T72 , UE_NAS_T73 , UE_NAS_T74 , UE_NAS_T75 , UE_NAS_T76 , UE_NAS_T77 , UE_NAS_T78 , UE_NAS_T79 , UE_NAS_T80 , 
+	UE_NAS_T81 , UE_NAS_T82 , UE_NAS_T83 , UE_NAS_T84 , UE_NAS_T85 , UE_NAS_T86 , UE_NAS_T87 , UE_NAS_T88 , UE_NAS_T89 , UE_NAS_T90 , 
+	UE_NAS_T91 , UE_NAS_T92 , UE_NAS_T93 , UE_NAS_T94 , UE_NAS_T95 , UE_NAS_T96 , UE_NAS_T97 , UE_NAS_T98 , UE_NAS_T99 , UE_NAS_T100 , 
+	UE_NAS_T101 , UE_NAS_T102 , UE_NAS_null_transition
+};
+type AMF_NAS_transitions = enum{
+	AMF_NAS_T1 , AMF_NAS_T2 , AMF_NAS_T3 , AMF_NAS_T4 , AMF_NAS_T5 , AMF_NAS_T6 , AMF_NAS_T7 , AMF_NAS_T8 , AMF_NAS_T9 , AMF_NAS_T10 , 
+	AMF_NAS_T11 , AMF_NAS_T12 , AMF_NAS_T13 , AMF_NAS_T14 , AMF_NAS_T15 , AMF_NAS_T16 , AMF_NAS_T17 , AMF_NAS_T18 , AMF_NAS_T19 , AMF_NAS_T20 , 
+	AMF_NAS_T21 , AMF_NAS_T22 , AMF_NAS_T23 , AMF_NAS_T24 , AMF_NAS_T25 , AMF_NAS_T26 , AMF_NAS_T27 , AMF_NAS_T28 , AMF_NAS_T29 , AMF_NAS_T30 , 
+	AMF_NAS_T31 , AMF_NAS_T32 , AMF_NAS_T33 , AMF_NAS_T34 , AMF_NAS_T35 , AMF_NAS_T36 , AMF_NAS_T37 , AMF_NAS_T38 , AMF_NAS_T39 , AMF_NAS_T40 , 
+	AMF_NAS_T41 , AMF_NAS_T42 , AMF_NAS_T43 , AMF_NAS_T44 , AMF_NAS_T45 , AMF_NAS_T46 , AMF_NAS_T47 , AMF_NAS_T48 , AMF_NAS_T49 , AMF_NAS_T50 , 
+	AMF_NAS_T51 , AMF_NAS_T52 , AMF_NAS_T53 , AMF_NAS_T54 , AMF_NAS_T55 , AMF_NAS_T56 , AMF_NAS_T57 , AMF_NAS_T58 , AMF_NAS_T59 , AMF_NAS_T60 , 
+	AMF_NAS_T61 , AMF_NAS_T62 , AMF_NAS_T63 , AMF_NAS_T64 , AMF_NAS_T65 , AMF_NAS_T66 , AMF_NAS_null_transition
+};
+---- MESSAGES ----
+---- UE_NAS outgoing messages ----
+type UE_NAS_messages = enum{
+	UE_NAS_null_action,
+	UE_NAS_dereg_req_switch_off,
+	UE_NAS_reg_req,
+	UE_NAS_dereg_req_not_switch_off,
+	UE_NAS_id_res,
+	UE_NAS_imei_res,
+	UE_NAS_tmsi_res,
+	UE_NAS_auth_response,
+	UE_NAS_auth_failure_mac,
+	UE_NAS_auth_failure_seq,
+	UE_NAS_sm_complete,
+	UE_NAS_sm_reject,
+	UE_NAS_reg_complete,
+	UE_NAS_config_update_complete,
+	UE_NAS_service_req,
+	UE_NAS_ue_dereg_accept
+};
+---- AMF_NAS outgoing messages ----
+type AMF_NAS_messages = enum{
+	AMF_NAS_null_action,
+	AMF_NAS_auth_reject,
+	AMF_NAS_reg_reject,
+	AMF_NAS_reg_reject_rereg,
+	AMF_NAS_reg_reject_limited,
+	AMF_NAS_nwk_dereg_req,
+	AMF_NAS_service_reject,
+	AMF_NAS_id_req,
+	AMF_NAS_imei_req,
+	AMF_NAS_tmsi_req,
+	AMF_NAS_auth_req,
+	AMF_NAS_sm_command,
+	AMF_NAS_reg_accept,
+	AMF_NAS_config_update_cmd,
+	AMF_NAS_service_accept,
+	AMF_NAS_ue_ctx_release,
+	AMF_NAS_nwk_dereg_accept
+};
+
+-- Happened: Returns true iff X was ever true
+node Happened(X : bool) 
+returns (Y : bool);
+let  
+	Y = X or (false -> pre Y);
+tel
+
+-- HeldSinceBeginning: Returns true iff x has been true since beginning
+node HeldSinceBeginning (X : bool)
+returns (Y : bool;)
+let
+	Y = not Happened(not(X));
+tel
+    
+---- Controller Contract Node ----
+contract UE_NAS_controller_contract (
+	AMF_NAS_message : AMF_NAS_messages;
+	amf_ue_shared_seq : int;
+	power_on : bool;
+	power_off : bool;
+	enable_N1 : bool;
+	uederegrequested : bool;
+	dereg_cause_switch_off : bool;
+	ta_changed : bool;
+	authreq_mac_failure : bool;
+	sec_cap_match : bool;
+	regaccept_mac_failure : bool;
+	reg_accept_timer_expired : bool;
+	idreq_mac_failure : bool;
+	smcmd_mac_failure : bool;
+	configupdate_mac_failure : bool;
+	serviceaccept_mac_failure : bool;
+	service_notification : bool;
+	deregaccept_mac_failure : bool;
+	imeisv_responded : bool;
+	transmission_failure : bool;
+	id_type : id_type_enum;
+)
+returns (
+	UE_NAS_state : UE_NAS_states;
+	UE_NAS_message : UE_NAS_messages;
+	ue_nas_ul_count : int;
+	ue_nas_dl_count : int;
+	ue_auth_fail_count : int;
+	ue_reg_count : int;
+	ue_seq : int;
+	ue_partial_sec_ctx_exist : bool;
+	ue_complete_sec_ctx_exist : bool;
+	ueregcompleted : bool;
+	downgrade : bool;
+	ue_sec_ctx_updated : bool;
+	ue_service_completed : bool;
+	ue_service_started : bool;
+	ue_tau_started : bool;
+	ue_tau_completed : bool;
+	chan_UE_rrc_nas : chan_UE_rrc_nas_enum;
+	chan_UE_nas_rrc : chan_UE_nas_rrc_enum;
+	ue_emergency_service_only : bool;
+	idrestype : idrestype_enum;
+	config_update_complete_flag : bool;
+	ue_auth_seq_check : bool;
+	reg_count_check : bool;
+	ue_auth_fail_count_check : bool;
+	UE_NAS_transition : UE_NAS_transitions;
+);
+let
+
+
+    guarantee "Primary_Authentication_2" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_auth_req) and not(pre ue_auth_seq_check) and ue_auth_fail_count_check and not(authreq_mac_failure) and not(ta_changed) and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(enable_N1) and not(Happened(uederegrequested)) and not(power_off)=> UE_NAS_message = UE_NAS_auth_failure_seq;
+
+    guarantee "Primary_Authentication_4" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_auth_req) and not Happened(ue_auth_fail_count_check)=> UE_NAS_message = UE_NAS_auth_response;
+
+    guarantee "Implicit_Authentication_MAC" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_auth_req) and authreq_mac_failure and not Happened(ue_auth_fail_count_check) =>  UE_NAS_message = UE_NAS_auth_failure_mac;
+
+    guarantee "Implicit_Authentication_MAC2" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_auth_req) and authreq_mac_failure and not(ta_changed) and ue_auth_fail_count_check and not(power_off) and not(enable_N1) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) => UE_NAS_message = UE_NAS_auth_failure_mac;
+    
+    guarantee "Implicit_Authentication_MAC3" true -> (pre UE_NAS_state = ue_dereg_inited) and (AMF_NAS_message = AMF_NAS_auth_req) 
+        and authreq_mac_failure and not(ta_changed) and ue_auth_fail_count_check and not(power_off) and not(enable_N1)
+        and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested))
+        => UE_NAS_message = UE_NAS_auth_failure_mac;
+    
+(*    
+    guarantee "SMC_1_1" true -> (AMF_NAS_message = AMF_NAS_sm_command) and not(sec_cap_match) and not(power_on) and (pre UE_NAS_state = ue_registered) and ue_partial_sec_ctx_exist and not(smcmd_mac_failure) and not(ta_changed) and not(enable_N1) and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and not(ue_complete_sec_ctx_exist)=> UE_NAS_message = UE_NAS_sm_reject and not(ue_sec_ctx_updated);
+
+    guarantee "SMC_1_2" true -> (AMF_NAS_message = AMF_NAS_sm_command) and not(sec_cap_match) and not(power_on) and (pre UE_NAS_state = ue_reg_inited) and ue_partial_sec_ctx_exist and not(smcmd_mac_failure) and not(ta_changed) and not(enable_N1) and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and not(ue_complete_sec_ctx_exist)=> UE_NAS_message = UE_NAS_sm_reject and not(ue_sec_ctx_updated);
+
+
+    guarantee "SMC_5" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_reg_inited) and ue_partial_sec_ctx_exist and not(ue_complete_sec_ctx_exist) and ue_sec_ctx_updated and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(smcmd_mac_failure) and not(ta_changed) and not(enable_N1) and not(uederegrequested) and not(power_off)=> UE_NAS_message = UE_NAS_sm_complete;
+
+  
+
+    guarantee "Implicit_SMC_1_1" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_registered) and not(ue_complete_sec_ctx_exist) and not(smcmd_mac_failure) and not(sec_cap_match) and not(uederegrequested) and not(enable_N1) and not(power_off)=> UE_NAS_message = UE_NAS_sm_reject;
+    
+    guarantee "Implicit_SMC_1_2" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_registered) and not(ue_complete_sec_ctx_exist) and smcmd_mac_failure and sec_cap_match and ue_partial_sec_ctx_exist and not(uederegrequested) and not(enable_N1) and not(power_off) and not(ta_changed) => UE_NAS_message = UE_NAS_sm_reject;
+
+    guarantee "Implicit_SMC_2_1" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_reg_inited) and not(ue_complete_sec_ctx_exist) and not(smcmd_mac_failure) and not(sec_cap_match) and not(uederegrequested) and not(enable_N1) and not(power_off) and (ue_partial_sec_ctx_exist) and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(ta_changed)=> UE_NAS_message = UE_NAS_sm_reject;
+
+    guarantee "Implicit_SMC_2_2" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_reg_inited) and not(ue_complete_sec_ctx_exist) and smcmd_mac_failure and sec_cap_match and not(uederegrequested) and not(enable_N1) and not(power_off) and (ue_partial_sec_ctx_exist) and not(Happened(chan_UE_rrc_nas = UE_ctx_release_requested)) and not(ta_changed)=> UE_NAS_message = UE_NAS_sm_reject;
+
+    guarantee "Implicit_SMC_3_1" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_reg_inited) and not(sec_cap_match) => not(UE_NAS_message = UE_NAS_sm_complete);
+
+    guarantee "Implicitx_SMC_3_2" true -> (AMF_NAS_message = AMF_NAS_sm_command) and (pre UE_NAS_state = ue_registered) and not(sec_cap_match) => not(UE_NAS_message = UE_NAS_sm_complete);
+
+
+
+    guarantee "Initial_Signal_1" true -> pre(UE_NAS_state= ue_deregistered) and Happened(power_on) and Happened(power_off) and enable_N1 and not(power_off)=> UE_NAS_message = UE_NAS_reg_req;
+
+
+    -- UE REGISTERED
+
+    guarantee "Implicit_Identification_Procedure_reg_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_registered) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_2_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_registered) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_3_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_registered) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_4_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_registered) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+
+
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_registered) and not(idreq_mac_failure) => UE_NAS_message = UE_NAS_id_res and idrestype = res_imsi;
+        
+    guarantee "Implicit_Identification_Procedurereg_2_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_registered) and not(idreq_mac_failure) => UE_NAS_message = UE_NAS_id_res and idrestype = res_imei;
+        
+    guarantee "Implicit_Identification_Procedurereg_3_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_registered) and not(idreq_mac_failure) => UE_NAS_message = UE_NAS_id_res and idrestype = res_imeisv;
+        
+    guarantee "Implicit_Identification_Procedurereg_4_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_registered) and not(idreq_mac_failure) and config_update_complete_flag => UE_NAS_message = UE_NAS_id_res and idrestype = res_guti;
+        
+    guarantee "Implicit_Identification_Procedurereg_5_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_registered) and not(idreq_mac_failure) and not(config_update_complete_flag) => UE_NAS_message = UE_NAS_id_res and idrestype = res_id_null;
+
+
+      
+
+    -- UE REGISTERED INITATED
+
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and not(transmission_failure) and
+        (pre UE_NAS_state = ue_reg_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) 
+        and not(enable_N1) and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imsi;
+    
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and not(transmission_failure) and
+        (pre UE_NAS_state = ue_reg_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) 
+        and not(enable_N1) and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imei;
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and not(transmission_failure) and
+        (pre UE_NAS_state = ue_reg_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) 
+        and not(enable_N1) and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imeisv;
+    
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and not(transmission_failure) and
+        (pre UE_NAS_state = ue_reg_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) 
+        and not(enable_N1) and not(ta_changed) and config_update_complete_flag
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_guti;
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and not(transmission_failure) and
+        (pre UE_NAS_state = ue_reg_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) 
+        and not(enable_N1) and not(ta_changed) and not(config_update_complete_flag)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_id_null;
+
+
+
+
+    -- UE DEREGISTER INITATED
+
+    guarantee "Implicit_Identification_Procedure_reg_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_dereg_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_2_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_dereg_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_3_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_dereg_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_reg_4_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_dereg_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+      
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_dereg_inited) and not(idreq_mac_failure) and ue_complete_sec_ctx_exist and not(power_off) and not(uederegrequested) and not(enable_N1)
+        and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imsi;
+    
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_dereg_inited) and not(idreq_mac_failure) and ue_complete_sec_ctx_exist and not(power_off) and not(uederegrequested) and not(enable_N1)
+        and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imei;
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_dereg_inited) and not(idreq_mac_failure) and ue_complete_sec_ctx_exist and not(power_off) and not(uederegrequested) and not(enable_N1)
+        and not(ta_changed)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_imeisv;
+    
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_dereg_inited) and not(idreq_mac_failure) and ue_complete_sec_ctx_exist and not(power_off) and not(uederegrequested) and not(enable_N1)
+        and not(ta_changed) and config_update_complete_flag
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_guti;
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_dereg_inited) and not(idreq_mac_failure) and ue_complete_sec_ctx_exist and not(power_off) and not(uederegrequested) and not(enable_N1)
+        and not(ta_changed) and not(config_update_complete_flag)
+        => UE_NAS_message = UE_NAS_id_res and idrestype = res_id_null;
+
+
+
+    -- UE SERVICE INITIATED
+
+
+    guarantee "Implicit_Identification_Procedure_serv_inited_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_service_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_serv_inited_2_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_service_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_serv_inited_3_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_service_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+    
+    guarantee "Implicit_Identification_Procedure_serv_inited_4_1_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_service_inited) and idreq_mac_failure => not(UE_NAS_message = UE_NAS_id_res);
+
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imsi) and 
+        (pre UE_NAS_state = ue_service_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(enable_N1) and not(ta_changed)=> UE_NAS_message = UE_NAS_id_res and idrestype = res_imsi;
+
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imei) and 
+        (pre UE_NAS_state = ue_service_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(enable_N1) and not(ta_changed)=> UE_NAS_message = UE_NAS_id_res and idrestype = res_imei;
+
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = imeisv) and 
+        (pre UE_NAS_state = ue_service_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(enable_N1) and not(ta_changed)=> UE_NAS_message = UE_NAS_id_res and idrestype = res_imeisv;
+        
+    guarantee "Implicit_Identification_Procedure_reg_1_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_service_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(enable_N1) and not(ta_changed) and config_update_complete_flag => UE_NAS_message = UE_NAS_id_res and idrestype = res_guti;
+    
+    guarantee "Implicit_Identification_Procedurereg_5_not_mac_failure" true -> (AMF_NAS_message = AMF_NAS_id_req) and (id_type = guti) and 
+        (pre UE_NAS_state = ue_service_inited) and not(idreq_mac_failure) and not(power_off) and not(uederegrequested) and not(enable_N1) and not(ta_changed) and not(config_update_complete_flag) => UE_NAS_message = UE_NAS_id_res and idrestype = res_id_null;    
+       
+
+
+
+    guarantee "Initial_Registration_Abnormal_Ctr_4_1" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_null_action) and not(pre reg_count_check) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and enable_N1 and not(ta_changed) => downgrade;
+
+    guarantee "Initial_Registration_Abnormal_Ctr_4_2" true -> (pre UE_NAS_state = ue_registered) and (AMF_NAS_message = AMF_NAS_null_action) and not(pre reg_count_check) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and enable_N1 and not(ta_changed) => downgrade;
+
+    guarantee "Initial_Registration_Abnormal_Ctr_4_3" true -> (pre UE_NAS_state = ue_dereg_inited) and (AMF_NAS_message = AMF_NAS_null_action) and not(pre reg_count_check) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and enable_N1 and not(ta_changed) => downgrade;
+
+    guarantee "Initial_Registration_Abnormal_Ctr_4_4" true -> (pre UE_NAS_state = ue_service_inited) and (AMF_NAS_message = AMF_NAS_null_action) and not(pre reg_count_check) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) and not(uederegrequested) and not(power_off) and enable_N1 and not(ta_changed) => downgrade;
+
+
+
+
+    guarantee "Deregistration_implicit_1" true -> (pre UE_NAS_state = ue_registered) and power_off and (AMF_NAS_message = AMF_NAS_null_action)=> UE_NAS_message = UE_NAS_dereg_req_switch_off;
+    
+    guarantee "Deregistration_implicit_2" true -> (pre UE_NAS_state = ue_reg_inited) and power_off => UE_NAS_message = UE_NAS_dereg_req_switch_off;
+
+    guarantee "Deregistration_implicit_3" true -> (pre UE_NAS_state = ue_deregistered) and power_off => UE_NAS_message = UE_NAS_dereg_req_switch_off;
+
+    guarantee "Deregistration_implicit_4" true -> (pre UE_NAS_state = ue_dereg_inited) and power_off => UE_NAS_message = UE_NAS_dereg_req_switch_off;
+
+    guarantee "Deregistration_implicit_5" true -> (pre UE_NAS_state = ue_service_inited) and power_off => UE_NAS_message = UE_NAS_dereg_req_switch_off;
+
+    guarantee "Deregistration_implicit_6" true -> (pre UE_NAS_state = ue_idle) and power_off and not(service_notification) and (AMF_NAS_message = AMF_NAS_null_action) => UE_NAS_message = UE_NAS_dereg_req_switch_off;
+    
+    guarantee "Deregistration_1_1" true -> (pre UE_NAS_state = ue_registered) and not(enable_N1) and (AMF_NAS_message = AMF_NAS_null_action) and uederegrequested and not(dereg_cause_switch_off) and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_reg_reject and AMF_NAS_message <> AMF_NAS_nwk_dereg_req and AMF_NAS_message <> AMF_NAS_service_reject and not(enable_N1) and not(power_off) and AMF_NAS_message <> AMF_NAS_ue_ctx_release => UE_NAS_message = UE_NAS_dereg_req_not_switch_off;
+
+    guarantee "Deregistration_1_2" true -> (pre UE_NAS_state = ue_reg_inited) and uederegrequested and not(dereg_cause_switch_off) and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_reg_reject and AMF_NAS_message <> AMF_NAS_nwk_dereg_req and AMF_NAS_message <> AMF_NAS_service_reject and not(enable_N1) and not(power_off) and AMF_NAS_message <> AMF_NAS_ue_ctx_release => UE_NAS_message = UE_NAS_dereg_req_not_switch_off;
+    
+    guarantee "Deregistration_1_3" true -> (pre UE_NAS_state = ue_dereg_inited) and uederegrequested and not(dereg_cause_switch_off) and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_reg_reject and AMF_NAS_message <> AMF_NAS_nwk_dereg_req and AMF_NAS_message <> AMF_NAS_service_reject and not(enable_N1) and not(power_off) and AMF_NAS_message <> AMF_NAS_ue_ctx_release => UE_NAS_message = UE_NAS_dereg_req_not_switch_off;
+
+    guarantee "Deregistration_1_4" true -> (pre UE_NAS_state = ue_service_inited) and (AMF_NAS_message = AMF_NAS_null_action) and uederegrequested and not(dereg_cause_switch_off) and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_auth_reject and AMF_NAS_message <> AMF_NAS_reg_reject and AMF_NAS_message <> AMF_NAS_nwk_dereg_req and AMF_NAS_message <> AMF_NAS_service_reject and not(enable_N1) and not(power_off) and AMF_NAS_message <> AMF_NAS_ue_ctx_release => UE_NAS_message = UE_NAS_dereg_req_not_switch_off;
+
+    guarantee "nwk_initiated_de_registration_1" true -> (pre UE_NAS_state = ue_registered) and AMF_NAS_message = AMF_NAS_nwk_dereg_req and not(power_off)=> not(ue_partial_sec_ctx_exist) and not(ue_complete_sec_ctx_exist);
+    
+    guarantee "Service_Request_1_1" true -> (pre UE_NAS_state = ue_registered) and (AMF_NAS_message = AMF_NAS_null_action) and not(uederegrequested) and not(power_off) and not(enable_N1) and service_notification and ue_complete_sec_ctx_exist and not(ta_changed) and not(ue_sec_ctx_updated) => UE_NAS_message = UE_NAS_service_req;
+    
+    guarantee "Service_Request_1_2" true -> (pre UE_NAS_state = ue_idle) and (AMF_NAS_message = AMF_NAS_null_action) and not(uederegrequested) and not(power_off) and not(enable_N1) and service_notification and ue_complete_sec_ctx_exist and not(ta_changed) => UE_NAS_message = UE_NAS_service_req;
+    
+    guarantee "SMC_PART_2_1" true -> (pre UE_NAS_state = ue_registered) and (AMF_NAS_message = AMF_NAS_sm_command) and not(smcmd_mac_failure) and not(sec_cap_match) and not(uederegrequested) and not(enable_N1) and not(power_off) and not(ue_sec_ctx_updated) => UE_NAS_message = UE_NAS_sm_reject;
+    
+    guarantee "Implicit_configupdate_mac_failure_1" true -> (pre UE_NAS_state = ue_registered) and (AMF_NAS_message = AMF_NAS_config_update_cmd) and configupdate_mac_failure => not(UE_NAS_message = UE_NAS_config_update_complete);
+
+    guarantee "Identification_Procedure_1" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_id_req) and transmission_failure 
+    and not(power_off) and not(uederegrequested) and not(Happened(chan_UE_rrc_nas=UE_ctx_release_requested)) and not(enable_N1)
+    => UE_NAS_message = UE_NAS_reg_req;
+        
+    guarantee "Deregistration_transmission_failure" true -> (pre UE_NAS_state = ue_registered) and uederegrequested and not(dereg_cause_switch_off) 
+    and transmission_failure and AMF_NAS_message = AMF_NAS_null_action and not(power_off) and not(enable_N1)
+    => UE_NAS_message = UE_NAS_dereg_req_not_switch_off;
+
+    guarantee "limited_service_not_reg_req" true -> (pre UE_NAS_state = ue_dereg_limited) => not(UE_NAS_message = UE_NAS_reg_req);
+
+
+
+    guarantee "initial_registration_reject_cause_11_implicit" true -> (pre UE_NAS_state = ue_deregistered) and (AMF_NAS_message = AMF_NAS_reg_reject) and not(power_off) and not(enable_N1)
+        => not(ue_partial_sec_ctx_exist) and not(config_update_complete_flag) and not(ue_complete_sec_ctx_exist);
+    
+    guarantee "initial_registration_reject_cause_11" true -> (pre UE_NAS_state = ue_dereg_inited) and (AMF_NAS_message = AMF_NAS_reg_reject) and not(power_off) and not(enable_N1)
+        => not(ue_complete_sec_ctx_exist) and not(ue_partial_sec_ctx_exist) and not(config_update_complete_flag);
+
+    
+    guarantee "initial_registration_reject_cause_11_implicit" true -> (pre UE_NAS_state = ue_reg_inited) and (AMF_NAS_message = AMF_NAS_reg_reject) and not(power_off) and not(enable_N1)
+        => not(ue_complete_sec_ctx_exist) and not(ue_partial_sec_ctx_exist) and not(config_update_complete_flag);
+    
+    guarantee "initial_registration_reject_cause_11_implicit" true -> (pre UE_NAS_state = ue_registered) and (AMF_NAS_message = AMF_NAS_reg_reject) and not(power_off) and not(enable_N1) 
+        => not(ue_complete_sec_ctx_exist) and not(ue_partial_sec_ctx_exist) and not(config_update_complete_flag);
+        
+    guarantee "initial_registration_reject_cause_11_implicit" true -> (pre UE_NAS_state = ue_service_inited) and (AMF_NAS_message = AMF_NAS_reg_reject) 
+        => not(ue_complete_sec_ctx_exist) and not(ue_partial_sec_ctx_exist) and not(config_update_complete_flag);
+
+
+*)
+    -- VERIFIED --  
+
+    guarantee true -> true;
+
+	guarantee "g1" true;
+tel
+
+---- Controller Contract Node ----
+contract AMF_NAS_controller_contract (
+	UE_NAS_message : UE_NAS_messages;
+	amfderegrequested : bool;
+	reg_failure : bool;
+	idrequired : bool;
+	regreq_mac_failure : bool;
+	deregreq_mac_failure : bool;
+	tmsi_imsi_mapping_correct : bool;
+	idres_mac_failure : bool;
+	xres_matched_sres : bool;
+	regcomplete_mac_failure : bool;
+	amf_config_update_required : bool;
+	sec_ctx_update_required : bool;
+	config_update_required : bool;
+	config_response_required : bool;
+	ue_inactivity_detected : bool;
+	paging_required : bool;
+	servicereq_mac_failure : bool;
+	servicereject_required : bool;
+	paging_timer_expired : bool;
+	regrejectrereg_required : bool;
+	regrejectlimited_required : bool;
+	imeirequested : bool;
+	tmsirequested : bool;
+	imeisvrequested : bool;
+)
+returns (
+	AMF_NAS_state : AMF_NAS_states;
+	AMF_NAS_message : AMF_NAS_messages;
+	amf_ue_shared_seq : int;
+	amf_nas_ul_count : int;
+	amf_nas_dl_count : int;
+	amf_auth_fail_count : int;
+	amf_seq : int;
+	amf_partial_sec_ctx_exist : bool;
+	amf_complete_sec_ctx_exist : bool;
+	amf_reg_completed : bool;
+	amf_config_updated : bool;
+	amf_sec_ctx_updated : bool;
+	amf_service_completed : bool;
+	amf_service_started : bool;
+	paging_requested : bool;
+	amf_wait_for : amf_wait_for_enum;
+	chan_AMF_rrc_nas : chan_AMF_rrc_nas_enum;
+	chan_AMF_nas_rrc : chan_AMF_nas_rrc_enum;
+	amf_emergency_service_only : bool;
+	amf_auth_fail_count_check : bool;
+	AMF_NAS_transition : AMF_NAS_transitions;
+);
+let
+	guarantee "g1" true;
+tel
+
+---- Transition Node ----
+node UE_NAS (
+	UE_NAS_prev_state : UE_NAS_states;
+	AMF_NAS_message : AMF_NAS_messages;
+	power_on : bool;
+	power_off : bool;
+	enable_N1 : bool;
+	uederegrequested : bool;
+	dereg_cause_switch_off : bool;
+	ta_changed : bool;
+	authreq_mac_failure : bool;
+	sec_cap_match : bool;
+	regaccept_mac_failure : bool;
+	reg_accept_timer_expired : bool;
+	idreq_mac_failure : bool;
+	smcmd_mac_failure : bool;
+	configupdate_mac_failure : bool;
+	serviceaccept_mac_failure : bool;
+	service_notification : bool;
+	deregaccept_mac_failure : bool;
+	imeisv_responded : bool;
+	transmission_failure : bool;
+	id_type : id_type_enum;
+	ue_partial_sec_ctx_exist : bool;
+	ue_complete_sec_ctx_exist : bool;
+	ueregcompleted : bool;
+	downgrade : bool;
+	ue_sec_ctx_updated : bool;
+	ue_service_completed : bool;
+	ue_service_started : bool;
+	ue_tau_started : bool;
+	ue_tau_completed : bool;
+	chan_UE_rrc_nas : chan_UE_rrc_nas_enum;
+	chan_UE_nas_rrc : chan_UE_nas_rrc_enum;
+	ue_emergency_service_only : bool;
+	idrestype : idrestype_enum;
+	config_update_complete_flag : bool;
+	ue_auth_seq_check : bool;
+	reg_count_check : bool;
+	ue_auth_fail_count_check : bool;
+	ue_nas_dl_count : int;
+)
+returns (
+	UE_NAS_transition : UE_NAS_transitions;
+)
+let
+	UE_NAS_transition = 
+	if (
+		UE_NAS_prev_state = ue_null and 
+		power_on
+	) then
+		UE_NAS_T1
+	else if (
+		UE_NAS_prev_state = ue_deregistered and 
+		power_off
+	) then
+		UE_NAS_T2
+	else if (
+		UE_NAS_prev_state = ue_deregistered and 
+		enable_N1
+	) then
+		UE_NAS_T3
+	else if (
+		UE_NAS_prev_state = ue_deregistered and 
+		( AMF_NAS_message=AMF_NAS_auth_reject or AMF_NAS_message=AMF_NAS_reg_reject or AMF_NAS_message=AMF_NAS_nwk_dereg_req or AMF_NAS_message=AMF_NAS_service_reject)
+	) then
+		UE_NAS_T4
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		power_off
+	) then
+		UE_NAS_T5
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		( AMF_NAS_message=AMF_NAS_auth_reject or AMF_NAS_message=AMF_NAS_reg_reject or AMF_NAS_message=AMF_NAS_nwk_dereg_req or AMF_NAS_message=AMF_NAS_service_reject)
+	) then
+		UE_NAS_T6
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_nwk_dereg_req
+	) then
+		UE_NAS_T7
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		uederegrequested and dereg_cause_switch_off
+	) then
+		UE_NAS_T8
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		uederegrequested and not(dereg_cause_switch_off)
+	) then
+		UE_NAS_T9
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		chan_UE_rrc_nas=UE_ctx_release_requested
+	) then
+		UE_NAS_T10
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		( enable_N1 or AMF_NAS_message=AMF_NAS_reg_reject_rereg) and reg_count_check
+	) then
+		UE_NAS_T11
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_reg_reject_limited
+	) then
+		UE_NAS_T12
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		enable_N1 and not(reg_count_check)
+	) then
+		UE_NAS_T13
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		ta_changed
+	) then
+		UE_NAS_T14
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_id_req and id_type=imsi and not(idreq_mac_failure)
+	) then
+		UE_NAS_T15
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_id_req and id_type=imei and not(idreq_mac_failure)
+	) then
+		UE_NAS_T16
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_id_req and id_type=imeisv and not(idreq_mac_failure)
+	) then
+		UE_NAS_T17
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_id_req and id_type=guti and not(idreq_mac_failure) and config_update_complete_flag
+	) then
+		UE_NAS_T18
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_id_req and id_type=guti and not(config_update_complete_flag) and not(idreq_mac_failure)
+	) then
+		UE_NAS_T19
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and transmission_failure
+	) then
+		UE_NAS_T20
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and id_type=imsi
+	) then
+		UE_NAS_T21
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and id_type=guti and config_update_complete_flag
+	) then
+		UE_NAS_T22
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and id_type=guti and not(config_update_complete_flag)
+	) then
+		UE_NAS_T23
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and id_type=imei
+	) then
+		UE_NAS_T24
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and id_type=imeisv
+	) then
+		UE_NAS_T25
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		( AMF_NAS_message=AMF_NAS_imei_req or AMF_NAS_message=AMF_NAS_tmsi_req)
+	) then
+		UE_NAS_T26
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_auth_req and not(authreq_mac_failure) and ue_auth_seq_check
+	) then
+		UE_NAS_T27
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_auth_req and authreq_mac_failure and ue_auth_fail_count_check
+	) then
+		UE_NAS_T28
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_auth_req and authreq_mac_failure and not(ue_auth_fail_count_check)
+	) then
+		UE_NAS_T29
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_auth_req and not(authreq_mac_failure) and not(ue_auth_seq_check) and ue_auth_fail_count_check
+	) then
+		UE_NAS_T30
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_auth_req and authreq_mac_failure and not(ue_auth_seq_check) and not(ue_auth_fail_count_check)
+	) then
+		UE_NAS_T31
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_sm_command and ue_partial_sec_ctx_exist=true and not(smcmd_mac_failure) and sec_cap_match
+	) then
+		UE_NAS_T32
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		ue_sec_ctx_updated=true and ue_complete_sec_ctx_exist=true and ue_nas_dl_count=0
+	) then
+		UE_NAS_T33
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_sm_command and ue_partial_sec_ctx_exist=true and ue_complete_sec_ctx_exist=false and smcmd_mac_failure and sec_cap_match
+	) then
+		UE_NAS_T34
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_sm_command and ue_partial_sec_ctx_exist=true and ue_complete_sec_ctx_exist=false and not(smcmd_mac_failure) and not(sec_cap_match)
+	) then
+		UE_NAS_T35
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_sm_command and ue_partial_sec_ctx_exist=true and ue_complete_sec_ctx_exist=true and smcmd_mac_failure and sec_cap_match
+	) then
+		UE_NAS_T36
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_sm_command and ue_partial_sec_ctx_exist=true and ue_complete_sec_ctx_exist=true and not(smcmd_mac_failure) and not(sec_cap_match)
+	) then
+		UE_NAS_T37
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_reg_accept and not(regaccept_mac_failure) and ue_tau_started and not(ue_tau_completed)
+	) then
+		UE_NAS_T38
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_reg_accept and ue_emergency_service_only=true
+	) then
+		UE_NAS_T39
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_imei_req and ue_complete_sec_ctx_exist= true and not(idreq_mac_failure)
+	) then
+		UE_NAS_T40
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_reg_accept and not(regaccept_mac_failure)
+	) then
+		UE_NAS_T41
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		AMF_NAS_message=AMF_NAS_reg_accept and regaccept_mac_failure
+	) then
+		UE_NAS_T42
+	else if (
+		UE_NAS_prev_state = ue_reg_inited and 
+		reg_accept_timer_expired
+	) then
+		UE_NAS_T43
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		power_off
+	) then
+		UE_NAS_T44
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		( AMF_NAS_message=AMF_NAS_auth_reject or AMF_NAS_message=AMF_NAS_reg_reject or AMF_NAS_message=AMF_NAS_nwk_dereg_req or AMF_NAS_message=AMF_NAS_service_reject)
+	) then
+		UE_NAS_T45
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_ue_ctx_release
+	) then
+		UE_NAS_T46
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_reg_reject_limited
+	) then
+		UE_NAS_T47
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		( enable_N1 or AMF_NAS_message=AMF_NAS_reg_reject_rereg) and reg_count_check
+	) then
+		UE_NAS_T48
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		enable_N1 and not(reg_count_check)
+	) then
+		UE_NAS_T49
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		uederegrequested and dereg_cause_switch_off
+	) then
+		UE_NAS_T50
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		uederegrequested and not(dereg_cause_switch_off)
+	) then
+		UE_NAS_T51
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		uederegrequested and not(dereg_cause_switch_off) and transmission_failure
+	) then
+		UE_NAS_T52
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_sm_command and not(smcmd_mac_failure) and sec_cap_match
+	) then
+		UE_NAS_T53
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		ue_sec_ctx_updated=true and ue_complete_sec_ctx_exist=true and ue_nas_dl_count=0
+	) then
+		UE_NAS_T54
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_sm_command and smcmd_mac_failure and sec_cap_match
+	) then
+		UE_NAS_T55
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_sm_command and not(smcmd_mac_failure) and not(sec_cap_match)
+	) then
+		UE_NAS_T56
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_config_update_cmd and not(configupdate_mac_failure)
+	) then
+		UE_NAS_T57
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_config_update_cmd and configupdate_mac_failure
+	) then
+		UE_NAS_T58
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		ta_changed
+	) then
+		UE_NAS_T59
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		AMF_NAS_message=AMF_NAS_ue_ctx_release
+	) then
+		UE_NAS_T60
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		service_notification and ue_complete_sec_ctx_exist
+	) then
+		UE_NAS_T61
+	else if (
+		UE_NAS_prev_state = ue_registered and 
+		ueregcompleted and ue_service_started and not(ue_service_completed) and AMF_NAS_message=AMF_NAS_service_accept and not(serviceaccept_mac_failure)
+	) then
+		UE_NAS_T62
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		power_off
+	) then
+		UE_NAS_T63
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		( AMF_NAS_message=AMF_NAS_auth_reject or AMF_NAS_message=AMF_NAS_reg_reject or AMF_NAS_message=AMF_NAS_nwk_dereg_req or AMF_NAS_message=AMF_NAS_service_reject)
+	) then
+		UE_NAS_T64
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_ue_ctx_release
+	) then
+		UE_NAS_T65
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		uederegrequested and dereg_cause_switch_off
+	) then
+		UE_NAS_T66
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		uederegrequested and not(dereg_cause_switch_off)
+	) then
+		UE_NAS_T67
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_reg_reject_limited
+	) then
+		UE_NAS_T68
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		( enable_N1 or AMF_NAS_message=AMF_NAS_reg_reject_rereg) and reg_count_check
+	) then
+		UE_NAS_T69
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		enable_N1 and not(reg_count_check)
+	) then
+		UE_NAS_T70
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_nwk_dereg_accept and not(deregaccept_mac_failure)
+	) then
+		UE_NAS_T71
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_nwk_dereg_accept and deregaccept_mac_failure
+	) then
+		UE_NAS_T72
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		ta_changed
+	) then
+		UE_NAS_T73
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and ue_complete_sec_ctx_exist and not(idreq_mac_failure) and id_type=imsi
+	) then
+		UE_NAS_T74
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and ue_complete_sec_ctx_exist and not(idreq_mac_failure) and id_type=guti and config_update_complete_flag
+	) then
+		UE_NAS_T75
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and ue_complete_sec_ctx_exist and not(idreq_mac_failure) and id_type=guti and not(config_update_complete_flag)
+	) then
+		UE_NAS_T76
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and ue_complete_sec_ctx_exist and not(idreq_mac_failure) and id_type=imei
+	) then
+		UE_NAS_T77
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and ue_complete_sec_ctx_exist and not(idreq_mac_failure) and id_type=imeisv
+	) then
+		UE_NAS_T78
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_auth_req and not(authreq_mac_failure) and not(ue_auth_seq_check)
+	) then
+		UE_NAS_T79
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_auth_req and authreq_mac_failure and ue_auth_fail_count_check
+	) then
+		UE_NAS_T80
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_auth_req and authreq_mac_failure and not(ue_auth_fail_count_check)
+	) then
+		UE_NAS_T81
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_auth_req and not(authreq_mac_failure) and ue_auth_seq_check and ue_auth_fail_count_check
+	) then
+		UE_NAS_T82
+	else if (
+		UE_NAS_prev_state = ue_dereg_inited and 
+		AMF_NAS_message=AMF_NAS_auth_req and authreq_mac_failure and not(ue_auth_seq_check) and not(ue_auth_fail_count_check)
+	) then
+		UE_NAS_T83
+	else if (
+		UE_NAS_prev_state = ue_idle and 
+		service_notification and ue_complete_sec_ctx_exist
+	) then
+		UE_NAS_T84
+	else if (
+		UE_NAS_prev_state = ue_idle and 
+		service_notification and not(ue_complete_sec_ctx_exist)
+	) then
+		UE_NAS_T85
+	else if (
+		UE_NAS_prev_state = ue_idle and 
+		power_off
+	) then
+		UE_NAS_T86
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		power_off
+	) then
+		UE_NAS_T87
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		AMF_NAS_message=AMF_NAS_reg_reject_limited
+	) then
+		UE_NAS_T88
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		( AMF_NAS_message=AMF_NAS_auth_reject or AMF_NAS_message=AMF_NAS_reg_reject or AMF_NAS_message=AMF_NAS_nwk_dereg_req or AMF_NAS_message=AMF_NAS_service_reject)
+	) then
+		UE_NAS_T89
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		AMF_NAS_message=AMF_NAS_ue_ctx_release
+	) then
+		UE_NAS_T90
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		( AMF_NAS_message=AMF_NAS_auth_reject or AMF_NAS_message=AMF_NAS_reg_reject or AMF_NAS_message=AMF_NAS_nwk_dereg_req or AMF_NAS_message=AMF_NAS_service_reject)
+	) then
+		UE_NAS_T91
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		uederegrequested and dereg_cause_switch_off
+	) then
+		UE_NAS_T92
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		uederegrequested and not(dereg_cause_switch_off)
+	) then
+		UE_NAS_T93
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		( enable_N1 or AMF_NAS_message=AMF_NAS_reg_reject_rereg) and reg_count_check
+	) then
+		UE_NAS_T94
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		enable_N1 and not(reg_count_check)
+	) then
+		UE_NAS_T95
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		ta_changed
+	) then
+		UE_NAS_T96
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and not(idreq_mac_failure) and id_type=imeisv
+	) then
+		UE_NAS_T97
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and not(idreq_mac_failure) and id_type=imsi
+	) then
+		UE_NAS_T98
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and not(idreq_mac_failure) and id_type=guti and config_update_complete_flag
+	) then
+		UE_NAS_T99
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and not(idreq_mac_failure) and id_type=guti and not(config_update_complete_flag)
+	) then
+		UE_NAS_T100
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		AMF_NAS_message=AMF_NAS_id_req and not(idreq_mac_failure) and id_type=imei
+	) then
+		UE_NAS_T101
+	else if (
+		UE_NAS_prev_state = ue_service_inited and 
+		ue_service_started and not(ue_service_completed) and AMF_NAS_message=AMF_NAS_service_accept and not(serviceaccept_mac_failure)
+	) then
+		UE_NAS_T102
+	else
+		UE_NAS_null_transition;
+tel
+
+---- Transition Node ----
+node AMF_NAS (
+	AMF_NAS_prev_state : AMF_NAS_states;
+	UE_NAS_message : UE_NAS_messages;
+	amfderegrequested : bool;
+	reg_failure : bool;
+	idrequired : bool;
+	regreq_mac_failure : bool;
+	deregreq_mac_failure : bool;
+	tmsi_imsi_mapping_correct : bool;
+	idres_mac_failure : bool;
+	xres_matched_sres : bool;
+	regcomplete_mac_failure : bool;
+	amf_config_update_required : bool;
+	sec_ctx_update_required : bool;
+	config_update_required : bool;
+	config_response_required : bool;
+	ue_inactivity_detected : bool;
+	paging_required : bool;
+	servicereq_mac_failure : bool;
+	servicereject_required : bool;
+	paging_timer_expired : bool;
+	regrejectrereg_required : bool;
+	regrejectlimited_required : bool;
+	imeirequested : bool;
+	tmsirequested : bool;
+	imeisvrequested : bool;
+	amf_partial_sec_ctx_exist : bool;
+	amf_complete_sec_ctx_exist : bool;
+	amf_reg_completed : bool;
+	amf_config_updated : bool;
+	amf_sec_ctx_updated : bool;
+	amf_service_completed : bool;
+	amf_service_started : bool;
+	paging_requested : bool;
+	amf_wait_for : amf_wait_for_enum;
+	chan_AMF_rrc_nas : chan_AMF_rrc_nas_enum;
+	chan_AMF_nas_rrc : chan_AMF_nas_rrc_enum;
+	amf_emergency_service_only : bool;
+	amf_auth_fail_count_check : bool;
+)
+returns (
+	AMF_NAS_transition : AMF_NAS_transitions;
+)
+let
+	AMF_NAS_transition = 
+	if (
+		AMF_NAS_prev_state = amf_deregistered and 
+		amfderegrequested
+	) then
+		AMF_NAS_T1
+	else if (
+		AMF_NAS_prev_state = amf_deregistered and 
+		UE_NAS_message=UE_NAS_reg_req and amf_emergency_service_only=true
+	) then
+		AMF_NAS_T2
+	else if (
+		AMF_NAS_prev_state = amf_deregistered and 
+		UE_NAS_message=UE_NAS_reg_req and regrejectrereg_required
+	) then
+		AMF_NAS_T3
+	else if (
+		AMF_NAS_prev_state = amf_deregistered and 
+		UE_NAS_message=UE_NAS_reg_req and regrejectlimited_required
+	) then
+		AMF_NAS_T4
+	else if (
+		AMF_NAS_prev_state = amf_deregistered and 
+		UE_NAS_message=UE_NAS_reg_req and reg_failure
+	) then
+		AMF_NAS_T5
+	else if (
+		AMF_NAS_prev_state = amf_deregistered and 
+		UE_NAS_message=UE_NAS_reg_req and not(reg_failure) and not(idrequired)
+	) then
+		AMF_NAS_T6
+	else if (
+		AMF_NAS_prev_state = amf_deregistered and 
+		UE_NAS_message=UE_NAS_reg_req and not(reg_failure) and idrequired
+	) then
+		AMF_NAS_T7
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		amfderegrequested
+	) then
+		AMF_NAS_T8
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_dereg_req_switch_off
+	) then
+		AMF_NAS_T9
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_dereg_req_not_switch_off and amf_complete_sec_ctx_exist and not(deregreq_mac_failure)
+	) then
+		AMF_NAS_T10
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_reg_req and reg_failure
+	) then
+		AMF_NAS_T11
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_reg_req and regrejectrereg_required
+	) then
+		AMF_NAS_T12
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_reg_req and regrejectlimited_required
+	) then
+		AMF_NAS_T13
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_reg_req and not(reg_failure) and idrequired
+	) then
+		AMF_NAS_T14
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_reg_req and not(reg_failure) and not(idrequired) and amf_complete_sec_ctx_exist and amf_reg_completed and not(regreq_mac_failure)
+	) then
+		AMF_NAS_T15
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_reg_req and not(reg_failure) and not(idrequired) and not(amf_complete_sec_ctx_exist) and not(amf_reg_completed) and regreq_mac_failure
+	) then
+		AMF_NAS_T16
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_reg_req and not(amf_auth_fail_count_check)
+	) then
+		AMF_NAS_T17
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_auth_failure_mac and amf_wait_for=authresponse and tmsi_imsi_mapping_correct
+	) then
+		AMF_NAS_T18
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_auth_failure_mac and amf_wait_for=authresponse and not(tmsi_imsi_mapping_correct)
+	) then
+		AMF_NAS_T19
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_id_res and amf_wait_for=idresponse and amf_complete_sec_ctx_exist=true and not(idres_mac_failure)
+	) then
+		AMF_NAS_T20
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_auth_failure_seq and amf_wait_for=authresponse and amf_auth_fail_count_check
+	) then
+		AMF_NAS_T21
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_auth_failure_seq and amf_wait_for=authresponse and not(amf_auth_fail_count_check)
+	) then
+		AMF_NAS_T22
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_auth_response and amf_wait_for=authresponse and xres_matched_sres
+	) then
+		AMF_NAS_T23
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_auth_response and amf_wait_for=authresponse and not(xres_matched_sres)
+	) then
+		AMF_NAS_T24
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_sm_reject and amf_wait_for=smresponse and amf_complete_sec_ctx_exist
+	) then
+		AMF_NAS_T25
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_sm_reject and amf_wait_for=smresponse and not(amf_complete_sec_ctx_exist)
+	) then
+		AMF_NAS_T26
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_sm_complete and amf_wait_for=smresponse
+	) then
+		AMF_NAS_T27
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_reg_complete and amf_wait_for=regacceptresponse and not(regcomplete_mac_failure)
+	) then
+		AMF_NAS_T28
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_reg_complete and amf_wait_for=regacceptresponse and regcomplete_mac_failure
+	) then
+		AMF_NAS_T29
+	else if (
+		AMF_NAS_prev_state = amf_com_proc_inited and 
+		UE_NAS_message=UE_NAS_reg_complete and amf_wait_for=regacceptresponse and amf_emergency_service_only=true
+	) then
+		AMF_NAS_T30
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		amfderegrequested
+	) then
+		AMF_NAS_T31
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_dereg_req_switch_off
+	) then
+		AMF_NAS_T32
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_dereg_req_not_switch_off and amf_complete_sec_ctx_exist and not(deregreq_mac_failure)
+	) then
+		AMF_NAS_T33
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		imeirequested
+	) then
+		AMF_NAS_T34
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		tmsirequested
+	) then
+		AMF_NAS_T35
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_reg_req and reg_failure
+	) then
+		AMF_NAS_T36
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_reg_req and regrejectrereg_required
+	) then
+		AMF_NAS_T37
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_reg_req and regrejectlimited_required
+	) then
+		AMF_NAS_T38
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_reg_req and not(reg_failure) and idrequired
+	) then
+		AMF_NAS_T39
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_reg_req and not(reg_failure) and not(idrequired) and amf_complete_sec_ctx_exist and amf_reg_completed and not(regreq_mac_failure)
+	) then
+		AMF_NAS_T40
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_reg_req and not(reg_failure) and not(idrequired) and not(amf_complete_sec_ctx_exist) and not(amf_reg_completed) and regreq_mac_failure
+	) then
+		AMF_NAS_T41
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_reg_req and not(amf_auth_fail_count_check)
+	) then
+		AMF_NAS_T42
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_auth_failure_mac and amf_wait_for=authresponse and tmsi_imsi_mapping_correct
+	) then
+		AMF_NAS_T43
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_auth_failure_mac and amf_wait_for=authresponse and not(tmsi_imsi_mapping_correct)
+	) then
+		AMF_NAS_T44
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_id_res and amf_wait_for=idresponse and amf_complete_sec_ctx_exist=true and not(idres_mac_failure)
+	) then
+		AMF_NAS_T45
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_auth_failure_seq and amf_wait_for=authresponse and amf_auth_fail_count_check
+	) then
+		AMF_NAS_T46
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_auth_failure_seq and amf_wait_for=authresponse and not(amf_auth_fail_count_check)
+	) then
+		AMF_NAS_T47
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_auth_response and amf_wait_for=authresponse and xres_matched_sres
+	) then
+		AMF_NAS_T48
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_auth_response and amf_wait_for=authresponse and not(xres_matched_sres)
+	) then
+		AMF_NAS_T49
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		sec_ctx_update_required
+	) then
+		AMF_NAS_T50
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_sm_reject and amf_wait_for=smresponse and amf_complete_sec_ctx_exist
+	) then
+		AMF_NAS_T51
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_sm_reject and amf_wait_for=smresponse and not(amf_complete_sec_ctx_exist)
+	) then
+		AMF_NAS_T52
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_sm_complete and amf_wait_for=smresponse
+	) then
+		AMF_NAS_T53
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		config_update_required and config_response_required
+	) then
+		AMF_NAS_T54
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		config_update_required and not(config_response_required) and not(amf_config_updated)
+	) then
+		AMF_NAS_T55
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		amf_wait_for=configupdateresponse and UE_NAS_message=UE_NAS_config_update_complete
+	) then
+		AMF_NAS_T56
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		ue_inactivity_detected
+	) then
+		AMF_NAS_T57
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_service_req and not(servicereject_required)
+	) then
+		AMF_NAS_T58
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_service_req and not(servicereq_mac_failure) and not(idrequired)
+	) then
+		AMF_NAS_T59
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		UE_NAS_message=UE_NAS_service_req and servicereq_mac_failure
+	) then
+		AMF_NAS_T60
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		amf_reg_completed and amf_service_started and not(amf_service_completed)
+	) then
+		AMF_NAS_T61
+	else if (
+		AMF_NAS_prev_state = amf_idle and 
+		paging_required
+	) then
+		AMF_NAS_T62
+	else if (
+		AMF_NAS_prev_state = amf_idle and 
+		amf_wait_for=servicerequest and paging_timer_expired
+	) then
+		AMF_NAS_T63
+	else if (
+		AMF_NAS_prev_state = amf_idle and 
+		amf_wait_for=servicerequest and UE_NAS_message=UE_NAS_service_req and not(servicereq_mac_failure) and idrequired
+	) then
+		AMF_NAS_T64
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		amf_wait_for=servicerequest and UE_NAS_message=UE_NAS_service_req and not(servicereq_mac_failure) and not(idrequired)
+	) then
+		AMF_NAS_T65
+	else if (
+		AMF_NAS_prev_state = amf_registered and 
+		amf_wait_for=servicerequest and UE_NAS_message=UE_NAS_service_req and not(servicereq_mac_failure) and amf_service_started and not(amf_service_completed)
+	) then
+		AMF_NAS_T66
+	else
+		AMF_NAS_null_transition;
+tel
+
+---- Controller Node ----
+node UE_NAS_controller (
+	AMF_NAS_message : AMF_NAS_messages;
+	amf_ue_shared_seq : int;
+	power_on : bool;
+	power_off : bool;
+	enable_N1 : bool;
+	uederegrequested : bool;
+	dereg_cause_switch_off : bool;
+	ta_changed : bool;
+	authreq_mac_failure : bool;
+	sec_cap_match : bool;
+	regaccept_mac_failure : bool;
+	reg_accept_timer_expired : bool;
+	idreq_mac_failure : bool;
+	smcmd_mac_failure : bool;
+	configupdate_mac_failure : bool;
+	serviceaccept_mac_failure : bool;
+	service_notification : bool;
+	deregaccept_mac_failure : bool;
+	imeisv_responded : bool;
+	transmission_failure : bool;
+	id_type : id_type_enum;
+)
+returns (
+	UE_NAS_state : UE_NAS_states;
+	UE_NAS_message : UE_NAS_messages;
+	ue_nas_ul_count : int;
+	ue_nas_dl_count : int;
+	ue_auth_fail_count : int;
+	ue_reg_count : int;
+	ue_seq : int;
+	ue_partial_sec_ctx_exist : bool;
+	ue_complete_sec_ctx_exist : bool;
+	ueregcompleted : bool;
+	downgrade : bool;
+	ue_sec_ctx_updated : bool;
+	ue_service_completed : bool;
+	ue_service_started : bool;
+	ue_tau_started : bool;
+	ue_tau_completed : bool;
+	chan_UE_rrc_nas : chan_UE_rrc_nas_enum;
+	chan_UE_nas_rrc : chan_UE_nas_rrc_enum;
+	ue_emergency_service_only : bool;
+	idrestype : idrestype_enum;
+	config_update_complete_flag : bool;
+	ue_auth_seq_check : bool;
+	reg_count_check : bool;
+	ue_auth_fail_count_check : bool;
+	UE_NAS_transition : UE_NAS_transitions;
+)
+
+---- Controller Contract Node ----
+(*@contract import
+UE_NAS_controller_contract (
+	AMF_NAS_message,
+	amf_ue_shared_seq,
+	power_on,
+	power_off,
+	enable_N1,
+	uederegrequested,
+	dereg_cause_switch_off,
+	ta_changed,
+	authreq_mac_failure,
+	sec_cap_match,
+	regaccept_mac_failure,
+	reg_accept_timer_expired,
+	idreq_mac_failure,
+	smcmd_mac_failure,
+	configupdate_mac_failure,
+	serviceaccept_mac_failure,
+	service_notification,
+	deregaccept_mac_failure,
+	imeisv_responded,
+	transmission_failure,
+	id_type
+)
+returns (
+	UE_NAS_state,
+	UE_NAS_message,
+	ue_nas_ul_count,
+	ue_nas_dl_count,
+	ue_auth_fail_count,
+	ue_reg_count,
+	ue_seq,
+	ue_partial_sec_ctx_exist,
+	ue_complete_sec_ctx_exist,
+	ueregcompleted,
+	downgrade,
+	ue_sec_ctx_updated,
+	ue_service_completed,
+	ue_service_started,
+	ue_tau_started,
+	ue_tau_completed,
+	chan_UE_rrc_nas,
+	chan_UE_nas_rrc,
+	ue_emergency_service_only,
+	idrestype,
+	config_update_complete_flag,
+	ue_auth_seq_check,
+	reg_count_check,
+	ue_auth_fail_count_check,
+	UE_NAS_transition
+);
+*)
+	var range : int;
+let
+	UE_NAS_transition = UE_NAS(
+		ue_null -> pre UE_NAS_state,
+		AMF_NAS_message,
+		power_on,
+		power_off,
+		enable_N1,
+		uederegrequested,
+		dereg_cause_switch_off,
+		ta_changed,
+		authreq_mac_failure,
+		sec_cap_match,
+		regaccept_mac_failure,
+		reg_accept_timer_expired,
+		idreq_mac_failure,
+		smcmd_mac_failure,
+		configupdate_mac_failure,
+		serviceaccept_mac_failure,
+		service_notification,
+		deregaccept_mac_failure,
+		imeisv_responded,
+		transmission_failure,
+		id_type,
+		false -> pre ue_partial_sec_ctx_exist,
+		false -> pre ue_complete_sec_ctx_exist,
+		false -> pre ueregcompleted,
+		false -> pre downgrade,
+		false -> pre ue_sec_ctx_updated,
+		true -> pre ue_service_completed,
+		false -> pre ue_service_started,
+		false -> pre ue_tau_started,
+		false -> pre ue_tau_completed,
+		UE_rrc_nas_null -> pre chan_UE_rrc_nas,
+		UE_nas_rrc_null -> pre chan_UE_nas_rrc,
+		false -> pre ue_emergency_service_only,
+		res_id_null -> pre idrestype,
+		false -> pre config_update_complete_flag,
+		true -> pre ue_auth_seq_check,
+		true -> pre reg_count_check,
+		true -> pre ue_auth_fail_count_check,
+		0 -> pre ue_nas_dl_count	);
+	UE_NAS_state = 
+		if (
+			UE_NAS_transition = UE_NAS_T15 or UE_NAS_transition = UE_NAS_T16 or UE_NAS_transition = UE_NAS_T17 or UE_NAS_transition = UE_NAS_T18 or UE_NAS_transition = UE_NAS_T19 or UE_NAS_transition = UE_NAS_T38 or UE_NAS_transition = UE_NAS_T39 or UE_NAS_transition = UE_NAS_T41 or UE_NAS_transition = UE_NAS_T53 or UE_NAS_transition = UE_NAS_T54 or UE_NAS_transition = UE_NAS_T55 or UE_NAS_transition = UE_NAS_T56 or UE_NAS_transition = UE_NAS_T57 or UE_NAS_transition = UE_NAS_T58 or UE_NAS_transition = UE_NAS_T62 or UE_NAS_transition = UE_NAS_T102
+			)
+			then ue_registered
+		else if (
+			UE_NAS_transition = UE_NAS_T12 or UE_NAS_transition = UE_NAS_T47 or UE_NAS_transition = UE_NAS_T68 or UE_NAS_transition = UE_NAS_T88
+			)
+			then ue_dereg_limited
+		else if (
+			UE_NAS_transition = UE_NAS_T9 or UE_NAS_transition = UE_NAS_T51 or UE_NAS_transition = UE_NAS_T52 or UE_NAS_transition = UE_NAS_T67 or UE_NAS_transition = UE_NAS_T72 or UE_NAS_transition = UE_NAS_T74 or UE_NAS_transition = UE_NAS_T75 or UE_NAS_transition = UE_NAS_T76 or UE_NAS_transition = UE_NAS_T77 or UE_NAS_transition = UE_NAS_T78 or UE_NAS_transition = UE_NAS_T93
+			)
+			then ue_dereg_inited
+		else if (
+			UE_NAS_transition = UE_NAS_T10 or UE_NAS_transition = UE_NAS_T46 or UE_NAS_transition = UE_NAS_T60 or UE_NAS_transition = UE_NAS_T65 or UE_NAS_transition = UE_NAS_T90
+			)
+			then ue_idle
+		else if (
+			UE_NAS_transition = UE_NAS_T2 or UE_NAS_transition = UE_NAS_T5 or UE_NAS_transition = UE_NAS_T13 or UE_NAS_transition = UE_NAS_T29 or UE_NAS_transition = UE_NAS_T31 or UE_NAS_transition = UE_NAS_T44 or UE_NAS_transition = UE_NAS_T49 or UE_NAS_transition = UE_NAS_T63 or UE_NAS_transition = UE_NAS_T70 or UE_NAS_transition = UE_NAS_T81 or UE_NAS_transition = UE_NAS_T83 or UE_NAS_transition = UE_NAS_T86 or UE_NAS_transition = UE_NAS_T87 or UE_NAS_transition = UE_NAS_T95
+			)
+			then ue_null
+		else if (
+			UE_NAS_transition = UE_NAS_T1 or UE_NAS_transition = UE_NAS_T4 or UE_NAS_transition = UE_NAS_T6 or UE_NAS_transition = UE_NAS_T7 or UE_NAS_transition = UE_NAS_T8 or UE_NAS_transition = UE_NAS_T45 or UE_NAS_transition = UE_NAS_T50 or UE_NAS_transition = UE_NAS_T64 or UE_NAS_transition = UE_NAS_T66 or UE_NAS_transition = UE_NAS_T71 or UE_NAS_transition = UE_NAS_T89 or UE_NAS_transition = UE_NAS_T91 or UE_NAS_transition = UE_NAS_T92
+			)
+			then ue_deregistered
+		else if (
+			UE_NAS_transition = UE_NAS_T3 or UE_NAS_transition = UE_NAS_T11 or UE_NAS_transition = UE_NAS_T14 or UE_NAS_transition = UE_NAS_T20 or UE_NAS_transition = UE_NAS_T21 or UE_NAS_transition = UE_NAS_T22 or UE_NAS_transition = UE_NAS_T23 or UE_NAS_transition = UE_NAS_T24 or UE_NAS_transition = UE_NAS_T25 or UE_NAS_transition = UE_NAS_T26 or UE_NAS_transition = UE_NAS_T27 or UE_NAS_transition = UE_NAS_T28 or UE_NAS_transition = UE_NAS_T30 or UE_NAS_transition = UE_NAS_T32 or UE_NAS_transition = UE_NAS_T33 or UE_NAS_transition = UE_NAS_T34 or UE_NAS_transition = UE_NAS_T35 or UE_NAS_transition = UE_NAS_T36 or UE_NAS_transition = UE_NAS_T37 or UE_NAS_transition = UE_NAS_T40 or UE_NAS_transition = UE_NAS_T42 or UE_NAS_transition = UE_NAS_T43 or UE_NAS_transition = UE_NAS_T48 or UE_NAS_transition = UE_NAS_T59 or UE_NAS_transition = UE_NAS_T69 or UE_NAS_transition = UE_NAS_T73 or UE_NAS_transition = UE_NAS_T79 or UE_NAS_transition = UE_NAS_T80 or UE_NAS_transition = UE_NAS_T82 or UE_NAS_transition = UE_NAS_T85 or UE_NAS_transition = UE_NAS_T94 or UE_NAS_transition = UE_NAS_T96 or UE_NAS_transition = UE_NAS_T97 or UE_NAS_transition = UE_NAS_T98 or UE_NAS_transition = UE_NAS_T99 or UE_NAS_transition = UE_NAS_T100 or UE_NAS_transition = UE_NAS_T101
+			)
+			then ue_reg_inited
+		else
+			ue_service_inited;
+	UE_NAS_message = 
+		if (
+			UE_NAS_transition = UE_NAS_T3 or UE_NAS_transition = UE_NAS_T11 or UE_NAS_transition = UE_NAS_T14 or UE_NAS_transition = UE_NAS_T20 or UE_NAS_transition = UE_NAS_T43 or UE_NAS_transition = UE_NAS_T48 or UE_NAS_transition = UE_NAS_T59 or UE_NAS_transition = UE_NAS_T69 or UE_NAS_transition = UE_NAS_T73 or UE_NAS_transition = UE_NAS_T85 or UE_NAS_transition = UE_NAS_T94 or UE_NAS_transition = UE_NAS_T96
+			)
+			then UE_NAS_reg_req
+		else if (
+			UE_NAS_transition = UE_NAS_T2 or UE_NAS_transition = UE_NAS_T5 or UE_NAS_transition = UE_NAS_T44 or UE_NAS_transition = UE_NAS_T50 or UE_NAS_transition = UE_NAS_T63 or UE_NAS_transition = UE_NAS_T66 or UE_NAS_transition = UE_NAS_T86 or UE_NAS_transition = UE_NAS_T87 or UE_NAS_transition = UE_NAS_T92
+			)
+			then UE_NAS_dereg_req_switch_off
+		else if (
+			UE_NAS_transition = UE_NAS_T9 or UE_NAS_transition = UE_NAS_T51 or UE_NAS_transition = UE_NAS_T52 or UE_NAS_transition = UE_NAS_T67 or UE_NAS_transition = UE_NAS_T93
+			)
+			then UE_NAS_dereg_req_not_switch_off
+		else if (
+			UE_NAS_transition = UE_NAS_T38 or UE_NAS_transition = UE_NAS_T39 or UE_NAS_transition = UE_NAS_T41
+			)
+			then UE_NAS_reg_complete
+		else if (
+			UE_NAS_transition = UE_NAS_T32 or UE_NAS_transition = UE_NAS_T53
+			)
+			then UE_NAS_sm_complete
+		else if (
+			UE_NAS_transition = UE_NAS_T57
+			)
+			then UE_NAS_config_update_complete
+		else if (
+			UE_NAS_transition = UE_NAS_T28 or UE_NAS_transition = UE_NAS_T29 or UE_NAS_transition = UE_NAS_T31 or UE_NAS_transition = UE_NAS_T80 or UE_NAS_transition = UE_NAS_T81
+			)
+			then UE_NAS_auth_failure_mac
+		else if (
+			UE_NAS_transition = UE_NAS_T7
+			)
+			then UE_NAS_ue_dereg_accept
+		else if (
+			UE_NAS_transition = UE_NAS_T30 or UE_NAS_transition = UE_NAS_T82 or UE_NAS_transition = UE_NAS_T83
+			)
+			then UE_NAS_auth_failure_seq
+		else if (
+			UE_NAS_transition = UE_NAS_T61 or UE_NAS_transition = UE_NAS_T84
+			)
+			then UE_NAS_service_req
+		else if (
+			UE_NAS_transition = UE_NAS_T40
+			)
+			then UE_NAS_imei_res
+		else if (
+			UE_NAS_transition = UE_NAS_T27 or UE_NAS_transition = UE_NAS_T79
+			)
+			then UE_NAS_auth_response
+		else if (
+			UE_NAS_transition = UE_NAS_T15 or UE_NAS_transition = UE_NAS_T16 or UE_NAS_transition = UE_NAS_T17 or UE_NAS_transition = UE_NAS_T18 or UE_NAS_transition = UE_NAS_T19 or UE_NAS_transition = UE_NAS_T21 or UE_NAS_transition = UE_NAS_T22 or UE_NAS_transition = UE_NAS_T23 or UE_NAS_transition = UE_NAS_T24 or UE_NAS_transition = UE_NAS_T25 or UE_NAS_transition = UE_NAS_T74 or UE_NAS_transition = UE_NAS_T75 or UE_NAS_transition = UE_NAS_T76 or UE_NAS_transition = UE_NAS_T77 or UE_NAS_transition = UE_NAS_T78 or UE_NAS_transition = UE_NAS_T97 or UE_NAS_transition = UE_NAS_T98 or UE_NAS_transition = UE_NAS_T99 or UE_NAS_transition = UE_NAS_T100 or UE_NAS_transition = UE_NAS_T101
+			)
+			then UE_NAS_id_res
+		else if (
+			UE_NAS_transition = UE_NAS_T34 or UE_NAS_transition = UE_NAS_T35 or UE_NAS_transition = UE_NAS_T36 or UE_NAS_transition = UE_NAS_T37 or UE_NAS_transition = UE_NAS_T55 or UE_NAS_transition = UE_NAS_T56
+			)
+			then UE_NAS_sm_reject
+		else UE_NAS_null_action;
+
+	idrestype = 
+		if (
+			UE_NAS_transition = UE_NAS_T17 or UE_NAS_transition = UE_NAS_T25 or UE_NAS_transition = UE_NAS_T78 or UE_NAS_transition = UE_NAS_T97
+			)
+			then res_imeisv
+		else if (
+			UE_NAS_transition = UE_NAS_T19 or UE_NAS_transition = UE_NAS_T23 or UE_NAS_transition = UE_NAS_T76 or UE_NAS_transition = UE_NAS_T100
+			)
+			then res_id_null
+		else if (
+			UE_NAS_transition = UE_NAS_T18 or UE_NAS_transition = UE_NAS_T22 or UE_NAS_transition = UE_NAS_T75 or UE_NAS_transition = UE_NAS_T99
+			)
+			then res_guti
+		else if (
+			UE_NAS_transition = UE_NAS_T16 or UE_NAS_transition = UE_NAS_T24 or UE_NAS_transition = UE_NAS_T77 or UE_NAS_transition = UE_NAS_T101
+			)
+			then res_imei
+		else if (
+			UE_NAS_transition = UE_NAS_T15 or UE_NAS_transition = UE_NAS_T21 or UE_NAS_transition = UE_NAS_T74 or UE_NAS_transition = UE_NAS_T98
+			)
+			then res_imsi
+		else res_id_null -> pre idrestype;
+
+
+	ue_nas_ul_count = 
+		if (
+			UE_NAS_transition = UE_NAS_T3 or UE_NAS_transition = UE_NAS_T20
+			)
+			then 0
+		else if (
+			UE_NAS_transition = UE_NAS_T32 or UE_NAS_transition = UE_NAS_T36 or UE_NAS_transition = UE_NAS_T37 or UE_NAS_transition = UE_NAS_T38 or UE_NAS_transition = UE_NAS_T40 or UE_NAS_transition = UE_NAS_T41 or UE_NAS_transition = UE_NAS_T55 or UE_NAS_transition = UE_NAS_T56 or UE_NAS_transition = UE_NAS_T61 or UE_NAS_transition = UE_NAS_T84
+			)
+			then (0 -> pre ue_nas_ul_count) + 1
+		else 0 -> pre ue_nas_ul_count;
+
+	ue_nas_dl_count = 
+		if (
+			UE_NAS_transition = UE_NAS_T3 or UE_NAS_transition = UE_NAS_T20 or UE_NAS_transition = UE_NAS_T32 or UE_NAS_transition = UE_NAS_T53
+			)
+			then 0
+		else if (
+			UE_NAS_transition = UE_NAS_T38
+			)
+			then (0 -> pre ue_nas_dl_count) + 1
+		else 0 -> pre ue_nas_dl_count;
+
+	ue_auth_fail_count = 
+		if (
+			UE_NAS_transition = UE_NAS_T27 or UE_NAS_transition = UE_NAS_T79
+			)
+			then 0
+		else if (
+			UE_NAS_transition = UE_NAS_T28 or UE_NAS_transition = UE_NAS_T29 or UE_NAS_transition = UE_NAS_T30 or UE_NAS_transition = UE_NAS_T31 or UE_NAS_transition = UE_NAS_T80 or UE_NAS_transition = UE_NAS_T81 or UE_NAS_transition = UE_NAS_T82 or UE_NAS_transition = UE_NAS_T83
+			)
+			then (0 -> pre ue_auth_fail_count) + 1
+		else 0 -> pre ue_auth_fail_count;
+
+	ue_reg_count = 
+		if (
+			UE_NAS_transition = UE_NAS_T4 or UE_NAS_transition = UE_NAS_T6 or UE_NAS_transition = UE_NAS_T7 or UE_NAS_transition = UE_NAS_T38 or UE_NAS_transition = UE_NAS_T39 or UE_NAS_transition = UE_NAS_T41 or UE_NAS_transition = UE_NAS_T45 or UE_NAS_transition = UE_NAS_T64 or UE_NAS_transition = UE_NAS_T89 or UE_NAS_transition = UE_NAS_T91
+			)
+			then 0
+		else if (
+			UE_NAS_transition = UE_NAS_T3 or UE_NAS_transition = UE_NAS_T11 or UE_NAS_transition = UE_NAS_T14 or UE_NAS_transition = UE_NAS_T20 or UE_NAS_transition = UE_NAS_T43 or UE_NAS_transition = UE_NAS_T48 or UE_NAS_transition = UE_NAS_T59 or UE_NAS_transition = UE_NAS_T69 or UE_NAS_transition = UE_NAS_T73 or UE_NAS_transition = UE_NAS_T94
+			)
+			then (0 -> pre ue_reg_count) + 1
+		else 0 -> pre ue_reg_count;
+
+	ue_seq = 
+		if (
+			false
+			)
+			then 0
+		else if (
+			UE_NAS_transition = UE_NAS_T27 or UE_NAS_transition = UE_NAS_T79
+			)
+			then (0 -> pre ue_seq) + 1
+		else 0 -> pre ue_seq;
+
+	ue_partial_sec_ctx_exist = 
+		if (
+			UE_NAS_transition = UE_NAS_T27 or UE_NAS_transition = UE_NAS_T79
+			)
+			then true
+		else if (
+			UE_NAS_transition = UE_NAS_T1 or UE_NAS_transition = UE_NAS_T4 or UE_NAS_transition = UE_NAS_T6 or UE_NAS_transition = UE_NAS_T7 or UE_NAS_transition = UE_NAS_T28 or UE_NAS_transition = UE_NAS_T29 or UE_NAS_transition = UE_NAS_T30 or UE_NAS_transition = UE_NAS_T31 or UE_NAS_transition = UE_NAS_T45 or UE_NAS_transition = UE_NAS_T63 or UE_NAS_transition = UE_NAS_T64 or UE_NAS_transition = UE_NAS_T80 or UE_NAS_transition = UE_NAS_T81 or UE_NAS_transition = UE_NAS_T82 or UE_NAS_transition = UE_NAS_T83 or UE_NAS_transition = UE_NAS_T86 or UE_NAS_transition = UE_NAS_T87 or UE_NAS_transition = UE_NAS_T89 or UE_NAS_transition = UE_NAS_T91
+			)
+			then false
+		else false -> pre ue_partial_sec_ctx_exist;
+
+	ue_complete_sec_ctx_exist = 
+		if (
+			UE_NAS_transition = UE_NAS_T32 or UE_NAS_transition = UE_NAS_T53 or UE_NAS_transition = UE_NAS_T55 or UE_NAS_transition = UE_NAS_T56 or UE_NAS_transition = UE_NAS_T63
+			)
+			then true
+		else if (
+			UE_NAS_transition = UE_NAS_T1 or UE_NAS_transition = UE_NAS_T4 or UE_NAS_transition = UE_NAS_T6 or UE_NAS_transition = UE_NAS_T7 or UE_NAS_transition = UE_NAS_T28 or UE_NAS_transition = UE_NAS_T29 or UE_NAS_transition = UE_NAS_T30 or UE_NAS_transition = UE_NAS_T31 or UE_NAS_transition = UE_NAS_T45 or UE_NAS_transition = UE_NAS_T64 or UE_NAS_transition = UE_NAS_T80 or UE_NAS_transition = UE_NAS_T81 or UE_NAS_transition = UE_NAS_T82 or UE_NAS_transition = UE_NAS_T83 or UE_NAS_transition = UE_NAS_T86 or UE_NAS_transition = UE_NAS_T87 or UE_NAS_transition = UE_NAS_T89 or UE_NAS_transition = UE_NAS_T91
+			)
+			then false
+		else false -> pre ue_complete_sec_ctx_exist;
+
+	ueregcompleted = 
+		if (
+			UE_NAS_transition = UE_NAS_T38 or UE_NAS_transition = UE_NAS_T39 or UE_NAS_transition = UE_NAS_T41
+			)
+			then true
+		else if (
+			UE_NAS_transition = UE_NAS_T1 or UE_NAS_transition = UE_NAS_T3 or UE_NAS_transition = UE_NAS_T4 or UE_NAS_transition = UE_NAS_T6 or UE_NAS_transition = UE_NAS_T7 or UE_NAS_transition = UE_NAS_T11 or UE_NAS_transition = UE_NAS_T12 or UE_NAS_transition = UE_NAS_T14 or UE_NAS_transition = UE_NAS_T20 or UE_NAS_transition = UE_NAS_T42 or UE_NAS_transition = UE_NAS_T45 or UE_NAS_transition = UE_NAS_T47 or UE_NAS_transition = UE_NAS_T48 or UE_NAS_transition = UE_NAS_T50 or UE_NAS_transition = UE_NAS_T59 or UE_NAS_transition = UE_NAS_T64 or UE_NAS_transition = UE_NAS_T66 or UE_NAS_transition = UE_NAS_T68 or UE_NAS_transition = UE_NAS_T69 or UE_NAS_transition = UE_NAS_T71 or UE_NAS_transition = UE_NAS_T73 or UE_NAS_transition = UE_NAS_T85 or UE_NAS_transition = UE_NAS_T86 or UE_NAS_transition = UE_NAS_T87 or UE_NAS_transition = UE_NAS_T88 or UE_NAS_transition = UE_NAS_T89 or UE_NAS_transition = UE_NAS_T91 or UE_NAS_transition = UE_NAS_T92 or UE_NAS_transition = UE_NAS_T94 or UE_NAS_transition = UE_NAS_T96
+			)
+			then false
+		else false -> pre ueregcompleted;
+
+	downgrade = 
+		if (
+			UE_NAS_transition = UE_NAS_T13 or UE_NAS_transition = UE_NAS_T29 or UE_NAS_transition = UE_NAS_T31 or UE_NAS_transition = UE_NAS_T49 or UE_NAS_transition = UE_NAS_T70 or UE_NAS_transition = UE_NAS_T81 or UE_NAS_transition = UE_NAS_T83 or UE_NAS_transition = UE_NAS_T95
+			)
+			then true
+		else if (
+			UE_NAS_transition = UE_NAS_T3 or UE_NAS_transition = UE_NAS_T5 or UE_NAS_transition = UE_NAS_T11 or UE_NAS_transition = UE_NAS_T12 or UE_NAS_transition = UE_NAS_T14 or UE_NAS_transition = UE_NAS_T20 or UE_NAS_transition = UE_NAS_T43 or UE_NAS_transition = UE_NAS_T47 or UE_NAS_transition = UE_NAS_T48 or UE_NAS_transition = UE_NAS_T59 or UE_NAS_transition = UE_NAS_T68 or UE_NAS_transition = UE_NAS_T69 or UE_NAS_transition = UE_NAS_T73 or UE_NAS_transition = UE_NAS_T85 or UE_NAS_transition = UE_NAS_T88 or UE_NAS_transition = UE_NAS_T94 or UE_NAS_transition = UE_NAS_T96
+			)
+			then false
+		else false -> pre downgrade;
+
+	ue_sec_ctx_updated = 
+		if (
+			UE_NAS_transition = UE_NAS_T32 or UE_NAS_transition = UE_NAS_T53
+			)
+			then true
+		else if (
+			UE_NAS_transition = UE_NAS_T34 or UE_NAS_transition = UE_NAS_T35 or UE_NAS_transition = UE_NAS_T36 or UE_NAS_transition = UE_NAS_T37 or UE_NAS_transition = UE_NAS_T55 or UE_NAS_transition = UE_NAS_T56
+			)
+			then false
+		else false -> pre ue_sec_ctx_updated;
+
+	ue_service_completed = 
+		if (
+			UE_NAS_transition = UE_NAS_T62 or UE_NAS_transition = UE_NAS_T102
+			)
+			then true
+		else if (
+			UE_NAS_transition = UE_NAS_T61 or UE_NAS_transition = UE_NAS_T84
+			)
+			then false
+		else true -> pre ue_service_completed;
+
+	ue_service_started = 
+		if (
+			UE_NAS_transition = UE_NAS_T61 or UE_NAS_transition = UE_NAS_T84
+			)
+			then true
+		else if (
+			UE_NAS_transition = UE_NAS_T62 or UE_NAS_transition = UE_NAS_T102
+			)
+			then false
+		else false -> pre ue_service_started;
+
+	ue_tau_started = 
+		if (
+			UE_NAS_transition = UE_NAS_T14 or UE_NAS_transition = UE_NAS_T73 or UE_NAS_transition = UE_NAS_T96
+			)
+			then true
+		else if (
+			UE_NAS_transition = UE_NAS_T38 or UE_NAS_transition = UE_NAS_T39
+			)
+			then false
+		else false -> pre ue_tau_started;
+
+	ue_tau_completed = 
+		if (
+			UE_NAS_transition = UE_NAS_T38 or UE_NAS_transition = UE_NAS_T39
+			)
+			then true
+		else if (
+			UE_NAS_transition = UE_NAS_T14 or UE_NAS_transition = UE_NAS_T73 or UE_NAS_transition = UE_NAS_T96
+			)
+			then false
+		else false -> pre ue_tau_completed;
+
+	ue_emergency_service_only = 
+		if (
+			UE_NAS_transition = UE_NAS_T12
+			)
+			then true
+		else if (
+			false
+			)
+			then false
+		else false -> pre ue_emergency_service_only;
+
+	config_update_complete_flag = 
+		if (
+			UE_NAS_transition = UE_NAS_T57
+			)
+			then true
+		else if (
+			UE_NAS_transition = UE_NAS_T1 or UE_NAS_transition = UE_NAS_T4 or UE_NAS_transition = UE_NAS_T6 or UE_NAS_transition = UE_NAS_T8 or UE_NAS_transition = UE_NAS_T9 or UE_NAS_transition = UE_NAS_T29 or UE_NAS_transition = UE_NAS_T45 or UE_NAS_transition = UE_NAS_T64 or UE_NAS_transition = UE_NAS_T82 or UE_NAS_transition = UE_NAS_T83 or UE_NAS_transition = UE_NAS_T86 or UE_NAS_transition = UE_NAS_T87 or UE_NAS_transition = UE_NAS_T89 or UE_NAS_transition = UE_NAS_T91
+			)
+			then false
+		else false -> pre config_update_complete_flag;
+	range = 8;
+	ue_auth_seq_check = ue_seq < amf_ue_shared_seq and amf_ue_shared_seq < (ue_seq + range);
+	reg_count_check = ue_reg_count < 5;
+	ue_auth_fail_count_check = ue_auth_fail_count < 3;
+--%MAIN;
+tel
+
+---- Controller Node ----
+node AMF_NAS_controller (
+	UE_NAS_message : UE_NAS_messages;
+	amfderegrequested : bool;
+	reg_failure : bool;
+	idrequired : bool;
+	regreq_mac_failure : bool;
+	deregreq_mac_failure : bool;
+	tmsi_imsi_mapping_correct : bool;
+	idres_mac_failure : bool;
+	xres_matched_sres : bool;
+	regcomplete_mac_failure : bool;
+	amf_config_update_required : bool;
+	sec_ctx_update_required : bool;
+	config_update_required : bool;
+	config_response_required : bool;
+	ue_inactivity_detected : bool;
+	paging_required : bool;
+	servicereq_mac_failure : bool;
+	servicereject_required : bool;
+	paging_timer_expired : bool;
+	regrejectrereg_required : bool;
+	regrejectlimited_required : bool;
+	imeirequested : bool;
+	tmsirequested : bool;
+	imeisvrequested : bool;
+)
+returns (
+	AMF_NAS_state : AMF_NAS_states;
+	AMF_NAS_message : AMF_NAS_messages;
+	amf_ue_shared_seq : int;
+	amf_nas_ul_count : int;
+	amf_nas_dl_count : int;
+	amf_auth_fail_count : int;
+	amf_seq : int;
+	amf_partial_sec_ctx_exist : bool;
+	amf_complete_sec_ctx_exist : bool;
+	amf_reg_completed : bool;
+	amf_config_updated : bool;
+	amf_sec_ctx_updated : bool;
+	amf_service_completed : bool;
+	amf_service_started : bool;
+	paging_requested : bool;
+	amf_wait_for : amf_wait_for_enum;
+	chan_AMF_rrc_nas : chan_AMF_rrc_nas_enum;
+	chan_AMF_nas_rrc : chan_AMF_nas_rrc_enum;
+	amf_emergency_service_only : bool;
+	amf_auth_fail_count_check : bool;
+	AMF_NAS_transition : AMF_NAS_transitions;
+)
+
+---- Controller Contract Node ----
+(*@contract import
+AMF_NAS_controller_contract (
+	UE_NAS_message,
+	amfderegrequested,
+	reg_failure,
+	idrequired,
+	regreq_mac_failure,
+	deregreq_mac_failure,
+	tmsi_imsi_mapping_correct,
+	idres_mac_failure,
+	xres_matched_sres,
+	regcomplete_mac_failure,
+	amf_config_update_required,
+	sec_ctx_update_required,
+	config_update_required,
+	config_response_required,
+	ue_inactivity_detected,
+	paging_required,
+	servicereq_mac_failure,
+	servicereject_required,
+	paging_timer_expired,
+	regrejectrereg_required,
+	regrejectlimited_required,
+	imeirequested,
+	tmsirequested,
+	imeisvrequested
+)
+returns (
+	AMF_NAS_state,
+	AMF_NAS_message,
+	amf_ue_shared_seq,
+	amf_nas_ul_count,
+	amf_nas_dl_count,
+	amf_auth_fail_count,
+	amf_seq,
+	amf_partial_sec_ctx_exist,
+	amf_complete_sec_ctx_exist,
+	amf_reg_completed,
+	amf_config_updated,
+	amf_sec_ctx_updated,
+	amf_service_completed,
+	amf_service_started,
+	paging_requested,
+	amf_wait_for,
+	chan_AMF_rrc_nas,
+	chan_AMF_nas_rrc,
+	amf_emergency_service_only,
+	amf_auth_fail_count_check,
+	AMF_NAS_transition
+);
+*)
+let
+	AMF_NAS_transition = AMF_NAS(
+		amf_deregistered -> pre AMF_NAS_state,
+		UE_NAS_message,
+		amfderegrequested,
+		reg_failure,
+		idrequired,
+		regreq_mac_failure,
+		deregreq_mac_failure,
+		tmsi_imsi_mapping_correct,
+		idres_mac_failure,
+		xres_matched_sres,
+		regcomplete_mac_failure,
+		amf_config_update_required,
+		sec_ctx_update_required,
+		config_update_required,
+		config_response_required,
+		ue_inactivity_detected,
+		paging_required,
+		servicereq_mac_failure,
+		servicereject_required,
+		paging_timer_expired,
+		regrejectrereg_required,
+		regrejectlimited_required,
+		imeirequested,
+		tmsirequested,
+		imeisvrequested,
+		false -> pre amf_partial_sec_ctx_exist,
+		false -> pre amf_complete_sec_ctx_exist,
+		false -> pre amf_reg_completed,
+		false -> pre amf_config_updated,
+		false -> pre amf_sec_ctx_updated,
+		true -> pre amf_service_completed,
+		false -> pre amf_service_started,
+		false -> pre paging_requested,
+		null -> pre amf_wait_for,
+		AMF_rrc_nas_null -> pre chan_AMF_rrc_nas,
+		AMF_nas_rrc_null -> pre chan_AMF_nas_rrc,
+		false -> pre amf_emergency_service_only,
+		true -> pre amf_auth_fail_count_check
+	);
+	AMF_NAS_state = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T28 or AMF_NAS_transition = AMF_NAS_T29 or AMF_NAS_transition = AMF_NAS_T30 or AMF_NAS_transition = AMF_NAS_T34 or AMF_NAS_transition = AMF_NAS_T35 or AMF_NAS_transition = AMF_NAS_T50 or AMF_NAS_transition = AMF_NAS_T51 or AMF_NAS_transition = AMF_NAS_T52 or AMF_NAS_transition = AMF_NAS_T54 or AMF_NAS_transition = AMF_NAS_T55 or AMF_NAS_transition = AMF_NAS_T56 or AMF_NAS_transition = AMF_NAS_T58 or AMF_NAS_transition = AMF_NAS_T59 or AMF_NAS_transition = AMF_NAS_T61 or AMF_NAS_transition = AMF_NAS_T66
+			)
+			then amf_registered
+		else if (
+			AMF_NAS_transition = AMF_NAS_T1 or AMF_NAS_transition = AMF_NAS_T3 or AMF_NAS_transition = AMF_NAS_T4 or AMF_NAS_transition = AMF_NAS_T5 or AMF_NAS_transition = AMF_NAS_T8 or AMF_NAS_transition = AMF_NAS_T9 or AMF_NAS_transition = AMF_NAS_T10 or AMF_NAS_transition = AMF_NAS_T11 or AMF_NAS_transition = AMF_NAS_T12 or AMF_NAS_transition = AMF_NAS_T13 or AMF_NAS_transition = AMF_NAS_T17 or AMF_NAS_transition = AMF_NAS_T18 or AMF_NAS_transition = AMF_NAS_T22 or AMF_NAS_transition = AMF_NAS_T24 or AMF_NAS_transition = AMF_NAS_T31 or AMF_NAS_transition = AMF_NAS_T32 or AMF_NAS_transition = AMF_NAS_T33 or AMF_NAS_transition = AMF_NAS_T36 or AMF_NAS_transition = AMF_NAS_T37 or AMF_NAS_transition = AMF_NAS_T38 or AMF_NAS_transition = AMF_NAS_T42 or AMF_NAS_transition = AMF_NAS_T43 or AMF_NAS_transition = AMF_NAS_T47 or AMF_NAS_transition = AMF_NAS_T49
+			)
+			then amf_deregistered
+		else if (
+			AMF_NAS_transition = AMF_NAS_T2 or AMF_NAS_transition = AMF_NAS_T6 or AMF_NAS_transition = AMF_NAS_T7 or AMF_NAS_transition = AMF_NAS_T14 or AMF_NAS_transition = AMF_NAS_T15 or AMF_NAS_transition = AMF_NAS_T16 or AMF_NAS_transition = AMF_NAS_T19 or AMF_NAS_transition = AMF_NAS_T20 or AMF_NAS_transition = AMF_NAS_T21 or AMF_NAS_transition = AMF_NAS_T23 or AMF_NAS_transition = AMF_NAS_T25 or AMF_NAS_transition = AMF_NAS_T26 or AMF_NAS_transition = AMF_NAS_T27 or AMF_NAS_transition = AMF_NAS_T39 or AMF_NAS_transition = AMF_NAS_T40 or AMF_NAS_transition = AMF_NAS_T41 or AMF_NAS_transition = AMF_NAS_T44 or AMF_NAS_transition = AMF_NAS_T45 or AMF_NAS_transition = AMF_NAS_T46 or AMF_NAS_transition = AMF_NAS_T48 or AMF_NAS_transition = AMF_NAS_T53 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T64 or AMF_NAS_transition = AMF_NAS_T65
+			)
+			then amf_com_proc_inited
+		else
+			amf_idle;
+	AMF_NAS_message = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T57
+			)
+			then AMF_NAS_ue_ctx_release
+		else if (
+			AMF_NAS_transition = AMF_NAS_T6 or AMF_NAS_transition = AMF_NAS_T16 or AMF_NAS_transition = AMF_NAS_T20 or AMF_NAS_transition = AMF_NAS_T21 or AMF_NAS_transition = AMF_NAS_T41 or AMF_NAS_transition = AMF_NAS_T45 or AMF_NAS_transition = AMF_NAS_T46 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T65
+			)
+			then AMF_NAS_auth_req
+		else if (
+			AMF_NAS_transition = AMF_NAS_T35
+			)
+			then AMF_NAS_tmsi_req
+		else if (
+			AMF_NAS_transition = AMF_NAS_T23 or AMF_NAS_transition = AMF_NAS_T48 or AMF_NAS_transition = AMF_NAS_T50
+			)
+			then AMF_NAS_sm_command
+		else if (
+			AMF_NAS_transition = AMF_NAS_T3 or AMF_NAS_transition = AMF_NAS_T12 or AMF_NAS_transition = AMF_NAS_T37
+			)
+			then AMF_NAS_reg_reject_rereg
+		else if (
+			AMF_NAS_transition = AMF_NAS_T58
+			)
+			then AMF_NAS_service_reject
+		else if (
+			AMF_NAS_transition = AMF_NAS_T34
+			)
+			then AMF_NAS_imei_req
+		else if (
+			AMF_NAS_transition = AMF_NAS_T5 or AMF_NAS_transition = AMF_NAS_T11 or AMF_NAS_transition = AMF_NAS_T17 or AMF_NAS_transition = AMF_NAS_T36 or AMF_NAS_transition = AMF_NAS_T42
+			)
+			then AMF_NAS_reg_reject
+		else if (
+			AMF_NAS_transition = AMF_NAS_T1 or AMF_NAS_transition = AMF_NAS_T8 or AMF_NAS_transition = AMF_NAS_T31
+			)
+			then AMF_NAS_nwk_dereg_req
+		else if (
+			AMF_NAS_transition = AMF_NAS_T4 or AMF_NAS_transition = AMF_NAS_T13 or AMF_NAS_transition = AMF_NAS_T38
+			)
+			then AMF_NAS_reg_reject_limited
+		else if (
+			AMF_NAS_transition = AMF_NAS_T10 or AMF_NAS_transition = AMF_NAS_T33
+			)
+			then AMF_NAS_nwk_dereg_accept
+		else if (
+			AMF_NAS_transition = AMF_NAS_T54 or AMF_NAS_transition = AMF_NAS_T55
+			)
+			then AMF_NAS_config_update_cmd
+		else if (
+			AMF_NAS_transition = AMF_NAS_T2 or AMF_NAS_transition = AMF_NAS_T15 or AMF_NAS_transition = AMF_NAS_T25 or AMF_NAS_transition = AMF_NAS_T26 or AMF_NAS_transition = AMF_NAS_T27 or AMF_NAS_transition = AMF_NAS_T40
+			)
+			then AMF_NAS_reg_accept
+		else if (
+			AMF_NAS_transition = AMF_NAS_T7 or AMF_NAS_transition = AMF_NAS_T14 or AMF_NAS_transition = AMF_NAS_T19 or AMF_NAS_transition = AMF_NAS_T39 or AMF_NAS_transition = AMF_NAS_T44 or AMF_NAS_transition = AMF_NAS_T64
+			)
+			then AMF_NAS_id_req
+		else if (
+			AMF_NAS_transition = AMF_NAS_T59 or AMF_NAS_transition = AMF_NAS_T61 or AMF_NAS_transition = AMF_NAS_T66
+			)
+			then AMF_NAS_service_accept
+		else if (
+			AMF_NAS_transition = AMF_NAS_T18 or AMF_NAS_transition = AMF_NAS_T22 or AMF_NAS_transition = AMF_NAS_T24 or AMF_NAS_transition = AMF_NAS_T43 or AMF_NAS_transition = AMF_NAS_T47 or AMF_NAS_transition = AMF_NAS_T49
+			)
+			then AMF_NAS_auth_reject
+		else AMF_NAS_null_action;
+
+
+	amf_nas_ul_count = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T23 or AMF_NAS_transition = AMF_NAS_T27 or AMF_NAS_transition = AMF_NAS_T48 or AMF_NAS_transition = AMF_NAS_T50 or AMF_NAS_transition = AMF_NAS_T53
+			)
+			then 0
+		else if (
+			AMF_NAS_transition = AMF_NAS_T61 or AMF_NAS_transition = AMF_NAS_T61
+			)
+			then (0 -> pre amf_nas_ul_count) + 1
+		else 0 -> pre amf_nas_ul_count;
+
+	amf_nas_dl_count = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T23 or AMF_NAS_transition = AMF_NAS_T27 or AMF_NAS_transition = AMF_NAS_T48 or AMF_NAS_transition = AMF_NAS_T50 or AMF_NAS_transition = AMF_NAS_T53
+			)
+			then 0
+		else if (
+			false
+			)
+			then (0 -> pre amf_nas_dl_count) + 1
+		else 0 -> pre amf_nas_dl_count;
+
+	amf_auth_fail_count = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T6 or AMF_NAS_transition = AMF_NAS_T8 or AMF_NAS_transition = AMF_NAS_T9 or AMF_NAS_transition = AMF_NAS_T10 or AMF_NAS_transition = AMF_NAS_T11 or AMF_NAS_transition = AMF_NAS_T12 or AMF_NAS_transition = AMF_NAS_T13 or AMF_NAS_transition = AMF_NAS_T16 or AMF_NAS_transition = AMF_NAS_T20 or AMF_NAS_transition = AMF_NAS_T22 or AMF_NAS_transition = AMF_NAS_T24 or AMF_NAS_transition = AMF_NAS_T31 or AMF_NAS_transition = AMF_NAS_T32 or AMF_NAS_transition = AMF_NAS_T33 or AMF_NAS_transition = AMF_NAS_T37 or AMF_NAS_transition = AMF_NAS_T38 or AMF_NAS_transition = AMF_NAS_T41 or AMF_NAS_transition = AMF_NAS_T45 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T65
+			)
+			then 0
+		else if (
+			AMF_NAS_transition = AMF_NAS_T19 or AMF_NAS_transition = AMF_NAS_T21 or AMF_NAS_transition = AMF_NAS_T44 or AMF_NAS_transition = AMF_NAS_T46
+			)
+			then (0 -> pre amf_auth_fail_count) + 1
+		else 0 -> pre amf_auth_fail_count;
+
+	amf_seq = 
+		if (
+			false
+			)
+			then 0
+		else if (
+			AMF_NAS_transition = AMF_NAS_T6 or AMF_NAS_transition = AMF_NAS_T6 or AMF_NAS_transition = AMF_NAS_T16 or AMF_NAS_transition = AMF_NAS_T16 or AMF_NAS_transition = AMF_NAS_T20 or AMF_NAS_transition = AMF_NAS_T20 or AMF_NAS_transition = AMF_NAS_T21 or AMF_NAS_transition = AMF_NAS_T21 or AMF_NAS_transition = AMF_NAS_T41 or AMF_NAS_transition = AMF_NAS_T41 or AMF_NAS_transition = AMF_NAS_T45 or AMF_NAS_transition = AMF_NAS_T45 or AMF_NAS_transition = AMF_NAS_T46 or AMF_NAS_transition = AMF_NAS_T46 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T65 or AMF_NAS_transition = AMF_NAS_T65
+			)
+			then (0 -> pre amf_seq) + 1
+		else 0 -> pre amf_seq;
+
+	amf_ue_shared_seq = amf_seq;
+
+	amf_partial_sec_ctx_exist = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T23 or AMF_NAS_transition = AMF_NAS_T48
+			)
+			then true
+		else if (
+			AMF_NAS_transition = AMF_NAS_T2 or AMF_NAS_transition = AMF_NAS_T3 or AMF_NAS_transition = AMF_NAS_T4 or AMF_NAS_transition = AMF_NAS_T5 or AMF_NAS_transition = AMF_NAS_T11 or AMF_NAS_transition = AMF_NAS_T12 or AMF_NAS_transition = AMF_NAS_T13 or AMF_NAS_transition = AMF_NAS_T17 or AMF_NAS_transition = AMF_NAS_T18 or AMF_NAS_transition = AMF_NAS_T22 or AMF_NAS_transition = AMF_NAS_T24 or AMF_NAS_transition = AMF_NAS_T36 or AMF_NAS_transition = AMF_NAS_T37 or AMF_NAS_transition = AMF_NAS_T38 or AMF_NAS_transition = AMF_NAS_T42 or AMF_NAS_transition = AMF_NAS_T43 or AMF_NAS_transition = AMF_NAS_T47 or AMF_NAS_transition = AMF_NAS_T49 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T65
+			)
+			then false
+		else false -> pre amf_partial_sec_ctx_exist;
+
+	amf_complete_sec_ctx_exist = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T27 or AMF_NAS_transition = AMF_NAS_T53
+			)
+			then true
+		else if (
+			AMF_NAS_transition = AMF_NAS_T2 or AMF_NAS_transition = AMF_NAS_T3 or AMF_NAS_transition = AMF_NAS_T4 or AMF_NAS_transition = AMF_NAS_T5 or AMF_NAS_transition = AMF_NAS_T11 or AMF_NAS_transition = AMF_NAS_T12 or AMF_NAS_transition = AMF_NAS_T13 or AMF_NAS_transition = AMF_NAS_T16 or AMF_NAS_transition = AMF_NAS_T17 or AMF_NAS_transition = AMF_NAS_T18 or AMF_NAS_transition = AMF_NAS_T20 or AMF_NAS_transition = AMF_NAS_T22 or AMF_NAS_transition = AMF_NAS_T24 or AMF_NAS_transition = AMF_NAS_T36 or AMF_NAS_transition = AMF_NAS_T37 or AMF_NAS_transition = AMF_NAS_T38 or AMF_NAS_transition = AMF_NAS_T41 or AMF_NAS_transition = AMF_NAS_T42 or AMF_NAS_transition = AMF_NAS_T43 or AMF_NAS_transition = AMF_NAS_T45 or AMF_NAS_transition = AMF_NAS_T47 or AMF_NAS_transition = AMF_NAS_T49 or AMF_NAS_transition = AMF_NAS_T52 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T65
+			)
+			then false
+		else false -> pre amf_complete_sec_ctx_exist;
+
+	amf_reg_completed = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T28
+			)
+			then true
+		else if (
+			AMF_NAS_transition = AMF_NAS_T2 or AMF_NAS_transition = AMF_NAS_T3 or AMF_NAS_transition = AMF_NAS_T4 or AMF_NAS_transition = AMF_NAS_T5 or AMF_NAS_transition = AMF_NAS_T6 or AMF_NAS_transition = AMF_NAS_T8 or AMF_NAS_transition = AMF_NAS_T9 or AMF_NAS_transition = AMF_NAS_T10 or AMF_NAS_transition = AMF_NAS_T11 or AMF_NAS_transition = AMF_NAS_T12 or AMF_NAS_transition = AMF_NAS_T13 or AMF_NAS_transition = AMF_NAS_T17 or AMF_NAS_transition = AMF_NAS_T18 or AMF_NAS_transition = AMF_NAS_T22 or AMF_NAS_transition = AMF_NAS_T24 or AMF_NAS_transition = AMF_NAS_T31 or AMF_NAS_transition = AMF_NAS_T32 or AMF_NAS_transition = AMF_NAS_T33 or AMF_NAS_transition = AMF_NAS_T36 or AMF_NAS_transition = AMF_NAS_T37 or AMF_NAS_transition = AMF_NAS_T38 or AMF_NAS_transition = AMF_NAS_T42 or AMF_NAS_transition = AMF_NAS_T43 or AMF_NAS_transition = AMF_NAS_T47 or AMF_NAS_transition = AMF_NAS_T49
+			)
+			then false
+		else false -> pre amf_reg_completed;
+
+	amf_config_updated = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T55 or AMF_NAS_transition = AMF_NAS_T56
+			)
+			then true
+		else if (
+			AMF_NAS_transition = AMF_NAS_T54
+			)
+			then false
+		else false -> pre amf_config_updated;
+
+	amf_sec_ctx_updated = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T27 or AMF_NAS_transition = AMF_NAS_T53
+			)
+			then true
+		else if (
+			AMF_NAS_transition = AMF_NAS_T2 or AMF_NAS_transition = AMF_NAS_T3 or AMF_NAS_transition = AMF_NAS_T4 or AMF_NAS_transition = AMF_NAS_T5 or AMF_NAS_transition = AMF_NAS_T11 or AMF_NAS_transition = AMF_NAS_T12 or AMF_NAS_transition = AMF_NAS_T13 or AMF_NAS_transition = AMF_NAS_T16 or AMF_NAS_transition = AMF_NAS_T17 or AMF_NAS_transition = AMF_NAS_T18 or AMF_NAS_transition = AMF_NAS_T20 or AMF_NAS_transition = AMF_NAS_T22 or AMF_NAS_transition = AMF_NAS_T24 or AMF_NAS_transition = AMF_NAS_T25 or AMF_NAS_transition = AMF_NAS_T26 or AMF_NAS_transition = AMF_NAS_T36 or AMF_NAS_transition = AMF_NAS_T37 or AMF_NAS_transition = AMF_NAS_T38 or AMF_NAS_transition = AMF_NAS_T41 or AMF_NAS_transition = AMF_NAS_T42 or AMF_NAS_transition = AMF_NAS_T43 or AMF_NAS_transition = AMF_NAS_T45 or AMF_NAS_transition = AMF_NAS_T47 or AMF_NAS_transition = AMF_NAS_T49 or AMF_NAS_transition = AMF_NAS_T50 or AMF_NAS_transition = AMF_NAS_T51 or AMF_NAS_transition = AMF_NAS_T52 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T65
+			)
+			then false
+		else false -> pre amf_sec_ctx_updated;
+
+	amf_service_completed = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T58 or AMF_NAS_transition = AMF_NAS_T59
+			)
+			then true
+		else if (
+			AMF_NAS_transition = AMF_NAS_T2 or AMF_NAS_transition = AMF_NAS_T3 or AMF_NAS_transition = AMF_NAS_T4 or AMF_NAS_transition = AMF_NAS_T5 or AMF_NAS_transition = AMF_NAS_T11 or AMF_NAS_transition = AMF_NAS_T12 or AMF_NAS_transition = AMF_NAS_T13 or AMF_NAS_transition = AMF_NAS_T17 or AMF_NAS_transition = AMF_NAS_T18 or AMF_NAS_transition = AMF_NAS_T22 or AMF_NAS_transition = AMF_NAS_T24 or AMF_NAS_transition = AMF_NAS_T36 or AMF_NAS_transition = AMF_NAS_T37 or AMF_NAS_transition = AMF_NAS_T38 or AMF_NAS_transition = AMF_NAS_T42 or AMF_NAS_transition = AMF_NAS_T43 or AMF_NAS_transition = AMF_NAS_T47 or AMF_NAS_transition = AMF_NAS_T49 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T64 or AMF_NAS_transition = AMF_NAS_T65 or AMF_NAS_transition = AMF_NAS_T65
+			)
+			then false
+		else true -> pre amf_service_completed;
+
+	amf_service_started = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T64 or AMF_NAS_transition = AMF_NAS_T65
+			)
+			then true
+		else if (
+			AMF_NAS_transition = AMF_NAS_T2 or AMF_NAS_transition = AMF_NAS_T3 or AMF_NAS_transition = AMF_NAS_T4 or AMF_NAS_transition = AMF_NAS_T5 or AMF_NAS_transition = AMF_NAS_T11 or AMF_NAS_transition = AMF_NAS_T12 or AMF_NAS_transition = AMF_NAS_T13 or AMF_NAS_transition = AMF_NAS_T17 or AMF_NAS_transition = AMF_NAS_T18 or AMF_NAS_transition = AMF_NAS_T22 or AMF_NAS_transition = AMF_NAS_T24 or AMF_NAS_transition = AMF_NAS_T36 or AMF_NAS_transition = AMF_NAS_T37 or AMF_NAS_transition = AMF_NAS_T38 or AMF_NAS_transition = AMF_NAS_T42 or AMF_NAS_transition = AMF_NAS_T43 or AMF_NAS_transition = AMF_NAS_T47 or AMF_NAS_transition = AMF_NAS_T49 or AMF_NAS_transition = AMF_NAS_T58 or AMF_NAS_transition = AMF_NAS_T59 or AMF_NAS_transition = AMF_NAS_T61 or AMF_NAS_transition = AMF_NAS_T66
+			)
+			then false
+		else false -> pre amf_service_started;
+
+	paging_requested = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T62 or AMF_NAS_transition = AMF_NAS_T63
+			)
+			then true
+		else if (
+			AMF_NAS_transition = AMF_NAS_T1 or AMF_NAS_transition = AMF_NAS_T6 or AMF_NAS_transition = AMF_NAS_T7 or AMF_NAS_transition = AMF_NAS_T8 or AMF_NAS_transition = AMF_NAS_T9 or AMF_NAS_transition = AMF_NAS_T10 or AMF_NAS_transition = AMF_NAS_T11 or AMF_NAS_transition = AMF_NAS_T12 or AMF_NAS_transition = AMF_NAS_T13 or AMF_NAS_transition = AMF_NAS_T14 or AMF_NAS_transition = AMF_NAS_T15 or AMF_NAS_transition = AMF_NAS_T16 or AMF_NAS_transition = AMF_NAS_T17 or AMF_NAS_transition = AMF_NAS_T31 or AMF_NAS_transition = AMF_NAS_T32 or AMF_NAS_transition = AMF_NAS_T33 or AMF_NAS_transition = AMF_NAS_T34 or AMF_NAS_transition = AMF_NAS_T35 or AMF_NAS_transition = AMF_NAS_T36 or AMF_NAS_transition = AMF_NAS_T37 or AMF_NAS_transition = AMF_NAS_T38 or AMF_NAS_transition = AMF_NAS_T39 or AMF_NAS_transition = AMF_NAS_T40 or AMF_NAS_transition = AMF_NAS_T41 or AMF_NAS_transition = AMF_NAS_T42 or AMF_NAS_transition = AMF_NAS_T58 or AMF_NAS_transition = AMF_NAS_T59 or AMF_NAS_transition = AMF_NAS_T60 or AMF_NAS_transition = AMF_NAS_T64 or AMF_NAS_transition = AMF_NAS_T65 or AMF_NAS_transition = AMF_NAS_T66
+			)
+			then false
+		else false -> pre paging_requested;
+
+	amf_emergency_service_only = 
+		if (
+			AMF_NAS_transition = AMF_NAS_T4
+			)
+			then true
+		else if (
+			false
+			)
+			then false
+		else false -> pre amf_emergency_service_only;
+	amf_auth_fail_count_check = amf_auth_fail_count < 3;
+tel
+
+node UE_NAS_to_AMF_NAS_adversarial_channel(
+	benign_UE_NAS_message : UE_NAS_messages;
+	malicious_UE_NAS_message : UE_NAS_messages;
+	noisy : bool;
+	malicious : bool;
+)
+returns (
+	UE_NAS_message_to_AMF_NAS : UE_NAS_messages;
+)
+let
+	UE_NAS_message_to_AMF_NAS =
+	if ( noisy or malicious )
+		then malicious_UE_NAS_message
+	else benign_UE_NAS_message;
+tel
+
+node AMF_NAS_to_UE_NAS_adversarial_channel(
+	benign_AMF_NAS_message : AMF_NAS_messages;
+	malicious_AMF_NAS_message : AMF_NAS_messages;
+	noisy : bool;
+	malicious : bool;
+)
+returns (
+	AMF_NAS_message_to_UE_NAS : AMF_NAS_messages;
+)
+let
+	AMF_NAS_message_to_UE_NAS =
+	if ( noisy or malicious )
+		then malicious_AMF_NAS_message
+	else benign_AMF_NAS_message;
+tel
+
+contract Run_5G_FSM_contract(
+
+---- UE_NAS_to_AMF_NAS adversarial channel variables ----
+	malicious_UE_NAS_message : UE_NAS_messages;
+	UE_NAS_to_AMF_NAS_noisy : bool;
+	UE_NAS_to_AMF_NAS_malicious : bool;
+
+---- UE_NAS environment variables ----
+	power_on : bool;
+	power_off : bool;
+	enable_N1 : bool;
+	uederegrequested : bool;
+	dereg_cause_switch_off : bool;
+	ta_changed : bool;
+	authreq_mac_failure : bool;
+	sec_cap_match : bool;
+	regaccept_mac_failure : bool;
+	reg_accept_timer_expired : bool;
+	idreq_mac_failure : bool;
+	smcmd_mac_failure : bool;
+	configupdate_mac_failure : bool;
+	serviceaccept_mac_failure : bool;
+	service_notification : bool;
+	deregaccept_mac_failure : bool;
+	imeisv_responded : bool;
+	transmission_failure : bool;
+	id_type : id_type_enum;
+
+---- AMF_NAS_to_UE_NAS adversarial channel variables ----
+	malicious_AMF_NAS_message : AMF_NAS_messages;
+	AMF_NAS_to_UE_NAS_noisy : bool;
+	AMF_NAS_to_UE_NAS_malicious : bool;
+
+---- AMF_NAS environment variables ----
+	amfderegrequested : bool;
+	reg_failure : bool;
+	idrequired : bool;
+	regreq_mac_failure : bool;
+	deregreq_mac_failure : bool;
+	tmsi_imsi_mapping_correct : bool;
+	idres_mac_failure : bool;
+	xres_matched_sres : bool;
+	regcomplete_mac_failure : bool;
+	amf_config_update_required : bool;
+	sec_ctx_update_required : bool;
+	config_update_required : bool;
+	config_response_required : bool;
+	ue_inactivity_detected : bool;
+	paging_required : bool;
+	servicereq_mac_failure : bool;
+	servicereject_required : bool;
+	paging_timer_expired : bool;
+	regrejectrereg_required : bool;
+	regrejectlimited_required : bool;
+	imeirequested : bool;
+	tmsirequested : bool;
+	imeisvrequested : bool;
+)
+returns (
+---- UE_NAS state and messages ----
+	UE_NAS_state : UE_NAS_states;
+	UE_NAS_message : UE_NAS_messages;
+---- UE_NAS STATE VARIABLES ----
+	ue_partial_sec_ctx_exist : bool;
+	ue_complete_sec_ctx_exist : bool;
+	ueregcompleted : bool;
+	downgrade : bool;
+	ue_sec_ctx_updated : bool;
+	ue_service_completed : bool;
+	ue_service_started : bool;
+	ue_tau_started : bool;
+	ue_tau_completed : bool;
+	chan_UE_rrc_nas : chan_UE_rrc_nas_enum;
+	chan_UE_nas_rrc : chan_UE_nas_rrc_enum;
+	ue_emergency_service_only : bool;
+	idrestype : idrestype_enum;
+	config_update_complete_flag : bool;
+---- UE_NAS TRANSITION ----
+	UE_NAS_transition : UE_NAS_transitions;
+---- AMF_NAS state and messages ----
+	AMF_NAS_state : AMF_NAS_states;
+	AMF_NAS_message : AMF_NAS_messages;
+---- AMF_NAS STATE VARIABLES ----
+	amf_partial_sec_ctx_exist : bool;
+	amf_complete_sec_ctx_exist : bool;
+	amf_reg_completed : bool;
+	amf_config_updated : bool;
+	amf_sec_ctx_updated : bool;
+	amf_service_completed : bool;
+	amf_service_started : bool;
+	paging_requested : bool;
+	amf_wait_for : amf_wait_for_enum;
+	chan_AMF_rrc_nas : chan_AMF_rrc_nas_enum;
+	chan_AMF_nas_rrc : chan_AMF_nas_rrc_enum;
+	amf_emergency_service_only : bool;
+---- AMF_NAS TRANSITION ----
+	AMF_NAS_transition : AMF_NAS_transitions;
+---- SEQUENCE NUMBERS ----
+	ue_nas_ul_count : int;
+	ue_nas_dl_count : int;
+	ue_auth_fail_count : int;
+	ue_reg_count : int;
+	ue_seq : int;
+	amf_ue_shared_seq : int;
+	amf_nas_ul_count : int;
+	amf_nas_dl_count : int;
+	amf_auth_fail_count : int;
+	amf_seq : int;
+---- MANUAL CHECKS ----
+	ue_auth_seq_check : bool;
+	reg_count_check : bool;
+	ue_auth_fail_count_check : bool;
+	amf_auth_fail_count_check : bool;
+	UE_NAS_message_to_AMF_NAS : UE_NAS_messages;
+	AMF_NAS_message_to_UE_NAS : AMF_NAS_messages;
+);
+let
+	guarantee "g1" true;
+tel
+
+node Run_5G_FSM(
+
+---- UE_NAS_to_AMF_NAS adversarial channel variables ----
+	malicious_UE_NAS_message : UE_NAS_messages;
+	UE_NAS_to_AMF_NAS_noisy : bool;
+	UE_NAS_to_AMF_NAS_malicious : bool;
+
+---- UE_NAS environment variables ----
+	power_on : bool;
+	power_off : bool;
+	enable_N1 : bool;
+	uederegrequested : bool;
+	dereg_cause_switch_off : bool;
+	ta_changed : bool;
+	authreq_mac_failure : bool;
+	sec_cap_match : bool;
+	regaccept_mac_failure : bool;
+	reg_accept_timer_expired : bool;
+	idreq_mac_failure : bool;
+	smcmd_mac_failure : bool;
+	configupdate_mac_failure : bool;
+	serviceaccept_mac_failure : bool;
+	service_notification : bool;
+	deregaccept_mac_failure : bool;
+	imeisv_responded : bool;
+	transmission_failure : bool;
+	id_type : id_type_enum;
+
+---- AMF_NAS_to_UE_NAS adversarial channel variables ----
+	malicious_AMF_NAS_message : AMF_NAS_messages;
+	AMF_NAS_to_UE_NAS_noisy : bool;
+	AMF_NAS_to_UE_NAS_malicious : bool;
+
+---- AMF_NAS environment variables ----
+	amfderegrequested : bool;
+	reg_failure : bool;
+	idrequired : bool;
+	regreq_mac_failure : bool;
+	deregreq_mac_failure : bool;
+	tmsi_imsi_mapping_correct : bool;
+	idres_mac_failure : bool;
+	xres_matched_sres : bool;
+	regcomplete_mac_failure : bool;
+	amf_config_update_required : bool;
+	sec_ctx_update_required : bool;
+	config_update_required : bool;
+	config_response_required : bool;
+	ue_inactivity_detected : bool;
+	paging_required : bool;
+	servicereq_mac_failure : bool;
+	servicereject_required : bool;
+	paging_timer_expired : bool;
+	regrejectrereg_required : bool;
+	regrejectlimited_required : bool;
+	imeirequested : bool;
+	tmsirequested : bool;
+	imeisvrequested : bool;
+)
+returns (
+---- UE_NAS state and messages ----
+	UE_NAS_state : UE_NAS_states;
+	UE_NAS_message : UE_NAS_messages;
+---- UE_NAS STATE VARIABLES ----
+	ue_partial_sec_ctx_exist : bool;
+	ue_complete_sec_ctx_exist : bool;
+	ueregcompleted : bool;
+	downgrade : bool;
+	ue_sec_ctx_updated : bool;
+	ue_service_completed : bool;
+	ue_service_started : bool;
+	ue_tau_started : bool;
+	ue_tau_completed : bool;
+	chan_UE_rrc_nas : chan_UE_rrc_nas_enum;
+	chan_UE_nas_rrc : chan_UE_nas_rrc_enum;
+	ue_emergency_service_only : bool;
+	idrestype : idrestype_enum;
+	config_update_complete_flag : bool;
+---- UE_NAS TRANSITION ----
+	UE_NAS_transition : UE_NAS_transitions;
+---- AMF_NAS state and messages ----
+	AMF_NAS_state : AMF_NAS_states;
+	AMF_NAS_message : AMF_NAS_messages;
+---- AMF_NAS STATE VARIABLES ----
+	amf_partial_sec_ctx_exist : bool;
+	amf_complete_sec_ctx_exist : bool;
+	amf_reg_completed : bool;
+	amf_config_updated : bool;
+	amf_sec_ctx_updated : bool;
+	amf_service_completed : bool;
+	amf_service_started : bool;
+	paging_requested : bool;
+	amf_wait_for : amf_wait_for_enum;
+	chan_AMF_rrc_nas : chan_AMF_rrc_nas_enum;
+	chan_AMF_nas_rrc : chan_AMF_nas_rrc_enum;
+	amf_emergency_service_only : bool;
+---- AMF_NAS TRANSITION ----
+	AMF_NAS_transition : AMF_NAS_transitions;
+---- SEQUENCE NUMBERS ----
+	ue_nas_ul_count : int;
+	ue_nas_dl_count : int;
+	ue_auth_fail_count : int;
+	ue_reg_count : int;
+	ue_seq : int;
+	amf_ue_shared_seq : int;
+	amf_nas_ul_count : int;
+	amf_nas_dl_count : int;
+	amf_auth_fail_count : int;
+	amf_seq : int;
+---- MANUAL CHECKS ----
+	ue_auth_seq_check : bool;
+	reg_count_check : bool;
+	ue_auth_fail_count_check : bool;
+	amf_auth_fail_count_check : bool;
+	UE_NAS_message_to_AMF_NAS : UE_NAS_messages;
+	AMF_NAS_message_to_UE_NAS : AMF_NAS_messages;
+);
+(*@contract import 
+Run_5G_FSM_contract(
+
+---- UE_NAS_to_AMF_NAS adversarial channel variables ----
+	malicious_UE_NAS_message,
+	UE_NAS_to_AMF_NAS_noisy,
+	UE_NAS_to_AMF_NAS_malicious,
+
+---- UE_NAS environment variables ----
+	power_on,
+	power_off,
+	enable_N1,
+	uederegrequested,
+	dereg_cause_switch_off,
+	ta_changed,
+	authreq_mac_failure,
+	sec_cap_match,
+	regaccept_mac_failure,
+	reg_accept_timer_expired,
+	idreq_mac_failure,
+	smcmd_mac_failure,
+	configupdate_mac_failure,
+	serviceaccept_mac_failure,
+	service_notification,
+	deregaccept_mac_failure,
+	imeisv_responded,
+	transmission_failure,
+	id_type,
+
+---- AMF_NAS_to_UE_NAS adversarial channel variables ----
+	malicious_AMF_NAS_message,
+	AMF_NAS_to_UE_NAS_noisy,
+	AMF_NAS_to_UE_NAS_malicious,
+
+---- AMF_NAS environment variables ----
+	amfderegrequested,
+	reg_failure,
+	idrequired,
+	regreq_mac_failure,
+	deregreq_mac_failure,
+	tmsi_imsi_mapping_correct,
+	idres_mac_failure,
+	xres_matched_sres,
+	regcomplete_mac_failure,
+	amf_config_update_required,
+	sec_ctx_update_required,
+	config_update_required,
+	config_response_required,
+	ue_inactivity_detected,
+	paging_required,
+	servicereq_mac_failure,
+	servicereject_required,
+	paging_timer_expired,
+	regrejectrereg_required,
+	regrejectlimited_required,
+	imeirequested,
+	tmsirequested,
+	imeisvrequested
+)
+returns (
+---- UE_NAS state and messages ----
+	UE_NAS_state,
+	UE_NAS_message,
+---- UE_NAS STATE VARIABLES ----
+	ue_partial_sec_ctx_exist,
+	ue_complete_sec_ctx_exist,
+	ueregcompleted,
+	downgrade,
+	ue_sec_ctx_updated,
+	ue_service_completed,
+	ue_service_started,
+	ue_tau_started,
+	ue_tau_completed,
+	chan_UE_rrc_nas,
+	chan_UE_nas_rrc,
+	ue_emergency_service_only,
+	idrestype,
+	config_update_complete_flag,
+---- UE_NAS TRANSITION ----
+	UE_NAS_transition,
+---- AMF_NAS state and messages ----
+	AMF_NAS_state,
+	AMF_NAS_message,
+---- AMF_NAS STATE VARIABLES ----
+	amf_partial_sec_ctx_exist,
+	amf_complete_sec_ctx_exist,
+	amf_reg_completed,
+	amf_config_updated,
+	amf_sec_ctx_updated,
+	amf_service_completed,
+	amf_service_started,
+	paging_requested,
+	amf_wait_for,
+	chan_AMF_rrc_nas,
+	chan_AMF_nas_rrc,
+	amf_emergency_service_only,
+---- AMF_NAS TRANSITION ----
+	AMF_NAS_transition,
+---- SEQUENCE NUMBERS ----
+	ue_nas_ul_count,
+	ue_nas_dl_count,
+	ue_auth_fail_count,
+	ue_reg_count,
+	ue_seq,
+	amf_ue_shared_seq,
+	amf_nas_ul_count,
+	amf_nas_dl_count,
+	amf_auth_fail_count,
+	amf_seq,
+---- MANUAL CHECKS ----
+	ue_auth_seq_check,
+	reg_count_check,
+	ue_auth_fail_count_check,
+	amf_auth_fail_count_check,
+	UE_NAS_message_to_AMF_NAS,
+	AMF_NAS_message_to_UE_NAS
+);
+*)
+let
+---- Check Adversarial channel to see what message should be sent to UE----
+	AMF_NAS_message_to_UE_NAS = 
+		AMF_NAS_to_UE_NAS_adversarial_channel(
+			AMF_NAS_null_action -> pre AMF_NAS_message,
+			malicious_AMF_NAS_message,
+			AMF_NAS_to_UE_NAS_noisy,
+			AMF_NAS_to_UE_NAS_malicious
+		);
+---- Update state variables for UE ----
+	(UE_NAS_state,
+	UE_NAS_message,
+	ue_nas_ul_count,
+	ue_nas_dl_count,
+	ue_auth_fail_count,
+	ue_reg_count,
+	ue_seq,
+	ue_partial_sec_ctx_exist,
+	ue_complete_sec_ctx_exist,
+	ueregcompleted,
+	downgrade,
+	ue_sec_ctx_updated,
+	ue_service_completed,
+	ue_service_started,
+	ue_tau_started,
+	ue_tau_completed,
+	chan_UE_rrc_nas,
+	chan_UE_nas_rrc,
+	ue_emergency_service_only,
+	idrestype,
+	config_update_complete_flag,
+	ue_auth_seq_check,
+	reg_count_check,
+	ue_auth_fail_count_check,
+	UE_NAS_transition) =
+	UE_NAS_controller (
+		AMF_NAS_message_to_UE_NAS,
+		amf_ue_shared_seq,
+		power_on,
+		power_off,
+		enable_N1,
+		uederegrequested,
+		dereg_cause_switch_off,
+		ta_changed,
+		authreq_mac_failure,
+		sec_cap_match,
+		regaccept_mac_failure,
+		reg_accept_timer_expired,
+		idreq_mac_failure,
+		smcmd_mac_failure,
+		configupdate_mac_failure,
+		serviceaccept_mac_failure,
+		service_notification,
+		deregaccept_mac_failure,
+		imeisv_responded,
+		transmission_failure,
+		id_type
+	);
+---- Check Adversarial channel to see what message should be sent to Network----
+	UE_NAS_message_to_AMF_NAS = 
+		UE_NAS_to_AMF_NAS_adversarial_channel(
+			UE_NAS_null_action -> pre UE_NAS_message,
+			malicious_UE_NAS_message,
+			UE_NAS_to_AMF_NAS_noisy,
+			UE_NAS_to_AMF_NAS_malicious
+		);
+---- Update state variables for Network ----
+	(AMF_NAS_state,
+	AMF_NAS_message,
+	amf_ue_shared_seq,
+	amf_nas_ul_count,
+	amf_nas_dl_count,
+	amf_auth_fail_count,
+	amf_seq,
+	amf_partial_sec_ctx_exist,
+	amf_complete_sec_ctx_exist,
+	amf_reg_completed,
+	amf_config_updated,
+	amf_sec_ctx_updated,
+	amf_service_completed,
+	amf_service_started,
+	paging_requested,
+	amf_wait_for,
+	chan_AMF_rrc_nas,
+	chan_AMF_nas_rrc,
+	amf_emergency_service_only,
+	amf_auth_fail_count_check,
+	AMF_NAS_transition) =
+	AMF_NAS_controller (
+		UE_NAS_message_to_AMF_NAS,
+		amfderegrequested,
+		reg_failure,
+		idrequired,
+		regreq_mac_failure,
+		deregreq_mac_failure,
+		tmsi_imsi_mapping_correct,
+		idres_mac_failure,
+		xres_matched_sres,
+		regcomplete_mac_failure,
+		amf_config_update_required,
+		sec_ctx_update_required,
+		config_update_required,
+		config_response_required,
+		ue_inactivity_detected,
+		paging_required,
+		servicereq_mac_failure,
+		servicereject_required,
+		paging_timer_expired,
+		regrejectrereg_required,
+		regrejectlimited_required,
+		imeirequested,
+		tmsirequested,
+		imeisvrequested
+	);
+tel
