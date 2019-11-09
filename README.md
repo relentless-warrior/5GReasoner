@@ -1,5 +1,5 @@
 # 5GReasoner
-5GReasoner: A Property-Directed Security and Privacy Analysis Framework for 5G Cellular Network Protocol. 
+5GReasoner: A Property-Directed Security and Privacy Analysis Framework for 5G Cellular Network Protocol. (CCS'19)
 
 # NuXmv
 
