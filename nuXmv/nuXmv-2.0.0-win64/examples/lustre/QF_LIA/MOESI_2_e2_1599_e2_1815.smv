@@ -1,0 +1,193 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE excludes4 (_X1_,_X2_,_X3_,_X4_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := ! (((((((_X1_ & _X2_) | (_X1_ & _X3_)) | (_X1_ & _X4_)) | (_X2_ & _X3_)) | (_X2_ & _X4_)) | (_X3_ & _X4_)));
+
+
+
+
+MODULE moesi (init_invalid_mo,etat_mo1,etat_mo2,etat_mo3,etat_mo4)
+VAR
+modified_mo: integer;
+exclusive_mo: integer;
+shared_mo: integer;
+invalid_mo: integer;
+owned_mo: integer;
+erreur_mo: boolean;
+garde_mo1: boolean;
+garde_mo2: boolean;
+garde_mo3: boolean;
+garde_mo4: boolean;
+flby: boolean;
+ite: integer;
+ite2: integer;
+ite3: integer;
+ite4: integer;
+ite5: integer;
+ite6: integer;
+ite7: integer;
+ite8: integer;
+flby2: integer;
+ite9: integer;
+ite10: integer;
+ite11: integer;
+ite12: integer;
+ite13: integer;
+ite14: integer;
+ite15: integer;
+ite16: integer;
+flby3: integer;
+ite17: integer;
+ite18: integer;
+ite19: integer;
+ite20: integer;
+ite21: integer;
+ite22: integer;
+flby4: integer;
+ite23: integer;
+ite24: integer;
+ite25: integer;
+ite26: integer;
+ite27: integer;
+ite28: integer;
+flby5: integer;
+ite29: integer;
+ite30: integer;
+ite31: integer;
+ite32: integer;
+ite33: integer;
+ite34: integer;
+flby6: integer;
+
+ASSIGN
+modified_mo := flby2;
+exclusive_mo := flby3;
+shared_mo := flby4;
+invalid_mo := flby5;
+owned_mo := flby6;
+erreur_mo := flby;
+next(garde_mo1) := (invalid_mo >= 1);
+next(garde_mo2) := (exclusive_mo >= 1);
+next(garde_mo3) := (((shared_mo - 1) + owned_mo) >= 1);
+next(garde_mo4) := (invalid_mo >= 1);
+init(flby) := FALSE;
+next(flby) := (next(exclusive_mo) >= 2);
+init(flby2) := 0;
+next(flby2) := next(ite8);
+init(flby3) := 0;
+next(flby3) := next(ite16);
+init(flby4) := 0;
+next(flby4) := next(ite22);
+init(flby5) := init_invalid_mo;
+next(flby5) := next(ite28);
+init(flby6) := 0;
+next(flby6) := next(ite34);
+
+INIT
+(garde_mo1 -> (ite = 0)) &
+(garde_mo3 -> (ite3 = 0)) &
+(garde_mo4 -> (ite4 = 0)) &
+(etat_mo4 -> (ite5 = ite4)) &
+(garde_mo1 -> (ite9 = 0)) &
+(garde_mo3 -> (ite11 = 1)) &
+(garde_mo4 -> (ite12 = 1)) &
+(etat_mo4 -> (ite13 = ite12)) &
+(garde_mo3 -> (ite18 = 0)) &
+(garde_mo4 -> (ite19 = 0)) &
+(etat_mo4 -> (ite20 = ite19)) &
+(etat_mo4 -> (ite26 = ite25)) &
+(garde_mo3 -> (ite30 = 0)) &
+(garde_mo4 -> (ite31 = 0)) &
+(etat_mo4 -> (ite32 = ite31));
+
+TRANS
+((next(garde_mo1) -> (next(ite) = 0)) & (! (next(garde_mo1)) -> (next(ite) = modified_mo))) &
+((next(garde_mo2) -> (next(ite2) = (modified_mo + 1))) & (! (next(garde_mo2)) -> (next(ite2) = modified_mo))) &
+((next(garde_mo3) -> (next(ite3) = 0)) & (! (next(garde_mo3)) -> (next(ite3) = modified_mo))) &
+((next(garde_mo4) -> (next(ite4) = 0)) & (! (next(garde_mo4)) -> (next(ite4) = modified_mo))) &
+((next(etat_mo4) -> (next(ite5) = next(ite4))) & (! (next(etat_mo4)) -> (next(ite5) = modified_mo))) &
+((next(garde_mo1) -> (next(ite9) = 0)) & (! (next(garde_mo1)) -> (next(ite9) = exclusive_mo))) &
+((next(garde_mo2) -> (next(ite10) = (exclusive_mo - 1))) & (! (next(garde_mo2)) -> (next(ite10) = exclusive_mo))) &
+((next(garde_mo3) -> (next(ite11) = 1)) & (! (next(garde_mo3)) -> (next(ite11) = exclusive_mo))) &
+((next(garde_mo4) -> (next(ite12) = 1)) & (! (next(garde_mo4)) -> (next(ite12) = exclusive_mo))) &
+((next(etat_mo4) -> (next(ite13) = next(ite12))) & (! (next(etat_mo4)) -> (next(ite13) = exclusive_mo))) &
+((next(garde_mo1) -> (next(ite17) = (((shared_mo - 1) + exclusive_mo) + 1))) & (! (next(garde_mo1)) -> (next(ite17) = shared_mo))) &
+((next(garde_mo3) -> (next(ite18) = 0)) & (! (next(garde_mo3)) -> (next(ite18) = shared_mo))) &
+((next(garde_mo4) -> (next(ite19) = 0)) & (! (next(garde_mo4)) -> (next(ite19) = shared_mo))) &
+((next(etat_mo4) -> (next(ite20) = next(ite19))) & (! (next(etat_mo4)) -> (next(ite20) = shared_mo))) &
+((next(garde_mo1) -> (next(ite23) = (invalid_mo - 1))) & (! (next(garde_mo1)) -> (next(ite23) = invalid_mo))) &
+((next(garde_mo3) -> (next(ite24) = (((((invalid_mo + modified_mo) + exclusive_mo) + shared_mo) + owned_mo) - 1))) & (! (next(garde_mo3)) -> (next(ite24) = invalid_mo))) &
+((next(garde_mo4) -> (next(ite25) = (((((invalid_mo + modified_mo) + exclusive_mo) + shared_mo) + owned_mo) - 1))) & (! (next(garde_mo4)) -> (next(ite25) = invalid_mo))) &
+((next(etat_mo4) -> (next(ite26) = next(ite25))) & (! (next(etat_mo4)) -> (next(ite26) = invalid_mo))) &
+((next(garde_mo1) -> (next(ite29) = (owned_mo + modified_mo))) & (! (next(garde_mo1)) -> (next(ite29) = owned_mo))) &
+((next(garde_mo3) -> (next(ite30) = 0)) & (! (next(garde_mo3)) -> (next(ite30) = owned_mo))) &
+((next(garde_mo4) -> (next(ite31) = 0)) & (! (next(garde_mo4)) -> (next(ite31) = owned_mo))) &
+((next(etat_mo4) -> (next(ite32) = next(ite31))) & (! (next(etat_mo4)) -> (next(ite32) = owned_mo)));
+
+INVAR
+((etat_mo3 -> (ite6 = ite3)) & (! (etat_mo3) -> (ite6 = ite5))) &
+((etat_mo2 -> (ite7 = ite2)) & (! (etat_mo2) -> (ite7 = ite6))) &
+((etat_mo1 -> (ite8 = ite)) & (! (etat_mo1) -> (ite8 = ite7))) &
+((etat_mo3 -> (ite14 = ite11)) & (! (etat_mo3) -> (ite14 = ite13))) &
+((etat_mo2 -> (ite15 = ite10)) & (! (etat_mo2) -> (ite15 = ite14))) &
+((etat_mo1 -> (ite16 = ite9)) & (! (etat_mo1) -> (ite16 = ite15))) &
+((etat_mo3 -> (ite21 = ite18)) & (! (etat_mo3) -> (ite21 = ite20))) &
+((etat_mo1 -> (ite22 = ite17)) & (! (etat_mo1) -> (ite22 = ite21))) &
+((etat_mo3 -> (ite27 = ite24)) & (! (etat_mo3) -> (ite27 = ite26))) &
+((etat_mo1 -> (ite28 = ite23)) & (! (etat_mo1) -> (ite28 = ite27))) &
+((etat_mo3 -> (ite33 = ite30)) & (! (etat_mo3) -> (ite33 = ite32))) &
+((etat_mo1 -> (ite34 = ite29)) & (! (etat_mo1) -> (ite34 = ite33)));
+
+
+
+
+MODULE main
+VAR
+param_init_invalid_mo: integer;
+param_etat_mo1: boolean;
+param_etat_mo2: boolean;
+param_etat_mo3: boolean;
+param_etat_mo4: boolean;
+_OK_: boolean;
+modified_mo: integer;
+exclusive_mo: integer;
+shared_mo: integer;
+invalid_mo: integer;
+owned_mo: integer;
+erreur_mo: boolean;
+env: boolean;
+flby: boolean;
+call_moesi: moesi (param_init_invalid_mo,param_etat_mo1,param_etat_mo2,param_etat_mo3,param_etat_mo4);
+call_excludes4: excludes4 (param_etat_mo1,param_etat_mo2,param_etat_mo3,param_etat_mo4);
+call_Sofar: Sofar (call_excludes4.excludes);
+
+ASSIGN
+_OK_ := (env -> flby);
+modified_mo := call_moesi.modified_mo;
+exclusive_mo := call_moesi.exclusive_mo;
+shared_mo := call_moesi.shared_mo;
+invalid_mo := call_moesi.invalid_mo;
+owned_mo := call_moesi.owned_mo;
+erreur_mo := call_moesi.erreur_mo;
+env := call_Sofar.Sofar;
+init(flby) := TRUE;
+next(flby) := (((((next(modified_mo) + next(exclusive_mo)) + next(shared_mo)) + next(invalid_mo)) + next(owned_mo)) = ((((modified_mo + exclusive_mo) + shared_mo) + invalid_mo) + owned_mo));
+
+INVARSPEC (_OK_ = TRUE)
+
+

@@ -1,0 +1,20 @@
+MODULE main
+VAR
+_OK_: boolean;
+time: integer;
+ite: integer;
+flby: integer;
+param__init_: integer;
+
+ASSIGN
+_OK_ := (time < 0);
+time := flby;
+init(flby) := 0;
+next(flby) := next(ite);
+
+TRANS
+(((time = 5) -> (next(ite) = 0)) & (! ((time = 5)) -> (next(ite) = (time + 1))));
+
+INVARSPEC _OK_
+
+

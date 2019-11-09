@@ -1,0 +1,288 @@
+digraph amf{
+rankdir = LR;
+size = "8,5"
+node [shape = circle, label="amf_deregistered"]amf_deregistered;
+node [shape = circle, label="amf_com_proc_inited"]amf_com_proc_inited;
+node [shape = circle, label="amf_registered"]amf_registered;
+node [shape = circle, label="amf_idle"]amf_idle;
+node [shape = circle, label="amf_inited"]amf_dereg_inited;
+
+
+//initial_state: amf_deregistered
+//incoming messages: null_action; dereg_req_switch_off; reg_req; dereg_req_not_switch_off; id_res; auth_response; auth_failure_mac; auth_failure_seq; sm_complete; sm_reject; reg_complete; config_update_complete; service_req; ue_dereg_accept
+//outgoing messages: null_action; auth_reject; reg_reject; nwk_dereg_req; service_reject; id_req; auth_req; sm_command; reg_accept; config_update_cmd; service_accept; nwk_dereg_accept
+////rrcincomingmessages: null_action; amf_nas_ul_info_transfer
+////rrcoutgoingmessages: null_action; amf_nas_dl_info_transfer
+//environment variables: amfderegrequested; reg_failure; idrequired; regreq_mac_failure; deregreq_mac_failure; tmsi_imsi_mapping_correct; idres_mac_failure; xres_matched_sres; regcomplete_mac_failure; sec_ctx_update_required; config_update_required; config_response_required; ue_inactivity_detected; paging_required; servicereq_mac_failure; servicereject_required; paging_timer_expired; nas_requested_con_establishment
+//state variables: amf_partial_sec_ctx_exist{true, false}<false>; amf_complete_sec_ctx_exist{true, false}<false>; amf_reg_completed{true, false}<false>; amf_config_updated{true, false}<false>; amf_sec_ctx_updated{true, false}<false>; amf_service_completed{true, false}<true>; amf_service_started{true, false}<false>; paging_requested{true, false}<false>; amf_wait_for{null, idresponse, authresponse, smresponse, regacceptresponse, configupdateresponse, servicerequest}<null>;chan_AMF_rrc_nas{AMF_ul_info_transfer, null}<null>; chan_AMF_nas_rrc{AMF_dl_info_transfer, AMF_paging_requested, AMF_ctx_release_requested, null}<null>; uectxreleaserequired{true,false}<false>
+//sequence variables: amf_nas_ul_count {0, 32}<0, ((amf_nas_ul_count + 1) mod 32)>; amf_nas_dl_count {0, 32}<0, ((ue_nas_dl_count + 1) mod 32)>; amf_auth_fail_count{0,5}<0,ue_auth_fail_count+1>; amf_seq{0, 32}<ue_seq + 1, ((amf_seq + 1) mod 32), amf_seq>                                                                                                                                                                                                                                                                                      
+//define: amf_auth_fail_count_check  := (amf_auth_fail_count < 3)
+
+amf_deregistered -> amf_deregistered [label = "uectxreleaserequired / chan_AMF_nas_rrc=AMF_ctx_release_requested, uectxreleaserequired=false"]
+amf_dereg_inited -> amf_deregistered [label = "uectxreleaserequired / chan_AMF_nas_rrc=AMF_ctx_release_requested, uectxreleaserequired=false"]
+amf_com_proc_inited -> amf_deregistered [label = "uectxreleaserequired / chan_AMF_nas_rrc=AMF_ctx_release_requested, uectxreleaserequired=false"]
+amf_registered -> amf_deregistered [label = "uectxreleaserequired / chan_AMF_nas_rrc=AMF_ctx_release_requested, uectxreleaserequired=false"]
+amf_idle -> amf_deregistered [label = "uectxreleaserequired / chan_AMF_nas_rrc=AMF_ctx_release_requested, uectxreleaserequired=false"]
+
+
+amf_deregistered -> amf_dereg_inited [label = "amfderegrequested / nwk_dereg_req, paging_requested=false, uectxreleaserequired=true"]
+
+amf_deregistered -> amf_deregistered [label = "reg_req & reg_failure / reg_reject, amf_partial_sec_ctx_exist= FALSE,
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_service_started=false,
+    amf_service_completed=false, uectxreleaserequired=true"]
+
+amf_deregistered -> amf_com_proc_inited [label = "reg_req & !reg_failure & !idrequired / auth_req, amf_wait_for = authresponse, 
+    amf_ue_shared_seq = next(amf_seq), amf_seq = ((amf_seq + 1) mod 32), amf_auth_fail_count = 0, 
+    amf_reg_completed= FALSE, paging_requested=false"]
+
+amf_deregistered -> amf_com_proc_inited [label = "reg_req & !reg_failure & idrequired /
+    id_req, amf_wait_for = idresponse, paging_requested=false"]
+
+
+amf_com_proc_inited -> amf_dereg_inited [label = "amfderegrequested / nwk_dereg_req, amf_auth_fail_count = 0, 
+    amf_reg_completed= FALSE, paging_requested=false, uectxreleaserequired=true"]
+
+amf_com_proc_inited -> amf_deregistered [label = "dereg_req_switch_off / amf_auth_fail_count = 0, 
+    amf_reg_completed= FALSE, paging_requested=false, uectxreleaserequired=true"]
+
+amf_com_proc_inited -> amf_deregistered [label = "dereg_req_not_switch_off & amf_complete_sec_ctx_exist 
+    & !deregreq_mac_failure / nwk_dereg_accept, amf_auth_fail_count = 0, 
+    amf_reg_completed= FALSE, paging_requested=false, uectxreleaserequired=true"]
+
+
+amf_com_proc_inited -> amf_deregistered [label = "reg_req  & reg_failure /  reg_reject, amf_partial_sec_ctx_exist= FALSE, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_auth_fail_count=0, amf_service_started=false,
+    amf_service_completed=false, paging_requested=false, uectxreleaserequired=true"]
+
+amf_com_proc_inited -> amf_com_proc_inited [label = "reg_req & !reg_failure & idrequired / 
+    id_req, amf_wait_for = idresponse, paging_requested=false"]
+
+amf_com_proc_inited -> amf_com_proc_inited [label = "reg_req & !reg_failure & !idrequired & amf_complete_sec_ctx_exist 
+    & amf_reg_completed & !regreq_mac_failure/ reg_accept, amf_wait_for = regacceptresponse, paging_requested=false, 
+    uectxreleaserequired=false"]
+
+amf_com_proc_inited -> amf_com_proc_inited [label = "reg_req & !reg_failure & !idrequired  & !amf_complete_sec_ctx_exist 
+    & !amf_reg_completed & regreq_mac_failure/
+    auth_req, amf_wait_for = authresponse, amf_ue_shared_seq = next(amf_seq), 
+    amf_seq = ((amf_seq + 1) mod 32), amf_auth_fail_count = 0, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, paging_requested=false"]
+
+
+
+//TODO: Need to recheck whether the following one makes any sense
+amf_com_proc_inited -> amf_deregistered [label = "reg_req & !amf_auth_fail_count_check / reg_reject, amf_partial_sec_ctx_exist= FALSE, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_service_started=false,
+    amf_service_completed=false, paging_requested=false"]
+
+amf_com_proc_inited -> amf_deregistered [label = "auth_failure_mac & amf_wait_for = authresponse 
+    & tmsi_imsi_mapping_correct / auth_reject, amf_partial_sec_ctx_exist= FALSE, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_service_started=false,
+    amf_service_completed=false"]
+
+amf_com_proc_inited -> amf_com_proc_inited [label = "auth_failure_mac & amf_wait_for = authresponse & !tmsi_imsi_mapping_correct 
+    / id_req, amf_wait_for = idresponse, amf_auth_fail_count++"]
+
+amf_com_proc_inited -> amf_com_proc_inited [label = "id_res  & amf_wait_for = idresponse & 
+    amf_complete_sec_ctx_exist=true & !idres_mac_failure /  auth_req, 
+    amf_wait_for = authresponse, amf_ue_shared_seq = next(amf_seq), 
+    amf_seq = ((amf_seq + 1) mod 32), amf_auth_fail_count = 0, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE"]
+
+amf_com_proc_inited -> amf_com_proc_inited [label = "auth_failure_seq & amf_wait_for = authresponse 
+    & amf_auth_fail_count_check / auth_req, amf_wait_for = authresponse, 
+    amf_auth_fail_count = amf_auth_fail_count + 1, amf_ue_shared_seq = next(amf_seq), 
+    amf_seq = ((amf_seq + 1) mod 32)"]
+
+amf_com_proc_inited -> amf_deregistered [label = "auth_failure_seq & amf_wait_for = authresponse 
+    & !amf_auth_fail_count_check / auth_reject, amf_partial_sec_ctx_exist= FALSE, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_auth_fail_count=0, amf_service_started=false,
+    amf_service_completed=false"]
+
+amf_com_proc_inited -> amf_com_proc_inited [label = "auth_response & amf_wait_for = authresponse 
+    & xres_matched_sres / sm_command, amf_partial_sec_ctx_exist=true, amf_wait_for = smresponse, 
+    amf_nas_ul_count=0, amf_nas_dl_count=0"]
+
+//TODO: Need to check the standard
+amf_com_proc_inited -> amf_deregistered [label = "auth_response & amf_wait_for = authresponse 
+    & !xres_matched_sres / auth_reject, amf_partial_sec_ctx_exist= FALSE, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_auth_fail_count=0, amf_service_started=false,
+    amf_service_completed=false"]
+
+amf_com_proc_inited -> amf_com_proc_inited [label = "sm_reject & amf_wait_for = smresponse  
+     & amf_complete_sec_ctx_exist / reg_accept, amf_wait_for = regacceptresponse, amf_sec_ctx_updated = FALSE"]
+
+amf_com_proc_inited -> amf_com_proc_inited [label = "sm_reject & amf_wait_for = smresponse  
+     & !amf_complete_sec_ctx_exist / reg_accept, amf_wait_for = regacceptresponse, amf_sec_ctx_updated = FALSE, 
+    amf_complete_ sec_ctx_exist=false"]
+
+amf_com_proc_inited -> amf_com_proc_inited [label = "sm_complete & amf_wait_for = smresponse /
+    reg_accept, amf_wait_for = regacceptresponse, 
+    amf_complete_sec_ctx_exist = TRUE, amf_sec_ctx_updated = TRUE,
+    amf_nas_ul_count=0, amf_nas_dl_count=0"]
+
+
+amf_com_proc_inited -> amf_registered [label = "reg_complete & amf_wait_for = regacceptresponse 
+    & !regcomplete_mac_failure / amf_reg_completed = TRUE, amf_wait_for = null"]
+
+amf_com_proc_inited -> amf_registered [label = "reg_complete & amf_wait_for = regacceptresponse & regcomplete_mac_failure / uectxreleaserequired=false"]
+
+
+amf_registered -> amf_dereg_inited [label = "amfderegrequested / nwk_dereg_req, amf_auth_fail_count = 0, 
+    amf_reg_completed= FALSE, paging_requested=false, uectxreleaserequired=true"]
+
+amf_registered -> amf_deregistered [label = "dereg_req_switch_off / amf_auth_fail_count = 0, 
+    amf_reg_completed= FALSE, paging_requested=false, uectxreleaserequired=true"]
+
+amf_registered -> amf_deregistered [label = "dereg_req_not_switch_off & amf_complete_sec_ctx_exist & !deregreq_mac_failure / 
+    nwk_dereg_accept, amf_auth_fail_count = 0,  amf_reg_completed= FALSE, paging_requested=false"]
+
+
+amf_registered -> amf_deregistered [label = "reg_req  & reg_failure /  reg_reject, amf_partial_sec_ctx_exist= FALSE, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_service_started=false,
+    amf_service_completed=false, paging_requested=false"]
+
+amf_registered -> amf_com_proc_inited [label = "reg_req & !reg_failure & idrequired  / id_req, amf_wait_for = idresponse, paging_requested=false"]
+
+amf_registered -> amf_com_proc_inited [label = "reg_req & !reg_failure & 
+    !idrequired & amf_complete_sec_ctx_exist & amf_reg_completed & !regreq_mac_failure/
+    reg_accept, amf_wait_for = regacceptresponse, paging_requested=false"]
+
+amf_registered-> amf_com_proc_inited [label = "reg_req & !reg_failure & 
+    !idrequired  & !amf_complete_sec_ctx_exist & !amf_reg_completed & regreq_mac_failure/
+    auth_req, amf_wait_for = authresponse, amf_ue_shared_seq = next(amf_seq), 
+    amf_seq = ((amf_seq + 1) mod 32), amf_auth_fail_count = 0, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, paging_requested=false"]
+
+
+amf_registered -> amf_deregistered [label = "reg_req & !amf_auth_fail_count_check / reg_reject, amf_partial_sec_ctx_exist= FALSE, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_service_started=false,
+    amf_service_completed=false, paging_requested=false"]
+
+amf_registered -> amf_deregistered [label = "auth_failure_mac & amf_wait_for = authresponse & tmsi_imsi_mapping_correct / 
+    auth_reject, amf_partial_sec_ctx_exist= FALSE, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_service_started=false,
+    amf_service_completed=false"]
+
+amf_registered -> amf_com_proc_inited [label = "auth_failure_mac & amf_wait_for = authresponse & 
+    !tmsi_imsi_mapping_correct / id_req, amf_wait_for = idresponse, 
+    amf_auth_fail_count++"]
+
+amf_registered -> amf_com_proc_inited [label = "id_res  & amf_wait_for = idresponse & amf_complete_sec_ctx_exist=true 
+    & !idres_mac_failure /  auth_req, 
+    amf_wait_for = authresponse, amf_ue_shared_seq = next(amf_seq), 
+    amf_seq = ((amf_seq + 1) mod 32), amf_auth_fail_count = 0, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE"]
+
+amf_registered-> amf_com_proc_inited [label = "auth_failure_seq & amf_wait_for = authresponse & amf_auth_fail_count_check / 
+    auth_req, amf_wait_for = authresponse, 
+    amf_auth_fail_count = amf_auth_fail_count + 1, amf_ue_shared_seq = next(amf_seq), 
+    amf_seq = ((amf_seq + 1) mod 32)"]
+
+amf_registered -> amf_deregistered [label = "auth_failure_seq & amf_wait_for = authresponse 
+    & !amf_auth_fail_count_check / auth_reject, amf_partial_sec_ctx_exist= FALSE, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_service_started=false,
+    amf_service_completed=false"]
+
+amf_registered -> amf_com_proc_inited [label = "auth_response & amf_wait_for = authresponse & xres_matched_sres / 
+    sm_command, amf_partial_sec_ctx_exist=true, amf_wait_for = smresponse, 
+    amf_nas_ul_count=0, amf_nas_dl_count=0"]
+
+//TODO: Need to check the standard
+amf_registered -> amf_deregistered [label = "auth_response & amf_wait_for = authresponse & !xres_matched_sres / 
+    auth_reject, amf_partial_sec_ctx_exist= FALSE, 
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_service_started=false,
+    amf_service_completed=false"]
+
+amf_registered -> amf_registered [label = "sec_ctx_update_required /  
+    sm_command, amf_wait_for = smresponse, amf_sec_ctx_updated = FALSE,
+    amf_nas_ul_count=0, amf_nas_dl_count=0"]
+
+amf_registered -> amf_registered [label = "sm_reject & amf_wait_for = smresponse  
+     & amf_complete_sec_ctx_exist / amf_sec_ctx_updated = FALSE"]
+
+amf_registered -> amf_registered [label = "sm_reject & amf_wait_for = smresponse  
+     & !amf_complete_sec_ctx_exist / amf_sec_ctx_updated = FALSE, amf_complete_sec_ctx_exist=false"]
+
+amf_registered -> amf_com_proc_inited [label = "sm_complete & amf_wait_for = smresponse /
+    amf_complete_sec_ctx_exist = TRUE, amf_sec_ctx_updated = TRUE, amf_wait_for = null,
+    amf_nas_ul_count=0, amf_nas_dl_count=0"]
+
+//// RESUME FROM HERE
+amf_registered -> amf_registered [label = "config_update_required & config_response_required/
+    config_update_cmd, amf_wait_for = configupdateresponse, amf_config_updated=false"]
+
+amf_registered -> amf_registered [label = "config_update_required & !config_response_required & !amf_config_updated/
+    config_update_cmd, amf_config_updated=true, amf_wait_for = null"]
+
+amf_registered -> amf_registered [label = "amf_wait_for = configupdateresponse & config_update_complete /
+    amf_config_updated=true, amf_wait_for = null"]
+
+amf_registered -> amf_idle [label = "ue_inactivity_detected / ue_ctx_release"]
+
+amf_registered -> amf_registered [label = "service_req & !servicereject_required / service_reject, amf_service_started=false,
+    amf_service_completed=true, paging_requested=false"]
+
+amf_registered -> amf_registered [label = "service_req & !servicereq_mac_failure & !idrequired / 
+    service_accept, amf_service_started=false amf_service_completed=true, paging_requested=false"]
+
+amf_registered -> amf_com_proc_inited [label = "service_req & servicereq_mac_failure / 
+    auth_req, amf_service_completed=false, 
+    amf_wait_for = authresponse,
+    amf_ue_shared_seq = next(amf_seq), amf_seq = ((amf_seq + 1) mod 32), 
+    amf_auth_fail_count = 0,  amf_partial_sec_ctx_exist= FALSE, amf_complete_sec_ctx_exist= FALSE,  
+    amf_sec_ctx_updated= FALSE, amf_service_started=true, amf_service_completed=false, paging_requested=false"]
+
+amf_registered -> amf_registered [label="amf_reg_completed & amf_service_started & !amf_service_completed  
+    / service_accept, amf_service_started=false, ue_service_completed=true, amf_nas_ul_count = ((amf_nas_ul_count + 1) mod 32), 
+    amf_nas_ul_count = ((amf_nas_ul_count + 1) mod 32)"]
+
+
+amf_idle -> amf_idle [label = "paging_required / paging_requested=true, amf_wait_for = servicerequest, chan_AMF_nas_rrc = AMF_paging_requested"] 
+
+amf_idle -> amf_idle [label = "amf_wait_for=servicerequest & paging_timer_expired / paging_requested=true, 
+    amf_wait_for = servicerequest, chan_AMF_nas_rrc = AMF_paging_requested"] 
+
+amf_idle -> amf_com_proc_inited [label = "amf_wait_for = servicerequest & service_req & !servicereq_mac_failure & 
+    idrequired / id_req, amf_wait_for = idresponse, amf_service_started=true, 
+    amf_service_completed=false, paging_requested=false"]
+
+amf_registered -> amf_com_proc_inited [label = "amf_wait_for = servicerequest & service_req &  
+    !servicereq_mac_failure & !idrequired / auth_req, amf_service_completed=false, 
+    amf_wait_for = authresponse, amf_ue_shared_seq = next(amf_seq), amf_seq = ((amf_seq + 1) mod 32), 
+    amf_auth_fail_count = 0,  amf_partial_sec_ctx_exist= FALSE, amf_complete_sec_ctx_exist= FALSE,  
+    amf_sec_ctx_updated= FALSE, amf_service_started=true, amf_service_completed=false, paging_requested=false"]
+
+amf_registered -> amf_registered [label="amf_wait_for = servicerequest & service_req &  
+    !servicereq_mac_failure & amf_service_started & !amf_service_completed  
+    / service_accept, amf_service_started=false, ue_service_completed=true, paging_requested=false"]
+
+
+
+amf_dereg_inited -> amf_dereg_inited [label = "amfderegrequested / nwk_dereg_req, paging_requested=false, uectxreleaserequired=true, uectxreleaserequired=true"]
+
+amf_dereg_inited -> amf_deregistered [label = "reg_req & reg_failure / reg_reject, amf_partial_sec_ctx_exist= FALSE,
+    amf_complete_sec_ctx_exist= FALSE, amf_sec_ctx_updated= FALSE, 
+    amf_reg_completed= FALSE, amf_service_started=false,
+    amf_service_completed=false, , uectxreleaserequired=true"]
+
+amf_dereg_inited -> amf_com_proc_inited [label = "reg_req & !reg_failure & !idrequired / auth_req, amf_wait_for = authresponse, 
+    amf_ue_shared_seq = next(amf_seq), amf_seq = ((amf_seq + 1) mod 32), amf_auth_fail_count = 0, 
+    amf_reg_completed= FALSE, paging_requested=false, "]
+
+amf_dereg_inited -> amf_com_proc_inited [label = "reg_req & !reg_failure & idrequired /
+    id_req, amf_wait_for = idresponse, paging_requested=false"]
+
+amf_dereg_inited -> amf_deregistered [label = "ue_dereg_accept / paging_requested=false, uectxreleaserequired=true"]
+
+}

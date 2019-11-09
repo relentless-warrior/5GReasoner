@@ -1,0 +1,151 @@
+MODULE First (_X_)
+VAR
+First: integer;
+flby: integer;
+
+ASSIGN
+First := flby;
+init(flby) := _X_;
+next(flby) := First;
+
+
+
+
+MODULE FirstB (_X_)
+VAR
+First: boolean;
+flby: boolean;
+
+ASSIGN
+First := flby;
+init(flby) := _X_;
+next(flby) := First;
+
+
+
+
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE excludes3 (_X1_,_X2_,_X3_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := ! ((((_X1_ & _X2_) | (_X1_ & _X3_)) | (_X2_ & _X3_)));
+
+
+
+
+MODULE _PRODUCER_CONSUMMER_ (etat1,etat2,etat3,a_init)
+VAR
+i: integer;
+b: integer;
+a: integer;
+o1: integer;
+o2: integer;
+garde1: boolean;
+garde2: boolean;
+garde3: boolean;
+ite: integer;
+ite2: integer;
+flby: integer;
+ite3: integer;
+ite4: integer;
+ite5: integer;
+ite6: integer;
+ite7: integer;
+flby2: integer;
+flby3: integer;
+ite8: integer;
+ite9: integer;
+flby4: integer;
+ite10: integer;
+ite11: integer;
+flby5: integer;
+
+ASSIGN
+i := flby;
+b := flby2;
+a := flby3;
+o1 := flby4;
+o2 := flby5;
+next(garde1) := (i >= 1);
+next(garde2) := (b >= 1);
+next(garde3) := (b >= 1);
+init(flby) := a;
+next(flby) := next(ite2);
+init(flby2) := 0;
+next(flby2) := next(ite7);
+init(flby3) := a_init;
+next(flby3) := a;
+init(flby4) := 0;
+next(flby4) := next(ite9);
+init(flby5) := 0;
+next(flby5) := next(ite11);
+
+INIT
+(etat1 -> (ite2 = ite)) &
+(etat2 -> (ite9 = ite8)) &
+(etat3 -> (ite11 = ite10));
+
+TRANS
+((next(garde1) -> (next(ite) = (i - 1))) & (! (next(garde1)) -> (next(ite) = i))) &
+((next(etat1) -> (next(ite2) = next(ite))) & (! (next(etat1)) -> (next(ite2) = i))) &
+((next(garde1) -> (next(ite3) = (b + 1))) & (! (next(garde1)) -> (next(ite3) = b))) &
+((next(garde2) -> (next(ite4) = (b - 1))) & (! (next(garde2)) -> (next(ite4) = b))) &
+((next(garde3) -> (next(ite5) = (b - 1))) & (! (next(garde3)) -> (next(ite5) = b))) &
+((next(garde2) -> (next(ite8) = (o1 + 1))) & (! (next(garde2)) -> (next(ite8) = o1))) &
+((next(etat2) -> (next(ite9) = next(ite8))) & (! (next(etat2)) -> (next(ite9) = o1))) &
+((next(garde3) -> (next(ite10) = (o2 + 1))) & (! (next(garde3)) -> (next(ite10) = o2))) &
+((next(etat3) -> (next(ite11) = next(ite10))) & (! (next(etat3)) -> (next(ite11) = o2)));
+
+INVAR
+((etat2 -> (ite6 = ite4)) & (! (etat2) -> (ite6 = ite5))) &
+((etat1 -> (ite7 = ite3)) & (! (etat1) -> (ite7 = ite6)));
+
+
+
+
+MODULE main
+VAR
+param_etat3: boolean;
+param_a_init: integer;
+_OK_: boolean;
+i: integer;
+b: integer;
+a: integer;
+o1: integer;
+o2: integer;
+env: boolean;
+param_etat1: boolean;
+param_etat2: boolean;
+call__PRODUCER_CONSUMMER_: _PRODUCER_CONSUMMER_ (param_etat1,param_etat2,param_etat3,param_a_init);
+call_excludes3: excludes3 (param_etat1,param_etat2,param_etat3);
+call_Sofar: Sofar ((call_excludes3.excludes | ! (((param_etat1 | param_etat2) | param_etat3))));
+call_FirstB: FirstB (! (((param_etat1 | param_etat2) | param_etat3)));
+call_First: First (param_a_init);
+call_First2: First (a);
+
+ASSIGN
+_OK_ := (env -> (((o1 - 1) + o2) <= call_First2.First));
+i := call__PRODUCER_CONSUMMER_.i;
+b := call__PRODUCER_CONSUMMER_.b;
+a := call__PRODUCER_CONSUMMER_.a;
+o1 := call__PRODUCER_CONSUMMER_.o1;
+o2 := call__PRODUCER_CONSUMMER_.o2;
+env := ((call_Sofar.Sofar & call_FirstB.First) & (call_First.First > 0));
+
+INVARSPEC (_OK_ = TRUE)
+
+

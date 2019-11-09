@@ -1,0 +1,16 @@
+digraph G {
+rankdir = LR;
+size = "8,5"
+
+    CLIENT_READY -> CLIENT_PROCESSING [label="user_request / REQUEST,client_seq++"] //ct1 
+    CLIENT_PROCESSING -> CLIENT_READY [label="RESPONSE / _"] //ct2 
+    CLIENT_PROCESSING -> CLIENT_READY [label = "RESET / _"] //ct3; 
+    CLIENT_READY -> CLIENT_ERROR [label="RESET / FATAL_ERROR"] //ct4
+
+    SERVER_READY -> SERVER_ERROR [label="FATAL_ERROR / NULL"] //st0
+	SERVER_READY -> SERVER_PROCESSING [label="REQUEST / NULL, server_seq++"] //st1
+    SERVER_PROCESSING -> SERVER_READY [label="processing_error / RESET"] //st2 
+    SERVER_PROCESSING -> SERVER_READY [label="processing_done / RESPONSE"] //st3 
+    SERVER_PROCESSING -> SERVER_ERROR [label="FATAL_ERROR / NULL"] //st4
+    SERVER_ERROR -> SERVER_ERROR [label="FATAL_ERROR / NULL"] //st5
+}

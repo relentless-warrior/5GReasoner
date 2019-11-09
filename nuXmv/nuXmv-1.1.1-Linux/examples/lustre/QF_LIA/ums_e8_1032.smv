@@ -1,0 +1,192 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE edge (_X_)
+VAR
+_Y_: boolean;
+flby: boolean;
+
+ASSIGN
+_Y_ := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & ! (_X_));
+
+
+
+
+MODULE after (_A_)
+VAR
+afterA: boolean;
+flby: boolean;
+
+ASSIGN
+afterA := flby;
+init(flby) := FALSE;
+next(flby) := (_A_ & afterA);
+
+
+
+
+MODULE always_since (_B_,_A_)
+VAR
+alwaysBsinceA: boolean;
+ite: boolean;
+ite2: boolean;
+call_after: after (_A_);
+
+ASSIGN
+alwaysBsinceA := ite2;
+
+INIT
+(! (call_after.afterA) -> (ite = TRUE));
+
+TRANS
+((next(call_after.afterA) -> (next(ite) = (next(_B_) & alwaysBsinceA))) & (! (next(call_after.afterA)) -> (next(ite) = TRUE)));
+
+INVAR
+((_A_ -> (ite2 = _B_)) & (! (_A_) -> (ite2 = ite)));
+
+
+
+
+MODULE once_since (_C_,_A_)
+VAR
+onceCsinceA: boolean;
+ite: boolean;
+ite2: boolean;
+call_after: after (_A_);
+
+ASSIGN
+onceCsinceA := ite2;
+
+INIT
+(! (call_after.afterA) -> (ite = TRUE));
+
+TRANS
+((next(call_after.afterA) -> (next(ite) = (next(_C_) | onceCsinceA))) & (! (next(call_after.afterA)) -> (next(ite) = TRUE)));
+
+INVAR
+((_A_ -> (ite2 = _C_)) & (! (_A_) -> (ite2 = ite)));
+
+
+
+
+MODULE implies (_A_,_B_)
+VAR
+AimpliesB: boolean;
+
+ASSIGN
+AimpliesB := (! (_A_) | _B_);
+
+
+
+
+MODULE always_from_to (_B_,_A_,_C_)
+VAR
+_X_: boolean;
+call_after: after (_A_);
+call_always_since: always_since (_B_,_A_);
+call_once_since: once_since (_C_,_A_);
+call_implies: implies (call_after.afterA,(call_always_since.alwaysBsinceA | call_once_since.onceCsinceA));
+
+ASSIGN
+_X_ := call_implies.AimpliesB;
+
+
+
+
+MODULE _UMS_ (on_A,on_B,on_C,ack_AB,ack_BC)
+VAR
+grant_access: boolean;
+grant_exit: boolean;
+do_AB: boolean;
+do_BC: boolean;
+empty_section: boolean;
+only_on_B: boolean;
+
+ASSIGN
+grant_access := (empty_section & ack_AB);
+grant_exit := (only_on_B & ack_BC);
+do_AB := (! (ack_AB) & empty_section);
+do_BC := (! (ack_BC) & only_on_B);
+empty_section := ! (((on_A | on_B) | on_C));
+only_on_B := (on_B & ! ((on_A | on_C)));
+
+
+
+
+MODULE main
+VAR
+param_on_A: boolean;
+param_on_B: boolean;
+param_on_C: boolean;
+param_ack_AB: boolean;
+param_ack_BC: boolean;
+_OK_: boolean;
+grant_access: boolean;
+grant_exit: boolean;
+do_AB: boolean;
+do_BC: boolean;
+no_collision: boolean;
+exclusive_req: boolean;
+no_derail_AB: boolean;
+no_derail_BC: boolean;
+empty_section: boolean;
+only_on_B: boolean;
+env: boolean;
+flby: boolean;
+param: boolean;
+flby2: boolean;
+param2: boolean;
+flby3: boolean;
+call__UMS_: _UMS_ (param_on_A,param_on_B,param_on_C,param_ack_AB,param_ack_BC);
+call_always_from_to: always_from_to (param_ack_AB,param_ack_AB,do_BC);
+call_always_from_to2: always_from_to (param_ack_BC,param_ack_BC,do_AB);
+call_edge: edge (! (empty_section));
+call_implies: implies (call_edge._Y_,param);
+call_edge2: edge (param_on_C);
+call_implies2: implies (call_edge2._Y_,param2);
+call_edge3: edge (! (param_on_A));
+call_implies3: implies (call_edge3._Y_,param_on_B);
+call_edge4: edge (! (param_on_B));
+call_implies4: implies (call_edge4._Y_,(param_on_A | param_on_C));
+call_Sofar: Sofar ((((((((! ((param_ack_AB & param_ack_BC)) & call_always_from_to._X_) & call_always_from_to2._X_) & flby) & flby2) & flby3) & call_implies3.AimpliesB) & call_implies4.AimpliesB));
+call_implies5: implies (grant_access,empty_section);
+call_always_from_to3: always_from_to (param_ack_AB,grant_access,only_on_B);
+call_always_from_to4: always_from_to (param_ack_BC,grant_exit,empty_section);
+
+ASSIGN
+_OK_ := (env -> (((no_collision & exclusive_req) & no_derail_AB) & no_derail_BC));
+grant_access := call__UMS_.grant_access;
+grant_exit := call__UMS_.grant_exit;
+do_AB := call__UMS_.do_AB;
+do_BC := call__UMS_.do_BC;
+no_collision := call_implies5.AimpliesB;
+exclusive_req := ! ((do_AB & do_BC));
+no_derail_AB := call_always_from_to3._X_;
+no_derail_BC := call_always_from_to4._X_;
+empty_section := ! (((param_on_A | param_on_B) | param_on_C));
+only_on_B := (param_on_B & ! ((param_on_A | param_on_C)));
+env := call_Sofar.Sofar;
+init(flby) := empty_section;
+next(flby) := TRUE;
+next(param) := grant_access;
+init(flby2) := TRUE;
+next(flby2) := next(call_implies.AimpliesB);
+next(param2) := grant_exit;
+init(flby3) := TRUE;
+next(flby3) := next(call_implies2.AimpliesB);
+
+INVARSPEC (_OK_ = TRUE)
+
+

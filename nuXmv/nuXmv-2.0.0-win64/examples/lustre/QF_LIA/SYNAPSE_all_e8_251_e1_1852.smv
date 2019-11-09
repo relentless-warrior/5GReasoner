@@ -1,0 +1,151 @@
+MODULE First (_X_)
+VAR
+First: integer;
+flby: integer;
+
+ASSIGN
+First := flby;
+init(flby) := _X_;
+next(flby) := First;
+
+
+
+
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE excludes3 (_X1_,_X2_,_X3_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := ! (((((_X1_ & _X2_) & _X1_) & _X3_) | (_X2_ & _X3_)));
+
+
+
+
+MODULE synapse (e_s1,e_s2,e_s3,init_invalid_s)
+VAR
+invalid_s: integer;
+valid_s: integer;
+dirty_s: integer;
+mem_init_s: integer;
+garde_s1: boolean;
+garde_s2: boolean;
+garde_s3: boolean;
+flby: integer;
+ite: integer;
+ite2: integer;
+ite3: integer;
+ite4: integer;
+ite5: integer;
+ite6: integer;
+flby2: integer;
+ite7: integer;
+ite8: integer;
+ite9: integer;
+ite10: integer;
+ite11: integer;
+ite12: integer;
+flby3: integer;
+ite13: integer;
+ite14: integer;
+ite15: integer;
+ite16: integer;
+ite17: integer;
+ite18: integer;
+flby4: integer;
+
+ASSIGN
+invalid_s := flby2;
+valid_s := flby3;
+dirty_s := flby4;
+mem_init_s := flby;
+next(garde_s1) := (invalid_s >= 1);
+next(garde_s2) := (valid_s >= 1);
+next(garde_s3) := (invalid_s >= 1);
+init(flby) := init_invalid_s;
+next(flby) := mem_init_s;
+init(flby2) := mem_init_s;
+next(flby2) := next(ite6);
+init(flby3) := 0;
+next(flby3) := next(ite12);
+init(flby4) := 0;
+next(flby4) := next(ite18);
+
+INIT
+(e_s3 -> (ite4 = ite3)) &
+(garde_s2 -> (ite8 = 0)) &
+(garde_s3 -> (ite9 = 0)) &
+(e_s3 -> (ite10 = ite9)) &
+(garde_s1 -> (ite13 = 0)) &
+(garde_s2 -> (ite14 = 1)) &
+(garde_s3 -> (ite15 = 1)) &
+(e_s3 -> (ite16 = ite15));
+
+TRANS
+((next(garde_s1) -> (next(ite) = (((invalid_s + 1) + dirty_s) - 1))) & (! (next(garde_s1)) -> (next(ite) = invalid_s))) &
+((next(garde_s2) -> (next(ite2) = (((invalid_s + dirty_s) + valid_s) - 1))) & (! (next(garde_s2)) -> (next(ite2) = invalid_s))) &
+((next(garde_s3) -> (next(ite3) = (((invalid_s + dirty_s) + valid_s) - 1))) & (! (next(garde_s3)) -> (next(ite3) = invalid_s))) &
+((next(e_s3) -> (next(ite4) = next(ite3))) & (! (next(e_s3)) -> (next(ite4) = invalid_s))) &
+((next(garde_s1) -> (next(ite7) = (valid_s + 1))) & (! (next(garde_s1)) -> (next(ite7) = valid_s))) &
+((next(garde_s2) -> (next(ite8) = 0)) & (! (next(garde_s2)) -> (next(ite8) = valid_s))) &
+((next(garde_s3) -> (next(ite9) = 0)) & (! (next(garde_s3)) -> (next(ite9) = valid_s))) &
+((next(e_s3) -> (next(ite10) = next(ite9))) & (! (next(e_s3)) -> (next(ite10) = valid_s))) &
+((next(garde_s1) -> (next(ite13) = 0)) & (! (next(garde_s1)) -> (next(ite13) = dirty_s))) &
+((next(garde_s2) -> (next(ite14) = 1)) & (! (next(garde_s2)) -> (next(ite14) = dirty_s))) &
+((next(garde_s3) -> (next(ite15) = 1)) & (! (next(garde_s3)) -> (next(ite15) = dirty_s))) &
+((next(e_s3) -> (next(ite16) = next(ite15))) & (! (next(e_s3)) -> (next(ite16) = dirty_s)));
+
+INVAR
+((e_s2 -> (ite5 = ite2)) & (! (e_s2) -> (ite5 = ite4))) &
+((e_s1 -> (ite6 = ite)) & (! (e_s1) -> (ite6 = ite5))) &
+((e_s2 -> (ite11 = ite8)) & (! (e_s2) -> (ite11 = ite10))) &
+((e_s1 -> (ite12 = ite7)) & (! (e_s1) -> (ite12 = ite11))) &
+((e_s2 -> (ite17 = ite14)) & (! (e_s2) -> (ite17 = ite16))) &
+((e_s1 -> (ite18 = ite13)) & (! (e_s1) -> (ite18 = ite17)));
+
+
+
+
+MODULE main
+VAR
+param_init_invalid_s: integer;
+_OK_: boolean;
+invalid_s: integer;
+valid_s: integer;
+dirty_s: integer;
+mem_init_s: integer;
+env: boolean;
+flby: boolean;
+param_e_s1: boolean;
+param_e_s2: boolean;
+param_e_s3: boolean;
+call_synapse: synapse (param_e_s1,param_e_s2,param_e_s3,param_init_invalid_s);
+call_excludes3: excludes3 (param_e_s1,param_e_s2,param_e_s3);
+call_Sofar: Sofar ((call_excludes3.excludes & (param_init_invalid_s >= 0)));
+call_First: First (param_init_invalid_s);
+
+ASSIGN
+_OK_ := (env -> ((((dirty_s < 2) & flby) & (((invalid_s + valid_s) + dirty_s) = call_First.First)) & ((dirty_s < 1) | (valid_s < 1))));
+invalid_s := call_synapse.invalid_s;
+valid_s := call_synapse.valid_s;
+dirty_s := call_synapse.dirty_s;
+mem_init_s := call_synapse.mem_init_s;
+env := call_Sofar.Sofar;
+init(flby) := TRUE;
+next(flby) := (((next(invalid_s) + next(valid_s)) + next(dirty_s)) = ((invalid_s + valid_s) + dirty_s));
+
+INVARSPEC (_OK_ = TRUE)
+
+

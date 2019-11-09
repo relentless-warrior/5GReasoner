@@ -1,0 +1,83 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE Age (_P1_)
+VAR
+Count: integer;
+ite: integer;
+flby: integer;
+
+ASSIGN
+Count := flby;
+init(flby) := 0;
+next(flby) := next(ite);
+
+TRANS
+((_P1_ -> (next(ite) = (Count + 1))) & (! (_P1_) -> (next(ite) = 0)));
+
+
+
+
+MODULE Dursince (_P1_,_Q_)
+VAR
+Count: integer;
+ite: integer;
+ite2: integer;
+flby: integer;
+
+ASSIGN
+Count := flby;
+init(flby) := 0;
+next(flby) := next(ite2);
+
+TRANS
+((_Q_ -> (next(ite) = (Count + 1))) & (! (_Q_) -> (next(ite) = Count))) &
+((_P1_ -> (next(ite2) = 0)) & (! (_P1_) -> (next(ite2) = next(ite))));
+
+
+
+
+MODULE RaisingEdge (_P1_)
+VAR
+res: boolean;
+flby: boolean;
+
+ASSIGN
+res := flby;
+init(flby) := FALSE;
+next(flby) := (! (_P1_) & next(_P1_));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+env: boolean;
+param_leak: boolean;
+param__P1_: boolean;
+call_Age: Age (param_leak);
+call_Sofar: Sofar ((call_Age.Count <= 10));
+call_RaisingEdge: RaisingEdge (param__P1_);
+call_Age2: Age (! (param_leak));
+call_Age3: Age (! (param__P1_));
+call_Dursince: Dursince (param__P1_,param_leak);
+call_Age4: Age (! (param__P1_));
+
+ASSIGN
+_OK_ := (env -> ((call_Age3.Count <= 600) | ((2 * call_Dursince.Count) <= call_Age4.Count)));
+env := (call_Sofar.Sofar & (! (call_RaisingEdge.res) | (300 <= call_Age2.Count)));
+
+INVARSPEC (_OK_ = TRUE)
+
+

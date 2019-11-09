@@ -1,0 +1,56 @@
+MODULE greycounter (x)
+VAR
+out: boolean;
+a: boolean;
+b: boolean;
+flby: boolean;
+flby2: boolean;
+
+ASSIGN
+out := (a & b);
+a := flby;
+b := flby2;
+init(flby) := FALSE;
+next(flby) := ! (b);
+init(flby2) := FALSE;
+next(flby2) := a;
+
+
+
+
+MODULE intloopcounter (x)
+VAR
+out: boolean;
+time: integer;
+ite: integer;
+flby: integer;
+
+ASSIGN
+out := (time = 2);
+time := flby;
+init(flby) := 0;
+next(flby) := next(ite);
+
+TRANS
+(((time = 3) -> (next(ite) = 0)) & (! ((time = 3)) -> (next(ite) = (time - 1))));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+b: boolean;
+d: boolean;
+param_x: boolean;
+call_greycounter: greycounter (param_x);
+call_intloopcounter: intloopcounter (param_x);
+
+ASSIGN
+_OK_ := (b = d);
+b := call_greycounter.out;
+d := call_intloopcounter.out;
+
+INVARSPEC _OK_
+
+

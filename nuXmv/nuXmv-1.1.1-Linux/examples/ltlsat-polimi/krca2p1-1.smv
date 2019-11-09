@@ -1,0 +1,3552 @@
+MODULE main
+VAR
+INI : boolean;
+EI_EXI_14 : boolean;
+EI_EXI_13 : boolean;
+EI_EXI_12 : boolean;
+EI_EXI_11 : boolean;
+EI_EXI_10 : boolean;
+EI_EXI_9 : boolean;
+EI_EXI_8 : boolean;
+ER_EI_22 : boolean;
+ER_EI_21 : boolean;
+ER_EI_20 : boolean;
+ER_EI_19 : boolean;
+ER_EI_18 : boolean;
+ER_EI_17 : boolean;
+ENTERI : boolean;
+ER_EI_16 : boolean;
+BAR_1 : boolean;
+BAR_0 : boolean;
+GREEN : boolean;
+RED : boolean;
+EXITI : boolean;
+GO_1 : boolean;
+GO_0 : boolean;
+ENTERR : boolean;
+
+LTLSPEC
+!(
+(X
+((O (H (! ENTERR))) &
+ ((G
+   ((((GO_0 & (! GO_1)) <->
+      (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ENTERR)))))))))))))
+     & (((! GO_0) & (! GO_1)) <-> EXITI))
+    &
+    ((RED <-> (! GREEN)) &
+     (RED <->
+      (Y ((! (EXITI & (! ENTERR))) S ((! (EXITI & (! ENTERR))) & ENTERR)))))
+    &
+    (((! ((Y (BAR_0 & (! BAR_1))) & ((! GO_0) & (! GO_1)))) |
+      ((((! BAR_0) & BAR_1) &
+        (X
+         (((! BAR_0) & BAR_1) &
+          (X (((! BAR_0) & BAR_1) & (X ((! BAR_0) & BAR_1)))))))
+       &
+       (X
+        (X
+         (X
+          (X
+           ((((! BAR_0) & (! BAR_1)) U (GO_0 & (! GO_1))) |
+            (G ((! BAR_0) & (! BAR_1))))))))))
+     &
+     ((! ((Y ((! BAR_0) & (! BAR_1))) & (GO_0 & (! GO_1)))) |
+      (((BAR_0 & BAR_1) &
+        (X ((BAR_0 & BAR_1) & (X ((BAR_0 & BAR_1) & (X (BAR_0 & BAR_1)))))))
+       &
+       (X
+        (X
+         (X
+          (X
+           (((BAR_0 & (! BAR_1)) U ((! GO_0) & (! GO_1))) |
+            (G (BAR_0 & (! BAR_1))))))))))
+     & ((! (H (! (GO_0 & (! GO_1))))) | ((! BAR_0) & (! BAR_1))))
+    &
+    (((! ENTERR) | GREEN) &
+     (((! ER_EI_16) |
+       (ENTERR &
+        (X
+         (X (X (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))
+      &
+      ((! ER_EI_17) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))
+      &
+      ((! ER_EI_18) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))))
+      &
+      ((! ER_EI_19) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X (X (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))
+      &
+      ((! ER_EI_20) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))))))
+      &
+      ((! ER_EI_21) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X
+                  (X
+                   (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))))
+      &
+      ((! ER_EI_22) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X
+                  (X
+                   (X
+                    (X
+                     (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))))))
+     &
+     (((! ER_EI_16) |
+       (ENTERR &
+        (X
+         (X (X (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))
+      &
+      ((! ER_EI_17) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))
+      &
+      ((! ER_EI_18) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))))
+      &
+      ((! ER_EI_19) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X (X (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))
+      &
+      ((! ER_EI_20) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))))))
+      &
+      ((! ER_EI_21) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X
+                  (X
+                   (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))))
+      &
+      ((! ER_EI_22) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X
+                  (X
+                   (X
+                    (X
+                     (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))))))
+     &
+     ((! ENTERR) |
+      (ER_EI_16 | ER_EI_17 | ER_EI_18 | ER_EI_19 | ER_EI_20 | ER_EI_21 |
+       ER_EI_22))
+     &
+     ((! ENTERI) |
+      ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y
+          (Y
+           (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+     &
+     ((((! (ER_EI_16 & ER_EI_16)) | TRUE) & ((! (ER_EI_16 & ER_EI_17)) | FALSE)
+       & ((! (ER_EI_16 & ER_EI_18)) | FALSE) &
+       ((! (ER_EI_16 & ER_EI_19)) | FALSE) &
+       ((! (ER_EI_16 & ER_EI_20)) | FALSE) &
+       ((! (ER_EI_16 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_16 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_17 & ER_EI_16)) | FALSE) & ((! (ER_EI_17 & ER_EI_17)) | TRUE)
+       & ((! (ER_EI_17 & ER_EI_18)) | FALSE) &
+       ((! (ER_EI_17 & ER_EI_19)) | FALSE) &
+       ((! (ER_EI_17 & ER_EI_20)) | FALSE) &
+       ((! (ER_EI_17 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_17 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_18 & ER_EI_16)) | FALSE) &
+       ((! (ER_EI_18 & ER_EI_17)) | FALSE) & ((! (ER_EI_18 & ER_EI_18)) | TRUE)
+       & ((! (ER_EI_18 & ER_EI_19)) | FALSE) &
+       ((! (ER_EI_18 & ER_EI_20)) | FALSE) &
+       ((! (ER_EI_18 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_18 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_19 & ER_EI_16)) | FALSE) &
+       ((! (ER_EI_19 & ER_EI_17)) | FALSE) &
+       ((! (ER_EI_19 & ER_EI_18)) | FALSE) & ((! (ER_EI_19 & ER_EI_19)) | TRUE)
+       & ((! (ER_EI_19 & ER_EI_20)) | FALSE) &
+       ((! (ER_EI_19 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_19 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_20 & ER_EI_16)) | FALSE) &
+       ((! (ER_EI_20 & ER_EI_17)) | FALSE) &
+       ((! (ER_EI_20 & ER_EI_18)) | FALSE) &
+       ((! (ER_EI_20 & ER_EI_19)) | FALSE) & ((! (ER_EI_20 & ER_EI_20)) | TRUE)
+       & ((! (ER_EI_20 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_20 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_21 & ER_EI_16)) | FALSE) &
+       ((! (ER_EI_21 & ER_EI_17)) | FALSE) &
+       ((! (ER_EI_21 & ER_EI_18)) | FALSE) &
+       ((! (ER_EI_21 & ER_EI_19)) | FALSE) &
+       ((! (ER_EI_21 & ER_EI_20)) | FALSE) & ((! (ER_EI_21 & ER_EI_21)) | TRUE)
+       & ((! (ER_EI_21 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_22 & ER_EI_16)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_17)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_18)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_19)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_20)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_22)) | TRUE)))
+     &
+     ((((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | TRUE)))
+     &
+     (((! EI_EXI_8) | (ENTERI & (X (X (X (X (X (X (X (X EXITI)))))))))) &
+      ((! EI_EXI_9) | (ENTERI & (X (X (X (X (X (X (X (X (X EXITI))))))))))) &
+      ((! EI_EXI_10) |
+       (ENTERI & (X (X (X (X (X (X (X (X (X (X EXITI))))))))))))
+      &
+      ((! EI_EXI_11) |
+       (ENTERI & (X (X (X (X (X (X (X (X (X (X (X EXITI)))))))))))))
+      &
+      ((! EI_EXI_12) |
+       (ENTERI & (X (X (X (X (X (X (X (X (X (X (X (X EXITI))))))))))))))
+      &
+      ((! EI_EXI_13) |
+       (ENTERI & (X (X (X (X (X (X (X (X (X (X (X (X (X EXITI)))))))))))))))
+      &
+      ((! EI_EXI_14) |
+       (ENTERI &
+        (X (X (X (X (X (X (X (X (X (X (X (X (X (X EXITI)))))))))))))))))
+     &
+     ((! ENTERI) |
+      (EI_EXI_8 | EI_EXI_9 | EI_EXI_10 | EI_EXI_11 | EI_EXI_12 | EI_EXI_13 |
+       EI_EXI_14))
+     &
+     ((! EXITI) |
+      ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+     &
+     ((((! (EI_EXI_8 & EI_EXI_8)) | TRUE) & ((! (EI_EXI_8 & EI_EXI_9)) | FALSE)
+       & ((! (EI_EXI_8 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_8 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_8 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_8 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_8 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_9 & EI_EXI_8)) | FALSE) & ((! (EI_EXI_9 & EI_EXI_9)) | TRUE)
+       & ((! (EI_EXI_9 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_9 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_9 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_9 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_9 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_10 & EI_EXI_8)) | FALSE) &
+       ((! (EI_EXI_10 & EI_EXI_9)) | FALSE) &
+       ((! (EI_EXI_10 & EI_EXI_10)) | TRUE) &
+       ((! (EI_EXI_10 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_10 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_10 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_10 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_11 & EI_EXI_8)) | FALSE) &
+       ((! (EI_EXI_11 & EI_EXI_9)) | FALSE) &
+       ((! (EI_EXI_11 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_11 & EI_EXI_11)) | TRUE) &
+       ((! (EI_EXI_11 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_11 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_11 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_12 & EI_EXI_8)) | FALSE) &
+       ((! (EI_EXI_12 & EI_EXI_9)) | FALSE) &
+       ((! (EI_EXI_12 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_12 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_12 & EI_EXI_12)) | TRUE) &
+       ((! (EI_EXI_12 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_12 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_13 & EI_EXI_8)) | FALSE) &
+       ((! (EI_EXI_13 & EI_EXI_9)) | FALSE) &
+       ((! (EI_EXI_13 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_13 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_13 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_13 & EI_EXI_13)) | TRUE) &
+       ((! (EI_EXI_13 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_14 & EI_EXI_8)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_9)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_14)) | TRUE)))
+     &
+     ((((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | TRUE)))
+     & (INI <-> ((! EXITI) S ((! EXITI) & ENTERI))))))
+  &
+  (H
+   ((((GO_0 & (! GO_1)) <->
+      (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ENTERR)))))))))))))
+     & (((! GO_0) & (! GO_1)) <-> EXITI))
+    &
+    ((RED <-> (! GREEN)) &
+     (RED <->
+      (Y ((! (EXITI & (! ENTERR))) S ((! (EXITI & (! ENTERR))) & ENTERR)))))
+    &
+    (((! ((Y (BAR_0 & (! BAR_1))) & ((! GO_0) & (! GO_1)))) |
+      ((((! BAR_0) & BAR_1) &
+        (X
+         (((! BAR_0) & BAR_1) &
+          (X (((! BAR_0) & BAR_1) & (X ((! BAR_0) & BAR_1)))))))
+       &
+       (X
+        (X
+         (X
+          (X
+           ((((! BAR_0) & (! BAR_1)) U (GO_0 & (! GO_1))) |
+            (G ((! BAR_0) & (! BAR_1))))))))))
+     &
+     ((! ((Y ((! BAR_0) & (! BAR_1))) & (GO_0 & (! GO_1)))) |
+      (((BAR_0 & BAR_1) &
+        (X ((BAR_0 & BAR_1) & (X ((BAR_0 & BAR_1) & (X (BAR_0 & BAR_1)))))))
+       &
+       (X
+        (X
+         (X
+          (X
+           (((BAR_0 & (! BAR_1)) U ((! GO_0) & (! GO_1))) |
+            (G (BAR_0 & (! BAR_1))))))))))
+     & ((! (H (! (GO_0 & (! GO_1))))) | ((! BAR_0) & (! BAR_1))))
+    &
+    (((! ENTERR) | GREEN) &
+     (((! ER_EI_16) |
+       (ENTERR &
+        (X
+         (X (X (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))
+      &
+      ((! ER_EI_17) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))
+      &
+      ((! ER_EI_18) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))))
+      &
+      ((! ER_EI_19) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X (X (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))
+      &
+      ((! ER_EI_20) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))))))
+      &
+      ((! ER_EI_21) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X
+                  (X
+                   (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))))
+      &
+      ((! ER_EI_22) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X
+                  (X
+                   (X
+                    (X
+                     (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))))))
+     &
+     (((! ER_EI_16) |
+       (ENTERR &
+        (X
+         (X (X (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))
+      &
+      ((! ER_EI_17) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))
+      &
+      ((! ER_EI_18) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X (X (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))))
+      &
+      ((! ER_EI_19) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X (X (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))
+      &
+      ((! ER_EI_20) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X (X (X (X (X (X (X (X (X (X (X ENTERI))))))))))))))))))))))
+      &
+      ((! ER_EI_21) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X
+                  (X
+                   (X (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))))
+      &
+      ((! ER_EI_22) |
+       (ENTERR &
+        (X
+         (X
+          (X
+           (X
+            (X
+             (X
+              (X
+               (X
+                (X
+                 (X
+                  (X
+                   (X
+                    (X
+                     (X (X (X (X (X (X (X (X (X ENTERI)))))))))))))))))))))))))
+     &
+     ((! ENTERR) |
+      (ER_EI_16 | ER_EI_17 | ER_EI_18 | ER_EI_19 | ER_EI_20 | ER_EI_21 |
+       ER_EI_22))
+     &
+     ((! ENTERI) |
+      ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y
+          (Y
+           (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+       |
+       (Y
+        (Y
+         (Y
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+     &
+     ((((! (ER_EI_16 & ER_EI_16)) | TRUE) & ((! (ER_EI_16 & ER_EI_17)) | FALSE)
+       & ((! (ER_EI_16 & ER_EI_18)) | FALSE) &
+       ((! (ER_EI_16 & ER_EI_19)) | FALSE) &
+       ((! (ER_EI_16 & ER_EI_20)) | FALSE) &
+       ((! (ER_EI_16 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_16 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_17 & ER_EI_16)) | FALSE) & ((! (ER_EI_17 & ER_EI_17)) | TRUE)
+       & ((! (ER_EI_17 & ER_EI_18)) | FALSE) &
+       ((! (ER_EI_17 & ER_EI_19)) | FALSE) &
+       ((! (ER_EI_17 & ER_EI_20)) | FALSE) &
+       ((! (ER_EI_17 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_17 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_18 & ER_EI_16)) | FALSE) &
+       ((! (ER_EI_18 & ER_EI_17)) | FALSE) & ((! (ER_EI_18 & ER_EI_18)) | TRUE)
+       & ((! (ER_EI_18 & ER_EI_19)) | FALSE) &
+       ((! (ER_EI_18 & ER_EI_20)) | FALSE) &
+       ((! (ER_EI_18 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_18 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_19 & ER_EI_16)) | FALSE) &
+       ((! (ER_EI_19 & ER_EI_17)) | FALSE) &
+       ((! (ER_EI_19 & ER_EI_18)) | FALSE) & ((! (ER_EI_19 & ER_EI_19)) | TRUE)
+       & ((! (ER_EI_19 & ER_EI_20)) | FALSE) &
+       ((! (ER_EI_19 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_19 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_20 & ER_EI_16)) | FALSE) &
+       ((! (ER_EI_20 & ER_EI_17)) | FALSE) &
+       ((! (ER_EI_20 & ER_EI_18)) | FALSE) &
+       ((! (ER_EI_20 & ER_EI_19)) | FALSE) & ((! (ER_EI_20 & ER_EI_20)) | TRUE)
+       & ((! (ER_EI_20 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_20 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_21 & ER_EI_16)) | FALSE) &
+       ((! (ER_EI_21 & ER_EI_17)) | FALSE) &
+       ((! (ER_EI_21 & ER_EI_18)) | FALSE) &
+       ((! (ER_EI_21 & ER_EI_19)) | FALSE) &
+       ((! (ER_EI_21 & ER_EI_20)) | FALSE) & ((! (ER_EI_21 & ER_EI_21)) | TRUE)
+       & ((! (ER_EI_21 & ER_EI_22)) | FALSE))
+      &
+      (((! (ER_EI_22 & ER_EI_16)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_17)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_18)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_19)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_20)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_21)) | FALSE) &
+       ((! (ER_EI_22 & ER_EI_22)) | TRUE)))
+     &
+     ((((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_16))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_17)))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_18))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_19)))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_20))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_21)))))))))))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))
+          &
+          (Y
+           (Y
+            (Y
+             (Y
+              (Y
+               (Y
+                (Y
+                 (Y
+                  (Y
+                   (Y
+                    (Y
+                     (Y
+                      (Y
+                       (Y
+                        (Y
+                         (Y (Y (Y (Y (Y (Y (Y ER_EI_22))))))))))))))))))))))))
+        | TRUE)))
+     &
+     (((! EI_EXI_8) | (ENTERI & (X (X (X (X (X (X (X (X EXITI)))))))))) &
+      ((! EI_EXI_9) | (ENTERI & (X (X (X (X (X (X (X (X (X EXITI))))))))))) &
+      ((! EI_EXI_10) |
+       (ENTERI & (X (X (X (X (X (X (X (X (X (X EXITI))))))))))))
+      &
+      ((! EI_EXI_11) |
+       (ENTERI & (X (X (X (X (X (X (X (X (X (X (X EXITI)))))))))))))
+      &
+      ((! EI_EXI_12) |
+       (ENTERI & (X (X (X (X (X (X (X (X (X (X (X (X EXITI))))))))))))))
+      &
+      ((! EI_EXI_13) |
+       (ENTERI & (X (X (X (X (X (X (X (X (X (X (X (X (X EXITI)))))))))))))))
+      &
+      ((! EI_EXI_14) |
+       (ENTERI &
+        (X (X (X (X (X (X (X (X (X (X (X (X (X (X EXITI)))))))))))))))))
+     &
+     ((! ENTERI) |
+      (EI_EXI_8 | EI_EXI_9 | EI_EXI_10 | EI_EXI_11 | EI_EXI_12 | EI_EXI_13 |
+       EI_EXI_14))
+     &
+     ((! EXITI) |
+      ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) |
+       (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+     &
+     ((((! (EI_EXI_8 & EI_EXI_8)) | TRUE) & ((! (EI_EXI_8 & EI_EXI_9)) | FALSE)
+       & ((! (EI_EXI_8 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_8 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_8 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_8 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_8 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_9 & EI_EXI_8)) | FALSE) & ((! (EI_EXI_9 & EI_EXI_9)) | TRUE)
+       & ((! (EI_EXI_9 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_9 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_9 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_9 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_9 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_10 & EI_EXI_8)) | FALSE) &
+       ((! (EI_EXI_10 & EI_EXI_9)) | FALSE) &
+       ((! (EI_EXI_10 & EI_EXI_10)) | TRUE) &
+       ((! (EI_EXI_10 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_10 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_10 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_10 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_11 & EI_EXI_8)) | FALSE) &
+       ((! (EI_EXI_11 & EI_EXI_9)) | FALSE) &
+       ((! (EI_EXI_11 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_11 & EI_EXI_11)) | TRUE) &
+       ((! (EI_EXI_11 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_11 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_11 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_12 & EI_EXI_8)) | FALSE) &
+       ((! (EI_EXI_12 & EI_EXI_9)) | FALSE) &
+       ((! (EI_EXI_12 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_12 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_12 & EI_EXI_12)) | TRUE) &
+       ((! (EI_EXI_12 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_12 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_13 & EI_EXI_8)) | FALSE) &
+       ((! (EI_EXI_13 & EI_EXI_9)) | FALSE) &
+       ((! (EI_EXI_13 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_13 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_13 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_13 & EI_EXI_13)) | TRUE) &
+       ((! (EI_EXI_13 & EI_EXI_14)) | FALSE))
+      &
+      (((! (EI_EXI_14 & EI_EXI_8)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_9)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_10)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_11)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_12)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_13)) | FALSE) &
+       ((! (EI_EXI_14 & EI_EXI_14)) | TRUE)))
+     &
+     ((((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8)))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10)))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12)))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | TRUE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | FALSE))
+      &
+      (((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_8))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_9)))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_10))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_11)))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_12))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_13)))))))))))))))
+        | FALSE)
+       &
+       ((!
+         ((Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14)))))))))))))) &
+          (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y (Y EI_EXI_14))))))))))))))))
+        | TRUE)))
+     & (INI <-> ((! EXITI) S ((! EXITI) & ENTERI)))))))
+ &
+ (!
+  ((G ((! INI) | (BAR_0 & (! BAR_1)))) & (H ((! INI) | (BAR_0 & (! BAR_1)))))))
+))

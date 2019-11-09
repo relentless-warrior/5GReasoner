@@ -1,0 +1,69 @@
+MODULE _SWITCH1_ (set,reset,initial)
+VAR
+level: boolean;
+ite: boolean;
+ite2: boolean;
+flby: boolean;
+
+ASSIGN
+level := flby;
+init(flby) := initial;
+next(flby) := next(ite2);
+
+INIT
+(reset -> (ite = FALSE));
+
+TRANS
+((next(reset) -> (next(ite) = FALSE)) & (! (next(reset)) -> (next(ite) = level)));
+
+INVAR
+((set -> (ite2 = TRUE)) & (! (set) -> (ite2 = ite)));
+
+
+
+
+MODULE _SWITCH_ (set,reset,initial)
+VAR
+level: boolean;
+ite: boolean;
+ite2: boolean;
+flby: boolean;
+
+ASSIGN
+level := flby;
+init(flby) := initial;
+next(flby) := next(ite2);
+
+INIT
+(reset -> (ite = FALSE));
+
+TRANS
+((next(reset) -> (next(ite) = FALSE)) & (! (next(reset)) -> (next(ite) = level))) &
+(((next(set) & ! (level)) -> (next(ite2) = TRUE)) & (! ((next(set) & ! (level))) -> (next(ite2) = next(ite))));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+level: boolean;
+level1: boolean;
+ite: boolean;
+param_set: boolean;
+param_treset: boolean;
+param_initial: boolean;
+call__SWITCH_: _SWITCH_ (param_set,param_treset,param_initial);
+call__SWITCH1_: _SWITCH1_ (param_set,param_treset,param_initial);
+
+ASSIGN
+_OK_ := ite;
+level := call__SWITCH_.level;
+level1 := call__SWITCH1_.level;
+
+INVAR
+((! ((param_set & param_treset)) -> (ite = (level = level1))) & (! (! ((param_set & param_treset))) -> (ite = TRUE)));
+
+INVARSPEC (_OK_ = TRUE)
+
+

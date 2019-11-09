@@ -1,0 +1,76 @@
+MODULE main
+
+VAR
+thr2 : Thread(2, x, y, thr1.b, C);
+thr1 : Thread(1, x, y, thr2.b, C);
+
+VAR
+C : integer;
+y : integer;
+x : integer;
+
+INIT
+ ((x = 0 & y = 0) & C = 0)
+
+TRANS
+ (thr2.EVENT = not_timed_or_stutter -> thr1.EVENT = stutter)
+TRANS
+ (thr1.EVENT = not_timed_or_stutter -> thr2.EVENT = stutter)
+TRANS
+ !(stutter = thr1.EVENT & stutter = thr2.EVENT)
+
+INVARSPEC
+ !(thr1.location = 14 & C != 1);
+
+MODULE Thread(i, x, y, bo, C)
+
+VAR
+b : integer;
+location : 0 .. 16;
+
+IVAR
+EVENT : {stutter, not_timed_or_stutter};
+
+DEFINE
+freezeall := (((next(b) = b & next(x) = x) & next(y) = y) & next(C) = C);
+
+INIT
+ (location = 0 & b = 0)
+
+TRANS
+ (EVENT != stutter -> (location = 0 -> ((((next(b) = i & next(x) = x) & next(y) = y) & next(C) = C) & next(location) = 1)))
+TRANS
+ (EVENT != stutter -> (location = 1 -> ((((next(b) = b & next(x) = i) & next(y) = y) & next(C) = C) & next(location) = 2)))
+TRANS
+ (EVENT != stutter -> (location = 2 -> (freezeall & next(location) =  (y != 0 ? 3 : 6) )))
+TRANS
+ (EVENT != stutter -> (location = 3 -> ((((next(b) = 0 & next(x) = x) & next(y) = y) & next(C) = C) & next(location) = 4)))
+TRANS
+ (EVENT != stutter -> (location = 4 -> (freezeall & next(location) =  (y != 0 ? 4 : 5) )))
+TRANS
+ (EVENT != stutter -> (location = 5 -> (freezeall & next(location) = 0)))
+TRANS
+ (EVENT != stutter -> (location = 6 -> ((((next(b) = b & next(x) = x) & next(y) = i) & next(C) = C) & next(location) = 7)))
+TRANS
+ (EVENT != stutter -> (location = 7 -> (freezeall & next(location) =  (x != i ? 8 : 13) )))
+TRANS
+ (EVENT != stutter -> (location = 8 -> ((((next(b) = i & next(x) = x) & next(y) = y) & next(C) = C) & next(location) = 9)))
+TRANS
+ (EVENT != stutter -> (location = 9 -> (freezeall & next(location) =  (bo >= 1 ? 9 : 10) )))
+TRANS
+ (EVENT != stutter -> (location = 10 -> (freezeall & next(location) =  (y != i ? 11 : 13) )))
+TRANS
+ (EVENT != stutter -> (location = 11 -> (freezeall & next(location) =  (y != 0 ? 11 : 12) )))
+TRANS
+ (EVENT != stutter -> (location = 12 -> (freezeall & next(location) = 0)))
+TRANS
+ (EVENT != stutter -> (location = 13 -> ((((next(b) = b & next(x) = x) & next(y) = y) & next(C) = i) & next(location) = 14)))
+TRANS
+ (EVENT != stutter -> (location = 14 -> ((((next(b) = b & next(x) = x) & next(y) = 0) & next(C) = C) & next(location) = 15)))
+TRANS
+ (EVENT != stutter -> (location = 15 -> ((((next(b) = 0 & next(x) = x) & next(y) = y) & next(C) = C) & next(location) = 16)))
+TRANS
+ (EVENT != stutter -> (location = 16 -> (freezeall & next(location) = 16)))
+TRANS
+ (EVENT = stutter -> (next(b) = b & next(location) = location))
+

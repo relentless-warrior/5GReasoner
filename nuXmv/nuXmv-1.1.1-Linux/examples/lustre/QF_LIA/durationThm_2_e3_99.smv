@@ -1,0 +1,56 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE Age (p)
+VAR
+age_of_p: integer;
+ite: integer;
+flby: integer;
+
+ASSIGN
+age_of_p := flby;
+init(flby) := 0;
+next(flby) := next(ite);
+
+TRANS
+((p -> (next(ite) = (age_of_p - 1))) & (! (p) -> (next(ite) = 0)));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+k: integer;
+env: boolean;
+flby: integer;
+param_k0: integer;
+param_p: boolean;
+param_q: boolean;
+param_r: boolean;
+param_t: boolean;
+call_Age: Age (param_p);
+call_Age2: Age (param_r);
+call_Sofar: Sofar ((((k >= 1) & ((call_Age.age_of_p >= k) -> param_q)) & ((call_Age2.age_of_p >= k) -> param_t)));
+call_Age3: Age ((param_p & param_r));
+
+ASSIGN
+_OK_ := (env -> ((call_Age3.age_of_p >= k) -> (param_q & param_t)));
+k := flby;
+env := call_Sofar.Sofar;
+init(flby) := param_k0;
+next(flby) := k;
+
+INVARSPEC (_OK_ = TRUE)
+
+

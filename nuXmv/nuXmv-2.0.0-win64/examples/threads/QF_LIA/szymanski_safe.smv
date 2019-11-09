@@ -1,0 +1,58 @@
+MODULE main
+
+VAR
+thr2 : Thread(thr1.flag);
+thr1 : Thread(thr2.flag);
+
+TRANS
+ (thr2.EVENT = not_timed_or_stutter -> thr1.EVENT = stutter)
+TRANS
+ (thr1.EVENT = not_timed_or_stutter -> thr2.EVENT = stutter)
+TRANS
+ !(stutter = thr1.EVENT & stutter = thr2.EVENT)
+
+INVARSPEC
+ !(thr1.critical & thr2.critical);
+
+MODULE Thread(oflag)
+
+VAR
+location : 0 .. 11;
+flag : integer;
+
+IVAR
+EVENT : {stutter, not_timed_or_stutter};
+
+DEFINE
+critical := location = 8;
+
+INIT
+ (location = 0 & flag = 0)
+
+TRANS
+ (EVENT != stutter -> (location = 0 -> (next(flag) = 1 & next(location) = 1)))
+TRANS
+ (EVENT != stutter -> (location = 1 -> (next(flag) = flag & next(location) =  (oflag >= 3 ? 1 : 2) )))
+TRANS
+ (EVENT != stutter -> (location = 2 -> (next(flag) = 3 & next(location) = 3)))
+TRANS
+ (EVENT != stutter -> (location = 3 -> (next(flag) = flag & next(location) =  (oflag = 1 ? 4 : 6) )))
+TRANS
+ (EVENT != stutter -> (location = 4 -> (next(flag) = 2 & next(location) = 5)))
+TRANS
+ (EVENT != stutter -> (location = 5 -> (next(flag) = flag & next(location) =  (oflag != 4 ? 5 : 6) )))
+TRANS
+ (EVENT != stutter -> (location = 6 -> (next(flag) = 4 & next(location) = 7)))
+TRANS
+ (EVENT != stutter -> (location = 7 -> (next(flag) = flag & next(location) =  (oflag >= 2 ? 7 : 8) )))
+TRANS
+ (EVENT != stutter -> (location = 8 -> (next(flag) = flag & next(location) = 9)))
+TRANS
+ (EVENT != stutter -> (location = 9 -> (next(flag) = flag & next(location) =  ((oflag >= 2 & oflag <= 3) ? 9 : 10) )))
+TRANS
+ (EVENT != stutter -> (location = 10 -> (next(flag) = 0 & next(location) = 11)))
+TRANS
+ (EVENT != stutter -> (location = 11 -> (next(flag) = flag & next(location) = 11)))
+TRANS
+ (EVENT = stutter -> (next(location) = location & next(flag) = flag))
+

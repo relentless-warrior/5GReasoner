@@ -1,0 +1,114 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE excludes2 (_X1_,_X2_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := ! ((_X1_ & _X2_));
+
+
+
+
+MODULE voiture (m,s)
+VAR
+toofast: boolean;
+stop: boolean;
+bump: boolean;
+dist: integer;
+speed: integer;
+time: integer;
+move: boolean;
+second: boolean;
+meter: boolean;
+flby: boolean;
+flby2: boolean;
+flby3: boolean;
+ite: integer;
+flby4: integer;
+ite2: integer;
+ite3: integer;
+flby5: integer;
+ite4: integer;
+flby6: integer;
+
+ASSIGN
+toofast := (speed >= 3);
+stop := (time >= 4);
+bump := (dist = 10);
+dist := flby4;
+speed := flby5;
+time := flby6;
+move := flby3;
+second := flby2;
+meter := flby;
+init(flby) := FALSE;
+next(flby) := (next(m) & ! (next(s)));
+init(flby2) := FALSE;
+next(flby2) := next(s);
+init(flby3) := TRUE;
+next(flby3) := (((move & ! (stop)) & ! (toofast)) & ! (bump));
+init(flby4) := 0;
+next(flby4) := next(ite);
+init(flby5) := 0;
+next(flby5) := next(ite3);
+init(flby6) := 0;
+next(flby6) := next(ite4);
+
+TRANS
+(((next(move) & next(meter)) -> (next(ite) = (dist + 1))) & (! ((next(move) & next(meter))) -> (next(ite) = dist))) &
+(((next(move) & next(meter)) -> (next(ite2) = (speed + 1))) & (! ((next(move) & next(meter))) -> (next(ite2) = speed))) &
+((next(second) -> (next(ite4) = (time + 1))) & (! (next(second)) -> (next(ite4) = time)));
+
+INVAR
+(((! (move) | second) -> (ite3 = 0)) & (! ((! (move) | second)) -> (ite3 = ite2)));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+toofast: boolean;
+stop: boolean;
+bump: boolean;
+dist: integer;
+speed: integer;
+time: integer;
+move: boolean;
+second: boolean;
+meter: boolean;
+env: boolean;
+param_m: boolean;
+param_s: boolean;
+call_voiture: voiture (param_m,param_s);
+call_excludes2: excludes2 (param_m,param_s);
+call_Sofar: Sofar (call_excludes2.excludes);
+
+ASSIGN
+_OK_ := (env -> (dist < 11));
+toofast := call_voiture.toofast;
+stop := call_voiture.stop;
+bump := call_voiture.bump;
+dist := call_voiture.dist;
+speed := call_voiture.speed;
+time := call_voiture.time;
+move := call_voiture.move;
+second := call_voiture.second;
+meter := call_voiture.meter;
+env := call_Sofar.Sofar;
+
+INVARSPEC (_OK_ = TRUE)
+
+

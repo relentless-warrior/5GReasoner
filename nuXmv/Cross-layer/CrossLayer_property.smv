@@ -1,0 +1,74 @@
+--################################################################################--
+--################################### CROSS-LAYER #################################
+--################################################################################
+----------------------------------------------------------------------------------------
+--- Exposing Device's TMSI and paging occasion (Section 6.3.1):
+--- Property: If paging_tmsi is sent in the current state, it implies that in the 
+--- previous state there was no paging_tmsi since dl_info_transfer_required 
+--- was true. In another words: paging_tmsi will be sent just once between two incoming service notifications.
+--- Resultant attack: TMSI exposure
+--- inj_adv_UB_enabled:=	FALSE;
+--- inj_adv_BU_enabled:=	TRUE;
+--- inj_adv_UA_enabled:=	FALSE;
+--- inj_adv_AU_enabled:=	FALSE;
+LTLSPEC
+G 	(
+		!nas_requested_con_establishment
+		& inj_adv_act_BU != adv_BU_rrc_reject
+		& inj_adv_act_BU != adv_BU_rrc_release
+		-- need to check if any other counter-example needs to be added
+	) ->
+	G( ue_rrc_state = ue_rrc_idle & chan_BU=chanBU_paging_tmsi ->
+		Y ((chan_BU != chanBU_paging_tmsi) S dl_info_transfer_required)
+	);
+
+-------------------------------------------------------------------------------------------
+--- Exposing Device's IRNTI (Section 6.3.2):
+--- Property: If paging_irnti is sent in the current state, it implies that in the 
+--- previous state there was no paging_irnti and nas requested connection establishment  
+--- was true.
+--- inj_adv_UB_enabled:=	FALSE;
+--- inj_adv_BU_enabled:=	TRUE;
+--- inj_adv_UA_enabled:=	FALSE;
+--- inj_adv_AU_enabled:=	FALSE;
+--- Attack: C-IRNTI exposure
+LTLSPEC
+G 	(
+		!dl_info_transfer_required
+		& inj_adv_act_BU != adv_BU_rrc_reject
+		& inj_adv_act_BU != adv_BU_rrc_release
+		-- need to check if any other counter-example needs to be added
+	) ->
+	G( ue_rrc_state = ue_rrc_inactive & chan_BU=chanBU_paging_irnti ->
+		Y ((chan_BU != chanBU_paging_irnti) S nas_requested_con_establishment)
+	);
+---------------------------------------------------------------------------------------------------
+
+--- Property: If the base station requires to set up a bearer, it will eventually set up the 
+--- bearer after establishing the security context
+--- inj_adv_UB_enabled:=	TRUE;
+--- inj_adv_BU_enabled:=	FALSE;
+--- inj_adv_UA_enabled:=	FALSE;
+--- inj_adv_AU_enabled:=	FALSE;
+-- TODO: Need to discuss.
+LTLSPEC
+G 	(	
+		X (!nas_requested_con_establishment)
+		& !dl_info_transfer_required
+		& !idle_mode_required
+		& !ul_transfer_required
+		& inj_adv_act_UB != adv_UB_rrc_setup_req
+		& inj_adv_act_UB != adv_UB_rrc_resume_req
+		& inj_adv_act_UB != adv_UB_rrc_reestab_req
+		& inj_adv_act_UB != adv_UB_ul_info_transfer
+		& inj_adv_act_UB != adv_UB_ue_cap_info
+		-- need to check if any other counter-example needs to be added
+	) ->
+	G( 
+		(bs_rrc_state = gnb_rrc_connected & !gnb_rrc_sec_ctx_exist & 
+		!gnb_bearer_established & gnb_bearer_setup_required) 
+			->  F(gnb_bearer_established & gnb_rrc_sec_ctx_exist)
+	);
+
+
+

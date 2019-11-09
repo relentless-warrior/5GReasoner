@@ -1,0 +1,32 @@
+MODULE main
+VAR
+_OK_: boolean;
+a: boolean;
+b: boolean;
+c: boolean;
+flby: boolean;
+flby2: boolean;
+flby3: boolean;
+flby4: boolean;
+flby5: boolean;
+param_x: boolean;
+
+ASSIGN
+_OK_ := flby5;
+a := flby;
+b := flby2;
+c := flby3;
+init(flby) := FALSE;
+next(flby) := ! (a);
+init(flby2) := FALSE;
+next(flby2) := (((! (c) & ! (b)) & a) | (b & ! (a)));
+init(flby3) := FALSE;
+next(flby3) := ((c & ! (a)) | (b & a));
+init(flby4) := TRUE;
+next(flby4) := b;
+init(flby5) := TRUE;
+next(flby5) := (flby4 = ! (next(b)));
+
+INVARSPEC _OK_
+
+

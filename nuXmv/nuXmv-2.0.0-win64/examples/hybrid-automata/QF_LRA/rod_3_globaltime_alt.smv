@@ -1,0 +1,126 @@
+
+-- Dumped layers are: model 
+
+MODULE main
+-- Input variables from layer 'model'
+IVAR
+con.EVENT : {add_1, remove_1, add_2, remove_2, add_3, remove_3, timed, stutter};
+rod3.EVENT : {add, remove, recovery, timed, stutter};
+rod2.EVENT : {add, remove, recovery, timed, stutter};
+rod1.EVENT : {add, remove, recovery, timed, stutter};
+rod1.delta : real;
+rod2.delta : real;
+rod3.delta : real;
+con.delta : real;
+
+-- State variables from layer 'model'
+VAR
+con.s : {0, 1, 2, 3};
+con.x : real;
+rod3.s : {1, 2, 3};
+rod3.x : real;
+rod2.s : {1, 2, 3};
+rod2.x : real;
+rod1.s : {1, 2, 3};
+rod1.x : real;
+rod1.time : real;
+rod2.time : real;
+rod3.time : real;
+con.time : real;
+
+-- Frozen variables from layer 'model'
+-- Functions from layer 'model'
+-- Defines from layer 'model'
+DEFINE
+con.TARGET := con.s = 0;
+rod3.constant := 0;
+rod3.TARGET := rod3.s = 3;
+rod2.constant := 0;
+rod2.TARGET := rod2.s = 3;
+rod1.constant := 0;
+rod1.TARGET := rod1.s = 3;
+
+CONSTANTS
+ add_1, remove_1, add_2, remove_2, add_3, remove_3, timed, stutter, add, remove, recovery ;
+
+-- Assignments from layer 'model'
+
+INIT
+ rod1.time = 0
+
+INIT
+ rod1.x = 0.0
+
+INIT
+ rod1.s = 1
+
+INIT
+ rod2.time = 0
+
+INIT
+ rod2.x = 0.0
+
+INIT
+ rod2.s = 1
+
+INIT
+ rod3.time = 0
+
+INIT
+ rod3.x = 0.0
+
+INIT
+ rod3.s = 1
+
+INIT
+ con.time = 0
+
+INIT
+ con.x = 0.0
+
+INIT
+ con.s = 0
+
+INIT
+ (rod1.s = 1 -> rod1.x <= 10000)
+
+INIT
+ (rod1.s = 2 -> rod1.x <= 10000)
+
+INIT
+ (rod1.s = 3 -> rod1.x <= 1)
+
+INIT
+ (rod2.s = 1 -> rod2.x <= 10000)
+
+INIT
+ (rod2.s = 2 -> rod2.x <= 10000)
+
+INIT
+ (rod2.s = 3 -> rod2.x <= 1)
+
+INIT
+ (rod3.s = 1 -> rod3.x <= 10000)
+
+INIT
+ (rod3.s = 2 -> rod3.x <= 10000)
+
+INIT
+ (rod3.s = 3 -> rod3.x <= 1)
+
+INIT
+ (con.s = 0 -> con.x <= 16.1)
+
+INIT
+ (con.s != 0 -> con.x <= 5.9)
+
+
+
+TRANS
+ (((((((((((((((((next(rod1.time) = rod1.time & (((rod1.s = 1 & next(rod1.s) = 2) & rod1.x >= 0) & next(rod1.x) = 0)) & (next(rod2.s) = rod2.s & (next(rod2.x) = rod2.x & next(rod2.time) = rod2.time))) & (next(rod3.s) = rod3.s & (next(rod3.x) = rod3.x & next(rod3.time) = rod3.time))) & next(con.time) = con.time) & ((((con.s = 0 & next(con.s) = 1) & con.x >= 16) & con.x <= 16) & next(con.x) = 0)) & ((((((!(rod1.s = 1) | rod1.x <= 10000) & (!(rod1.s = 2) | rod1.x <= 10000)) & (!(rod1.s = 3) | rod1.x <= 1)) & (((!(rod2.s = 1) | rod2.x <= 10000) & (!(rod2.s = 2) | rod2.x <= 10000)) & (!(rod2.s = 3) | rod2.x <= 1))) & (((!(rod3.s = 1) | rod3.x <= 10000) & (!(rod3.s = 2) | rod3.x <= 10000)) & (!(rod3.s = 3) | rod3.x <= 1))) & ((!(con.s = 0) | con.x <= 16.1) & (!(con.s != 0) | con.x <= 5.9)))) & ((((((!(next(rod1.s) = 1) | next(rod1.x) <= 10000) & (!(next(rod1.s) = 2) | next(rod1.x) <= 10000)) & (!(next(rod1.s) = 3) | next(rod1.x) <= 1)) & (((!(next(rod2.s) = 1) | next(rod2.x) <= 10000) & (!(next(rod2.s) = 2) | next(rod2.x) <= 10000)) & (!(next(rod2.s) = 3) | next(rod2.x) <= 1))) & (((!(next(rod3.s) = 1) | next(rod3.x) <= 10000) & (!(next(rod3.s) = 2) | next(rod3.x) <= 10000)) & (!(next(rod3.s) = 3) | next(rod3.x) <= 1))) & ((!(next(con.s) = 0) | next(con.x) <= 16.1) & (!(next(con.s) != 0) | next(con.x) <= 5.9)))) & (((rod1.EVENT = add & con.EVENT = add_1) & rod2.EVENT = stutter) & rod3.EVENT = stutter)) | ((((((((next(rod1.time) = rod1.time & ((rod1.s = 2 & next(rod1.s) = 3) & next(rod1.x) = 0)) & (next(rod2.s) = rod2.s & (next(rod2.x) = rod2.x & next(rod2.time) = rod2.time))) & (next(rod3.s) = rod3.s & (next(rod3.x) = rod3.x & next(rod3.time) = rod3.time))) & next(con.time) = con.time) & ((((con.s = 1 & next(con.s) = 0) & con.x >= 5) & con.x <= 5.9) & next(con.x) = 0)) & ((((((!(rod1.s = 1) | rod1.x <= 10000) & (!(rod1.s = 2) | rod1.x <= 10000)) & (!(rod1.s = 3) | rod1.x <= 1)) & (((!(rod2.s = 1) | rod2.x <= 10000) & (!(rod2.s = 2) | rod2.x <= 10000)) & (!(rod2.s = 3) | rod2.x <= 1))) & (((!(rod3.s = 1) | rod3.x <= 10000) & (!(rod3.s = 2) | rod3.x <= 10000)) & (!(rod3.s = 3) | rod3.x <= 1))) & ((!(con.s = 0) | con.x <= 16.1) & (!(con.s != 0) | con.x <= 5.9)))) & ((((((!(next(rod1.s) = 1) | next(rod1.x) <= 10000) & (!(next(rod1.s) = 2) | next(rod1.x) <= 10000)) & (!(next(rod1.s) = 3) | next(rod1.x) <= 1)) & (((!(next(rod2.s) = 1) | next(rod2.x) <= 10000) & (!(next(rod2.s) = 2) | next(rod2.x) <= 10000)) & (!(next(rod2.s) = 3) | next(rod2.x) <= 1))) & (((!(next(rod3.s) = 1) | next(rod3.x) <= 10000) & (!(next(rod3.s) = 2) | next(rod3.x) <= 10000)) & (!(next(rod3.s) = 3) | next(rod3.x) <= 1))) & ((!(next(con.s) = 0) | next(con.x) <= 16.1) & (!(next(con.s) != 0) | next(con.x) <= 5.9)))) & (((rod1.EVENT = remove & con.EVENT = remove_1) & rod2.EVENT = stutter) & rod3.EVENT = stutter))) | (((((((next(rod1.time) = rod1.time & (((rod1.s = 3 & rod1.x >= 0) & next(rod1.s) = 1) & next(rod1.x) = rod1.x)) & (next(rod2.s) = rod2.s & (next(rod2.x) = rod2.x & next(rod2.time) = rod2.time))) & (next(rod3.s) = rod3.s & (next(rod3.x) = rod3.x & next(rod3.time) = rod3.time))) & (next(con.s) = con.s & (next(con.x) = con.x & next(con.time) = con.time))) & ((((((!(rod1.s = 1) | rod1.x <= 10000) & (!(rod1.s = 2) | rod1.x <= 10000)) & (!(rod1.s = 3) | rod1.x <= 1)) & (((!(rod2.s = 1) | rod2.x <= 10000) & (!(rod2.s = 2) | rod2.x <= 10000)) & (!(rod2.s = 3) | rod2.x <= 1))) & (((!(rod3.s = 1) | rod3.x <= 10000) & (!(rod3.s = 2) | rod3.x <= 10000)) & (!(rod3.s = 3) | rod3.x <= 1))) & ((!(con.s = 0) | con.x <= 16.1) & (!(con.s != 0) | con.x <= 5.9)))) & ((((((!(next(rod1.s) = 1) | next(rod1.x) <= 10000) & (!(next(rod1.s) = 2) | next(rod1.x) <= 10000)) & (!(next(rod1.s) = 3) | next(rod1.x) <= 1)) & (((!(next(rod2.s) = 1) | next(rod2.x) <= 10000) & (!(next(rod2.s) = 2) | next(rod2.x) <= 10000)) & (!(next(rod2.s) = 3) | next(rod2.x) <= 1))) & (((!(next(rod3.s) = 1) | next(rod3.x) <= 10000) & (!(next(rod3.s) = 2) | next(rod3.x) <= 10000)) & (!(next(rod3.s) = 3) | next(rod3.x) <= 1))) & ((!(next(con.s) = 0) | next(con.x) <= 16.1) & (!(next(con.s) != 0) | next(con.x) <= 5.9)))) & (((rod1.EVENT = recovery & rod2.EVENT = stutter) & rod3.EVENT = stutter) & con.EVENT = stutter))) | ((((((((((((((((((next(rod1.time) = rod1.time + rod1.delta & ((next(rod1.x) - rod1.x >= rod1.delta * 0.9 & next(rod1.x) - rod1.x <= rod1.delta * 1.1) & (!(rod1.delta = 0) | next(rod1.x) = rod1.x))) & next(rod1.s) = rod1.s) & ((rod1.delta >= 0 & rod2.delta = rod1.delta) & rod2.delta = rod1.delta)) & next(rod2.time) = rod2.time + rod2.delta) & ((next(rod2.x) - rod2.x >= rod2.delta * 0.9 & next(rod2.x) - rod2.x <= rod2.delta * 1.1) & (!(rod2.delta = 0) | next(rod2.x) = rod2.x))) & next(rod2.s) = rod2.s) & ((rod2.delta >= 0 & rod3.delta = rod2.delta) & rod3.delta = rod2.delta)) & next(rod3.time) = rod3.time + rod3.delta) & ((next(rod3.x) - rod3.x >= rod3.delta * 0.9 & next(rod3.x) - rod3.x <= rod3.delta * 1.1) & (!(rod3.delta = 0) | next(rod3.x) = rod3.x))) & next(rod3.s) = rod3.s) & ((rod3.delta >= 0 & con.delta = rod3.delta) & con.delta = rod3.delta)) & next(con.time) = con.time + con.delta) & ((next(con.x) - con.x >= con.delta * 0.9 & next(con.x) - con.x <= con.delta * 1.1) & (!(con.delta = 0) | next(con.x) = con.x))) & next(con.s) = con.s) & con.delta >= 0) & ((((((!(rod1.s = 1) | rod1.x <= 10000) & (!(rod1.s = 2) | rod1.x <= 10000)) & (!(rod1.s = 3) | rod1.x <= 1)) & (((!(rod2.s = 1) | rod2.x <= 10000) & (!(rod2.s = 2) | rod2.x <= 10000)) & (!(rod2.s = 3) | rod2.x <= 1))) & (((!(rod3.s = 1) | rod3.x <= 10000) & (!(rod3.s = 2) | rod3.x <= 10000)) & (!(rod3.s = 3) | rod3.x <= 1))) & ((!(con.s = 0) | con.x <= 16.1) & (!(con.s != 0) | con.x <= 5.9)))) & ((((((!(next(rod1.s) = 1) | next(rod1.x) <= 10000) & (!(next(rod1.s) = 2) | next(rod1.x) <= 10000)) & (!(next(rod1.s) = 3) | next(rod1.x) <= 1)) & (((!(next(rod2.s) = 1) | next(rod2.x) <= 10000) & (!(next(rod2.s) = 2) | next(rod2.x) <= 10000)) & (!(next(rod2.s) = 3) | next(rod2.x) <= 1))) & (((!(next(rod3.s) = 1) | next(rod3.x) <= 10000) & (!(next(rod3.s) = 2) | next(rod3.x) <= 10000)) & (!(next(rod3.s) = 3) | next(rod3.x) <= 1))) & ((!(next(con.s) = 0) | next(con.x) <= 16.1) & (!(next(con.s) != 0) | next(con.x) <= 5.9)))) & (((rod1.EVENT = timed & rod2.EVENT = timed) & rod3.EVENT = timed) & con.EVENT = timed))) | (((((((((next(rod1.s) = rod1.s & (next(rod1.x) = rod1.x & next(rod1.time) = rod1.time)) & next(rod2.time) = rod2.time) & (((rod2.s = 1 & next(rod2.s) = 2) & rod2.x >= 0) & next(rod2.x) = 0)) & (next(rod3.s) = rod3.s & (next(rod3.x) = rod3.x & next(rod3.time) = rod3.time))) & next(con.time) = con.time) & ((((con.s = 0 & next(con.s) = 2) & con.x >= 16) & con.x <= 16) & next(con.x) = 0)) & ((((((!(rod1.s = 1) | rod1.x <= 10000) & (!(rod1.s = 2) | rod1.x <= 10000)) & (!(rod1.s = 3) | rod1.x <= 1)) & (((!(rod2.s = 1) | rod2.x <= 10000) & (!(rod2.s = 2) | rod2.x <= 10000)) & (!(rod2.s = 3) | rod2.x <= 1))) & (((!(rod3.s = 1) | rod3.x <= 10000) & (!(rod3.s = 2) | rod3.x <= 10000)) & (!(rod3.s = 3) | rod3.x <= 1))) & ((!(con.s = 0) | con.x <= 16.1) & (!(con.s != 0) | con.x <= 5.9)))) & ((((((!(next(rod1.s) = 1) | next(rod1.x) <= 10000) & (!(next(rod1.s) = 2) | next(rod1.x) <= 10000)) & (!(next(rod1.s) = 3) | next(rod1.x) <= 1)) & (((!(next(rod2.s) = 1) | next(rod2.x) <= 10000) & (!(next(rod2.s) = 2) | next(rod2.x) <= 10000)) & (!(next(rod2.s) = 3) | next(rod2.x) <= 1))) & (((!(next(rod3.s) = 1) | next(rod3.x) <= 10000) & (!(next(rod3.s) = 2) | next(rod3.x) <= 10000)) & (!(next(rod3.s) = 3) | next(rod3.x) <= 1))) & ((!(next(con.s) = 0) | next(con.x) <= 16.1) & (!(next(con.s) != 0) | next(con.x) <= 5.9)))) & (((rod2.EVENT = add & con.EVENT = add_2) & rod1.EVENT = stutter) & rod3.EVENT = stutter))) | (((((((((next(rod1.s) = rod1.s & (next(rod1.x) = rod1.x & next(rod1.time) = rod1.time)) & next(rod2.time) = rod2.time) & ((rod2.s = 2 & next(rod2.s) = 3) & next(rod2.x) = 0)) & (next(rod3.s) = rod3.s & (next(rod3.x) = rod3.x & next(rod3.time) = rod3.time))) & next(con.time) = con.time) & ((((con.s = 2 & next(con.s) = 0) & con.x >= 5) & con.x <= 5.9) & next(con.x) = 0)) & ((((((!(rod1.s = 1) | rod1.x <= 10000) & (!(rod1.s = 2) | rod1.x <= 10000)) & (!(rod1.s = 3) | rod1.x <= 1)) & (((!(rod2.s = 1) | rod2.x <= 10000) & (!(rod2.s = 2) | rod2.x <= 10000)) & (!(rod2.s = 3) | rod2.x <= 1))) & (((!(rod3.s = 1) | rod3.x <= 10000) & (!(rod3.s = 2) | rod3.x <= 10000)) & (!(rod3.s = 3) | rod3.x <= 1))) & ((!(con.s = 0) | con.x <= 16.1) & (!(con.s != 0) | con.x <= 5.9)))) & ((((((!(next(rod1.s) = 1) | next(rod1.x) <= 10000) & (!(next(rod1.s) = 2) | next(rod1.x) <= 10000)) & (!(next(rod1.s) = 3) | next(rod1.x) <= 1)) & (((!(next(rod2.s) = 1) | next(rod2.x) <= 10000) & (!(next(rod2.s) = 2) | next(rod2.x) <= 10000)) & (!(next(rod2.s) = 3) | next(rod2.x) <= 1))) & (((!(next(rod3.s) = 1) | next(rod3.x) <= 10000) & (!(next(rod3.s) = 2) | next(rod3.x) <= 10000)) & (!(next(rod3.s) = 3) | next(rod3.x) <= 1))) & ((!(next(con.s) = 0) | next(con.x) <= 16.1) & (!(next(con.s) != 0) | next(con.x) <= 5.9)))) & (((rod2.EVENT = remove & con.EVENT = remove_2) & rod1.EVENT = stutter) & rod3.EVENT = stutter))) | ((((((((next(rod1.s) = rod1.s & (next(rod1.x) = rod1.x & next(rod1.time) = rod1.time)) & next(rod2.time) = rod2.time) & (((rod2.s = 3 & rod2.x >= 0) & next(rod2.s) = 1) & next(rod2.x) = rod2.x)) & (next(rod3.s) = rod3.s & (next(rod3.x) = rod3.x & next(rod3.time) = rod3.time))) & (next(con.s) = con.s & (next(con.x) = con.x & next(con.time) = con.time))) & ((((((!(rod1.s = 1) | rod1.x <= 10000) & (!(rod1.s = 2) | rod1.x <= 10000)) & (!(rod1.s = 3) | rod1.x <= 1)) & (((!(rod2.s = 1) | rod2.x <= 10000) & (!(rod2.s = 2) | rod2.x <= 10000)) & (!(rod2.s = 3) | rod2.x <= 1))) & (((!(rod3.s = 1) | rod3.x <= 10000) & (!(rod3.s = 2) | rod3.x <= 10000)) & (!(rod3.s = 3) | rod3.x <= 1))) & ((!(con.s = 0) | con.x <= 16.1) & (!(con.s != 0) | con.x <= 5.9)))) & ((((((!(next(rod1.s) = 1) | next(rod1.x) <= 10000) & (!(next(rod1.s) = 2) | next(rod1.x) <= 10000)) & (!(next(rod1.s) = 3) | next(rod1.x) <= 1)) & (((!(next(rod2.s) = 1) | next(rod2.x) <= 10000) & (!(next(rod2.s) = 2) | next(rod2.x) <= 10000)) & (!(next(rod2.s) = 3) | next(rod2.x) <= 1))) & (((!(next(rod3.s) = 1) | next(rod3.x) <= 10000) & (!(next(rod3.s) = 2) | next(rod3.x) <= 10000)) & (!(next(rod3.s) = 3) | next(rod3.x) <= 1))) & ((!(next(con.s) = 0) | next(con.x) <= 16.1) & (!(next(con.s) != 0) | next(con.x) <= 5.9)))) & (((rod2.EVENT = recovery & rod1.EVENT = stutter) & rod3.EVENT = stutter) & con.EVENT = stutter))) | (((((((((next(rod1.s) = rod1.s & (next(rod1.x) = rod1.x & next(rod1.time) = rod1.time)) & (next(rod2.s) = rod2.s & (next(rod2.x) = rod2.x & next(rod2.time) = rod2.time))) & next(rod3.time) = rod3.time) & (((rod3.s = 1 & next(rod3.s) = 2) & rod3.x >= 0) & next(rod3.x) = 0)) & next(con.time) = con.time) & ((((con.s = 0 & next(con.s) = 3) & con.x >= 16) & con.x <= 16) & next(con.x) = 0)) & ((((((!(rod1.s = 1) | rod1.x <= 10000) & (!(rod1.s = 2) | rod1.x <= 10000)) & (!(rod1.s = 3) | rod1.x <= 1)) & (((!(rod2.s = 1) | rod2.x <= 10000) & (!(rod2.s = 2) | rod2.x <= 10000)) & (!(rod2.s = 3) | rod2.x <= 1))) & (((!(rod3.s = 1) | rod3.x <= 10000) & (!(rod3.s = 2) | rod3.x <= 10000)) & (!(rod3.s = 3) | rod3.x <= 1))) & ((!(con.s = 0) | con.x <= 16.1) & (!(con.s != 0) | con.x <= 5.9)))) & ((((((!(next(rod1.s) = 1) | next(rod1.x) <= 10000) & (!(next(rod1.s) = 2) | next(rod1.x) <= 10000)) & (!(next(rod1.s) = 3) | next(rod1.x) <= 1)) & (((!(next(rod2.s) = 1) | next(rod2.x) <= 10000) & (!(next(rod2.s) = 2) | next(rod2.x) <= 10000)) & (!(next(rod2.s) = 3) | next(rod2.x) <= 1))) & (((!(next(rod3.s) = 1) | next(rod3.x) <= 10000) & (!(next(rod3.s) = 2) | next(rod3.x) <= 10000)) & (!(next(rod3.s) = 3) | next(rod3.x) <= 1))) & ((!(next(con.s) = 0) | next(con.x) <= 16.1) & (!(next(con.s) != 0) | next(con.x) <= 5.9)))) & (((rod3.EVENT = add & con.EVENT = add_3) & rod1.EVENT = stutter) & rod2.EVENT = stutter))) | (((((((((next(rod1.s) = rod1.s & (next(rod1.x) = rod1.x & next(rod1.time) = rod1.time)) & (next(rod2.s) = rod2.s & (next(rod2.x) = rod2.x & next(rod2.time) = rod2.time))) & next(rod3.time) = rod3.time) & ((rod3.s = 2 & next(rod3.s) = 3) & next(rod3.x) = 0)) & next(con.time) = con.time) & ((((con.s = 3 & next(con.s) = 0) & con.x >= 5) & con.x <= 5.9) & next(con.x) = 0)) & ((((((!(rod1.s = 1) | rod1.x <= 10000) & (!(rod1.s = 2) | rod1.x <= 10000)) & (!(rod1.s = 3) | rod1.x <= 1)) & (((!(rod2.s = 1) | rod2.x <= 10000) & (!(rod2.s = 2) | rod2.x <= 10000)) & (!(rod2.s = 3) | rod2.x <= 1))) & (((!(rod3.s = 1) | rod3.x <= 10000) & (!(rod3.s = 2) | rod3.x <= 10000)) & (!(rod3.s = 3) | rod3.x <= 1))) & ((!(con.s = 0) | con.x <= 16.1) & (!(con.s != 0) | con.x <= 5.9)))) & ((((((!(next(rod1.s) = 1) | next(rod1.x) <= 10000) & (!(next(rod1.s) = 2) | next(rod1.x) <= 10000)) & (!(next(rod1.s) = 3) | next(rod1.x) <= 1)) & (((!(next(rod2.s) = 1) | next(rod2.x) <= 10000) & (!(next(rod2.s) = 2) | next(rod2.x) <= 10000)) & (!(next(rod2.s) = 3) | next(rod2.x) <= 1))) & (((!(next(rod3.s) = 1) | next(rod3.x) <= 10000) & (!(next(rod3.s) = 2) | next(rod3.x) <= 10000)) & (!(next(rod3.s) = 3) | next(rod3.x) <= 1))) & ((!(next(con.s) = 0) | next(con.x) <= 16.1) & (!(next(con.s) != 0) | next(con.x) <= 5.9)))) & (((rod3.EVENT = remove & con.EVENT = remove_3) & rod1.EVENT = stutter) & rod2.EVENT = stutter))) | ((((((((next(rod1.s) = rod1.s & (next(rod1.x) = rod1.x & next(rod1.time) = rod1.time)) & (next(rod2.s) = rod2.s & (next(rod2.x) = rod2.x & next(rod2.time) = rod2.time))) & next(rod3.time) = rod3.time) & (((rod3.s = 3 & rod3.x >= 0) & next(rod3.s) = 1) & next(rod3.x) = rod3.x)) & (next(con.s) = con.s & (next(con.x) = con.x & next(con.time) = con.time))) & ((((((!(rod1.s = 1) | rod1.x <= 10000) & (!(rod1.s = 2) | rod1.x <= 10000)) & (!(rod1.s = 3) | rod1.x <= 1)) & (((!(rod2.s = 1) | rod2.x <= 10000) & (!(rod2.s = 2) | rod2.x <= 10000)) & (!(rod2.s = 3) | rod2.x <= 1))) & (((!(rod3.s = 1) | rod3.x <= 10000) & (!(rod3.s = 2) | rod3.x <= 10000)) & (!(rod3.s = 3) | rod3.x <= 1))) & ((!(con.s = 0) | con.x <= 16.1) & (!(con.s != 0) | con.x <= 5.9)))) & ((((((!(next(rod1.s) = 1) | next(rod1.x) <= 10000) & (!(next(rod1.s) = 2) | next(rod1.x) <= 10000)) & (!(next(rod1.s) = 3) | next(rod1.x) <= 1)) & (((!(next(rod2.s) = 1) | next(rod2.x) <= 10000) & (!(next(rod2.s) = 2) | next(rod2.x) <= 10000)) & (!(next(rod2.s) = 3) | next(rod2.x) <= 1))) & (((!(next(rod3.s) = 1) | next(rod3.x) <= 10000) & (!(next(rod3.s) = 2) | next(rod3.x) <= 10000)) & (!(next(rod3.s) = 3) | next(rod3.x) <= 1))) & ((!(next(con.s) = 0) | next(con.x) <= 16.1) & (!(next(con.s) != 0) | next(con.x) <= 5.9)))) & (((rod3.EVENT = recovery & rod1.EVENT = stutter) & rod2.EVENT = stutter) & con.EVENT = stutter)))
+
+
+INVARSPEC
+ !(((rod1.TARGET & rod2.TARGET) & rod3.TARGET) & con.TARGET);
+
+

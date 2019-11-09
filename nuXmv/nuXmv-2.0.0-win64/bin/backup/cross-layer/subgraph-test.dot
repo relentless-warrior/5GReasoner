@@ -1,0 +1,31 @@
+digraph G {
+rankdir = LR;
+size = "8,5"
+	subgraph cluster_0 {
+		//style=filled;
+		//color=lightgrey;
+		//node [style=filled,color=white];
+		//SERVER_READY -> SERVER_PROCESSING -> SERVER_ERROR;
+		label = "Server";
+	}
+
+	subgraph cluster_1 {
+		//node [style=filled];
+		//CLIENT_READY -> CLIENT_PROCESSING -> CLIENT_ERROR;
+		//label = "process #2";
+		//color=blue
+        label = "client"
+	}
+	
+    CLIENT_READY -> CLIENT_PROCESSING [label="client_ev = user_request / REQUEST,client_seq++"] //ct1 
+    CLIENT_PROCESSING -> CLIENT_READY [label="client_ev = RESPONSE / OKAY"] //ct2 
+    CLIENT_PROCESSING -> CLIENT_READY [label = "client_ev = RESET / OKAY"] //ct3; 
+    CLIENT_READY -> CLIENT_ERROR [label="client_ev = RESET / FATAL_ERROR"] //ct4
+
+    SERVER_READY -> SERVER_ERROR [label="FATAL_ERROR / NULL_ACTION"] //st1
+	SERVER_READY -> SERVER_PROCESSING [label="server_ev = REQUEST / NULL_ACTION, server_seq++"] //st2 
+    SERVER_PROCESSING -> SERVER_READY [label="processing_error / RESET"] //st3 
+    SERVER_PROCESSING -> SERVER_READY [label="processing_done / RESPONSE"] //st4 
+    SERVER_PROCESSING -> SERVER_ERROR [label="FATAL_ERROR / NULL_ACTION"] //st5
+    SERVER_ERROR -> SERVER_ERROR [label="FATAL_ERROR / NULL_ACTION"] //st6
+}

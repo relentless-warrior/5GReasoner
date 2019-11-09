@@ -1,0 +1,242 @@
+digraph UE{
+rankdir = LR;
+size = "8,5"
+node [shape = circle, label="ue_null"]ue_null;
+node [shape = circle, label="ue_reg_inited"]ue_reg_inited;
+node [shape = circle, label="ue_registered"]ue_registered;
+node [shape = circle, label="ue_deregistered"]ue_deregistered;
+node [shape = circle, label="ue_dereg_inited"]ue_dereg_inited;
+node [shape = circle, label="ue_service_inited"]ue_service_inited;
+node [shape = circle, label="ue_idle"]ue_idle;
+
+//initial_state: ue_null
+//incoming messages: null_action; auth_reject; reg_reject; reg_reject_rereg; reg_reject_limited; nwk_dereg_req; service_reject; id_req; auth_req; sm_command; reg_accept; config_update_cmd; service_accept; ue_ctx_release; nwk_dereg_accept; 
+//outgoing messages: null_action; dereg_req_switch_off; reg_req; dereg_req_not_switch_off; id_res; auth_response; auth_failure_mac; auth_failure_seq; sm_complete; sm_reject; reg_complete; config_update_complete; service_req; ue_dereg_accept
+//environment variables: power_on; power_off; enable_N1; uederegrequested; dereg_cause_switch_off; ta_changed; authreq_mac_failure; sec_cap_match; regaccept_mac_failure; reg_accept_timer_expired; idreq_mac_failure; smcmd_mac_failure; configupdate_mac_failure; serviceaccept_mac_failure; service_notification; deregaccept_mac_failure
+//state variables: ue_partial_sec_ctx_exist{true, false}<false>; ue_complete_sec_ctx_exist{true, false}<false>; ueregcompleted{true, false}<false>; downgrade{true, false}<false>; ue_sec_ctx_updated{true, false}<false>; ue_service_completed{true, false}<true>; ue_service_started{true, false}<false>; ue_tau_started{true, false}<false>; ue_tau_completed{true, false}<false>; chan_UE_rrc_nas{UE_dl_info_transfer,UE_ctx_release_requested,null}<null>; chan_UE_nas_rrc{UE_ul_info_transfer, UE_downgrade_requested, UE_ctx_release_requested, null}<null>
+//sequence variables: ue_nas_ul_count {0, 32}<0, ((ue_nas_ul_count + 1) mod 32)>; ue_nas_dl_count {0, 32}<0, ((ue_nas_dl_count + 1) mod 32)>; ue_auth_fail_count{0,6}<0,ue_auth_fail_count+1>; ue_reg_count{0,5}<0, 1, ue_reg_count+1>; ue_seq{0,31}<((amf_ue_shared_seq+1) mod 32)>; amf_ue_shared_seq{0,31}<next(amf_seq)>
+//define: ue_auth_seq_check  := (ue_seq < amf_ue_shared_seq & amf_ue_shared_seq < (ue_seq + range)); reg_count_check  := (ue_reg_count < 5); ue_auth_fail_count_check  := (ue_auth_fail_count < 3); range := 8
+        
+
+ue_null -> ue_deregistered [label = "power_on/ueregcompleted=false, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false"]
+
+ue_deregistered -> ue_null [label = "power_off/dereg_req_switch_off"]
+
+ue_deregistered -> ue_reg_inited [label = "enable_N1/reg_req, ueregcompleted=false, ue_reg_count=ue_reg_count+1, downgrade = false, ue_nas_ul_count=0, ue_nas_dl_count=0"]
+
+ue_deregistered -> ue_deregistered [label="(auth_reject | reg_reject | nwk_dereg_req | service_reject) /
+    ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false, ue_reg_count = 0"]
+ 
+ue_deregistered -> ue_deregistered [label="nwk_dereg_req / ue_dereg_accept, 
+    ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false, ue_reg_count = 0"]
+
+ue_deregistered -> ue_deregistered [label="chan_UE_rrc_nas=UE_ctx_release_requested/chan_UE_rrc_nas=null"]
+
+ue_reg_inited -> ue_null [label="power_off / dereg_req_switch_off, downgrade = false"]
+
+ue_reg_inited -> ue_deregistered [label = "(auth_reject | reg_reject | service_reject) / 
+    ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false, ue_reg_count = 0"]
+
+ue_reg_inited -> ue_deregistered [label="nwk_dereg_req / ue_dereg_accept, 
+    ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false, ue_reg_count = 0"]
+
+ue_reg_inited -> ue_deregistered [label="uederegrequested & dereg_cause_switch_off/ 
+                        dereg_req_switch_off"]
+
+ue_reg_inited -> ue_dereg_inited [label="uederegrequested & !dereg_cause_switch_off/ 
+                        dereg_req_not_switch_off"]
+
+ue_reg_inited -> ue_idle [label="chan_UE_rrc_nas=UE_ctx_release_requested/chan_UE_rrc_nas=null"]
+
+ue_reg_inited -> ue_reg_inited [label="enable_N1 & reg_count_check/ reg_req, ueregcompleted=falses, ue_reg_count=ue_reg_count+1, downgrade = false"]
+
+ue_reg_inited -> ue_null [label="enable_N1 & !reg_count_check/ downgrade=true, chan_UE_nas_rrc = UE_downgrade_requested"]
+
+ue_reg_inited -> ue_reg_inited [label = "ta_changed / reg_req, ueregcompleted = false, 
+    ue_tau_started=true, ue_tau_completed=false, ue_reg_count=1, downgrade = false"]
+
+ue_reg_inited -> ue_reg_inited [label = "id_req / id_res"]
+
+ue_reg_inited -> ue_reg_inited [label = "auth_req & !authreq_mac_failure & !ue_auth_seq_check / 
+    auth_response, ue_partial_sec_ctx_exist=true, ue_auth_fail_count=0, ue_seq=((amf_ue_shared_seq+1) mod 32"]
+
+ue_reg_inited -> ue_reg_inited [label = "auth_req & authreq_mac_failure & ue_auth_fail_count_check / 
+    auth_failure_mac, ue_auth_fail_count++, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false"]
+
+ue_reg_inited -> ue_null [label = "auth_req & authreq_mac_failure & !ue_auth_fail_count_check / 
+    auth_failure_mac, ue_auth_fail_count++, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, downgrade=true, chan_UE_nas_rrc = UE_downgrade_requested"]
+
+ue_reg_inited -> ue_reg_inited [label = "auth_req & !authreq_mac_failure & ue_auth_seq_check & 
+    ue_auth_fail_count_check / auth_failure_seq, ue_auth_fail_count++, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false"]
+
+ue_reg_inited -> ue_null [label = "auth_req & authreq_mac_failure & !ue_auth_seq_check & 
+    !ue_auth_fail_count_check / auth_failure_seq, ue_auth_fail_count++, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, downgrade=true, chan_UE_nas_rrc = UE_downgrade_requested"]
+
+ue_reg_inited -> ue_reg_inited [label = "sm_command & ue_partial_sec_ctx_exist=true & !smcmd_mac_failure & 
+    sec_cap_match/sm_complete, ue_sec_ctx_updated=true, ue_complete_sec_ctx_exist=true,
+    ue_nas_ul_count=0, ue_nas_dl_count=0"]
+
+ue_reg_inited -> ue_reg_inited [label = "sm_command & ue_partial_sec_ctx_exist=true & smcmd_mac_failure & 
+    sec_cap_match/sm_reject, ue_sec_ctx_updated=false"]
+
+ue_reg_inited -> ue_reg_inited [label = "sm_command & ue_partial_sec_ctx_exist=true & !smcmd_mac_failure & 
+    !sec_cap_match/sm_reject, ue_sec_ctx_updated=false"]
+
+ue_reg_inited -> ue_registered [label = "reg_accept & !regaccept_mac_failure & ue_tau_started 
+    & !ue_tau_completed /  reg_complete, ueregcompleted=true, ue_tau_started=false, ue_tau_completed=true, ue_reg_count=0, 
+    ue_nas_ul_count = ((ue_nas_ul_count + 1) mod 32), ue_nas_dl_count = ((ue_nas_dl_count + 1) mod 32)"]
+
+ue_reg_inited -> ue_registered [label = "reg_accept & !regaccept_mac_failure /  reg_complete, ueregcompleted=true, 
+    ue_reg_count=0, ue_nas_ul_count = ((ue_nas_ul_count + 1) mod 32), ue_nas_ul_count = ((ue_nas_ul_count + 1) mod 32)"]
+
+ue_reg_inited -> ue_reg_inited [label = "reg_accept & regaccept_mac_failure / ueregcompleted=false"]
+
+ue_reg_inited -> ue_reg_inited [label = "reg_accept_timer_expired / reg_req, ue_reg_count=ue_reg_count+1, downgrade = false"] //TODO: This is where I was working.
+
+
+
+
+ue_registered -> ue_null [label="power_off / dereg_req_switch_off"]
+
+ue_registered -> ue_deregistered [label = "(auth_reject | reg_reject | service_reject) / 
+    ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false, ue_reg_count = 0"]
+
+ue_registered -> ue_deregistered [label="nwk_dereg_req / ue_dereg_accept, 
+    ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false, ue_reg_count = 0"]
+
+ue_registered -> ue_idle [label="chan_UE_rrc_nas=UE_ctx_release_requested/chan_UE_rrc_nas=null"]
+
+ue_registered -> ue_reg_inited [label = "enable_N1 & reg_count_check/ reg_req, ueregcompleted=false, ue_reg_count=ue_reg_count+1, downgrade = false"]
+
+ue_registered -> ue_null [label = "enable_N1 & !reg_count_check/ downgrade=true, chan_UE_nas_rrc = UE_downgrade_requested"]
+
+ue_registered -> ue_deregistered [label="uederegrequested & dereg_cause_switch_off / dereg_req_switch_off, ueregcompleted=false"]
+
+ue_registered -> ue_dereg_inited [label="uederegrequested & !dereg_cause_switch_off/ dereg_req_not_switch_off"]
+
+ue_registered -> ue_registered [label = "id_req & !idreq_mac_failure/  id_res"]
+
+ue_registered -> ue_registered [label = "id_req & idreq_mac_failure/ _"]
+
+//TODO: Need to check what happens for the following:
+//ue_registered >> ue_registered [label = "auth_req / _"]
+
+ue_registered -> ue_registered [label = "sm_command & !smcmd_mac_failure & sec_cap_match/ 
+    sm_complete, ue_sec_ctx_updated=true, ue_complete_sec_ctx_exist=true,
+    ue_nas_ul_count=0, ue_nas_dl_count=0"]
+
+ue_registered -> ue_registered [label = "sm_command & smcmd_mac_failure & sec_cap_match/ 
+    sm_reject, ue_sec_ctx_updated = false, ue_complete_sec_ctx_exist=true"]
+
+ue_registered -> ue_registered [label = "sm_command & !smcmd_mac_failure & !sec_cap_match/ 
+    sm_reject, ue_sec_ctx_updated=false, ue_complete_sec_ctx_exist=true"]
+
+ue_registered -> ue_registered [label = "config_update_cmd & !configupdate_mac_failure/ 
+    config_update_complete"]
+//TODO: overlapping of configuration update procedure and registration procedure
+
+ue_registered -> ue_registered [label = "config_update_cmd & configupdate_mac_failure/_"]
+
+//TODO: overlapping of configuration_update_command and deregistration messages.
+
+ue_registered -> ue_reg_inited [label = "ta_changed / reg_req, ueregcompleted = false, ue_reg_count=1, downgrade = false"]
+
+
+ue_registered -> ue_service_inited [label="service_notification & ue_complete_sec_ctx_exist / 
+    service_req, ue_service_started=true, ue_service_completed=false"]
+
+ue_registered -> ue_registered [label="ueregcompleted & ue_service_started & !ue_service_completed  & service_accept & 
+    !serviceaccept_mac_failure/ ue_service_started=false, ue_service_completed=true"]
+
+
+
+
+ue_dereg_inited -> ue_null [label="power_off / dereg_req_switch_off, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=true"]
+
+ue_dereg_inited -> ue_deregistered [label = "(auth_reject | reg_reject | service_reject) / 
+    ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false, ue_reg_count = 0"]
+
+ue_dereg_inited -> ue_deregistered [label="nwk_dereg_req / ue_dereg_accept, 
+    ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false, ue_reg_count = 0"]
+
+ue_dereg_inited -> ue_deregistered [label="chan_UE_rrc_nas=UE_ctx_release_requested/chan_UE_rrc_nas=null"]
+
+ue_dereg_inited -> ue_deregistered [label="uederegrequested & dereg_cause_switch_off / 
+                        dereg_req_switch_off, ueregcompleted=false"] 
+
+ue_dereg_inited -> ue_dereg_inited [label="uederegrequested & !dereg_cause_switch_off/ 
+                        dereg_req_not_switch_off"]//TODO: ue_nas_sec_ctx_exist=false? 
+                    
+ue_dereg_inited -> ue_reg_inited [label="enable_N1 & reg_count_check/ reg_req, ueregcompleted=false, ue_reg_count=ue_reg_count+1, downgrade = false"]                    
+
+ue_dereg_inited -> ue_null [label="enable_N1 & !reg_count_check/ downgrade=true, chan_UE_nas_rrc = UE_downgrade_requested"]                    
+
+ue_dereg_inited -> ue_deregistered [label="nwk_dereg_accept & !deregaccept_mac_failure/ 
+    ueregcompleted=false"]                    
+
+ue_dereg_inited -> ue_dereg_inited [label="nwk_dereg_accept & deregaccept_mac_failure/ _"]                    
+
+//TODO: Need to check the standard for the following transitions
+ue_dereg_inited -> ue_reg_inited [label = "ta_changed / reg_req, ue_tau_started=true, 
+    ue_tau_completed=false, ueregcompleted = false, ue_reg_count=1, downgrade = false"]
+
+ue_dereg_inited -> ue_dereg_inited [label = "id_req & ue_complete_sec_ctx_exist & !idreq_mac_failure/  id_res"]
+
+ue_dereg_inited -> ue_reg_inited [label = "auth_req & !authreq_mac_failure & !ue_auth_seq_check / 
+    auth_response, ue_partial_sec_ctx_exist=true, ue_auth_fail_count=0, ue_seq=((amf_ue_shared_seq+1) mod 32"]
+
+ue_dereg_inited -> ue_reg_inited [label = "auth_req & authreq_mac_failure & ue_auth_fail_count_check / 
+    auth_failure_mac, ue_auth_fail_count++, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false"]
+
+ue_dereg_inited -> ue_null [label = "auth_req & authreq_mac_failure & !ue_auth_fail_count_check / 
+    auth_failure_mac, ue_auth_fail_count++, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, downgrade=true, chan_UE_nas_rrc = UE_downgrade_requested"]
+
+ue_dereg_inited -> ue_reg_inited [label = "auth_req & !authreq_mac_failure & ue_auth_seq_check & 
+    ue_auth_fail_count_check / auth_failure_seq, ue_auth_fail_count++, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false"]
+
+ue_dereg_inited -> ue_null [label = "auth_req & authreq_mac_failure & !ue_auth_seq_check & 
+    !ue_auth_fail_count_check / auth_failure_seq, ue_auth_fail_count++, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, downgrade=true, chan_UE_nas_rrc = UE_downgrade_requested"]
+
+
+
+
+
+ue_idle -> ue_service_inited [label="service_notification & ue_complete_sec_ctx_exist / service_req, 
+    ue_service_started=true, ue_service_completed=false"]
+
+ue_idle -> ue_reg_inited [label="service_notification & !ue_complete_sec_ctx_exist / reg_req, ueregcompleted=false, downgrade = false"] 
+
+
+
+ue_service_inited -> ue_null [label="power_off / dereg_req_switch_off, ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false"]
+
+ue_service_inited -> ue_deregistered [label = "(auth_reject | reg_reject | service_reject) / 
+    ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false, ue_reg_count = 0"]
+
+ue_service_inited -> ue_deregistered [label="nwk_dereg_req / ue_dereg_accept, 
+    ue_partial_sec_ctx_exist=false, ue_complete_sec_ctx_exist=false, ueregcompleted=false, ue_reg_count = 0"]
+
+ue_service_inited -> ue_idle [label="chan_UE_rrc_nas=UE_ctx_release_requested/chan_UE_rrc_nas=null"]
+
+ue_service_inited -> ue_deregistered [label="uederegrequested & dereg_cause_switch_off/ 
+                        dereg_req_switch_off, ueregcompleted=false"]
+
+ue_service_inited -> ue_dereg_inited [label="uederegrequested & !dereg_cause_switch_off/ 
+                        dereg_req_not_switch_off"]
+                    
+ue_service_inited -> ue_reg_inited [label="enable_N1 & reg_count_check/ reg_req, ueregcompleted=false, ue_reg_count=ue_reg_count+1, downgrade = false"]                    
+
+ue_service_inited -> ue_null [label="enable_N1 & !reg_count_check/ downgrade=true, chan_UE_nas_rrc = UE_downgrade_requested"]                    
+
+ue_service_inited -> ue_reg_inited [label = "ta_changed / reg_req, ue_tau_started=true, 
+    ue_tau_completed = false, ueregcompleted=false, downgrade = false"]
+
+//TODO: Need to check the standard for the following transitions
+ue_service_inited -> ue_reg_inited [label = "id_req & !idreq_mac_failure/  id_res"]
+
+ue_service_inited -> ue_registered [label = "ue_service_started & !ue_service_completed & service_accept 
+    & !serviceaccept_mac_failure /  ue_service_started=false, ue_service_completed=true"]
+
+}
+
+

@@ -1,0 +1,62 @@
+MODULE main
+
+VAR
+t2 : T2(t1.i);
+t1 : T1(t2.j);
+
+TRANS
+ (t2.EVENT = not_timed_or_stutter -> t1.EVENT = stutter)
+TRANS
+ (t1.EVENT = not_timed_or_stutter -> t2.EVENT = stutter)
+
+INVARSPEC
+ !(t1.i > 144 | t2.j > 144);
+
+MODULE T2(i)
+
+VAR
+location : {l0, l1, l2};
+k : integer;
+j : integer;
+
+IVAR
+EVENT : {stutter, not_timed_or_stutter};
+
+INIT
+ ((j = 1 & k = 0) & location = l0)
+
+TRANS
+ (EVENT != stutter -> ((location = l0 & k < 5) -> ((next(j) = j + i & next(k) = k) & next(location) = l1)))
+TRANS
+ (EVENT != stutter -> ((location = l0 & k >= 5) -> ((next(j) = j & next(k) = k) & next(location) = l2)))
+TRANS
+ (EVENT != stutter -> (location = l1 -> ((next(j) = j & next(k) = k + 1) & next(location) = l0)))
+TRANS
+ (EVENT != stutter -> (location = l2 -> ((next(j) = j & next(k) = k) & next(location) = l2)))
+TRANS
+ (EVENT = stutter -> ((next(j) = j & next(k) = k) & next(location) = location))
+
+MODULE T1(j)
+
+VAR
+location : {l0, l1, l2};
+k : integer;
+i : integer;
+
+IVAR
+EVENT : {stutter, not_timed_or_stutter};
+
+INIT
+ ((i = 1 & k = 0) & location = l0)
+
+TRANS
+ (EVENT != stutter -> ((location = l0 & k < 5) -> ((next(i) = i + j & next(k) = k) & next(location) = l1)))
+TRANS
+ (EVENT != stutter -> ((location = l0 & k >= 5) -> ((next(i) = i & next(k) = k) & next(location) = l2)))
+TRANS
+ (EVENT != stutter -> (location = l1 -> ((next(i) = i & next(k) = k + 1) & next(location) = l0)))
+TRANS
+ (EVENT != stutter -> (location = l2 -> ((next(i) = i & next(k) = k) & next(location) = l2)))
+TRANS
+ (EVENT = stutter -> ((next(i) = i & next(k) = k) & next(location) = location))
+

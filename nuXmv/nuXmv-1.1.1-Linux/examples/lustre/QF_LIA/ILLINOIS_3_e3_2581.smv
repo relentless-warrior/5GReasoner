@@ -1,0 +1,224 @@
+MODULE First (_X_)
+VAR
+First: integer;
+flby: integer;
+
+ASSIGN
+First := flby;
+init(flby) := _X_;
+next(flby) := First;
+
+
+
+
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE excludes9 (_X1_,_X2_,_X3_,_X4_,_X5_,_X6_,_X7_,_X8_,_X9_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := (((((((((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) | ((((((((_X1_ & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & _X2_) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & _X3_) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & _X4_) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & _X5_) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & _X6_) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & _X7_) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & _X8_) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & _X9_));
+
+
+
+
+MODULE illinois (e1,e2,e3,e4,e5,e6,e7,e8,e9,init_invalid)
+VAR
+invalid: integer;
+dirty: integer;
+exclusive: integer;
+shared: integer;
+g1: boolean;
+g2: boolean;
+g3: boolean;
+g4: boolean;
+g5: boolean;
+g6: boolean;
+g7: boolean;
+g8: boolean;
+g9: boolean;
+ite: integer;
+ite2: integer;
+ite3: integer;
+ite4: integer;
+ite5: integer;
+ite6: integer;
+ite7: integer;
+ite8: integer;
+ite9: integer;
+ite10: integer;
+ite11: integer;
+ite12: integer;
+ite13: integer;
+ite14: integer;
+ite15: integer;
+ite16: integer;
+ite17: integer;
+flby: integer;
+ite18: integer;
+ite19: integer;
+ite20: integer;
+ite21: integer;
+ite22: integer;
+ite23: integer;
+ite24: integer;
+ite25: integer;
+ite26: integer;
+ite27: integer;
+flby2: integer;
+ite28: integer;
+ite29: integer;
+ite30: integer;
+ite31: integer;
+ite32: integer;
+ite33: integer;
+ite34: integer;
+ite35: integer;
+ite36: integer;
+ite37: integer;
+flby3: integer;
+ite38: integer;
+ite39: integer;
+ite40: integer;
+ite41: integer;
+ite42: integer;
+ite43: integer;
+ite44: integer;
+ite45: integer;
+ite46: integer;
+ite47: integer;
+flby4: integer;
+
+ASSIGN
+invalid := flby;
+dirty := flby2;
+exclusive := flby3;
+shared := flby4;
+next(g1) := ((((invalid >= 1) & (dirty = 0)) & (shared = 0)) & (exclusive = 0));
+next(g2) := ((invalid >= 1) & (dirty >= 1));
+next(g3) := ((invalid >= 1) & ((shared + exclusive) >= 1));
+next(g4) := (exclusive >= 1);
+next(g5) := (shared >= 1);
+next(g6) := (invalid >= 1);
+next(g7) := (dirty >= 1);
+next(g8) := (shared >= 1);
+next(g9) := (exclusive >= 1);
+init(flby) := ite;
+next(flby) := next(ite17);
+init(flby2) := 0;
+next(flby2) := next(ite27);
+init(flby3) := 0;
+next(flby3) := next(ite37);
+init(flby4) := 0;
+next(flby4) := next(ite47);
+
+INIT
+(e9 -> (ite10 = ite9)) &
+(g6 -> (ite21 = 1)) &
+(e7 -> (ite23 = ite22)) &
+(g6 -> (ite31 = 0)) &
+(e9 -> (ite33 = ite32)) &
+(g5 -> (ite40 = 0)) &
+(g6 -> (ite41 = 0)) &
+(e8 -> (ite43 = ite42));
+
+TRANS
+((next(g1) -> (next(ite2) = (invalid - 1))) & (! (next(g1)) -> (next(ite2) = invalid))) &
+((next(g2) -> (next(ite3) = (invalid - 1))) & (! (next(g2)) -> (next(ite3) = invalid))) &
+((next(g3) -> (next(ite4) = (invalid - 1))) & (! (next(g3)) -> (next(ite4) = invalid))) &
+((next(g5) -> (next(ite5) = ((invalid + shared) - 1))) & (! (next(g5)) -> (next(ite5) = invalid))) &
+((next(g6) -> (next(ite6) = ((((invalid + dirty) + shared) + exclusive) - 1))) & (! (next(g6)) -> (next(ite6) = invalid))) &
+((next(g7) -> (next(ite7) = (invalid + 1))) & (! (next(g7)) -> (next(ite7) = invalid))) &
+((next(g8) -> (next(ite8) = (invalid + 1))) & (! (next(g8)) -> (next(ite8) = invalid))) &
+((next(g9) -> (next(ite9) = (invalid + 1))) & (! (next(g9)) -> (next(ite9) = invalid))) &
+((next(e9) -> (next(ite10) = next(ite9))) & (! (next(e9)) -> (next(ite10) = invalid))) &
+((next(g2) -> (next(ite18) = (dirty - 1))) & (! (next(g2)) -> (next(ite18) = dirty))) &
+((next(g4) -> (next(ite19) = (dirty + 1))) & (! (next(g4)) -> (next(ite19) = dirty))) &
+((next(g5) -> (next(ite20) = (dirty + 1))) & (! (next(g5)) -> (next(ite20) = dirty))) &
+((next(g6) -> (next(ite21) = 1)) & (! (next(g6)) -> (next(ite21) = dirty))) &
+((next(g7) -> (next(ite22) = (dirty - 1))) & (! (next(g7)) -> (next(ite22) = dirty))) &
+((next(e7) -> (next(ite23) = next(ite22))) & (! (next(e7)) -> (next(ite23) = dirty))) &
+((next(g1) -> (next(ite28) = (exclusive + 1))) & (! (next(g1)) -> (next(ite28) = exclusive))) &
+((next(g3) -> (next(ite29) = 0)) & (! (next(g3)) -> (next(ite29) = exclusive))) &
+((next(g4) -> (next(ite30) = (exclusive - 1))) & (! (next(g4)) -> (next(ite30) = exclusive))) &
+((next(g6) -> (next(ite31) = 0)) & (! (next(g6)) -> (next(ite31) = exclusive))) &
+((next(g9) -> (next(ite32) = (exclusive - 1))) & (! (next(g9)) -> (next(ite32) = exclusive))) &
+((next(e9) -> (next(ite33) = next(ite32))) & (! (next(e9)) -> (next(ite33) = exclusive))) &
+((next(g2) -> (next(ite38) = (shared + 2))) & (! (next(g2)) -> (next(ite38) = shared))) &
+((next(g3) -> (next(ite39) = ((shared + exclusive) + 1))) & (! (next(g3)) -> (next(ite39) = shared))) &
+((next(g5) -> (next(ite40) = 0)) & (! (next(g5)) -> (next(ite40) = shared))) &
+((next(g6) -> (next(ite41) = 0)) & (! (next(g6)) -> (next(ite41) = shared))) &
+((next(g8) -> (next(ite42) = (shared - 1))) & (! (next(g8)) -> (next(ite42) = shared))) &
+((next(e8) -> (next(ite43) = next(ite42))) & (! (next(e8)) -> (next(ite43) = shared)));
+
+INVAR
+(((init_invalid > 0) -> (ite = init_invalid)) & (! ((init_invalid > 0)) -> (ite = (1 - init_invalid)))) &
+((e8 -> (ite11 = ite8)) & (! (e8) -> (ite11 = ite10))) &
+((e7 -> (ite12 = ite7)) & (! (e7) -> (ite12 = ite11))) &
+((e6 -> (ite13 = ite6)) & (! (e6) -> (ite13 = ite12))) &
+((e5 -> (ite14 = ite5)) & (! (e5) -> (ite14 = ite13))) &
+((e3 -> (ite15 = ite4)) & (! (e3) -> (ite15 = ite14))) &
+((e2 -> (ite16 = ite3)) & (! (e2) -> (ite16 = ite15))) &
+((e1 -> (ite17 = ite2)) & (! (e1) -> (ite17 = ite16))) &
+((e6 -> (ite24 = ite21)) & (! (e6) -> (ite24 = ite23))) &
+((e5 -> (ite25 = ite20)) & (! (e5) -> (ite25 = ite24))) &
+((e4 -> (ite26 = ite19)) & (! (e4) -> (ite26 = ite25))) &
+((e2 -> (ite27 = ite18)) & (! (e2) -> (ite27 = ite26))) &
+((e6 -> (ite34 = ite31)) & (! (e6) -> (ite34 = ite33))) &
+((e4 -> (ite35 = ite30)) & (! (e4) -> (ite35 = ite34))) &
+((e3 -> (ite36 = ite29)) & (! (e3) -> (ite36 = ite35))) &
+((e1 -> (ite37 = ite28)) & (! (e1) -> (ite37 = ite36))) &
+((e6 -> (ite44 = ite41)) & (! (e6) -> (ite44 = ite43))) &
+((e5 -> (ite45 = ite40)) & (! (e5) -> (ite45 = ite44))) &
+((e3 -> (ite46 = ite39)) & (! (e3) -> (ite46 = ite45))) &
+((e2 -> (ite47 = ite38)) & (! (e2) -> (ite47 = ite46)));
+
+
+
+
+MODULE main
+VAR
+param_e8: boolean;
+_OK_: boolean;
+invalid: integer;
+dirty: integer;
+exclusive: integer;
+param_e9: boolean;
+shared: integer;
+env: boolean;
+param_init_invalid: integer;
+param_e1: boolean;
+param_e2: boolean;
+param_e3: boolean;
+param_e4: boolean;
+param_e5: boolean;
+param_e6: boolean;
+param_e7: boolean;
+call_illinois: illinois (param_e1,param_e2,param_e3,param_e4,param_e5,param_e6,param_e7,param_e8,param_e9,param_init_invalid);
+call_excludes9: excludes9 (param_e1,param_e2,param_e3,param_e4,param_e5,param_e6,param_e7,param_e8,param_e9);
+call_Sofar: Sofar ((call_excludes9.excludes & (param_init_invalid > 0)));
+call_First: First (param_init_invalid);
+
+ASSIGN
+_OK_ := (env -> ((((invalid - dirty) + exclusive) + shared) = call_First.First));
+invalid := call_illinois.invalid;
+dirty := call_illinois.dirty;
+exclusive := call_illinois.exclusive;
+shared := call_illinois.shared;
+env := call_Sofar.Sofar;
+
+INVARSPEC (_OK_ = TRUE)
+
+

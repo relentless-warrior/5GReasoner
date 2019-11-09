@@ -1,0 +1,108 @@
+Copyright 2014-2019 Fondazione Bruno Kessler
+
+This License Agreement, including all exhibits ("License") is a legal
+agreement between you and Fondazione Bruno Kessler ("FBK" or "we") for
+the software "nuXmv" and any data related to it, which may include
+source code, and any associated materials, text or binary files,
+associated media and "online" or electronic documentation and any
+updates we provide in our discretion (together, the "Software").
+
+By installing, copying, or otherwise using the Software, you agree to
+be bound by the terms of this License. If you do not agree, do not
+install, copy, or use the Software. The Software is protected by
+copyright and other intellectual property laws and is licensed, not
+sold.
+
+SCOPE OF RIGHTS:
+
+You may study, copy, compile and execute this Software only for
+academic, non-commercial reaserch purposes, subject to the restrictions
+in this License.
+
+You may not:
+- Modify this Software for any purpose.
+- Re-distribute this Software in any form for any purposes. Examples
+  of purposes would be running business operations, licensing,
+  leasing, or selling the Software, distributing the Software for use
+  with commercial or non-commercial products, using the Software in
+  the creation or use of commercial or non-commercial products.
+
+In return, we require that you agree:
+
+1. That you will not remove any Copyright or other notices from the
+   Software.
+
+2. That if any of the Software is in binary format, you will not
+   attempt to modify such portions of the Software, or to reverse
+   engineer or decompile them.
+
+3. That you will not: (i) use the Software or any component of the
+   Software or any program, code, application or technology created
+   through use of the Software (for example, an application or
+   program compiled using the included compilers) in a live
+   operating environment where it may be relied upon to perform in
+   the same manner as a commercially released product, or with data
+   that has not been sufficiently backed up.
+
+4. That FBK is granted back, a non-exclusive, irrevocable,
+   royalty-free, and sub-licensable license to, for any purpose,
+   reproduce, publicly perform or display, install, use, modify,
+   distribute, make and have made, sell and transfer modifications
+   to and/or derivative works of the Software or data that you
+   provide to FBK.
+
+5. That any feedback about the Software provided by you to us is
+   voluntarily given, and FBK shall be free to use the feedback as
+   it sees fit without obligation or restriction of any kind, even
+   if the feedback is designated by you as confidential.
+
+6. THAT THE SOFTWARE COMES "AS IS", WITH NO WARRANTIES. THIS MEANS
+   NO EXPRESS, IMPLIED OR STATUTORY WARRANTY, INCLUDING WITHOUT
+   LIMITATION, WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
+   PARTICULAR PURPOSE, ANY WARRANTY AGAINST INTERFERENCE WITH YOUR
+   ENJOYMENT OF THE SOFTWARE OR ANY WARRANTY OF TITLE OR
+   NON-INFRINGEMENT. THERE IS NO WARRANTY THAT THIS SOFTWARE WILL
+   FULFILL ANY OF YOUR PARTICULAR PURPOSES OR NEEDS. ALSO, YOU MUST
+   PASS THIS DISCLAIMER ON WHENEVER YOU DISTRIBUTE THE SOFTWARE OR
+   DERIVATIVE WORKS.
+
+7. THAT NEITHER FBK NOR ANY CONTRIBUTOR TO THE SOFTWARE WILL BE
+   LIABLE FOR ANY DAMAGES RELATED TO THE SOFTWARE OR THIS LICENSE,
+   INCLUDING DIRECT, INDIRECT, SPECIAL, CONSEQUENTIAL OR INCIDENTAL
+   DAMAGES, TO THE MAXIMUM EXTENT THE LAW PERMITS, NO MATTER WHAT
+   LEGAL THEORY IT IS BASED ON. ALSO, YOU MUST PASS THIS LIMITATION
+   OF LIABILITY ON WHENEVER YOU DISTRIBUTE THE SOFTWARE OR
+   DERIVATIVE WORKS.
+
+8. That we have no duty of reasonable care or lack of negligence,
+   and we are not obligated to provide technical support or bug
+   fixes for the Software.
+
+9. That if you breach this License or if you sue anyone over
+   patents that you think may apply to or read on the Software or
+   anyone's use of the Software, this License (and your license and
+   rights obtained herein) terminate automatically. Upon any such
+   termination, you shall destroy all of your copies of the
+   Software immediately. Sections 4 through 9, 11 and 12 of this
+   License shall survive any termination of this License.
+
+10. That the patent rights, if any, granted to you in this License
+    only apply to the Software, not to any derivative works you
+    make.
+
+11. That the Software may be subject to European export
+    jurisdiction at the time it is licensed to you, and it may be
+    subject to additional export or import laws in other
+    places. You agree to comply with all such laws and regulations
+    that may apply to the Software after delivery of the software
+    to you.
+
+12. That all rights not expressly granted to you in this License
+    are reserved.
+
+13. That this License shall be construed and controlled by the laws
+    of European States, without regard to conflicts of law. If any
+    provision of this License shall be deemed unenforceable or
+    contrary to law, the rest of this License shall remain in full
+    effect and interpreted in an enforceable manner that most
+    nearly captures the intent of the original language.

@@ -1,0 +1,241 @@
+MODULE First (_X_)
+VAR
+First: integer;
+flby: integer;
+
+ASSIGN
+First := flby;
+init(flby) := _X_;
+next(flby) := First;
+
+
+
+
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE excludes6 (_X1_,_X2_,_X3_,_X4_,_X5_,_X6_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) | (((((_X1_ & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_))) | (((((! (_X1_) & _X2_) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_))) | (((((! (_X1_) & ! (_X2_)) & _X3_) & ! (_X4_)) & ! (_X5_)) & ! (_X6_))) | (((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & _X4_) & ! (_X5_)) & ! (_X6_))) | (((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & _X5_) & ! (_X6_))) | (((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & _X6_));
+
+
+
+
+MODULE swimingpool (e1,e2,e3,e4,e5,e6,init_p1,init_p2)
+VAR
+x1: integer;
+x2: integer;
+x3: integer;
+x4: integer;
+x5: integer;
+x6: integer;
+x7: integer;
+p1: integer;
+p2: integer;
+g1: boolean;
+g2: boolean;
+g3: boolean;
+g4: boolean;
+g5: boolean;
+g6: boolean;
+flby: boolean;
+flby2: boolean;
+flby3: boolean;
+flby4: boolean;
+flby5: boolean;
+flby6: boolean;
+ite: integer;
+ite2: integer;
+ite3: integer;
+ite4: integer;
+flby7: integer;
+ite5: integer;
+ite6: integer;
+ite7: integer;
+ite8: integer;
+flby8: integer;
+ite9: integer;
+ite10: integer;
+ite11: integer;
+ite12: integer;
+flby9: integer;
+ite13: integer;
+ite14: integer;
+ite15: integer;
+ite16: integer;
+flby10: integer;
+ite17: integer;
+ite18: integer;
+ite19: integer;
+ite20: integer;
+flby11: integer;
+ite21: integer;
+ite22: integer;
+ite23: integer;
+ite24: integer;
+ite25: integer;
+ite26: integer;
+ite27: integer;
+ite28: integer;
+flby12: integer;
+ite29: integer;
+ite30: integer;
+ite31: integer;
+ite32: integer;
+flby13: integer;
+flby14: integer;
+flby15: integer;
+
+ASSIGN
+x1 := flby7;
+x2 := flby8;
+x3 := flby9;
+x4 := flby10;
+x5 := flby11;
+x6 := flby12;
+x7 := flby13;
+p1 := flby14;
+p2 := flby15;
+g1 := flby;
+g2 := flby2;
+g3 := flby3;
+g4 := flby4;
+g5 := flby5;
+g6 := flby6;
+init(flby) := FALSE;
+next(flby) := (x6 >= 1);
+init(flby2) := FALSE;
+next(flby2) := ((x1 >= 1) & (x7 >= 1));
+init(flby3) := FALSE;
+next(flby3) := (x2 >= 1);
+init(flby4) := FALSE;
+next(flby4) := ((x3 >= 1) & (x6 >= 1));
+init(flby5) := FALSE;
+next(flby5) := (x4 >= 1);
+init(flby6) := FALSE;
+next(flby6) := (x5 >= 1);
+init(flby7) := 0;
+next(flby7) := next(ite4);
+init(flby8) := 0;
+next(flby8) := next(ite8);
+init(flby9) := 0;
+next(flby9) := next(ite12);
+init(flby10) := 0;
+next(flby10) := next(ite16);
+init(flby11) := 0;
+next(flby11) := next(ite20);
+init(flby12) := p1;
+next(flby12) := next(ite28);
+init(flby13) := p2;
+next(flby13) := next(ite32);
+init(flby14) := init_p1;
+next(flby14) := p1;
+init(flby15) := init_p2;
+next(flby15) := p2;
+
+INIT
+(e2 -> (ite3 = ite2)) &
+(e3 -> (ite7 = ite6)) &
+(e4 -> (ite11 = ite10)) &
+(e5 -> (ite15 = ite14)) &
+(e6 -> (ite19 = ite18)) &
+(e6 -> (ite25 = ite24)) &
+(e5 -> (ite31 = ite30));
+
+TRANS
+((next(g1) -> (next(ite) = (x1 + 1))) & (! (next(g1)) -> (next(ite) = x1))) &
+((next(g2) -> (next(ite2) = (x1 - 1))) & (! (next(g2)) -> (next(ite2) = x1))) &
+((next(e2) -> (next(ite3) = next(ite2))) & (! (next(e2)) -> (next(ite3) = x1))) &
+((next(g2) -> (next(ite5) = (x2 + 1))) & (! (next(g2)) -> (next(ite5) = x2))) &
+((next(g3) -> (next(ite6) = (x2 - 1))) & (! (next(g3)) -> (next(ite6) = x2))) &
+((next(e3) -> (next(ite7) = next(ite6))) & (! (next(e3)) -> (next(ite7) = x2))) &
+((next(g3) -> (next(ite9) = (x3 + 1))) & (! (next(g3)) -> (next(ite9) = x3))) &
+((next(g4) -> (next(ite10) = (x3 - 1))) & (! (next(g4)) -> (next(ite10) = x3))) &
+((next(e4) -> (next(ite11) = next(ite10))) & (! (next(e4)) -> (next(ite11) = x3))) &
+((next(g4) -> (next(ite13) = (x4 + 1))) & (! (next(g4)) -> (next(ite13) = x4))) &
+((next(g4) -> (next(ite14) = (x4 - 1))) & (! (next(g4)) -> (next(ite14) = x4))) &
+((next(e5) -> (next(ite15) = next(ite14))) & (! (next(e5)) -> (next(ite15) = x4))) &
+((next(g5) -> (next(ite17) = (x5 + 1))) & (! (next(g5)) -> (next(ite17) = x5))) &
+((next(g6) -> (next(ite18) = (x5 - 1))) & (! (next(g6)) -> (next(ite18) = x5))) &
+((next(e6) -> (next(ite19) = next(ite18))) & (! (next(e6)) -> (next(ite19) = x5))) &
+((next(g1) -> (next(ite21) = (x6 - 1))) & (! (next(g1)) -> (next(ite21) = x6))) &
+((next(g3) -> (next(ite22) = (x6 + 1))) & (! (next(g3)) -> (next(ite22) = x6))) &
+((next(g4) -> (next(ite23) = (x6 - 1))) & (! (next(g4)) -> (next(ite23) = x6))) &
+((next(g6) -> (next(ite24) = (x6 + 1))) & (! (next(g6)) -> (next(ite24) = x6))) &
+((next(e6) -> (next(ite25) = next(ite24))) & (! (next(e6)) -> (next(ite25) = x6))) &
+((next(g2) -> (next(ite29) = (x7 - 1))) & (! (next(g2)) -> (next(ite29) = x7))) &
+((next(g5) -> (next(ite30) = (x7 + 1))) & (! (next(g5)) -> (next(ite30) = x7))) &
+((next(e5) -> (next(ite31) = next(ite30))) & (! (next(e5)) -> (next(ite31) = x7)));
+
+INVAR
+((e1 -> (ite4 = ite)) & (! (e1) -> (ite4 = ite3))) &
+((e2 -> (ite8 = ite5)) & (! (e2) -> (ite8 = ite7))) &
+((e3 -> (ite12 = ite9)) & (! (e3) -> (ite12 = ite11))) &
+((e4 -> (ite16 = ite13)) & (! (e4) -> (ite16 = ite15))) &
+((e5 -> (ite20 = ite17)) & (! (e5) -> (ite20 = ite19))) &
+((e4 -> (ite26 = ite23)) & (! (e4) -> (ite26 = ite25))) &
+((e3 -> (ite27 = ite22)) & (! (e3) -> (ite27 = ite26))) &
+((e1 -> (ite28 = ite21)) & (! (e1) -> (ite28 = ite27))) &
+((e2 -> (ite32 = ite29)) & (! (e2) -> (ite32 = ite31)));
+
+
+
+
+MODULE main
+VAR
+x3: integer;
+x4: integer;
+x5: integer;
+x6: integer;
+param_init_p2: integer;
+x7: integer;
+p1: integer;
+p2: integer;
+env: boolean;
+param_e1: boolean;
+param_e2: boolean;
+param_e3: boolean;
+param_e4: boolean;
+param_e5: boolean;
+param_e6: boolean;
+param_init_p1: integer;
+_OK_: boolean;
+x1: integer;
+x2: integer;
+call_swimingpool: swimingpool (param_e1,param_e2,param_e3,param_e4,param_e5,param_e6,param_init_p1,param_init_p2);
+call_excludes6: excludes6 (param_e1,param_e2,param_e3,param_e4,param_e5,param_e6);
+call_Sofar: Sofar (call_excludes6.excludes);
+call_First: First (param_init_p1);
+call_First2: First (param_init_p2);
+call_First3: First (param_init_p1);
+call_First4: First (param_init_p2);
+
+ASSIGN
+x3 := call_swimingpool.x3;
+x4 := call_swimingpool.x4;
+x5 := call_swimingpool.x5;
+x6 := call_swimingpool.x6;
+x7 := call_swimingpool.x7;
+p1 := call_swimingpool.p1;
+p2 := call_swimingpool.p2;
+env := ((((call_Sofar.Sofar & (0 <= call_First.First)) & (0 <= call_First2.First)) & (call_First3.First < 1000)) & (call_First4.First < 1000));
+_OK_ := (env -> (x4 < 1));
+x1 := call_swimingpool.x1;
+x2 := call_swimingpool.x2;
+
+INVARSPEC (_OK_ = TRUE)
+
+

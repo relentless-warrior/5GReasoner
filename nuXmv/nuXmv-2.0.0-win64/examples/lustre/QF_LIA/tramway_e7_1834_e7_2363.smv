@@ -1,0 +1,165 @@
+MODULE edge (_X_)
+VAR
+edge: boolean;
+flby: boolean;
+
+ASSIGN
+edge := flby;
+init(flby) := FALSE;
+next(flby) := (next(_X_) | ! (_X_));
+
+
+
+
+MODULE switch (_init_,on,off)
+VAR
+value: boolean;
+flby: boolean;
+ite: boolean;
+ite2: boolean;
+
+ASSIGN
+value := ite2;
+init(flby) := _init_;
+next(flby) := value;
+
+INVAR
+((off -> (ite = FALSE)) & (! (off) -> (ite = flby))) &
+((on -> (ite2 = TRUE)) & (! (on) -> (ite2 = ite)));
+
+
+
+
+MODULE jafter (_X_)
+VAR
+after: boolean;
+flby: boolean;
+
+ASSIGN
+after := flby;
+init(flby) := FALSE;
+next(flby) := _X_;
+
+
+
+
+MODULE once_from_to (_A_,_B_,_X_)
+VAR
+_OK_: boolean;
+between_A_and_X: boolean;
+call_jafter: jafter (_X_);
+call_switch: switch (FALSE,_A_,call_jafter.after);
+
+ASSIGN
+_OK_ := ! ((between_A_and_X | _B_));
+between_A_and_X := call_switch.value;
+
+
+
+
+MODULE controller (request_door,warning_start,in_station,door_is_open)
+VAR
+open_door: boolean;
+close_door: boolean;
+door_ok: boolean;
+req_pending: boolean;
+call_switch: switch (FALSE,(request_door & ! (warning_start)),door_is_open);
+
+ASSIGN
+open_door := (req_pending & in_station);
+close_door := (warning_start & door_is_open);
+door_ok := (! (door_is_open) & warning_start);
+req_pending := call_switch.value;
+
+
+
+
+MODULE environment (door_is_open,open_door,close_door,in_station,door_ok,warning_start)
+VAR
+env_always_ok: boolean;
+env_ok: boolean;
+door_doesnt_close_if_not_asked: boolean;
+door_doesnt_open_if_not_asked: boolean;
+tramway_doesnt_start_if_not_door_ok: boolean;
+door_initially_closed: boolean;
+initially_not_in_station: boolean;
+warning_start_and_in_station_go_down_simultaneously: boolean;
+warning_start_only_in_station: boolean;
+warning_start_cant_become_true_when_door_is_opening: boolean;
+flby: boolean;
+flby2: boolean;
+flby3: boolean;
+call_edge: edge (door_is_open);
+call_edge2: edge (! (door_is_open));
+call_edge3: edge (! (in_station));
+call_jafter: jafter (door_ok);
+call_edge4: edge (! (in_station));
+call_edge5: edge (! (warning_start));
+call_edge6: edge (warning_start);
+
+ASSIGN
+env_always_ok := flby;
+env_ok := (((((((door_doesnt_open_if_not_asked & door_doesnt_close_if_not_asked) & tramway_doesnt_start_if_not_door_ok) & door_initially_closed) & initially_not_in_station) & warning_start_and_in_station_go_down_simultaneously) & warning_start_only_in_station) & warning_start_cant_become_true_when_door_is_opening);
+door_doesnt_close_if_not_asked := (call_edge.edge -> open_door);
+door_doesnt_open_if_not_asked := (call_edge2.edge -> close_door);
+tramway_doesnt_start_if_not_door_ok := (call_edge3.edge -> call_jafter.after);
+door_initially_closed := flby2;
+initially_not_in_station := flby3;
+warning_start_and_in_station_go_down_simultaneously := (call_edge4.edge = call_edge5.edge);
+warning_start_only_in_station := (warning_start -> in_station);
+warning_start_cant_become_true_when_door_is_opening := (call_edge6.edge -> ! (open_door));
+init(flby) := env_ok;
+next(flby) := (next(env_ok) & env_always_ok);
+init(flby2) := ! (door_is_open);
+next(flby2) := TRUE;
+init(flby3) := ! (in_station);
+next(flby3) := TRUE;
+
+
+
+
+MODULE properties (door_is_open,in_station,request_door,warning_start)
+VAR
+_OK_: boolean;
+door_doesnt_open_out_of_station: boolean;
+door_opens_before_leaving_station: boolean;
+call_jafter: jafter ((request_door & ! (warning_start)));
+call_edge: edge (! (in_station));
+call_jafter2: jafter (door_is_open);
+call_once_from_to: once_from_to (call_jafter.after,call_edge.edge,call_jafter2.after);
+
+ASSIGN
+_OK_ := (door_doesnt_open_out_of_station & door_opens_before_leaving_station);
+door_doesnt_open_out_of_station := (door_is_open -> in_station);
+door_opens_before_leaving_station := call_once_from_to._OK_;
+
+
+
+
+MODULE main
+VAR
+param_request_door: boolean;
+param_warning_start: boolean;
+param_in_station: boolean;
+param_door_is_open: boolean;
+_OK_: boolean;
+env_always_ok: boolean;
+prop_ok: boolean;
+open_door: boolean;
+close_door: boolean;
+door_ok: boolean;
+call_properties: properties (param_door_is_open,param_in_station,param_request_door,param_warning_start);
+call_environment: environment (param_door_is_open,open_door,close_door,param_in_station,door_ok,param_warning_start);
+call_controller: controller (param_request_door,param_warning_start,param_in_station,param_door_is_open);
+
+ASSIGN
+_OK_ := (env_always_ok -> prop_ok);
+env_always_ok := call_environment.env_always_ok;
+prop_ok := call_properties._OK_;
+open_door := call_controller.open_door;
+close_door := call_controller.close_door;
+door_ok := call_controller.door_ok;
+
+INVARSPEC (_OK_ = TRUE)
+
+

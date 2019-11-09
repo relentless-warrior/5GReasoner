@@ -1,0 +1,38 @@
+MODULE main
+
+DEFINE lim := 5;
+
+VAR state : { s0, s1, s2, s3 };
+
+VAR c : integer;
+VAR x : real;
+VAR delta : real;
+
+
+ASSIGN
+ init(state) := s0;
+ next(state) :=
+  case
+   state = s0 : s1;
+   state = s1 : s2;
+   state = s2 & x < lim : s2;
+   state = s2 & x >= lim : s3;
+   state = s3 : s1;
+   TRUE : state;
+  esac;
+
+ init(c) := 0;
+ next(c) := (state = s3 & next(state) = s1)?(c+1):(c);
+
+ init(x) := 0;
+ next(x) := (state = s2 & next(state) = s2)?(x+delta):(0);
+
+ init(delta) := lim;
+ next(delta) := (state = s1 & next(state) = s2)?(delta / 2):(delta);
+
+INVARSPEC c < 3;
+INVARSPEC c < 4;
+INVARSPEC c < 5;
+INVARSPEC c < 6;
+
+LTLSPEC G F (state = s3);

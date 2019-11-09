@@ -1,0 +1,65 @@
+MODULE loop6counter (x)
+VAR
+out: boolean;
+a: boolean;
+b: boolean;
+c: boolean;
+flby: boolean;
+flby2: boolean;
+flby3: boolean;
+
+ASSIGN
+out := (a & c);
+a := flby;
+b := flby2;
+c := flby3;
+init(flby) := FALSE;
+next(flby) := ((b & c) | ((x & a) & ! (c)));
+init(flby2) := FALSE;
+next(flby2) := (((! (b) & c) | (b & ! (c))) | (! (x) & a));
+init(flby3) := FALSE;
+next(flby3) := ! (c);
+
+
+
+
+MODULE intloop6counter (x)
+VAR
+out: boolean;
+time: integer;
+ite: integer;
+ite2: integer;
+ite3: integer;
+flby: integer;
+
+ASSIGN
+out := (time = 5);
+time := flby;
+init(flby) := 0;
+next(flby) := next(ite3);
+
+TRANS
+((! (x) -> (next(ite) = 3)) & (! (! (x)) -> (next(ite) = 5))) &
+(((time = 4) -> (next(ite2) = next(ite))) & (! ((time = 4)) -> (next(ite2) = (time + 1)))) &
+(((time = 5) -> (next(ite3) = 2)) & (! ((time = 5)) -> (next(ite3) = next(ite2))));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+b: boolean;
+d: boolean;
+param_x: boolean;
+call_loop6counter: loop6counter (param_x);
+call_intloop6counter: intloop6counter (param_x);
+
+ASSIGN
+_OK_ := (! (param_x) | (b = d));
+b := call_loop6counter.out;
+d := call_intloop6counter.out;
+
+INVARSPEC _OK_
+
+

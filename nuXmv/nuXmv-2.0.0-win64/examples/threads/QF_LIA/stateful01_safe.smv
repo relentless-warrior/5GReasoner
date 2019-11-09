@@ -1,0 +1,139 @@
+MODULE main
+
+VAR
+mb : Mutex;
+ma : Mutex;
+thread2 : Thread2;
+thread1 : Thread1;
+
+TRANS
+ ((((thread2.EVENT = locka | (thread2.EVENT = unlocka | (thread2.EVENT = lockb | (thread2.EVENT = unlockb | thread2.EVENT = tau)))) | (ma.EVENT = lock2 | ma.EVENT = unlock2)) | (mb.EVENT = lock2 | mb.EVENT = unlock2)) -> thread1.EVENT = stutter)
+TRANS
+ ((((thread1.EVENT = locka | (thread1.EVENT = unlocka | (thread1.EVENT = lockb | (thread1.EVENT = unlockb | thread1.EVENT = tau)))) | (ma.EVENT = lock1 | ma.EVENT = unlock1)) | (mb.EVENT = lock1 | mb.EVENT = unlock1)) -> thread2.EVENT = stutter)
+TRANS
+ ((((thread2.EVENT = lockb | (thread2.EVENT = unlockb | thread2.EVENT = tau)) | (thread1.EVENT = lockb | (thread1.EVENT = unlockb | thread1.EVENT = tau))) | (mb.EVENT = lock1 | (mb.EVENT = unlock1 | (mb.EVENT = lock2 | mb.EVENT = unlock2)))) -> ma.EVENT = stutter)
+TRANS
+ ((((thread1.EVENT = locka | (thread1.EVENT = unlocka | thread1.EVENT = tau)) | (thread2.EVENT = locka | (thread2.EVENT = unlocka | thread2.EVENT = tau))) | (ma.EVENT = lock1 | (ma.EVENT = unlock1 | (ma.EVENT = lock2 | ma.EVENT = unlock2)))) -> mb.EVENT = stutter)
+TRANS
+ (thread2.EVENT = unlockb <-> mb.EVENT = unlock2)
+TRANS
+ (thread2.EVENT = unlockb -> next(mb.data) = thread2.data2)
+TRANS
+ (thread2.EVENT = lockb <-> mb.EVENT = lock2)
+TRANS
+ (thread2.EVENT = lockb -> next(thread2.data2) = mb.data)
+TRANS
+ (thread2.EVENT = unlocka <-> ma.EVENT = unlock2)
+TRANS
+ (thread2.EVENT = unlocka -> next(ma.data) = thread2.data1)
+TRANS
+ (thread2.EVENT = locka <-> ma.EVENT = lock2)
+TRANS
+ (thread2.EVENT = locka -> next(thread2.data1) = ma.data)
+TRANS
+ (thread1.EVENT = unlockb <-> mb.EVENT = unlock1)
+TRANS
+ (thread1.EVENT = unlockb -> next(mb.data) = thread1.data2)
+TRANS
+ (thread1.EVENT = lockb <-> mb.EVENT = lock1)
+TRANS
+ (thread1.EVENT = lockb -> next(thread1.data2) = mb.data)
+TRANS
+ (thread1.EVENT = unlocka <-> ma.EVENT = unlock1)
+TRANS
+ (thread1.EVENT = unlocka -> next(ma.data) = thread1.data1)
+TRANS
+ (thread1.EVENT = locka <-> ma.EVENT = lock1)
+TRANS
+ (thread1.EVENT = locka -> next(thread1.data1) = ma.data)
+
+INVARSPEC
+ !(((thread1.location = end & thread2.location = end) & ma.data != 16) & mb.data != 5);
+INVARSPEC
+ !(thread1.location = lock2 & thread2.location = lock1);
+INVARSPEC
+ !(thread1.location = end & thread2.location = end);
+
+MODULE Mutex
+
+VAR
+status : {unlocked, locked1, locked2};
+data : integer;
+
+IVAR
+EVENT : {lock1, unlock1, lock2, unlock2, stutter};
+
+INIT
+ (data = 10 & status = unlocked)
+
+TRANS
+ (EVENT != stutter -> (EVENT = lock1 -> ((status = unlocked & next(data) = data) & next(status) = locked1)))
+TRANS
+ (EVENT != stutter -> (EVENT = lock2 -> ((status = unlocked & next(data) = data) & next(status) = locked2)))
+TRANS
+ (EVENT != stutter -> (EVENT = unlock1 -> (status = locked1 & next(status) = unlocked)))
+TRANS
+ (EVENT != stutter -> (EVENT = unlock2 -> (status = locked2 & next(status) = unlocked)))
+TRANS
+ (EVENT = stutter -> (next(data) = data & next(status) = status))
+
+MODULE Thread2
+
+VAR
+location : {lock1, mod1, unlock1, lock2, mod2, unlock2, end};
+data2 : integer;
+data1 : integer;
+
+IVAR
+EVENT : {locka, unlocka, lockb, unlockb, tau, stutter};
+
+INIT
+ location = lock1
+
+TRANS
+ (EVENT != stutter -> (location = lock1 -> (EVENT = locka & next(location) = mod1)))
+TRANS
+ (EVENT != stutter -> (location = mod1 -> ((EVENT = tau & next(data1) = data1 + 5) & next(location) = unlock1)))
+TRANS
+ (EVENT != stutter -> (location = unlock1 -> (EVENT = unlocka & next(location) = lock2)))
+TRANS
+ (EVENT != stutter -> (location = lock2 -> (EVENT = lockb & next(location) = mod2)))
+TRANS
+ (EVENT != stutter -> (location = mod2 -> ((EVENT = tau & next(data2) = data2 - 6) & next(location) = unlock2)))
+TRANS
+ (EVENT != stutter -> (location = unlock2 -> (EVENT = unlockb & next(location) = end)))
+TRANS
+ (EVENT != stutter -> (location = end -> (EVENT = tau & next(location) = end)))
+TRANS
+ (EVENT = stutter -> ((next(data2) = data2 & next(data1) = data1) & next(location) = location))
+
+MODULE Thread1
+
+VAR
+location : {lock1, mod1, unlock1, lock2, mod2, unlock2, end};
+data2 : integer;
+data1 : integer;
+
+IVAR
+EVENT : {locka, unlocka, lockb, unlockb, tau, stutter};
+
+INIT
+ location = lock1
+
+TRANS
+ (EVENT != stutter -> (location = lock1 -> (EVENT = locka & next(location) = mod1)))
+TRANS
+ (EVENT != stutter -> (location = mod1 -> ((EVENT = tau & next(data1) = data1 + 1) & next(location) = unlock1)))
+TRANS
+ (EVENT != stutter -> (location = unlock1 -> (EVENT = unlocka & next(location) = lock2)))
+TRANS
+ (EVENT != stutter -> (location = lock2 -> (EVENT = lockb & next(location) = mod2)))
+TRANS
+ (EVENT != stutter -> (location = mod2 -> ((EVENT = tau & next(data2) = data2 + 1) & next(location) = unlock2)))
+TRANS
+ (EVENT != stutter -> (location = unlock2 -> (EVENT = unlockb & next(location) = end)))
+TRANS
+ (EVENT != stutter -> (location = end -> (EVENT = tau & next(location) = end)))
+TRANS
+ (EVENT = stutter -> ((next(data2) = data2 & next(data1) = data1) & next(location) = location))
+

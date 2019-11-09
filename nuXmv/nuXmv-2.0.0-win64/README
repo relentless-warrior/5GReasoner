@@ -1,0 +1,55 @@
+This is version 2.0.0 of the nuXmv symbolic model checker.
+
+----------------------------------------------------------------------
+
+nuXmv is a symbolic model checker for the analysis of synchronous
+finite-state and infinite-state systems.
+
+nuXmv extends NuSMV along two main directions:
+
+* for the finite-state case, nuXmv features a strong verification
+  engine based on state-of-the-art SAT-based algorithms
+
+* for the infinite-state case, nuXmv features SMT-based verification
+  techniques, implemented through a tight integration with MathSAT5.
+
+nuXmv is currently licensed in binary form, for non-commercial or
+academic purposes. See LICENSE.txt for details.
+
+Inquiries about other usages of nuXmv should be addressed to
+
+          nuxmv@list.fbk.eu
+
+The list of nuXmv users is open for registration and discussion
+
+          nuxmv-users@list.fbk.eu
+
+Visit http://nuxmv.fbk.eu for more detailed information and download.
+
+Other useful links:
+
+* Feature requests and bug reports: nuxmv-users@list.fbk.eu
+* Frequently asked questions: http://nuxmv.fbk.eu/index.php?n=Faq.Home
+
+----------------------------------------------------------------------
+
+The archive contains:
+
+./README                     -- this file
+./NEWS                       -- a file with the news about this release
+./LICENSE.txt                -- License File
+./bin/nuXmv                  -- The nuXmv executable
+./bin/nuXmv-engine-portfolio -- Backend portfolio engine (only to be
+                                called from within nuXmv). Only
+                                available if nuXmv compiled with
+                                portfolio support on.
+./share/nuxmv/master.nuxmv   -- An example of a script file for
+                                initializing nuXmv To use it,
+                                NUXMV_LIBRARY_PATH shall refer to the
+                                full path of the directory where this
+                                file resides.
+./share/nuxmv/contrib        -- A direcotry containing scripts for converting
+                                from/to several formats.
+./doc/user-man/nuxmv.pdf     -- The PDF of the nuXmv User Manual
+./examples                   -- A collection of examples/files used in
+                                several papers about nuXmv.

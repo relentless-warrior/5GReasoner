@@ -1,0 +1,61 @@
+MODULE main
+IVAR
+__NONDET_INLINE_INIT__2__4$main#0 : unsigned word[32];
+__NONDET_INLINE_INIT__4__5$main#1 : unsigned word[32];
+
+VAR
+_PC.0 : boolean;
+_PC.1 : boolean;
+_PC.2 : boolean;
+__RET__$main : unsigned word[32];
+i__1$main : unsigned word[32];
+j__3$main : unsigned word[32];
+x__5$main : unsigned word[32];
+y__7$main : unsigned word[32];
+
+DEFINE
+__expr1 := ! _PC.0;
+__expr2 := ! _PC.1;
+__expr3 := __expr2 & __expr1;
+__expr4 := ! _PC.2;
+__expr5 := __expr4 & __expr3;
+__expr6 := next(i__1$main) = __NONDET_INLINE_INIT__2__4$main#0;
+__expr7 := next(j__3$main) = __NONDET_INLINE_INIT__4__5$main#1;
+__expr8 := __expr7 & __expr6;
+__expr9 := next(x__5$main) = next(i__1$main);
+__expr10 := __expr9 & __expr8;
+__expr11 := next(j__3$main) = next(y__7$main);
+__expr12 := __expr11 & __expr10;
+__expr13 := __RET__$main = next(__RET__$main);
+__expr14 := __expr13 & __expr12;
+__expr15 := ! next(_PC.2);
+__expr16 := ! next(_PC.1);
+__expr17 := __expr16 & next(_PC.0);
+__expr18 := __expr17 & __expr15;
+__expr19 := __expr18 & __expr14;
+__expr20 := __expr5 & __expr19;
+__expr21 := __expr2 & _PC.0;
+__expr22 := __expr4 & __expr21;
+__expr23 := next(i__1$main) = i__1$main;
+__expr24 := 0ud32_4294967295 + x__5$main;
+__expr25 := __expr24 = next(x__5$main);
+__expr26 := x__5$main = 0ud32_0;
+__expr27 := ! __expr26;
+__expr28 := __expr27 & __expr25;
+__expr29 := 0ud32_4294967295 + y__7$main;
+__expr30 := __expr29 = next(y__7$main);
+__expr31 := __expr30 & __expr28;
+__expr32 := next(j__3$main) = j__3$main;
+__expr33 := __expr32 & __expr31;
+__expr34 := __expr33 & __expr13;
+__expr35 := __expr34 & __expr23;
+__expr36 := __expr18 & __expr35;
+__expr37 := __expr36 & __expr22;
+__expr38 := __expr37 | __expr20;
+__expr39 := _PC.1 & _PC.0;
+__expr40 := __expr4 & __expr39;
+__expr41 := ! __expr40;
+
+INIT __expr5;
+TRANS __expr38;
+INVARSPEC __expr41;

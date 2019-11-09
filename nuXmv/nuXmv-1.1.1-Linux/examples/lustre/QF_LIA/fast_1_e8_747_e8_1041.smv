@@ -1,0 +1,215 @@
+MODULE PosEdge (_X_)
+VAR
+_Y_: boolean;
+flby: boolean;
+
+ASSIGN
+_Y_ := flby;
+init(flby) := FALSE;
+next(flby) := (next(_X_) & ! (_X_));
+
+
+
+
+MODULE Edge (_X_)
+VAR
+_Y_: boolean;
+flby: boolean;
+
+ASSIGN
+_Y_ := flby;
+init(flby) := FALSE;
+next(flby) := (((next(_X_) & ! (_X_)) & ! (next(_X_))) & _X_);
+
+
+
+
+MODULE AtLeastOnceSince (_X_,_Y_)
+VAR
+XsinceY: boolean;
+flby: boolean;
+ite: boolean;
+
+ASSIGN
+XsinceY := ite;
+init(flby) := TRUE;
+next(flby) := (next(_X_) & XsinceY);
+
+INVAR
+((_Y_ -> (ite = _X_)) & (! (_Y_) -> (ite = flby)));
+
+
+
+
+MODULE MoreThanOneSec (_X_)
+VAR
+_Y_: boolean;
+flby: boolean;
+
+ASSIGN
+_Y_ := flby;
+init(flby) := FALSE;
+next(flby) := (_X_ & next(_X_));
+
+
+
+
+MODULE MoreThanTwoSec (_X_)
+VAR
+_Y_: boolean;
+flby: boolean;
+flby2: boolean;
+
+ASSIGN
+_Y_ := flby2;
+init(flby) := FALSE;
+next(flby) := (_X_ & next(_X_));
+init(flby2) := FALSE;
+next(flby2) := (flby & next(_X_));
+
+
+
+
+MODULE one_button (ccseti,ccsetd,ccr)
+VAR
+ob: boolean;
+
+ASSIGN
+ob := ((((ccseti & ! (ccsetd)) & ! (ccr)) | ((! (ccseti) & ccsetd) & ! (ccr))) | ((! (ccseti) & ! (ccsetd)) & ccr));
+
+
+
+
+MODULE prev_no_button (ccseti,ccsetd,ccr)
+VAR
+pnb: boolean;
+flby: boolean;
+
+ASSIGN
+pnb := flby;
+init(flby) := TRUE;
+next(flby) := ((! (ccseti) & ! (ccsetd)) & ! (ccr));
+
+
+
+
+MODULE one_button_accept (ccseti,ccsetd,ccr,ccont,cca)
+VAR
+oba: boolean;
+ob: boolean;
+pnb: boolean;
+ite: boolean;
+ite2: boolean;
+call_prev_no_button: prev_no_button (ccseti,ccsetd,ccr);
+call_one_button: one_button (ccseti,ccsetd,ccr);
+call_PosEdge: PosEdge (ccont);
+call_AtLeastOnceSince: AtLeastOnceSince (cca,call_PosEdge._Y_);
+
+ASSIGN
+oba := ite2;
+ob := call_one_button.ob;
+pnb := call_prev_no_button.pnb;
+
+INVAR
+((! (ccr) -> (ite = TRUE)) & (! (! (ccr)) -> (ite = call_AtLeastOnceSince.XsinceY))) &
+(((pnb & ob) -> (ite2 = ite)) & (! ((pnb & ob)) -> (ite2 = FALSE)));
+
+
+
+
+MODULE cc_allowed (ccont,igsw,bpa,cccanc,battok,gearok,qfok,sdok,accok,vs)
+VAR
+ccall: boolean;
+call_MoreThanOneSec: MoreThanOneSec (sdok);
+call_MoreThanTwoSec: MoreThanTwoSec (accok);
+
+ASSIGN
+ccall := (((((((((ccont & ! (bpa)) & battok) & gearok) & qfok) & call_MoreThanOneSec._Y_) & (35 <= vs)) & (vs <= 200)) & call_MoreThanTwoSec._Y_) & ! (cccanc));
+
+
+
+
+MODULE _main_ (igsw,ccd,cconoff,bpa,cccanc,battok,gearok,qfok,sdok,accok,ccseti,ccsetd,ccr,vs)
+VAR
+ccont: boolean;
+cca: boolean;
+ccall: boolean;
+ite: boolean;
+ite2: boolean;
+flby: boolean;
+param: boolean;
+ite3: boolean;
+ite4: boolean;
+flby2: boolean;
+call_Edge: Edge (igsw);
+call_PosEdge: PosEdge (cconoff);
+call_PosEdge2: PosEdge (cconoff);
+call_cc_allowed: cc_allowed (ccont,igsw,bpa,cccanc,battok,gearok,qfok,sdok,accok,vs);
+call_one_button_accept: one_button_accept (ccseti,ccsetd,ccr,ccont,param);
+
+ASSIGN
+ccont := flby;
+cca := flby2;
+ccall := call_cc_allowed.ccall;
+init(flby) := FALSE;
+next(flby) := next(ite2);
+next(param) := cca;
+init(flby2) := FALSE;
+next(flby2) := next(ite4);
+
+INIT
+(! (ccall) -> (ite3 = FALSE));
+
+TRANS
+(((! (ccont) & next(call_PosEdge2._Y_)) -> (next(ite) = TRUE)) & (! ((! (ccont) & next(call_PosEdge2._Y_))) -> (next(ite) = ccont))) &
+((((next(call_Edge._Y_) | next(ccd)) | (ccont & next(call_PosEdge._Y_))) -> (next(ite2) = FALSE)) & (! (((next(call_Edge._Y_) | next(ccd)) | (ccont & next(call_PosEdge._Y_)))) -> (next(ite2) = next(ite)))) &
+((! (next(ccall)) -> (next(ite3) = FALSE)) & (! (! (next(ccall))) -> (next(ite3) = cca)));
+
+INVAR
+(((call_one_button_accept.oba & ccall) -> (ite4 = TRUE)) & (! ((call_one_button_accept.oba & ccall)) -> (ite4 = ite3)));
+
+
+
+
+MODULE main
+VAR
+param_qfok: boolean;
+_OK_: boolean;
+ccont: boolean;
+cca: boolean;
+param_sdok: boolean;
+env: boolean;
+flby: boolean;
+param_accok: boolean;
+ite: boolean;
+param_ccseti: boolean;
+param_igsw: boolean;
+param_ccsetd: boolean;
+param_ccd: boolean;
+param_ccr: boolean;
+param_cconoff: boolean;
+param_vs: integer;
+param_bpa: boolean;
+param_cccanc: boolean;
+param_battok: boolean;
+param_gearok: boolean;
+call__main_: _main_ (param_igsw,param_ccd,param_cconoff,param_bpa,param_cccanc,param_battok,param_gearok,param_qfok,param_sdok,param_accok,param_ccseti,param_ccsetd,param_ccr,param_vs);
+call_PosEdge: PosEdge (cca);
+call_PosEdge2: PosEdge (param_ccseti);
+call_PosEdge3: PosEdge (param_ccsetd);
+call_PosEdge4: PosEdge (param_ccr);
+
+ASSIGN
+_OK_ := ite;
+ccont := call__main_.ccont;
+cca := call__main_.cca;
+env := flby;
+init(flby) := ! (param_igsw);
+next(flby) := TRUE;
+
+INVAR
+((call_PosEdge._Y_ -> (ite = ((call_PosEdge2._Y_ | call_PosEdge3._Y_) | call_PosEdge4._Y_))) & (! (call_PosEdge._Y_) -> (ite = TRUE)));
+
+INVARSPEC (_OK_ = TRUE)
+
+

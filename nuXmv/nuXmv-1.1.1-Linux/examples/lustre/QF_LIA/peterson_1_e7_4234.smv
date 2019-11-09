@@ -1,0 +1,344 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) | Sofar);
+
+
+
+
+MODULE excludes12 (_X1_,_X2_,_X3_,_X4_,_X5_,_X6_,_X7_,_X8_,_X9_,_X10_,_X11_,_X12_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := (((((((((((((((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_)) | (((((((((((_X1_ & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & _X2_) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & _X3_) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & _X4_) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & _X5_) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & _X6_) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & _X7_) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & _X8_) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & _X9_) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & _X10_) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & _X11_) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & _X12_));
+
+
+
+
+MODULE peterson (e01,e02,e03,e04,e05,e06,e07,e08,e09,e10,e11,e12)
+VAR
+flby7: integer;
+ite37: integer;
+ite38: integer;
+ite39: integer;
+ite40: integer;
+flby8: integer;
+ite41: integer;
+ite42: integer;
+ite43: integer;
+ite44: integer;
+flby9: integer;
+ite45: integer;
+ite46: integer;
+ite47: integer;
+ite48: integer;
+flby10: integer;
+ite49: integer;
+ite50: integer;
+ite51: integer;
+ite52: integer;
+flby11: integer;
+ite53: integer;
+ite54: integer;
+ite55: integer;
+ite56: integer;
+ite57: integer;
+ite58: integer;
+flby12: integer;
+ite59: integer;
+ite60: integer;
+ite61: integer;
+ite62: integer;
+ite63: integer;
+x0: integer;
+ite64: integer;
+x1: integer;
+ite65: integer;
+x2: integer;
+ite66: integer;
+x3: integer;
+flby13: integer;
+x4: integer;
+ite67: integer;
+x5: integer;
+ite68: integer;
+x6: integer;
+ite69: integer;
+x7: integer;
+ite70: integer;
+x8: integer;
+ite71: integer;
+x9: integer;
+ite72: integer;
+x10: integer;
+flby14: integer;
+x11: integer;
+x12: integer;
+x13: integer;
+g01: boolean;
+g02: boolean;
+g03: boolean;
+g04: boolean;
+g05: boolean;
+g06: boolean;
+g07: boolean;
+g08: boolean;
+g09: boolean;
+g10: boolean;
+g11: boolean;
+g12: boolean;
+ite: integer;
+ite2: integer;
+ite3: integer;
+ite4: integer;
+flby: integer;
+ite5: integer;
+ite6: integer;
+ite7: integer;
+ite8: integer;
+ite9: integer;
+ite10: integer;
+flby2: integer;
+ite11: integer;
+ite12: integer;
+ite13: integer;
+ite14: integer;
+ite15: integer;
+ite16: integer;
+ite17: integer;
+ite18: integer;
+flby3: integer;
+ite19: integer;
+ite20: integer;
+ite21: integer;
+ite22: integer;
+ite23: integer;
+ite24: integer;
+flby4: integer;
+ite25: integer;
+ite26: integer;
+ite27: integer;
+ite28: integer;
+flby5: integer;
+ite29: integer;
+ite30: integer;
+ite31: integer;
+ite32: integer;
+flby6: integer;
+ite33: integer;
+ite34: integer;
+ite35: integer;
+ite36: integer;
+
+ASSIGN
+init(flby7) := 0;
+next(flby7) := next(ite36);
+init(flby8) := 1;
+next(flby8) := next(ite40);
+init(flby9) := 0;
+next(flby9) := next(ite44);
+init(flby10) := 1;
+next(flby10) := next(ite48);
+init(flby11) := 1;
+next(flby11) := next(ite52);
+init(flby12) := 0;
+next(flby12) := next(ite58);
+x0 := flby;
+x1 := flby2;
+x2 := flby3;
+x3 := flby4;
+init(flby13) := 0;
+next(flby13) := next(ite66);
+x4 := flby5;
+x5 := flby6;
+x6 := flby7;
+x7 := flby8;
+x8 := flby9;
+x9 := flby10;
+x10 := flby11;
+init(flby14) := 0;
+next(flby14) := next(ite72);
+x11 := flby12;
+x12 := flby13;
+x13 := flby14;
+next(g01) := ((x0 >= 1) & (x4 >= 1));
+next(g02) := ((x1 >= 1) & (x6 >= 1));
+next(g03) := ((x1 >= 1) & (x7 >= 1));
+next(g04) := ((x2 >= 1) & (x9 >= 1));
+next(g05) := ((x2 >= 1) & (x6 >= 1));
+next(g06) := ((x3 >= 1) & (x5 >= 1));
+next(g07) := ((x9 >= 1) & (x10 >= 1));
+next(g08) := ((x7 >= 1) & (x11 >= 1));
+next(g09) := ((x6 >= 1) & (x11 >= 1));
+next(g10) := ((x4 >= 1) & (x12 >= 1));
+next(g11) := ((x7 >= 1) & (x12 >= 1));
+next(g12) := ((x8 >= 1) & (x13 >= 1));
+init(flby) := 1;
+next(flby) := next(ite4);
+init(flby2) := 0;
+next(flby2) := next(ite10);
+init(flby3) := 0;
+next(flby3) := next(ite18);
+init(flby4) := 0;
+next(flby4) := next(ite24);
+init(flby5) := 1;
+next(flby5) := next(ite28);
+init(flby6) := 0;
+next(flby6) := next(ite32);
+
+INIT
+(e08 -> (ite39 = ite38)) &
+(e12 -> (ite43 = ite42)) &
+(e12 -> (ite47 = ite46)) &
+(e12 -> (ite51 = ite50)) &
+(e09 -> (ite56 = ite55)) &
+(e11 -> (ite63 = ite62)) &
+(e12 -> (ite70 = ite69)) &
+(e06 -> (ite3 = ite2)) &
+(e03 -> (ite8 = ite7)) &
+(e05 -> (ite15 = ite14)) &
+(e06 -> (ite22 = ite21)) &
+(e06 -> (ite27 = ite26)) &
+(e06 -> (ite31 = ite30)) &
+(e08 -> (ite35 = ite34));
+
+TRANS
+((next(g02) -> (next(ite37) = (x7 + 1))) & (! (next(g02)) -> (next(ite37) = x7))) &
+((next(g08) -> (next(ite38) = (x7 - 1))) & (! (next(g08)) -> (next(ite38) = x7))) &
+((next(e08) -> (next(ite39) = next(ite38))) & (! (next(e08)) -> (next(ite39) = x7))) &
+((next(g07) -> (next(ite41) = (x8 + 1))) & (! (next(g07)) -> (next(ite41) = x8))) &
+((next(g12) -> (next(ite42) = (x8 - 1))) & (! (next(g12)) -> (next(ite42) = x8))) &
+((next(e12) -> (next(ite43) = next(ite42))) & (! (next(e12)) -> (next(ite43) = x8))) &
+((next(g07) -> (next(ite45) = (x9 - 1))) & (! (next(g07)) -> (next(ite45) = x9))) &
+((next(g12) -> (next(ite46) = (x9 + 1))) & (! (next(g12)) -> (next(ite46) = x9))) &
+((next(e12) -> (next(ite47) = next(ite46))) & (! (next(e12)) -> (next(ite47) = x9))) &
+((next(g07) -> (next(ite49) = (x10 - 1))) & (! (next(g07)) -> (next(ite49) = x10))) &
+((next(g12) -> (next(ite50) = (x10 + 1))) & (! (next(g12)) -> (next(ite50) = x10))) &
+((next(e12) -> (next(ite51) = next(ite50))) & (! (next(e12)) -> (next(ite51) = x10))) &
+((next(g07) -> (next(ite53) = (x11 + 1))) & (! (next(g07)) -> (next(ite53) = x11))) &
+((next(g08) -> (next(ite54) = (x11 - 1))) & (! (next(g08)) -> (next(ite54) = x11))) &
+((next(g09) -> (next(ite55) = (x11 - 1))) & (! (next(g09)) -> (next(ite55) = x11))) &
+((next(e09) -> (next(ite56) = next(ite55))) & (! (next(e09)) -> (next(ite56) = x11))) &
+((next(g08) -> (next(ite59) = (x12 + 1))) & (! (next(g08)) -> (next(ite59) = x12))) &
+((next(g09) -> (next(ite60) = (x12 + 1))) & (! (next(g09)) -> (next(ite60) = x12))) &
+((next(g10) -> (next(ite61) = (x12 - 1))) & (! (next(g10)) -> (next(ite61) = x12))) &
+((next(g11) -> (next(ite62) = (x12 - 1))) & (! (next(g11)) -> (next(ite62) = x12))) &
+((next(e11) -> (next(ite63) = next(ite62))) & (! (next(e11)) -> (next(ite63) = x12))) &
+((next(g10) -> (next(ite67) = (x13 + 1))) & (! (next(g10)) -> (next(ite67) = x13))) &
+((next(g11) -> (next(ite68) = (x13 + 1))) & (! (next(g11)) -> (next(ite68) = x13))) &
+((next(g12) -> (next(ite69) = (x13 - 1))) & (! (next(g12)) -> (next(ite69) = x13))) &
+((next(e12) -> (next(ite70) = next(ite69))) & (! (next(e12)) -> (next(ite70) = x13))) &
+((next(g01) -> (next(ite) = (x0 - 1))) & (! (next(g01)) -> (next(ite) = x0))) &
+((next(g06) -> (next(ite2) = (x0 + 1))) & (! (next(g06)) -> (next(ite2) = x0))) &
+((next(e06) -> (next(ite3) = next(ite2))) & (! (next(e06)) -> (next(ite3) = x0))) &
+((next(g01) -> (next(ite5) = (x1 + 1))) & (! (next(g01)) -> (next(ite5) = x1))) &
+((next(g02) -> (next(ite6) = (x1 - 1))) & (! (next(g02)) -> (next(ite6) = x1))) &
+((next(g03) -> (next(ite7) = (x1 - 1))) & (! (next(g03)) -> (next(ite7) = x1))) &
+((next(e03) -> (next(ite8) = next(ite7))) & (! (next(e03)) -> (next(ite8) = x1))) &
+((next(g02) -> (next(ite11) = (x2 + 1))) & (! (next(g02)) -> (next(ite11) = x2))) &
+((next(g03) -> (next(ite12) = (x2 + 1))) & (! (next(g03)) -> (next(ite12) = x2))) &
+((next(g04) -> (next(ite13) = (x2 - 1))) & (! (next(g04)) -> (next(ite13) = x2))) &
+((next(g05) -> (next(ite14) = (x2 - 1))) & (! (next(g05)) -> (next(ite14) = x2))) &
+((next(e05) -> (next(ite15) = next(ite14))) & (! (next(e05)) -> (next(ite15) = x2))) &
+((next(g04) -> (next(ite19) = (x3 + 1))) & (! (next(g04)) -> (next(ite19) = x3))) &
+((next(g05) -> (next(ite20) = (x3 + 1))) & (! (next(g05)) -> (next(ite20) = x3))) &
+((next(g06) -> (next(ite21) = (x3 - 1))) & (! (next(g06)) -> (next(ite21) = x3))) &
+((next(e06) -> (next(ite22) = next(ite21))) & (! (next(e06)) -> (next(ite22) = x3))) &
+((next(g01) -> (next(ite25) = (x4 - 1))) & (! (next(g01)) -> (next(ite25) = x4))) &
+((next(g06) -> (next(ite26) = (x4 + 1))) & (! (next(g06)) -> (next(ite26) = x4))) &
+((next(e06) -> (next(ite27) = next(ite26))) & (! (next(e06)) -> (next(ite27) = x4))) &
+((next(g01) -> (next(ite29) = (x5 + 1))) & (! (next(g01)) -> (next(ite29) = x5))) &
+((next(g06) -> (next(ite30) = (x5 - 1))) & (! (next(g06)) -> (next(ite30) = x5))) &
+((next(e06) -> (next(ite31) = next(ite30))) & (! (next(e06)) -> (next(ite31) = x5))) &
+((next(g02) -> (next(ite33) = (x6 - 1))) & (! (next(g02)) -> (next(ite33) = x6))) &
+((next(g08) -> (next(ite34) = (x6 + 1))) & (! (next(g08)) -> (next(ite34) = x6))) &
+((next(e08) -> (next(ite35) = next(ite34))) & (! (next(e08)) -> (next(ite35) = x6)));
+
+INVAR
+((e02 -> (ite40 = ite37)) & (! (e02) -> (ite40 = ite39))) &
+((e07 -> (ite44 = ite41)) & (! (e07) -> (ite44 = ite43))) &
+((e07 -> (ite48 = ite45)) & (! (e07) -> (ite48 = ite47))) &
+((e07 -> (ite52 = ite49)) & (! (e07) -> (ite52 = ite51))) &
+((e08 -> (ite57 = ite54)) & (! (e08) -> (ite57 = ite56))) &
+((e07 -> (ite58 = ite53)) & (! (e07) -> (ite58 = ite57))) &
+((e10 -> (ite64 = ite61)) & (! (e10) -> (ite64 = ite63))) &
+((e09 -> (ite65 = ite60)) & (! (e09) -> (ite65 = ite64))) &
+((e08 -> (ite66 = ite59)) & (! (e08) -> (ite66 = ite65))) &
+((e11 -> (ite71 = ite68)) & (! (e11) -> (ite71 = ite70))) &
+((e10 -> (ite72 = ite67)) & (! (e10) -> (ite72 = ite71))) &
+((e01 -> (ite4 = ite)) & (! (e01) -> (ite4 = ite3))) &
+((e02 -> (ite9 = ite6)) & (! (e02) -> (ite9 = ite8))) &
+((e01 -> (ite10 = ite5)) & (! (e01) -> (ite10 = ite9))) &
+((e04 -> (ite16 = ite13)) & (! (e04) -> (ite16 = ite15))) &
+((e03 -> (ite17 = ite12)) & (! (e03) -> (ite17 = ite16))) &
+((e02 -> (ite18 = ite11)) & (! (e02) -> (ite18 = ite17))) &
+((e05 -> (ite23 = ite20)) & (! (e05) -> (ite23 = ite22))) &
+((e04 -> (ite24 = ite19)) & (! (e04) -> (ite24 = ite23))) &
+((e01 -> (ite28 = ite25)) & (! (e01) -> (ite28 = ite27))) &
+((e01 -> (ite32 = ite29)) & (! (e01) -> (ite32 = ite31))) &
+((e02 -> (ite36 = ite33)) & (! (e02) -> (ite36 = ite35)));
+
+
+
+
+MODULE main
+VAR
+param_e11: boolean;
+param_e01: boolean;
+param_e12: boolean;
+param_e02: boolean;
+param_e03: boolean;
+param_e04: boolean;
+param_e05: boolean;
+param_e06: boolean;
+_OK_: boolean;
+x0: integer;
+x1: integer;
+param_e07: boolean;
+x2: integer;
+x3: integer;
+x4: integer;
+x5: integer;
+x6: integer;
+x7: integer;
+x8: integer;
+x9: integer;
+x10: integer;
+x11: integer;
+param_e08: boolean;
+x12: integer;
+x13: integer;
+env: boolean;
+param_e09: boolean;
+param_e10: boolean;
+call_peterson: peterson (param_e01,param_e02,param_e03,param_e04,param_e05,param_e06,param_e07,param_e08,param_e09,param_e10,param_e11,param_e12);
+call_excludes12: excludes12 (param_e01,param_e02,param_e03,param_e04,param_e05,param_e06,param_e07,param_e08,param_e09,param_e10,param_e11,param_e12);
+call_Sofar: Sofar ((call_excludes12.excludes & (x0 < 32767)));
+
+ASSIGN
+_OK_ := (env -> (x0 >= 0));
+x0 := call_peterson.x0;
+x1 := call_peterson.x1;
+x2 := call_peterson.x2;
+x3 := call_peterson.x3;
+x4 := call_peterson.x4;
+x5 := call_peterson.x5;
+x6 := call_peterson.x6;
+x7 := call_peterson.x7;
+x8 := call_peterson.x8;
+x9 := call_peterson.x9;
+x10 := call_peterson.x10;
+x11 := call_peterson.x11;
+x12 := call_peterson.x12;
+x13 := call_peterson.x13;
+env := call_Sofar.Sofar;
+
+INVARSPEC (_OK_ = TRUE)
+
+

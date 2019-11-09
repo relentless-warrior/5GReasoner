@@ -1,0 +1,61 @@
+MODULE bool6 (x)
+VAR
+out: boolean;
+a: boolean;
+b: boolean;
+c: boolean;
+flby: boolean;
+flby2: boolean;
+flby3: boolean;
+
+ASSIGN
+out := (a & c);
+a := flby;
+b := flby2;
+c := flby3;
+init(flby) := FALSE;
+next(flby) := ! (a);
+init(flby2) := FALSE;
+next(flby2) := (((! (c) & ! (b)) & a) | (b & ! (a)));
+init(flby3) := FALSE;
+next(flby3) := ((c & ! (a)) & (b & a));
+
+
+
+
+MODULE int6I (x)
+VAR
+out: boolean;
+time: integer;
+ite: integer;
+flby: integer;
+
+ASSIGN
+out := (time = 5);
+time := flby;
+init(flby) := 0;
+next(flby) := next(ite);
+
+TRANS
+(((time = 5) -> (next(ite) = 1)) & (! ((time = 5)) -> (next(ite) = ((time - 1) + 1))));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+a: boolean;
+b: boolean;
+param_x: boolean;
+call_int6I: int6I (param_x);
+call_bool6: bool6 (param_x);
+
+ASSIGN
+_OK_ := (a = b);
+a := call_int6I.out;
+b := call_bool6.out;
+
+INVARSPEC _OK_
+
+

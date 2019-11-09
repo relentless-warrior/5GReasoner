@@ -1,0 +1,49 @@
+MODULE Sofar (_X_)
+VAR
+_Y_: boolean;
+flby: boolean;
+
+ASSIGN
+_Y_ := (flby | _X_);
+init(flby) := TRUE;
+next(flby) := _Y_;
+
+
+
+
+MODULE Store (Delta)
+VAR
+Total: integer;
+Prev: integer;
+flby: integer;
+ite: integer;
+ite2: integer;
+
+ASSIGN
+Total := ite2;
+Prev := flby;
+init(flby) := 0;
+next(flby) := Total;
+
+INVAR
+((((Delta > 0) & (Prev < 10)) -> (ite = (Prev + Delta))) & (! (((Delta > 0) & (Prev < 10))) -> (ite = Prev))) &
+((((Delta < 0) | (Prev > 0)) -> (ite2 = (Prev + Delta))) & (! (((Delta < 0) | (Prev > 0))) -> (ite2 = ite)));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+Total: integer;
+param_Delta: integer;
+call_Store: Store (param_Delta);
+call_Sofar: Sofar (((- (1) <= param_Delta) & (param_Delta <= 1)));
+
+ASSIGN
+_OK_ := (call_Sofar._Y_ -> ((0 <= Total) & (Total <= 20)));
+Total := call_Store.Total;
+
+INVARSPEC (_OK_ = TRUE)
+
+

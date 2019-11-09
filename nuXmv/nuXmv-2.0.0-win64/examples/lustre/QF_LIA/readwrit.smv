@@ -1,0 +1,311 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE excludes9 (_X1_,_X2_,_X3_,_X4_,_X5_,_X6_,_X7_,_X8_,_X9_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := (((((((((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) | ((((((((_X1_ & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & _X2_) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & _X3_) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & _X4_) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & _X5_) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & _X6_) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & _X7_) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & _X8_) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & _X9_));
+
+
+
+
+MODULE readwrite (etat1,etat2,etat3,etat4,etat5,etat6,etat7,etat8,etat9)
+VAR
+ite45: integer;
+ite46: integer;
+ite47: integer;
+ite48: integer;
+flby9: integer;
+ite49: integer;
+ite50: integer;
+ite51: integer;
+ite52: integer;
+flby10: integer;
+ite53: integer;
+ite54: integer;
+ite55: integer;
+ite56: integer;
+flby11: integer;
+ite57: integer;
+ite58: integer;
+ite59: integer;
+ite60: integer;
+flby12: integer;
+ite61: integer;
+ite62: integer;
+ite63: integer;
+ite64: integer;
+flby13: integer;
+x0: integer;
+x1: integer;
+x2: integer;
+x3: integer;
+x4: integer;
+x5: integer;
+x6: integer;
+x7: integer;
+x8: integer;
+x9: integer;
+x10: integer;
+x11: integer;
+x12: integer;
+garde1: boolean;
+garde2: boolean;
+garde3: boolean;
+garde4: boolean;
+garde5: boolean;
+garde6: boolean;
+garde7: boolean;
+garde8: boolean;
+garde9: boolean;
+ite: integer;
+ite2: integer;
+ite3: integer;
+ite4: integer;
+flby: integer;
+ite5: integer;
+ite6: integer;
+ite7: integer;
+ite8: integer;
+ite9: integer;
+ite10: integer;
+ite11: integer;
+ite12: integer;
+flby2: integer;
+ite13: integer;
+ite14: integer;
+ite15: integer;
+ite16: integer;
+flby3: integer;
+ite17: integer;
+ite18: integer;
+ite19: integer;
+ite20: integer;
+flby4: integer;
+ite21: integer;
+ite22: integer;
+ite23: integer;
+ite24: integer;
+ite25: integer;
+ite26: integer;
+ite27: integer;
+ite28: integer;
+flby5: integer;
+ite29: integer;
+ite30: integer;
+ite31: integer;
+ite32: integer;
+flby6: integer;
+ite33: integer;
+ite34: integer;
+ite35: integer;
+ite36: integer;
+flby7: integer;
+ite37: integer;
+ite38: integer;
+ite39: integer;
+ite40: integer;
+ite41: integer;
+ite42: integer;
+ite43: integer;
+ite44: integer;
+flby8: integer;
+
+ASSIGN
+init(flby9) := 1;
+next(flby9) := next(ite48);
+init(flby10) := 0;
+next(flby10) := next(ite52);
+init(flby11) := 0;
+next(flby11) := next(ite56);
+init(flby12) := 1;
+next(flby12) := next(ite60);
+init(flby13) := 1;
+next(flby13) := next(ite64);
+x0 := flby;
+x1 := flby2;
+x2 := flby3;
+x3 := flby4;
+x4 := flby5;
+x5 := flby6;
+x6 := flby7;
+x7 := flby8;
+x8 := flby9;
+x9 := flby10;
+x10 := flby11;
+x11 := flby12;
+x12 := flby13;
+next(garde1) := (x0 >= 1);
+next(garde2) := ((x1 >= 1) & (x4 >= 1));
+next(garde3) := ((x2 >= 1) & (x11 >= 1));
+next(garde4) := (x1 >= 1);
+next(garde5) := (x6 >= 1);
+next(garde6) := ((x3 >= 1) & (x7 >= 1));
+next(garde7) := ((x8 >= 1) & (x12 >= 1));
+next(garde8) := (((x4 >= 5) & (x5 >= 1)) & (x7 >= 1));
+next(garde9) := ((x9 >= 1) & (x10 >= 1));
+init(flby) := 0;
+next(flby) := next(ite4);
+init(flby2) := 0;
+next(flby2) := next(ite12);
+init(flby3) := 1;
+next(flby3) := next(ite16);
+init(flby4) := 0;
+next(flby4) := next(ite20);
+init(flby5) := 0;
+next(flby5) := next(ite28);
+init(flby6) := 0;
+next(flby6) := next(ite32);
+init(flby7) := 0;
+next(flby7) := next(ite36);
+init(flby8) := 0;
+next(flby8) := next(ite44);
+
+INIT
+(etat8 -> (ite47 = ite46)) &
+(etat9 -> (ite51 = ite50)) &
+(etat9 -> (ite55 = ite54)) &
+(etat9 -> (ite59 = ite58)) &
+(etat9 -> (ite63 = ite62)) &
+(etat2 -> (ite3 = ite2)) &
+(etat4 -> (ite9 = ite8)) &
+(etat4 -> (ite15 = ite14)) &
+(etat6 -> (ite19 = ite18)) &
+(etat8 -> (ite25 = ite24)) &
+(etat8 -> (ite31 = ite30)) &
+(etat6 -> (ite35 = ite34)) &
+(etat8 -> (ite41 = ite40));
+
+TRANS
+((next(garde7) -> (next(ite45) = (x8 - 1))) & (! (next(garde7)) -> (next(ite45) = x8))) &
+((next(garde8) -> (next(ite46) = (x8 + 1))) & (! (next(garde8)) -> (next(ite46) = x8))) &
+((next(etat8) -> (next(ite47) = next(ite46))) & (! (next(etat8)) -> (next(ite47) = x8))) &
+((next(garde4) -> (next(ite49) = (x9 + 1))) & (! (next(garde4)) -> (next(ite49) = x9))) &
+((next(garde9) -> (next(ite50) = (x9 - 1))) & (! (next(garde9)) -> (next(ite50) = x9))) &
+((next(etat9) -> (next(ite51) = next(ite50))) & (! (next(etat9)) -> (next(ite51) = x9))) &
+((next(garde8) -> (next(ite53) = (x10 + 1))) & (! (next(garde8)) -> (next(ite53) = x10))) &
+((next(garde9) -> (next(ite54) = (x10 - 1))) & (! (next(garde9)) -> (next(ite54) = x10))) &
+((next(etat9) -> (next(ite55) = next(ite54))) & (! (next(etat9)) -> (next(ite55) = x10))) &
+((next(garde3) -> (next(ite57) = (x11 - 1))) & (! (next(garde3)) -> (next(ite57) = x11))) &
+((next(garde9) -> (next(ite58) = (x11 + 1))) & (! (next(garde9)) -> (next(ite58) = x11))) &
+((next(etat9) -> (next(ite59) = next(ite58))) & (! (next(etat9)) -> (next(ite59) = x11))) &
+((next(garde7) -> (next(ite61) = (x12 - 1))) & (! (next(garde7)) -> (next(ite61) = x12))) &
+((next(garde9) -> (next(ite62) = (x12 + 1))) & (! (next(garde9)) -> (next(ite62) = x12))) &
+((next(etat9) -> (next(ite63) = next(ite62))) & (! (next(etat9)) -> (next(ite63) = x12))) &
+((next(garde1) -> (next(ite) = (x0 - 1))) & (! (next(garde1)) -> (next(ite) = x0))) &
+((next(garde2) -> (next(ite2) = (x0 + 1))) & (! (next(garde2)) -> (next(ite2) = x0))) &
+((next(etat2) -> (next(ite3) = next(ite2))) & (! (next(etat2)) -> (next(ite3) = x0))) &
+((next(garde1) -> (next(ite5) = (x1 + 1))) & (! (next(garde1)) -> (next(ite5) = x1))) &
+((next(garde2) -> (next(ite6) = (x1 - 1))) & (! (next(garde2)) -> (next(ite6) = x1))) &
+((next(garde3) -> (next(ite7) = (x1 + 1))) & (! (next(garde3)) -> (next(ite7) = x1))) &
+((next(garde4) -> (next(ite8) = (x1 - 1))) & (! (next(garde4)) -> (next(ite8) = x1))) &
+((next(etat4) -> (next(ite9) = next(ite8))) & (! (next(etat4)) -> (next(ite9) = x1))) &
+((next(garde3) -> (next(ite13) = (x2 - 1))) & (! (next(garde3)) -> (next(ite13) = x2))) &
+((next(garde4) -> (next(ite14) = (x2 + 1))) & (! (next(garde4)) -> (next(ite14) = x2))) &
+((next(etat4) -> (next(ite15) = next(ite14))) & (! (next(etat4)) -> (next(ite15) = x2))) &
+((next(garde2) -> (next(ite17) = (x3 + 1))) & (! (next(garde2)) -> (next(ite17) = x3))) &
+((next(garde6) -> (next(ite18) = (x3 - 1))) & (! (next(garde6)) -> (next(ite18) = x3))) &
+((next(etat6) -> (next(ite19) = next(ite18))) & (! (next(etat6)) -> (next(ite19) = x3))) &
+((next(garde2) -> (next(ite21) = (x4 - 1))) & (! (next(garde2)) -> (next(ite21) = x4))) &
+((next(garde6) -> (next(ite22) = (x4 + 1))) & (! (next(garde6)) -> (next(ite22) = x4))) &
+((next(garde7) -> (next(ite23) = (x4 + 5))) & (! (next(garde7)) -> (next(ite23) = x4))) &
+((next(garde8) -> (next(ite24) = (x4 - 5))) & (! (next(garde8)) -> (next(ite24) = x4))) &
+((next(etat8) -> (next(ite25) = next(ite24))) & (! (next(etat8)) -> (next(ite25) = x4))) &
+((next(garde5) -> (next(ite29) = (x5 + 1))) & (! (next(garde5)) -> (next(ite29) = x5))) &
+((next(garde8) -> (next(ite30) = (x5 - 1))) & (! (next(garde8)) -> (next(ite30) = x5))) &
+((next(etat8) -> (next(ite31) = next(ite30))) & (! (next(etat8)) -> (next(ite31) = x5))) &
+((next(garde5) -> (next(ite33) = (x6 - 1))) & (! (next(garde5)) -> (next(ite33) = x6))) &
+((next(garde6) -> (next(ite34) = (x6 + 1))) & (! (next(garde6)) -> (next(ite34) = x6))) &
+((next(etat6) -> (next(ite35) = next(ite34))) & (! (next(etat6)) -> (next(ite35) = x6))) &
+((next(garde5) -> (next(ite37) = (x7 + 1))) & (! (next(garde5)) -> (next(ite37) = x7))) &
+((next(garde6) -> (next(ite38) = (x7 - 1))) & (! (next(garde6)) -> (next(ite38) = x7))) &
+((next(garde7) -> (next(ite39) = (x7 + 1))) & (! (next(garde7)) -> (next(ite39) = x7))) &
+((next(garde8) -> (next(ite40) = (x7 - 1))) & (! (next(garde8)) -> (next(ite40) = x7))) &
+((next(etat8) -> (next(ite41) = next(ite40))) & (! (next(etat8)) -> (next(ite41) = x7)));
+
+INVAR
+((etat7 -> (ite48 = ite45)) & (! (etat7) -> (ite48 = ite47))) &
+((etat4 -> (ite52 = ite49)) & (! (etat4) -> (ite52 = ite51))) &
+((etat8 -> (ite56 = ite53)) & (! (etat8) -> (ite56 = ite55))) &
+((etat3 -> (ite60 = ite57)) & (! (etat3) -> (ite60 = ite59))) &
+((etat7 -> (ite64 = ite61)) & (! (etat7) -> (ite64 = ite63))) &
+((etat1 -> (ite4 = ite)) & (! (etat1) -> (ite4 = ite3))) &
+((etat3 -> (ite10 = ite7)) & (! (etat3) -> (ite10 = ite9))) &
+((etat2 -> (ite11 = ite6)) & (! (etat2) -> (ite11 = ite10))) &
+((etat1 -> (ite12 = ite5)) & (! (etat1) -> (ite12 = ite11))) &
+((etat3 -> (ite16 = ite13)) & (! (etat3) -> (ite16 = ite15))) &
+((etat2 -> (ite20 = ite17)) & (! (etat2) -> (ite20 = ite19))) &
+((etat7 -> (ite26 = ite23)) & (! (etat7) -> (ite26 = ite25))) &
+((etat6 -> (ite27 = ite22)) & (! (etat6) -> (ite27 = ite26))) &
+((etat2 -> (ite28 = ite21)) & (! (etat2) -> (ite28 = ite27))) &
+((etat4 -> (ite32 = ite29)) & (! (etat4) -> (ite32 = ite31))) &
+((etat5 -> (ite36 = ite33)) & (! (etat5) -> (ite36 = ite35))) &
+((etat7 -> (ite42 = ite39)) & (! (etat7) -> (ite42 = ite41))) &
+((etat6 -> (ite43 = ite38)) & (! (etat6) -> (ite43 = ite42))) &
+((etat5 -> (ite44 = ite37)) & (! (etat5) -> (ite44 = ite43)));
+
+
+
+
+MODULE main
+VAR
+param_etat4: boolean;
+param_etat5: boolean;
+param_etat6: boolean;
+_OK_: boolean;
+param_etat7: boolean;
+x0: integer;
+x1: integer;
+x2: integer;
+x3: integer;
+x4: integer;
+x5: integer;
+x6: integer;
+x7: integer;
+x8: integer;
+x9: integer;
+param_etat8: boolean;
+x10: integer;
+x11: integer;
+x12: integer;
+env: boolean;
+param_etat9: boolean;
+param_etat1: boolean;
+param_etat2: boolean;
+param_etat3: boolean;
+call_readwrite: readwrite (param_etat1,param_etat2,param_etat3,param_etat4,param_etat5,param_etat6,param_etat7,param_etat8,param_etat9);
+call_excludes9: excludes9 (param_etat1,param_etat2,param_etat3,param_etat4,param_etat5,param_etat6,param_etat7,param_etat8,param_etat9);
+call_Sofar: Sofar ((((((((((((((((((((((call_excludes9.excludes & (x0 > - (32768))) & (x1 > - (32768))) & (x2 > - (32768))) & (x3 > - (32768))) & (x4 > - (32768))) & (x5 > - (32768))) & (x6 > - (32768))) & (x7 > - (32768))) & (x8 > - (32768))) & (x0 < 32767)) & (x1 < 32767)) & (x3 < 32767)) & (x4 < 32767)) & (x5 < 32767)) & (x6 < 32767)) & (x7 < 32767)) & (x8 < 32767)) & (x9 < 32767)) & (x10 < 32767)) & (x11 < 32767)) & (x12 < 32767)));
+
+ASSIGN
+_OK_ := (x0 >= 0);
+x0 := call_readwrite.x0;
+x1 := call_readwrite.x1;
+x2 := call_readwrite.x2;
+x3 := call_readwrite.x3;
+x4 := call_readwrite.x4;
+x5 := call_readwrite.x5;
+x6 := call_readwrite.x6;
+x7 := call_readwrite.x7;
+x8 := call_readwrite.x8;
+x9 := call_readwrite.x9;
+x10 := call_readwrite.x10;
+x11 := call_readwrite.x11;
+x12 := call_readwrite.x12;
+env := call_Sofar.Sofar;
+
+INVARSPEC (_OK_ = TRUE)
+
+

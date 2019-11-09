@@ -1,0 +1,158 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) | Sofar);
+
+
+
+
+MODULE controleur (nB,nS)
+VAR
+diff: integer;
+avance: boolean;
+retard: boolean;
+ite: boolean;
+flby: boolean;
+ite2: boolean;
+flby2: boolean;
+
+ASSIGN
+diff := (nB - nS);
+avance := flby;
+retard := flby2;
+init(flby) := FALSE;
+next(flby) := next(ite);
+init(flby2) := FALSE;
+next(flby2) := next(ite2);
+
+TRANS
+((! (avance) -> (next(ite) = (next(diff) >= 10))) & (! (! (avance)) -> (next(ite) = (next(diff) > 0)))) &
+((! (retard) -> (next(ite2) = (next(diff) <= - (10)))) & (! (! (retard)) -> (next(ite2) = (next(diff) < 0))));
+
+
+
+
+MODULE hypothese (_B_,_S_,avance,retard)
+VAR
+ok: boolean;
+c: integer;
+ite: boolean;
+ite2: boolean;
+flby: boolean;
+ite3: integer;
+ite4: integer;
+flby2: integer;
+
+ASSIGN
+ok := flby;
+c := flby2;
+init(flby) := TRUE;
+next(flby) := (next(ite) & next(ite2));
+init(flby2) := 0;
+next(flby2) := next(ite4);
+
+TRANS
+((retard -> (next(ite) = ! (next(_S_)))) & (! (retard) -> (next(ite) = TRUE))) &
+(((c >= 9) -> (next(ite2) = ! (next(_B_)))) & (! ((c >= 9)) -> (next(ite2) = TRUE))) &
+((next(_B_) -> (next(ite3) = ((c - 1) + 1))) & (! (next(_B_)) -> (next(ite3) = c))) &
+(((avance & next(avance)) -> (next(ite4) = next(ite3))) & (! ((avance & next(avance))) -> (next(ite4) = 0)));
+
+
+
+
+MODULE _main_ (_B0_,_B1_,_S_)
+VAR
+ast: boolean;
+nB0: integer;
+nB1: integer;
+nS: integer;
+diff0: integer;
+diff1: integer;
+avance0: boolean;
+avance1: boolean;
+retard0: boolean;
+retard1: boolean;
+_H0_: boolean;
+_H1_: boolean;
+ite: integer;
+flby: integer;
+ite2: integer;
+flby2: integer;
+ite3: integer;
+flby3: integer;
+call_hypothese: hypothese (_B0_,_S_,avance0,retard0);
+call_hypothese2: hypothese (_B1_,_S_,avance1,retard1);
+call_controleur: controleur (nB0,nS);
+call_controleur2: controleur (nB1,nS);
+
+ASSIGN
+ast := (_H0_ & _H1_);
+nB0 := flby;
+nB1 := flby2;
+nS := flby3;
+diff0 := call_controleur.diff;
+diff1 := call_controleur2.diff;
+avance0 := call_controleur.avance;
+avance1 := call_controleur2.avance;
+retard0 := call_controleur.retard;
+retard1 := call_controleur2.retard;
+_H0_ := call_hypothese.ok;
+_H1_ := call_hypothese2.ok;
+init(flby) := 0;
+next(flby) := next(ite);
+init(flby2) := 0;
+next(flby2) := next(ite2);
+init(flby3) := 0;
+next(flby3) := next(ite3);
+
+TRANS
+((next(_B0_) -> (next(ite) = (nB0 + 1))) & (! (next(_B0_)) -> (next(ite) = nB0))) &
+((next(_B1_) -> (next(ite2) = (nB1 + 1))) & (! (next(_B1_)) -> (next(ite2) = nB1))) &
+((next(_S_) -> (next(ite3) = (nS + 1))) & (! (next(_S_)) -> (next(ite3) = nS)));
+
+
+
+
+MODULE main
+VAR
+param__B0_: boolean;
+param__B1_: boolean;
+param__S_: boolean;
+_OK_: boolean;
+nB0: integer;
+nB1: integer;
+nS: integer;
+diff0: integer;
+diff1: integer;
+avance0: boolean;
+avance1: boolean;
+retard0: boolean;
+retard1: boolean;
+ast: boolean;
+flby: boolean;
+call__main_: _main_ (param__B0_,param__B1_,param__S_);
+call_Sofar: Sofar (ast);
+
+ASSIGN
+_OK_ := flby;
+nB0 := call__main_.nB0;
+nB1 := call__main_.nB1;
+nS := call__main_.nS;
+diff0 := call__main_.diff0;
+diff1 := call__main_.diff1;
+avance0 := call__main_.avance0;
+avance1 := call__main_.avance1;
+retard0 := call__main_.retard0;
+retard1 := call__main_.retard1;
+ast := call__main_.ast;
+init(flby) := (call_Sofar.Sofar -> TRUE);
+next(flby) := ((nB0 - nB1) <= 30);
+
+INVARSPEC (_OK_ = TRUE)
+
+

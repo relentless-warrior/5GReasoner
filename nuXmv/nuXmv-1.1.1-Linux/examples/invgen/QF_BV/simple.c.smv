@@ -1,0 +1,75 @@
+MODULE main
+IVAR
+__NONDET_INLINE_INIT__4__3$main#0 : unsigned word[32];
+
+VAR
+_PC.0 : boolean;
+_PC.1 : boolean;
+_PC.2 : boolean;
+__RET__$main : unsigned word[32];
+n__3$main : unsigned word[32];
+x__1$main : unsigned word[32];
+
+DEFINE
+__expr1 := ! _PC.0;
+__expr2 := ! _PC.1;
+__expr3 := __expr2 & __expr1;
+__expr4 := ! _PC.2;
+__expr5 := __expr4 & __expr3;
+__expr6 := next(n__3$main) = __NONDET_INLINE_INIT__4__3$main#0;
+__expr7 := next(x__1$main) = 0ud32_0;
+__expr8 := __expr7 & __expr6;
+__expr9 := signed(next(n__3$main)) < signed(0ud32_1);
+__expr10 := ! __expr9;
+__expr11 := __expr10 & __expr8;
+__expr12 := __RET__$main = next(__RET__$main);
+__expr13 := __expr12 & __expr11;
+__expr14 := ! next(_PC.2);
+__expr15 := ! next(_PC.1);
+__expr16 := __expr15 & next(_PC.0);
+__expr17 := __expr16 & __expr14;
+__expr18 := __expr17 & __expr13;
+__expr19 := __expr5 & __expr18;
+__expr20 := signed(n__3$main) < signed(x__1$main);
+__expr21 := 0ud32_4294967295 + n__3$main;
+__expr22 := signed(__expr21) < signed(x__1$main);
+__expr23 := __expr22 & __expr20;
+__expr24 := next(n__3$main) = n__3$main;
+__expr25 := __expr24 & __expr23;
+__expr26 := __expr12 & __expr25;
+__expr27 := next(x__1$main) = x__1$main;
+__expr28 := __expr27 & __expr26;
+__expr29 := ! next(_PC.0);
+__expr30 := next(_PC.1) & __expr29;
+__expr31 := __expr14 & __expr30;
+__expr32 := __expr31 & __expr28;
+__expr33 := __expr2 & _PC.0;
+__expr34 := __expr4 & __expr33;
+__expr35 := __expr34 & __expr32;
+__expr36 := __expr35 | __expr19;
+__expr37 := 0ud32_1 + x__1$main;
+__expr38 := next(x__1$main) = __expr37;
+__expr39 := ! __expr22;
+__expr40 := __expr39 & __expr38;
+__expr41 := __expr24 & __expr40;
+__expr42 := __expr12 & __expr41;
+__expr43 := __expr17 & __expr42;
+__expr44 := __expr43 & __expr34;
+__expr45 := __expr44 | __expr36;
+__expr46 := _PC.1 & __expr1;
+__expr47 := __expr4 & __expr46;
+__expr48 := __expr24 & __expr12;
+__expr49 := __expr48 & __expr27;
+__expr50 := __expr15 & __expr29;
+__expr51 := __expr50 & next(_PC.2);
+__expr52 := __expr51 & __expr49;
+__expr53 := __expr52 & __expr47;
+__expr54 := __expr53 | __expr45;
+__expr55 := _PC.2 & __expr3;
+__expr56 := __expr51 & __expr55;
+__expr57 := __expr56 | __expr54;
+__expr58 := ! __expr55;
+
+INIT __expr5;
+TRANS __expr57;
+INVARSPEC __expr58;

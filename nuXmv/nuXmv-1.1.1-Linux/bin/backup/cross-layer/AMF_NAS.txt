@@ -1,0 +1,807 @@
+label: AMF_NAS_T1
+start_state: amf_deregistered
+end state: amf_deregistered
+condition: uectxreleaserequired 
+actions: 
+chan_AMF_nas_rrc=AMF_ctx_release_requested
+uectxreleaserequired=FALSE
+
+label: AMF_NAS_T2
+start_state: amf_dereg_inited
+end state: amf_deregistered
+condition: uectxreleaserequired 
+actions: 
+chan_AMF_nas_rrc=AMF_ctx_release_requested
+uectxreleaserequired=FALSE
+
+label: AMF_NAS_T3
+start_state: amf_com_proc_inited
+end state: amf_deregistered
+condition: uectxreleaserequired 
+actions: 
+chan_AMF_nas_rrc=AMF_ctx_release_requested
+uectxreleaserequired=FALSE
+
+label: AMF_NAS_T4
+start_state: amf_registered
+end state: amf_deregistered
+condition: uectxreleaserequired 
+actions: 
+chan_AMF_nas_rrc=AMF_ctx_release_requested
+uectxreleaserequired=FALSE
+
+label: AMF_NAS_T5
+start_state: amf_idle
+end state: amf_deregistered
+condition: uectxreleaserequired 
+actions: 
+chan_AMF_nas_rrc=AMF_ctx_release_requested
+uectxreleaserequired=FALSE
+
+label: AMF_NAS_T6
+start_state: amf_deregistered
+end state: amf_dereg_inited
+condition: amfderegrequested 
+actions: 
+nwk_dereg_req
+paging_requested=FALSE
+uectxreleaserequired=TRUE
+
+label: AMF_NAS_T7
+start_state: amf_deregistered
+end state: amf_deregistered
+condition: chan_UA=chanUA_reg_req & reg_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_service_started=FALSE
+amf_service_completed=FALSE
+uectxreleaserequired=TRUE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T8
+start_state: amf_deregistered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_reg_req & !reg_failure & !idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_req
+amf_wait_for = authresponse
+amf_ue_shared_seq = next(amf_seq)
+amf_seq = ((amf_seq + 1) mod 32)
+amf_auth_fail_count = 0
+amf_reg_completed= FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T9
+start_state: amf_deregistered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_reg_req & !reg_failure & idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+id_req
+amf_wait_for = idresponse
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T10
+start_state: amf_com_proc_inited
+end state: amf_dereg_inited
+condition: amfderegrequested 
+actions: 
+nwk_dereg_req
+amf_auth_fail_count = 0
+amf_reg_completed= FALSE
+paging_requested=FALSE
+uectxreleaserequired=TRUE
+
+label: AMF_NAS_T11
+start_state: amf_com_proc_inited
+end state: amf_deregistered
+condition: chan_UA=chanUA_dereg_req_switch_off  & chan_AMF_rrc_nas=AMF_ul_info_transfer
+actions: 
+amf_auth_fail_count = 0
+amf_reg_completed= FALSE
+paging_requested=FALSE
+uectxreleaserequired=TRUE
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T12
+start_state: amf_com_proc_inited
+end state: amf_deregistered
+condition: chan_UA=chanUA_dereg_req_not_switch_off & amf_complete_sec_ctx_exist& !deregreq_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+nwk_dereg_accept
+amf_auth_fail_count = 0
+amf_reg_completed= FALSE
+paging_requested=FALSE
+uectxreleaserequired=TRUE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T13
+start_state: amf_com_proc_inited
+end state: amf_deregistered
+condition: chan_UA=chanUA_reg_req  & reg_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_auth_fail_count=0
+amf_service_started=FALSE
+amf_service_completed=FALSE
+paging_requested=FALSE
+uectxreleaserequired=TRUE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T14
+start_state: amf_com_proc_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_reg_req & !reg_failure & idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+id_req
+amf_wait_for = idresponse
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T15
+start_state: amf_com_proc_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_reg_req & !reg_failure & !idrequired & amf_complete_sec_ctx_exist& amf_reg_completed & !regreq_mac_failure & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_accept
+amf_wait_for = regacceptresponse
+paging_requested=FALSE
+uectxreleaserequired=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T16
+start_state: amf_com_proc_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_reg_req & !reg_failure & !idrequired  & !amf_complete_sec_ctx_exist& !amf_reg_completed & regreq_mac_failure & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_req
+amf_wait_for = authresponse
+amf_ue_shared_seq = next(amf_seq)
+amf_seq = ((amf_seq + 1) mod 32)
+amf_auth_fail_count = 0
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T17
+start_state: amf_com_proc_inited
+end state: amf_deregistered
+condition: chan_UA=chanUA_reg_req & !amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_service_started=FALSE
+amf_service_completed=FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T18
+start_state: amf_com_proc_inited
+end state: amf_deregistered
+condition: chan_UA=chanUA_auth_failure_mac & amf_wait_for = authresponse& tmsi_imsi_mapping_correct  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_service_started=FALSE
+amf_service_completed=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T19
+start_state: amf_com_proc_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_auth_failure_mac & amf_wait_for = authresponse & !tmsi_imsi_mapping_correct     & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+id_req
+amf_wait_for = idresponse
+(amf_auth_fail_count=amf_auth_fail_count+ 1)
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T20
+start_state: amf_com_proc_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_id_res  & amf_wait_for = idresponse &amf_complete_sec_ctx_exist=TRUE & !idres_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_req
+amf_wait_for = authresponse
+amf_ue_shared_seq = next(amf_seq)
+amf_seq = ((amf_seq + 1) mod 32)
+amf_auth_fail_count = 0
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T21
+start_state: amf_com_proc_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_auth_failure_seq & amf_wait_for = authresponse& amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_req
+amf_wait_for = authresponse
+amf_auth_fail_count = amf_auth_fail_count + 1
+amf_ue_shared_seq = next(amf_seq)
+amf_seq = ((amf_seq + 1) mod 32)
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T22
+start_state: amf_com_proc_inited
+end state: amf_deregistered
+condition: chan_UA=chanUA_auth_failure_seq & amf_wait_for = authresponse& !amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_auth_fail_count=0
+amf_service_started=FALSE
+amf_service_completed=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T23
+start_state: amf_com_proc_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_auth_response & amf_wait_for = authresponse& xres_matched_sres  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+sm_command
+amf_partial_sec_ctx_exist=TRUE
+amf_wait_for = smresponse
+amf_nas_ul_count=0
+amf_nas_dl_count=0
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T24
+start_state: amf_com_proc_inited
+end state: amf_deregistered
+condition: chan_UA=chanUA_auth_response & amf_wait_for = authresponse& !xres_matched_sres  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_auth_fail_count=0
+amf_service_started=FALSE
+amf_service_completed=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T25
+start_state: amf_com_proc_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_sm_reject & amf_wait_for = smresponse     & amf_complete_sec_ctx_exist  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_accept
+amf_wait_for = regacceptresponse
+amf_sec_ctx_updated = FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T26
+start_state: amf_com_proc_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_sm_reject & amf_wait_for = smresponse& !amf_complete_sec_ctx_exist  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_accept
+amf_wait_for = regacceptresponse
+amf_sec_ctx_updated = FALSE
+amf_complete_ sec_ctx_exist=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T27
+start_state: amf_com_proc_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_sm_complete & amf_wait_for = smresponse  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_accept
+amf_wait_for = regacceptresponse
+amf_complete_sec_ctx_exist = TRUE
+amf_sec_ctx_updated = TRUE
+amf_nas_ul_count=0
+amf_nas_dl_count=0
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T28
+start_state: amf_com_proc_inited
+end state: amf_registered
+condition: chan_UA=chanUA_reg_complete & amf_wait_for = regacceptresponse    & !regcomplete_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer
+actions: 
+amf_reg_completed = TRUE
+amf_wait_for = null
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T29
+start_state: amf_com_proc_inited
+end state: amf_registered
+condition: chan_UA=chanUA_reg_complete & amf_wait_for = regacceptresponse & regcomplete_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer
+actions: 
+uectxreleaserequired=FALSE
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T30
+start_state: amf_registered
+end state: amf_dereg_inited
+condition: amfderegrequested 
+actions: 
+nwk_dereg_req
+amf_auth_fail_count = 0
+amf_reg_completed= FALSE
+paging_requested=FALSE
+uectxreleaserequired=TRUE
+
+label: AMF_NAS_T31
+start_state: amf_registered
+end state: amf_deregistered
+condition: chan_UA=chanUA_dereg_req_switch_off  & chan_AMF_rrc_nas=AMF_ul_info_transfer
+actions: 
+amf_auth_fail_count = 0
+amf_reg_completed= FALSE
+paging_requested=FALSE
+uectxreleaserequired=TRUE
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T32
+start_state: amf_registered
+end state: amf_deregistered
+condition: chan_UA=chanUA_dereg_req_not_switch_off & amf_complete_sec_ctx_exist & !deregreq_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+nwk_dereg_accept
+amf_auth_fail_count = 0
+amf_reg_completed= FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T33
+start_state: amf_registered
+end state: amf_deregistered
+condition: chan_UA=chanUA_reg_req  & reg_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_service_started=FALSE
+amf_service_completed=FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T34
+start_state: amf_registered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_reg_req & !reg_failure & idrequired   & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+id_req
+amf_wait_for = idresponse
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T35
+start_state: amf_registered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_reg_req & !reg_failure &!idrequired & amf_complete_sec_ctx_exist & amf_reg_completed & !regreq_mac_failure & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_accept
+amf_wait_for = regacceptresponse
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T36
+start_state: amf_registered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_reg_req & !reg_failure &!idrequired  & !amf_complete_sec_ctx_exist & !amf_reg_completed & regreq_mac_failure & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_req
+amf_wait_for = authresponse
+amf_ue_shared_seq = next(amf_seq)
+amf_seq = ((amf_seq + 1) mod 32)
+amf_auth_fail_count = 0
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T37
+start_state: amf_registered
+end state: amf_deregistered
+condition: chan_UA=chanUA_reg_req & !amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_service_started=FALSE
+amf_service_completed=FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T38
+start_state: amf_registered
+end state: amf_deregistered
+condition: chan_UA=chanUA_auth_failure_mac & amf_wait_for = authresponse & tmsi_imsi_mapping_correct  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_service_started=FALSE
+amf_service_completed=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T39
+start_state: amf_registered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_auth_failure_mac & amf_wait_for = authresponse &!tmsi_imsi_mapping_correct  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+id_req
+amf_wait_for = idresponse
+(amf_auth_fail_count=amf_auth_fail_count+ 1)
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T40
+start_state: amf_registered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_id_res  & amf_wait_for = idresponse & amf_complete_sec_ctx_exist=TRUE& !idres_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_req
+amf_wait_for = authresponse
+amf_ue_shared_seq = next(amf_seq)
+amf_seq = ((amf_seq + 1) mod 32)
+amf_auth_fail_count = 0
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T41
+start_state: amf_registered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_auth_failure_seq & amf_wait_for = authresponse & amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_req
+amf_wait_for = authresponse
+amf_auth_fail_count = amf_auth_fail_count + 1
+amf_ue_shared_seq = next(amf_seq)
+amf_seq = ((amf_seq + 1) mod 32)
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T42
+start_state: amf_registered
+end state: amf_deregistered
+condition: chan_UA=chanUA_auth_failure_seq & amf_wait_for = authresponse& !amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_service_started=FALSE
+amf_service_completed=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T43
+start_state: amf_registered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_auth_response & amf_wait_for = authresponse & xres_matched_sres  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+sm_command
+amf_partial_sec_ctx_exist=TRUE
+amf_wait_for = smresponse
+amf_nas_ul_count=0
+amf_nas_dl_count=0
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T44
+start_state: amf_registered
+end state: amf_deregistered
+condition: chan_UA=chanUA_auth_response & amf_wait_for = authresponse & !xres_matched_sres  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_service_started=FALSE
+amf_service_completed=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T45
+start_state: amf_registered
+end state: amf_registered
+condition: sec_ctx_update_required 
+actions: 
+sm_command
+amf_wait_for = smresponse
+amf_sec_ctx_updated = FALSE
+amf_nas_ul_count=0
+amf_nas_dl_count=0
+
+label: AMF_NAS_T46
+start_state: amf_registered
+end state: amf_registered
+condition: chan_UA=chanUA_sm_reject & amf_wait_for = smresponse     & amf_complete_sec_ctx_exist  & chan_AMF_rrc_nas=AMF_ul_info_transfer
+actions: 
+amf_sec_ctx_updated = FALSE
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T47
+start_state: amf_registered
+end state: amf_registered
+condition: chan_UA=chanUA_sm_reject & amf_wait_for = smresponse     & !amf_complete_sec_ctx_exist  & chan_AMF_rrc_nas=AMF_ul_info_transfer
+actions: 
+amf_sec_ctx_updated = FALSE
+amf_complete_sec_ctx_exist=FALSE
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T48
+start_state: amf_registered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_sm_complete & amf_wait_for = smresponse  & chan_AMF_rrc_nas=AMF_ul_info_transfer
+actions: 
+amf_complete_sec_ctx_exist = TRUE
+amf_sec_ctx_updated = TRUE
+amf_wait_for = null
+amf_nas_ul_count=0
+amf_nas_dl_count=0
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T49
+start_state: amf_registered
+end state: amf_registered
+condition: config_update_required & config_response_required
+actions: 
+config_update_cmd
+amf_wait_for = configupdateresponse
+amf_config_updated=FALSE
+
+label: AMF_NAS_T50
+start_state: amf_registered
+end state: amf_registered
+condition: config_update_required & !config_response_required & !amf_config_updated
+actions: 
+config_update_cmd
+amf_config_updated=TRUE
+amf_wait_for = null
+
+label: AMF_NAS_T51
+start_state: amf_registered
+end state: amf_registered
+condition: amf_wait_for = configupdateresponse & chan_UA=chanUA_config_update_complete  & chan_AMF_rrc_nas=AMF_ul_info_transfer
+actions: 
+amf_config_updated=TRUE
+amf_wait_for = null
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T52
+start_state: amf_registered
+end state: amf_idle
+condition: ue_inactivity_detected 
+actions: 
+ue_ctx_release
+
+label: AMF_NAS_T53
+start_state: amf_registered
+end state: amf_registered
+condition: chan_UA=chanUA_service_req & !servicereject_required  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+service_reject
+amf_service_started=FALSE
+amf_service_completed=TRUE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T54
+start_state: amf_registered
+end state: amf_registered
+condition: chan_UA=chanUA_service_req & !servicereq_mac_failure & !idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+service_accept
+amf_service_started=FALSE amf_service_completed=true
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T55
+start_state: amf_registered
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_service_req & servicereq_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_req
+amf_service_completed=FALSE
+amf_wait_for = authresponse
+amf_ue_shared_seq = next(amf_seq)
+amf_seq = ((amf_seq + 1) mod 32)
+amf_auth_fail_count = 0
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_service_started=TRUE
+amf_service_completed=FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T56
+start_state: amf_registered
+end state: amf_registered
+condition: amf_reg_completed & amf_service_started & !amf_service_completed & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+service_accept
+amf_service_started=FALSE
+ue_service_completed=TRUE
+amf_nas_ul_count = ((amf_nas_ul_count + 1) mod 32)
+amf_nas_ul_count = ((amf_nas_ul_count + 1) mod 32)
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T57
+start_state: amf_idle
+end state: amf_idle
+condition: paging_required 
+actions: 
+paging_requested=TRUE
+amf_wait_for = servicerequest
+chan_AMF_nas_rrc = AMF_paging_requested
+
+label: AMF_NAS_T58
+start_state: amf_idle
+end state: amf_idle
+condition: amf_wait_for=servicerequest & paging_timer_expired 
+actions: 
+paging_requested=TRUE
+amf_wait_for = servicerequest
+chan_AMF_nas_rrc = AMF_paging_requested
+
+label: AMF_NAS_T59
+start_state: amf_idle
+end state: amf_com_proc_inited
+condition: amf_wait_for = servicerequest & chan_UA=chanUA_service_req & !servicereq_mac_failure &idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+id_req
+amf_wait_for = idresponse
+amf_service_started=TRUE
+amf_service_completed=FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T60
+start_state: amf_registered
+end state: amf_com_proc_inited
+condition: amf_wait_for = servicerequest & chan_UA=chanUA_service_req &!servicereq_mac_failure & !idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_req
+amf_service_completed=FALSE
+amf_wait_for = authresponse
+amf_ue_shared_seq = next(amf_seq)
+amf_seq = ((amf_seq + 1) mod 32)
+amf_auth_fail_count = 0
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_service_started=TRUE
+amf_service_completed=FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T61
+start_state: amf_registered
+end state: amf_registered
+condition: amf_wait_for = servicerequest & chan_UA=chanUA_service_req &!servicereq_mac_failure & amf_service_started & !amf_service_completed     & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+service_accept
+amf_service_started=FALSE
+ue_service_completed=TRUE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T62
+start_state: amf_dereg_inited
+end state: amf_dereg_inited
+condition: amfderegrequested 
+actions: 
+nwk_dereg_req
+paging_requested=FALSE
+uectxreleaserequired=TRUE
+uectxreleaserequired=TRUE
+
+label: AMF_NAS_T63
+start_state: amf_dereg_inited
+end state: amf_deregistered
+condition: chan_UA=chanUA_reg_req & reg_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+reg_reject
+amf_partial_sec_ctx_exist= FALSE
+amf_complete_sec_ctx_exist= FALSE
+amf_sec_ctx_updated= FALSE
+amf_reg_completed= FALSE
+amf_service_started=FALSE
+amf_service_completed=FALSE
+uectxreleaserequired=TRUE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T64
+start_state: amf_dereg_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_reg_req & !reg_failure & !idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+auth_req
+amf_wait_for = authresponse
+amf_ue_shared_seq = next(amf_seq)
+amf_seq = ((amf_seq + 1) mod 32)
+amf_auth_fail_count = 0
+amf_reg_completed= FALSE
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T65
+start_state: amf_dereg_inited
+end state: amf_com_proc_inited
+condition: chan_UA=chanUA_reg_req & !reg_failure & idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null
+actions: 
+id_req
+amf_wait_for = idresponse
+paging_requested=FALSE
+chan_AMF_nas_rrc=AMF_dl_info_transfer
+chan_AMF_rrc_nas=null
+
+label: AMF_NAS_T66
+start_state: amf_dereg_inited
+end state: amf_deregistered
+condition: chan_UA=chanUA_ue_dereg_accept  & chan_AMF_rrc_nas=AMF_ul_info_transfer
+actions: 
+paging_requested=FALSE
+uectxreleaserequired=TRUE
+chan_AMF_rrc_nas=null
+

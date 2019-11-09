@@ -1,0 +1,76 @@
+MODULE counter (_init_,incr,x,reset)
+VAR
+c: integer;
+pc: integer;
+flby: integer;
+ite: integer;
+ite2: integer;
+
+ASSIGN
+c := ite2;
+pc := flby;
+init(flby) := _init_;
+next(flby) := c;
+
+INVAR
+((((x & (pc > - (1000))) & (pc < 1000)) -> (ite = (pc + incr))) & (! (((x & (pc > - (1000))) & (pc < 1000))) -> (ite = pc))) &
+((reset -> (ite2 = _init_)) & (! (reset) -> (ite2 = ite)));
+
+
+
+
+MODULE speed (beacon,second)
+VAR
+late: boolean;
+early: boolean;
+diff: integer;
+incr: integer;
+ite: integer;
+ite2: integer;
+ite3: boolean;
+flby: boolean;
+ite4: boolean;
+flby2: boolean;
+call_counter: counter (0,incr,(beacon | second),FALSE);
+
+ASSIGN
+late := flby2;
+early := flby;
+diff := call_counter.c;
+incr := ite2;
+init(flby) := FALSE;
+next(flby) := next(ite3);
+init(flby2) := FALSE;
+next(flby2) := next(ite4);
+
+TRANS
+((early -> (next(ite3) = (next(diff) > 0))) & (! (early) -> (next(ite3) = (next(diff) >= 10)))) &
+((late -> (next(ite4) = (next(diff) < 0))) & (! (late) -> (next(ite4) = (next(diff) <= - (10)))));
+
+INVAR
+(((second & ! (beacon)) -> (ite = - (1))) & (! ((second & ! (beacon))) -> (ite = 0))) &
+(((beacon & ! (second)) -> (ite2 = 1)) & (! ((beacon & ! (second))) -> (ite2 = ite)));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+late: boolean;
+early: boolean;
+flby: boolean;
+param_beacon: boolean;
+param_second: boolean;
+call_speed: speed (param_beacon,param_second);
+
+ASSIGN
+_OK_ := flby;
+late := call_speed.late;
+early := call_speed.early;
+init(flby) := TRUE;
+next(flby) := ! ((late & next(early)));
+
+INVARSPEC (_OK_ = TRUE)
+
+

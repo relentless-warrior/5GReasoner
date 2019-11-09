@@ -1,0 +1,19 @@
+Models:
+FSM/NAS/AMF-NAS-5G.dot: Finite state machine (FSM) for AMF.
+FSM/NAS/UE-NAS-5G.dot: Finite state machine (FSM) for UE.
+FSM/RRC/BS-RRC-5G.dot: Finite state machine (FSM) for Base station.
+FSM/RRC/UE-RRC-5G.dot: Finite state machine (FSM) for RRC layer of UE.
+
+
+dot2smv.py : Converter to nuXmv from the four finite state machines of both RRC and NAS layer.
+CrossLayer_property.smv: Properties and counter-examples for cross layer testing.
+
+How To Run:
+First need to run dot2smv.py to generate nuXmv model(combined_layers.smv) from the four .dot files.
+Then copy a property from CrossLayer_property.smv to combined_layers.smv and run the commands:
+./nuXmv -int 5G-NAS.smv
+read_model
+flatten_hierarchy
+encode_variables
+build_boolean_model
+check_ltlspec_klive

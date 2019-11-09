@@ -1,0 +1,77 @@
+
+-- Dumped layers are: model 
+
+MODULE main
+-- Input variables from layer 'model'
+IVAR
+p2.EVENT : {timed, stutter, not_timed_or_stutter};
+p1.EVENT : {timed, stutter, not_timed_or_stutter};
+p1.delta : real;
+p2.delta : real;
+
+-- State variables from layer 'model'
+VAR
+sv : {0, 1, 2};
+p2.s : {1, 2, 3, 4};
+p2.x : real;
+p1.s : {1, 2, 3, 4};
+p1.x : real;
+p1.time : real;
+p2.time : real;
+
+-- Frozen variables from layer 'model'
+FROZENVAR
+delta_guard : real;
+delta_invar : real;
+
+-- Functions from layer 'model'
+-- Defines from layer 'model'
+DEFINE
+p2.TARGET := p2.s = 4;
+p1.TARGET := p1.s = 4;
+
+CONSTANTS
+ timed, stutter, not_timed_or_stutter ;
+
+-- Assignments from layer 'model'
+
+INIT
+ sv = 0
+
+INIT
+ p1.time = 0
+
+INIT
+ p1.x = 0.0
+
+INIT
+ p1.s = 1
+
+INIT
+ p2.time = 0
+
+INIT
+ p2.x = 0.0
+
+INIT
+ p2.s = 1
+
+INIT
+ (p2.s = 2 -> p2.x < delta_invar)
+
+INIT
+ (p1.s = 2 -> p1.x < delta_invar)
+
+INIT
+ delta_invar <= delta_guard
+
+
+
+TRANS
+ (((((((((((((next(sv) = sv & next(p1.time) = p1.time + p1.delta) & (next(p1.x) - p1.x = p1.delta & (!(p1.delta = 0) | next(p1.x) = p1.x))) & next(p1.s) = p1.s) & ((p1.delta >= 0 & p2.delta = p1.delta) & p2.delta = p1.delta)) & next(p2.time) = p2.time + p2.delta) & (next(p2.x) - p2.x = p2.delta & (!(p2.delta = 0) | next(p2.x) = p2.x))) & next(p2.s) = p2.s) & p2.delta >= 0) & (((!(p2.s = 2) | p2.x < delta_invar) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((!(next(p2.s) = 2) | next(p2.x) < next(delta_invar)) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (p1.EVENT = timed & p2.EVENT = timed)) | (((((((((!(p1.s = 1) | ((((sv = 0 & next(sv) = sv) & p1.s = 1) & next(p1.s) = 2) & next(p1.x) = 0.0)) & (!(p1.s = 2) | (((next(sv) = 1 & p1.s = 2) & next(p1.s) = 3) & next(p1.x) = 0.0))) & (!(p1.s = 3) | ((((((sv != 1 & next(sv) = sv) & p1.s = 3) & p1.x > delta_guard) & next(p1.s) = 1) & next(p1.x) = p1.x) | (((((sv = 1 & next(sv) = sv) & p1.s = 3) & p1.x > delta_guard) & next(p1.s) = 4) & next(p1.x) = p1.x)))) & (!(p1.s = 4) | (((next(sv) = 0 & p1.s = 4) & next(p1.s) = 1) & next(p1.x) = p1.x))) & next(p1.time) = p1.time) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & (((!(p2.s = 2) | p2.x < delta_invar) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((!(next(p2.s) = 2) | next(p2.x) < next(delta_invar)) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (p1.EVENT = not_timed_or_stutter & p2.EVENT = stutter))) | (((((((((!(p2.s = 1) | ((((sv = 0 & next(sv) = sv) & p2.s = 1) & next(p2.s) = 2) & next(p2.x) = 0.0)) & (!(p2.s = 2) | (((next(sv) = 2 & p2.s = 2) & next(p2.s) = 3) & next(p2.x) = 0.0))) & (!(p2.s = 3) | ((((((sv != 2 & next(sv) = sv) & p2.s = 3) & p2.x > delta_guard) & next(p2.s) = 1) & next(p2.x) = p2.x) | (((((sv = 2 & next(sv) = sv) & p2.s = 3) & p2.x > delta_guard) & next(p2.s) = 4) & next(p2.x) = p2.x)))) & (!(p2.s = 4) | (((next(sv) = 0 & p2.s = 4) & next(p2.s) = 1) & next(p2.x) = p2.x))) & (next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time))) & next(p2.time) = p2.time) & (((!(p2.s = 2) | p2.x < delta_invar) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((!(next(p2.s) = 2) | next(p2.x) < next(delta_invar)) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (p2.EVENT = not_timed_or_stutter & p1.EVENT = stutter)))
+
+
+INVARSPEC
+ !(p1.TARGET & p2.TARGET);
+
+

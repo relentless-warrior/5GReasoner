@@ -1,0 +1,247 @@
+----------------------------------------------------------------------------------------------------
+
+
+--- ################################################################################################---
+------------------------------------------------ RRC Layers -------------------------------------------
+--- ################################################################################################---
+---------------------------------------------------------------------------------------------
+-- Denial-of-Service attack with rrc_setup_req(Section 6.2.1):
+-- Property: If the base station has a rrc security context in the current state, it will exist forever unless 
+----there is a request for nas_con_establishment from a UE.
+-- Set the inj_adv_UB_enabled=TRUE, inj_adv_act_BU = TRUE
+-- Resultant attack: The adversary sends fake rrc_resume_req or rrc_reestab_req message for which the mac_verfication
+-- fails and deletes the security context at the base station.
+-- Impact: Denial-of-Service attack.
+
+LTLSPEC
+--F( nas_requested_con_establishment & X G (!nas_requested_con_establishment)) &   
+G(  
+    !dl_info_transfer_required &
+    !nas_requested_con_reestablishment &
+    !paging_timer_expired &
+    inj_adv_act_BU != adv_BU_rrc_reject &
+    inj_adv_act_BU != adv_BU_paging_tmsi &
+    inj_adv_act_BU != adv_BU_paging_irnti &
+    inj_adv_act_BU != adv_UB_rrc_reestab_req &
+    inj_adv_act_UB != adv_UB_rrc_resume_complete &
+    inj_adv_act_UB != adv_UB_rrc_setup_req &
+    inj_adv_act_UB != adv_UB_rrc_setup_complete &
+    inj_adv_act_UB != adv_UB_rrc_reestab_req &
+    inj_adv_act_UB != adv_UB_rrc_reestab_complete &
+    inj_adv_act_UB != adv_UB_ul_info_transfer &
+    inj_adv_act_UB != adv_UB_ul_user_data &
+    inj_adv_act_UB != adv_UB_null_action 
+    
+) ->
+G
+( 
+	ue_rrc_sec_ctx_exist -> 
+	X 
+	(
+		G(ue_rrc_sec_ctx_exist) | (ue_rrc_sec_ctx_exist U nas_requested_con_establishment)
+  	)
+)
+
+---------------------------------------------------------------------------------------------
+
+-- Attack  (Section 6.2.1)-Variant: 
+--- Property: If the UE has a rrc security context in the current state, it will exist forever unless 
+-- there is a request for nas/rrc connection establishment.
+-- Instruction: Set the inj_adv_UB_enabled=TRUE, inj_adv_act_BU = TRUE
+-- Resultant attack: The adversary sends rrc_setup message in response to the rrc_resume_req/rrc_reestab_req 
+-- message, which induce the UE to delete its previous sec_ctx. 
+-- Impact: Denial-of-Service attack.
+
+
+LTLSPEC
+--F( nas_requested_con_establishment & X G (!nas_requested_con_establishment)) &   
+G(  
+    !dl_info_transfer_required &
+    !nas_requested_con_reestablishment &
+    !paging_timer_expired &
+    inj_adv_act_BU != adv_BU_rrc_reject &
+    inj_adv_act_BU != adv_BU_paging_tmsi &
+    inj_adv_act_BU != adv_BU_paging_irnti &
+    inj_adv_act_BU != adv_UB_rrc_reestab_req &
+    inj_adv_act_UB != adv_UB_rrc_resume_complete &
+    inj_adv_act_UB != adv_UB_rrc_setup_req &
+    inj_adv_act_UB != adv_UB_rrc_setup_complete &
+    inj_adv_act_UB != adv_UB_rrc_reestab_req &
+    inj_adv_act_UB != adv_UB_rrc_reestab_complete &
+    inj_adv_act_UB != adv_UB_ul_info_transfer &
+    inj_adv_act_UB != adv_UB_ul_user_data &
+    inj_adv_act_UB != adv_UB_null_action 
+    
+) ->
+G
+( 
+	ue_rrc_sec_ctx_exist -> 
+	X 
+	(
+		G(ue_rrc_sec_ctx_exist) | (ue_rrc_sec_ctx_exist U nas_requested_con_establishment)
+  	)
+)
+
+---------------------------------------------------------------------------------------------
+-- Installing null-cipher and null-integrity attack - part 1 (section 6.2.2): 
+-- Property: If the UE requires the AS security context to be setup, the UE will eventually establish the security context.
+-- Instruction: Set the inj_adv_UB_enabled=TRUE, inj_adv_act_BU = FALSE
+-- Resultant attacks/counter-example: Forcing to use null_integrity protection using security_mode_failure message sent by the fake UE. 
+----	The null security context will be established eventually.
+
+
+LTLSPEC
+F( nas_requested_con_establishment & X G (!nas_requested_con_establishment)) &   
+G( 	
+	!dl_info_transfer_required &
+	!nas_requested_con_reestablishment &
+	!paging_timer_expired &
+	!inj_adv_BU_enabled &
+	inj_adv_act_BU != adv_BU_rrc_reject &
+	inj_adv_act_BU != adv_BU_paging_tmsi &
+	inj_adv_act_BU != adv_BU_paging_irnti &
+	inj_adv_act_BU != adv_UB_rrc_reestab_req &
+	inj_adv_act_UB != adv_UB_rrc_resume_complete &
+	inj_adv_act_UB != adv_UB_rrc_setup_req &
+	inj_adv_act_UB != adv_UB_rrc_setup_complete &
+	inj_adv_act_UB != adv_UB_rrc_reestab_req &
+	inj_adv_act_UB != adv_UB_rrc_reestab_complete &
+	inj_adv_act_UB != adv_UB_ul_info_transfer &
+	inj_adv_act_UB != adv_UB_ul_user_data &
+	inj_adv_act_UB != adv_UB_null_action 
+ 	
+) ->
+(G (!ue_rrc_sec_ctx_exist & as_sec_ctx_setup_required)  
+	-> F (ue_rrc_sec_ctx_exist));
+
+---------------------------------------------------------------------------------------------------------
+-- Installing null-cipher and null-integrity attack - part 2 (section 6.2.2): 
+--Property 2: If the base station requires the AS security context to be setup, the base station 
+-- will eventually establish the security context.
+-- Set the inj_adv_UB_enabled=TRUE, inj_adv_act_BU = FALSE
+-- Resultant attacks/counter-example: Forcing the base station to use null_integrity protection using security_mode_failure message sent by the fake UE. The null security context will be established eventually.
+-- Section 6.2.2: Installing null cipher and null integrity attack.
+
+
+LTLSPEC
+F( nas_requested_con_establishment & X G (!nas_requested_con_establishment)) &   
+G( 	
+	!dl_info_transfer_required &
+	!nas_requested_con_reestablishment &
+	!paging_timer_expired &
+	!inj_adv_BU_enabled &
+	inj_adv_act_BU != adv_BU_rrc_reject &
+	inj_adv_act_BU != adv_BU_paging_tmsi &
+	inj_adv_act_BU != adv_BU_paging_irnti &
+	inj_adv_act_BU != adv_UB_rrc_reestab_req &
+	inj_adv_act_UB != adv_UB_rrc_resume_complete &
+	inj_adv_act_UB != adv_UB_rrc_setup_req &
+	inj_adv_act_UB != adv_UB_rrc_setup_complete &
+	inj_adv_act_UB != adv_UB_rrc_reestab_req &
+	inj_adv_act_UB != adv_UB_rrc_reestab_complete &
+	inj_adv_act_UB != adv_UB_ul_info_transfer &
+	inj_adv_act_UB != adv_UB_ul_user_data &
+	inj_adv_act_UB != adv_UB_null_action 
+ 	
+) ->
+(G (!gnb_rrc_sec_ctx_exist & as_sec_ctx_setup_required)  
+	-> F (gnb_rrc_sec_ctx_exist));
+
+---------------------------------------------------------------------------------------------
+--- Property: The base station responds with a rrc_resume message if 
+--- and only if the base station receives a valid rrc_resume_req message.
+-- inj_adv_UB_enabled:=	TRUE;
+-- inj_adv_BU_enabled:=	FALSE;
+--- Counter-example: If fake UE sends rrc_resume_req message, it received rrc_setup message.
+--- Attack from symbolic model checker: Traceability/linkability (Cell-level location tracking)
+---- This attack cannot be realized because ProVerif did not generate a counter-example for this. Since rrc_resume_req message has MAC verification, the base station could not verify the MAC sent by the attacker.
+LTLSPEC 
+ G (
+	!ul_data_transfer_required & 
+	!ul_transfer_required &
+    !ue_cap_required &
+	inj_adv_act_BU != adv_BU_rrc_reject &
+	inj_adv_act_BU != adv_BU_paging_tmsi &
+	inj_adv_act_BU != adv_BU_paging_irnti &
+	inj_adv_act_UB != adv_UB_rrc_resume_req &
+	inj_adv_act_UB != adv_UB_rrc_setup_req &
+	inj_adv_act_UB != adv_UB_rrc_setup_complete &
+	inj_adv_act_UB != adv_UB_rrc_reestab_req &
+	inj_adv_act_UB != adv_UB_rrc_reestab_complete &
+	inj_adv_act_UB != adv_UB_ul_info_transfer &
+	inj_adv_act_UB != adv_UB_ul_user_data &
+	inj_adv_act_UB != adv_UB_null_action & 
+	inj_adv_act_UB != adv_UB_rrc_sm_complete & 
+	inj_adv_act_UB != adv_UB_rrc_sm_failure &
+	inj_adv_act_UB != adv_UB_ue_cap_info
+ ) ->
+G ((bs_rrc_state=gnb_rrc_inactive & chan_UB = chanUB_rrc_resume_req)  
+	-> X (chan_BU = chanBU_rrc_resume));
+
+
+--------------------------------------------------------------------------------------------
+--- Lullaby attack (Section 6.2.3): 
+--- Property 6: If a ue is in rrc_connected state and the base station sends 
+--- rrc_reconf message, it will remain in the rrc_connected state.
+--- Set the inj_adv_UB_enabled=FALSE and inj_adv_act_BU = TRUE
+--- Resultant attacks: Denial of service with rrc_release.
+--- Vertion 1: 
+LTLSPEC 
+G ((ue_rrc_state=ue_rrc_connected & bs_rrc_action = rrc_reconf)  
+	-> X (G ue_rrc_state = ue_rrc_connected));
+
+--- Resultant attacks: Denial of service with rrc_release.
+--- Vertion 2: 
+LTLSPEC 
+G (
+	inj_adv_act_BU != adv_BU_rrc_release & 
+	inj_adv_act_BU != adv_BU_rrc_release_suspend &
+	inj_adv_act_BU != adv_BU_paging_irnti &
+	inj_adv_act_BU != adv_BU_paging_tmsi 
+	
+) ->
+G ((ue_rrc_state=ue_rrc_connected & bs_rrc_action = rrc_reconf)  
+	-> X (G ue_rrc_state = ue_rrc_connected));
+
+--------------------------------------------------------------------------------------------
+--- Lullaby attack (Section 6.2.3) Variant
+--- Property: If a ue is in rrc_connected state and the base station sends 
+--- rrc_reconf message, it will remain in the rrc_connected state.
+--- Set the inj_adv_UB_enabled=FALSE and inj_adv_act_BU = TRUE
+--- Resultant attacks: Denial of service with rrc_release.
+--- Vertion 1: 
+LTLSPEC 
+G ((ue_rrc_state=ue_rrc_connected & bs_rrc_action = rrc_reconf)  
+	-> X (G ue_rrc_state = ue_rrc_connected));
+
+--- Resultant attacks: Denial of service with rrc_release.
+--- Vertion 2: 
+LTLSPEC 
+G (
+	inj_adv_act_BU != adv_BU_rrc_release & 
+	inj_adv_act_BU != adv_BU_rrc_release_suspend &
+	inj_adv_act_BU != adv_BU_paging_irnti &
+	inj_adv_act_BU != adv_BU_paging_tmsi 
+	
+) ->
+G ((ue_rrc_state=ue_rrc_connected & bs_rrc_action = rrc_reconf)  
+	-> X (G ue_rrc_state != ue_rrc_idle));
+
+
+--------------------------------------------------------------------------------------------
+--- Incarceration attack with rrc_reject and rrc_release (Section 6.2.4):
+--- Property: If the base station is in rrc_connected state, it will remain in the connected state 
+-- until ue's nas requested connection establishment.
+--- Set the inj_adv_UB_enabled=FALSE and inj_adv_act_BU = TRUE
+--- Resultant attacks: Denial of service with rrc_release/rrc_reject.
+
+
+LTLSPEC 
+G (
+	inj_adv_act_BU != adv_BU_rrc_release & 
+	inj_adv_act_BU != adv_BU_rrc_release_suspend &
+	inj_adv_act_BU != adv_BU_paging_irnti &
+	inj_adv_act_BU != adv_BU_paging_tmsi 
+) ->
+G ((bs_rrc_state = bs_rrc_connected)  
+	-> X (G bs_rrc_state != bs_rrc_idle) U nas_requested_con_establishment);

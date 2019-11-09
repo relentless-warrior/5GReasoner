@@ -1,0 +1,400 @@
+label: UE_RRC_T1
+start_state: ue_rrc_idle
+end state: ue_rrc_idle
+condition: chan_UE_nas_rrc=UE_downgrade_requested 
+actions: 
+null_action
+
+label: UE_RRC_T2
+start_state: ue_rrc_setup_requested
+end state: ue_rrc_idle
+condition: chan_UE_nas_rrc=UE_downgrade_requested 
+actions: 
+null_action
+
+label: UE_RRC_T3
+start_state: ue_rrc_inactive
+end state: ue_rrc_idle
+condition: chan_UE_nas_rrc=UE_downgrade_requested 
+actions: 
+null_action
+
+label: UE_RRC_T4
+start_state: ue_rrc_resume_requested
+end state: ue_rrc_idle
+condition: chan_UE_nas_rrc=UE_downgrade_requested 
+actions: 
+null_action
+
+label: UE_RRC_T5
+start_state: ue_rrc_connected
+end state: ue_rrc_idle
+condition: chan_UE_nas_rrc=UE_downgrade_requested 
+actions: 
+null_action
+
+label: UE_RRC_T6
+start_state: ue_rrc_reestab_requested
+end state: ue_rrc_idle
+condition: chan_UE_nas_rrc=UE_downgrade_requested 
+actions: 
+null_action
+
+label: UE_RRC_T7
+start_state: ue_rrc_idle
+end state: ue_rrc_setup_requested
+condition: (chan_UE_nas_rrc = UE_ul_info_transfer | chan_BU=chanBU_paging_tmsi) 
+actions: 
+rrc_setup_req
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T8
+start_state: ue_rrc_setup_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_release 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+chan_UE_rrc_nas=UE_ctx_release_requested
+
+label: UE_RRC_T9
+start_state: ue_rrc_setup_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_reject 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T10
+start_state: ue_rrc_setup_requested
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_setup
+actions: 
+ue_rrc_sec_ctx_exist = FALSE
+rrc_setup_complete
+
+label: UE_RRC_T11
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_setup
+actions: 
+rrc_setup_complete
+ue_rrc_sec_ctx_exist = FALSE
+
+label: UE_RRC_T12
+start_state: ue_rrc_connected
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_release 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+chan_UE_rrc_nas=UE_ctx_release_requested
+
+label: UE_RRC_T13
+start_state: ue_rrc_connected
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_reject 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T14
+start_state: ue_rrc_connected
+end state: ue_rrc_inactive
+condition: chan_BU=chanBU_rrc_release_suspend & ue_rrc_sec_ctx_exist &    !suspend_mac_failure
+actions: 
+null_action
+
+label: UE_RRC_T15
+start_state: ue_rrc_connected
+end state: ue_rrc_inactive
+condition: chan_BU=chanBU_rrc_release_suspend 
+actions: 
+null_action
+
+label: UE_RRC_T16
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_sm_command & !rrc_smcommand_mac_failure
+actions: 
+rrc_sm_complete
+ue_rrc_sec_ctx_exist=TRUE
+ue_rrc_sec_ctx_updated=FALSE
+
+label: UE_RRC_T17
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_sm_command & rrc_smcommand_mac_failure
+actions: 
+rrc_sm_failure
+ue_rrc_sec_ctx_updated=FALSE
+
+label: UE_RRC_T18
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_reconf & ue_rrc_sec_ctx_exist & !reconf_mac_failure
+actions: 
+rrc_reconf_complete
+ue_bearer_established=TRUE
+ue_pdcp_ul_count=0
+ue_pdcp_dl_count=0
+
+label: UE_RRC_T19
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_reconf &    ue_rrc_sec_ctx_exist & reconf_mac_failure
+actions: 
+rrc_reestab_req
+
+label: UE_RRC_T20
+start_state: ue_rrc_connected
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_reconf &    !ue_rrc_sec_ctx_exist 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T21
+start_state: ue_rrc_connected
+end state: ue_rrc_reestab_requested
+condition: chan_UE_nas_rrc = UE_ul_info_transfer &  ue_rrc_sec_ctx_exist 
+actions: 
+rrc_reestab_req
+
+label: UE_RRC_T22
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_UE_nas_rrc = UE_ul_info_transfer 
+actions: 
+ul_info_transfer
+chan_UE_nas_rrc = null
+
+label: UE_RRC_T23
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_dl_info_transfer & dlinfotransfer_mac_failure & chan_UE_rrc_nas =null 
+actions: 
+chan_UE_rrc_nas = UE_dl_info_transfer
+
+label: UE_RRC_T24
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_dl_info_transfer &  dlinfotransfer_mac_failure 
+actions: 
+null_action
+
+label: UE_RRC_T25
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_ue_cap_enquiry & !ue_rrc_sec_ctx_exist    
+actions: 
+ue_cap_info
+
+label: UE_RRC_T26
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_ue_cap_enquiry & ue_rrc_sec_ctx_exist &    !ue_cap_enq_mac_failure 
+actions: 
+ue_cap_info
+
+label: UE_RRC_T27
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_ue_cap_enquiry & ue_rrc_sec_ctx_exist &    ue_cap_enq_mac_failure 
+actions: 
+null_action
+
+label: UE_RRC_T28
+start_state: ue_rrc_connected
+end state: ue_rrc_reestab_requested
+condition: chan_UE_nas_rrc = UE_ul_info_transfer 
+actions: 
+rrc_reestab_req
+
+label: UE_RRC_T29
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: ue_bearer_established 
+actions: 
+ul_user_data
+ue_pdcp_ul_count = ((ue_pdcp_ul_count + 1) mod 32)
+
+label: UE_RRC_T30
+start_state: ue_rrc_connected
+end state: ue_rrc_connected
+condition: ue_bearer_established &  chan_BU=chanBU_dl_user_data 
+actions: 
+ue_pdcp_dl_count = ((ue_pdcp_dl_count + 1) mod 32)
+
+label: UE_RRC_T31
+start_state: ue_rrc_inactive
+end state: ue_rrc_resume_requested
+condition: (chan_UE_nas_rrc = UE_ul_info_transfer | chan_BU=chanBU_paging_irnti) 
+actions: 
+rrc_resume_req
+
+label: UE_RRC_T32
+start_state: ue_rrc_inactive
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_resume & !resume_mac_failure 
+actions: 
+rrc_resume_complete
+
+label: UE_RRC_T33
+start_state: ue_rrc_inactive
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_resume & resume_mac_failure 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T34
+start_state: ue_rrc_inactive
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_setup 
+actions: 
+rrc_setup_complete
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T35
+start_state: ue_rrc_inactive
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_release & !ue_rrc_sec_ctx_exist 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+chan_UE_rrc_nas=UE_ctx_release_requested
+
+label: UE_RRC_T36
+start_state: ue_rrc_inactive
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_release & ue_rrc_sec_ctx_exist & !release_mac_failure 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+chan_UE_rrc_nas=UE_ctx_release_requested
+
+label: UE_RRC_T37
+start_state: ue_rrc_inactive
+end state: ue_rrc_inactive
+condition: chan_BU=chanBU_rrc_reject & !ue_rrc_sec_ctx_exist 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T38
+start_state: ue_rrc_inactive
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_reject & ue_rrc_sec_ctx_exist & !reject_mac_failure 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T39
+start_state: ue_rrc_resume_requested
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_resume & !resume_mac_failure 
+actions: 
+rrc_resume_complete
+
+label: UE_RRC_T40
+start_state: ue_rrc_resume_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_resume & resume_mac_failure 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T41
+start_state: ue_rrc_resume_requested
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_setup 
+actions: 
+rrc_setup_complete
+ue_rrc_sec_ctx_exist=FALSE
+chan_UE_rrc_nas=UE_ctx_release_requested
+
+label: UE_RRC_T42
+start_state: ue_rrc_resume_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_release & !ue_rrc_sec_ctx_exist 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+chan_UE_rrc_nas=UE_ctx_release_requested
+
+label: UE_RRC_T43
+start_state: ue_rrc_resume_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_release & ue_rrc_sec_ctx_exist & !release_mac_failure 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T44
+start_state: ue_rrc_resume_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_reject & !ue_rrc_sec_ctx_exist 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T45
+start_state: ue_rrc_resume_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_reject & ue_rrc_sec_ctx_exist & !reject_mac_failure 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T46
+start_state: ue_rrc_resume_requested
+end state: ue_rrc_inactive
+condition: chan_BU=chanBU_rrc_release_suspend & !suspend_mac_failure
+actions: 
+null_action
+
+label: UE_RRC_T47
+start_state: ue_rrc_reestab_requested
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_reestab & !reestab_mac_failure 
+actions: 
+rrc_reestab_complete
+
+label: UE_RRC_T48
+start_state: ue_rrc_reestab_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_reestab & reestab_mac_failure 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T49
+start_state: ue_rrc_reestab_requested
+end state: ue_rrc_connected
+condition: chan_BU=chanBU_rrc_setup 
+actions: 
+rrc_setup_complete
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T50
+start_state: ue_rrc_reestab_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_release & !ue_rrc_sec_ctx_exist 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+chan_UE_rrc_nas=UE_ctx_release_requested
+
+label: UE_RRC_T51
+start_state: ue_rrc_reestab_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_release & ue_rrc_sec_ctx_exist & !release_mac_failure 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+chan_UE_rrc_nas=UE_ctx_release_requested
+
+label: UE_RRC_T52
+start_state: ue_rrc_reestab_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_reject & !ue_rrc_sec_ctx_exist 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T53
+start_state: ue_rrc_reestab_requested
+end state: ue_rrc_idle
+condition: chan_BU=chanBU_rrc_reject & ue_rrc_sec_ctx_exist & !reject_mac_failure 
+actions: 
+ue_rrc_sec_ctx_exist=FALSE
+
+label: UE_RRC_T54
+start_state: ue_rrc_reestab_requested
+end state: ue_rrc_inactive
+condition: chan_BU=chanBU_rrc_release_suspend & !suspend_mac_failure
+actions: 
+null_action
+

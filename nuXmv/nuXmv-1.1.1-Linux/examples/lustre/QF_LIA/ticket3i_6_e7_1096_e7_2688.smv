@@ -1,0 +1,234 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) | Sofar);
+
+
+
+
+MODULE excludes9 (_X1_,_X2_,_X3_,_X4_,_X5_,_X6_,_X7_,_X8_,_X9_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := ((((((((((! (_X1_) | (((((((! (_X2_) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((_X1_ & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & _X2_) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & _X3_) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & _X4_) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & _X5_) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & _X6_) & ! (_X7_)) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & _X7_) & ! (_X8_)) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & _X8_) & ! (_X9_))) | ((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & _X9_));
+
+
+
+
+MODULE ticket3i (e1,e2,e3,e4,e5,e6,e7,e8,e9,init_a1,init_a2,init_a3,init_t)
+VAR
+p1: integer;
+p2: integer;
+p3: integer;
+t: integer;
+s: integer;
+a1: integer;
+a2: integer;
+a3: integer;
+erreur_ticket3i: boolean;
+g1: boolean;
+g2: boolean;
+g3: boolean;
+g4: boolean;
+g5: boolean;
+g6: boolean;
+g7: boolean;
+g8: boolean;
+g9: boolean;
+ite: boolean;
+ite2: integer;
+ite3: integer;
+ite4: integer;
+ite5: integer;
+ite6: integer;
+ite7: integer;
+flby: integer;
+ite8: integer;
+ite9: integer;
+ite10: integer;
+ite11: integer;
+ite12: integer;
+ite13: integer;
+flby2: integer;
+ite14: integer;
+ite15: integer;
+ite16: integer;
+ite17: integer;
+ite18: integer;
+ite19: integer;
+flby3: integer;
+ite20: integer;
+ite21: integer;
+ite22: integer;
+ite23: integer;
+ite24: integer;
+ite25: integer;
+flby4: integer;
+ite26: integer;
+ite27: integer;
+ite28: integer;
+ite29: integer;
+ite30: integer;
+ite31: integer;
+flby5: integer;
+ite32: integer;
+ite33: integer;
+flby6: integer;
+ite34: integer;
+ite35: integer;
+flby7: integer;
+ite36: integer;
+ite37: integer;
+flby8: integer;
+
+ASSIGN
+p1 := flby;
+p2 := flby2;
+p3 := flby3;
+t := flby4;
+s := flby5;
+a1 := flby6;
+a2 := flby7;
+a3 := flby8;
+erreur_ticket3i := ite;
+next(g1) := (p1 = 0);
+next(g2) := ((p1 = 1) & (s >= next(a1)));
+next(g3) := (p1 = 2);
+next(g4) := (p2 = 0);
+next(g5) := ((p2 = 1) & (s >= next(a2)));
+next(g6) := (p2 = 2);
+next(g7) := (p3 = 0);
+next(g8) := ((p3 = 1) & (s >= next(a3)));
+next(g9) := (p3 = 2);
+init(flby) := 0;
+next(flby) := next(ite7);
+init(flby2) := 0;
+next(flby2) := next(ite13);
+init(flby3) := 0;
+next(flby3) := next(ite19);
+init(flby4) := init_t;
+next(flby4) := next(ite25);
+init(flby5) := t;
+next(flby5) := next(ite31);
+init(flby6) := init_a1;
+next(flby6) := next(ite33);
+init(flby7) := init_a2;
+next(flby7) := next(ite35);
+init(flby8) := init_a3;
+next(flby8) := next(ite37);
+
+INIT
+(g1 -> (ite2 = 1)) &
+(g2 -> (ite3 = 2)) &
+(g3 -> (ite4 = 0)) &
+(e3 -> (ite5 = ite4)) &
+(g4 -> (ite8 = 1)) &
+(g5 -> (ite9 = 2)) &
+(g6 -> (ite10 = 0)) &
+(e6 -> (ite11 = ite10)) &
+(g7 -> (ite14 = 1)) &
+(g8 -> (ite15 = 2)) &
+(g9 -> (ite16 = 0)) &
+(e9 -> (ite17 = ite16)) &
+(e7 -> (ite23 = ite22)) &
+(e9 -> (ite29 = ite28)) &
+(e1 -> (ite33 = ite32)) &
+(e4 -> (ite35 = ite34)) &
+(e7 -> (ite37 = ite36));
+
+TRANS
+((next(g1) -> (next(ite2) = 1)) & (! (next(g1)) -> (next(ite2) = p1))) &
+((next(g2) -> (next(ite3) = 2)) & (! (next(g2)) -> (next(ite3) = p1))) &
+((next(g3) -> (next(ite4) = 0)) & (! (next(g3)) -> (next(ite4) = p1))) &
+((next(e3) -> (next(ite5) = next(ite4))) & (! (next(e3)) -> (next(ite5) = p1))) &
+((next(g4) -> (next(ite8) = 1)) & (! (next(g4)) -> (next(ite8) = p2))) &
+((next(g5) -> (next(ite9) = 2)) & (! (next(g5)) -> (next(ite9) = p2))) &
+((next(g6) -> (next(ite10) = 0)) & (! (next(g6)) -> (next(ite10) = p2))) &
+((next(e6) -> (next(ite11) = next(ite10))) & (! (next(e6)) -> (next(ite11) = p2))) &
+((next(g7) -> (next(ite14) = 1)) & (! (next(g7)) -> (next(ite14) = p3))) &
+((next(g8) -> (next(ite15) = 2)) & (! (next(g8)) -> (next(ite15) = p3))) &
+((next(g9) -> (next(ite16) = 0)) & (! (next(g9)) -> (next(ite16) = p3))) &
+((next(e9) -> (next(ite17) = next(ite16))) & (! (next(e9)) -> (next(ite17) = p3))) &
+((next(g1) -> (next(ite20) = (t + 1))) & (! (next(g1)) -> (next(ite20) = t))) &
+((next(g4) -> (next(ite21) = (t + 1))) & (! (next(g4)) -> (next(ite21) = t))) &
+((next(g7) -> (next(ite22) = (t + 1))) & (! (next(g7)) -> (next(ite22) = t))) &
+((next(e7) -> (next(ite23) = next(ite22))) & (! (next(e7)) -> (next(ite23) = t))) &
+((next(g3) -> (next(ite26) = (s + 1))) & (! (next(g3)) -> (next(ite26) = s))) &
+((next(g6) -> (next(ite27) = (s + 1))) & (! (next(g6)) -> (next(ite27) = s))) &
+((next(g9) -> (next(ite28) = (s + 1))) & (! (next(g9)) -> (next(ite28) = s))) &
+((next(e9) -> (next(ite29) = next(ite28))) & (! (next(e9)) -> (next(ite29) = s))) &
+((next(g1) -> (next(ite32) = t)) & (! (next(g1)) -> (next(ite32) = a1))) &
+((next(e1) -> (next(ite33) = next(ite32))) & (! (next(e1)) -> (next(ite33) = a1))) &
+((next(g4) -> (next(ite34) = t)) & (! (next(g4)) -> (next(ite34) = a2))) &
+((next(e4) -> (next(ite35) = next(ite34))) & (! (next(e4)) -> (next(ite35) = a2))) &
+((next(g7) -> (next(ite36) = t)) & (! (next(g7)) -> (next(ite36) = a3))) &
+((next(e7) -> (next(ite37) = next(ite36))) & (! (next(e7)) -> (next(ite37) = a3)));
+
+INVAR
+(((((p1 >= 3) | (p2 >= 3)) | (p3 >= 3)) -> (ite = TRUE)) & (! ((((p1 >= 3) | (p2 >= 3)) | (p3 >= 3))) -> (ite = FALSE))) &
+((e2 -> (ite6 = ite3)) & (! (e2) -> (ite6 = ite5))) &
+((e1 -> (ite7 = ite2)) & (! (e1) -> (ite7 = ite6))) &
+((e5 -> (ite12 = ite9)) & (! (e5) -> (ite12 = ite11))) &
+((e4 -> (ite13 = ite8)) & (! (e4) -> (ite13 = ite12))) &
+((e8 -> (ite18 = ite15)) & (! (e8) -> (ite18 = ite17))) &
+((e7 -> (ite19 = ite14)) & (! (e7) -> (ite19 = ite18))) &
+((e4 -> (ite24 = ite21)) & (! (e4) -> (ite24 = ite23))) &
+((e1 -> (ite25 = ite20)) & (! (e1) -> (ite25 = ite24))) &
+((e6 -> (ite30 = ite27)) & (! (e6) -> (ite30 = ite29))) &
+((e3 -> (ite31 = ite26)) & (! (e3) -> (ite31 = ite30)));
+
+
+
+
+MODULE main
+VAR
+param_e7: boolean;
+_OK_: boolean;
+p1: integer;
+p2: integer;
+param_e8: boolean;
+p3: integer;
+t: integer;
+s: integer;
+a1: integer;
+a2: integer;
+a3: integer;
+erreur_ticket3i: boolean;
+env: boolean;
+param_e9: boolean;
+param_init_a1: integer;
+param_init_a2: integer;
+param_e1: boolean;
+param_init_a3: integer;
+param_e2: boolean;
+param_init_t: integer;
+param_e3: boolean;
+param_e4: boolean;
+param_e5: boolean;
+param_e6: boolean;
+call_ticket3i: ticket3i (param_e1,param_e2,param_e3,param_e4,param_e5,param_e6,param_e7,param_e8,param_e9,param_init_a1,param_init_a2,param_init_a3,param_init_t);
+call_excludes9: excludes9 (param_e1,param_e2,param_e3,param_e4,param_e5,param_e6,param_e7,param_e8,param_e9);
+call_Sofar: Sofar (((((call_excludes9.excludes & (param_init_a1 >= 0)) & (param_init_a2 >= 0)) & (param_init_a3 >= 0)) & (param_init_t >= 0)));
+
+ASSIGN
+_OK_ := (env -> ((0 <= p3) & (p3 <= 3)));
+p1 := call_ticket3i.p1;
+p2 := call_ticket3i.p2;
+p3 := call_ticket3i.p3;
+t := call_ticket3i.t;
+s := call_ticket3i.s;
+a1 := call_ticket3i.a1;
+a2 := call_ticket3i.a2;
+a3 := call_ticket3i.a3;
+erreur_ticket3i := call_ticket3i.erreur_ticket3i;
+env := call_Sofar.Sofar;
+
+INVARSPEC (_OK_ = TRUE)
+
+

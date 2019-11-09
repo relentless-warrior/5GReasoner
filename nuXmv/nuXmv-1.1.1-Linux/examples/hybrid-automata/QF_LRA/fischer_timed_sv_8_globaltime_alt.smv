@@ -1,0 +1,185 @@
+
+-- Dumped layers are: model 
+
+MODULE main
+-- Input variables from layer 'model'
+IVAR
+p8.EVENT : {timed, stutter, not_timed_or_stutter};
+p7.EVENT : {timed, stutter, not_timed_or_stutter};
+p6.EVENT : {timed, stutter, not_timed_or_stutter};
+p5.EVENT : {timed, stutter, not_timed_or_stutter};
+p4.EVENT : {timed, stutter, not_timed_or_stutter};
+p3.EVENT : {timed, stutter, not_timed_or_stutter};
+p2.EVENT : {timed, stutter, not_timed_or_stutter};
+p1.EVENT : {timed, stutter, not_timed_or_stutter};
+p1.delta : real;
+p2.delta : real;
+p3.delta : real;
+p4.delta : real;
+p5.delta : real;
+p6.delta : real;
+p7.delta : real;
+p8.delta : real;
+
+-- State variables from layer 'model'
+VAR
+sv : {0, 1, 2};
+p8.s : {1, 2, 3, 4};
+p8.x : real;
+p7.s : {1, 2, 3, 4};
+p7.x : real;
+p6.s : {1, 2, 3, 4};
+p6.x : real;
+p5.s : {1, 2, 3, 4};
+p5.x : real;
+p4.s : {1, 2, 3, 4};
+p4.x : real;
+p3.s : {1, 2, 3, 4};
+p3.x : real;
+p2.s : {1, 2, 3, 4};
+p2.x : real;
+p1.s : {1, 2, 3, 4};
+p1.x : real;
+p1.time : real;
+p2.time : real;
+p3.time : real;
+p4.time : real;
+p5.time : real;
+p6.time : real;
+p7.time : real;
+p8.time : real;
+
+-- Frozen variables from layer 'model'
+FROZENVAR
+delta_guard : real;
+delta_invar : real;
+
+-- Functions from layer 'model'
+-- Defines from layer 'model'
+DEFINE
+p8.TARGET := p8.s = 4;
+p7.TARGET := p7.s = 4;
+p6.TARGET := p6.s = 4;
+p5.TARGET := p5.s = 4;
+p4.TARGET := p4.s = 4;
+p3.TARGET := p3.s = 4;
+p2.TARGET := p2.s = 4;
+p1.TARGET := p1.s = 4;
+
+CONSTANTS
+ timed, stutter, not_timed_or_stutter ;
+
+-- Assignments from layer 'model'
+
+INIT
+ sv = 0
+
+INIT
+ p1.time = 0
+
+INIT
+ p1.x = 0.0
+
+INIT
+ p1.s = 1
+
+INIT
+ p2.time = 0
+
+INIT
+ p2.x = 0.0
+
+INIT
+ p2.s = 1
+
+INIT
+ p3.time = 0
+
+INIT
+ p3.x = 0.0
+
+INIT
+ p3.s = 1
+
+INIT
+ p4.time = 0
+
+INIT
+ p4.x = 0.0
+
+INIT
+ p4.s = 1
+
+INIT
+ p5.time = 0
+
+INIT
+ p5.x = 0.0
+
+INIT
+ p5.s = 1
+
+INIT
+ p6.time = 0
+
+INIT
+ p6.x = 0.0
+
+INIT
+ p6.s = 1
+
+INIT
+ p7.time = 0
+
+INIT
+ p7.x = 0.0
+
+INIT
+ p7.s = 1
+
+INIT
+ p8.time = 0
+
+INIT
+ p8.x = 0.0
+
+INIT
+ p8.s = 1
+
+INIT
+ (p8.s = 2 -> p8.x < delta_invar)
+
+INIT
+ (p7.s = 2 -> p7.x < delta_invar)
+
+INIT
+ (p6.s = 2 -> p6.x < delta_invar)
+
+INIT
+ (p5.s = 2 -> p5.x < delta_invar)
+
+INIT
+ (p4.s = 2 -> p4.x < delta_invar)
+
+INIT
+ (p3.s = 2 -> p3.x < delta_invar)
+
+INIT
+ (p2.s = 2 -> p2.x < delta_invar)
+
+INIT
+ (p1.s = 2 -> p1.x < delta_invar)
+
+INIT
+ delta_invar <= delta_guard
+
+
+
+TRANS
+ (((((((((((((((((((((((((((((((((((((((((((next(sv) = sv & next(p1.time) = p1.time + p1.delta) & (next(p1.x) - p1.x = p1.delta & (!(p1.delta = 0) | next(p1.x) = p1.x))) & next(p1.s) = p1.s) & ((p1.delta >= 0 & p2.delta = p1.delta) & p2.delta = p1.delta)) & next(p2.time) = p2.time + p2.delta) & (next(p2.x) - p2.x = p2.delta & (!(p2.delta = 0) | next(p2.x) = p2.x))) & next(p2.s) = p2.s) & ((p2.delta >= 0 & p3.delta = p2.delta) & p3.delta = p2.delta)) & next(p3.time) = p3.time + p3.delta) & (next(p3.x) - p3.x = p3.delta & (!(p3.delta = 0) | next(p3.x) = p3.x))) & next(p3.s) = p3.s) & ((p3.delta >= 0 & p4.delta = p3.delta) & p4.delta = p3.delta)) & next(p4.time) = p4.time + p4.delta) & (next(p4.x) - p4.x = p4.delta & (!(p4.delta = 0) | next(p4.x) = p4.x))) & next(p4.s) = p4.s) & ((p4.delta >= 0 & p5.delta = p4.delta) & p5.delta = p4.delta)) & next(p5.time) = p5.time + p5.delta) & (next(p5.x) - p5.x = p5.delta & (!(p5.delta = 0) | next(p5.x) = p5.x))) & next(p5.s) = p5.s) & ((p5.delta >= 0 & p6.delta = p5.delta) & p6.delta = p5.delta)) & next(p6.time) = p6.time + p6.delta) & (next(p6.x) - p6.x = p6.delta & (!(p6.delta = 0) | next(p6.x) = p6.x))) & next(p6.s) = p6.s) & ((p6.delta >= 0 & p7.delta = p6.delta) & p7.delta = p6.delta)) & next(p7.time) = p7.time + p7.delta) & (next(p7.x) - p7.x = p7.delta & (!(p7.delta = 0) | next(p7.x) = p7.x))) & next(p7.s) = p7.s) & ((p7.delta >= 0 & p8.delta = p7.delta) & p8.delta = p7.delta)) & next(p8.time) = p8.time + p8.delta) & (next(p8.x) - p8.x = p8.delta & (!(p8.delta = 0) | next(p8.x) = p8.x))) & next(p8.s) = p8.s) & p8.delta >= 0) & (((((((((!(p8.s = 2) | p8.x < delta_invar) & (!(p7.s = 2) | p7.x < delta_invar)) & (!(p6.s = 2) | p6.x < delta_invar)) & (!(p5.s = 2) | p5.x < delta_invar)) & (!(p4.s = 2) | p4.x < delta_invar)) & (!(p3.s = 2) | p3.x < delta_invar)) & (!(p2.s = 2) | p2.x < delta_invar)) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((((((((!(next(p8.s) = 2) | next(p8.x) < next(delta_invar)) & (!(next(p7.s) = 2) | next(p7.x) < next(delta_invar))) & (!(next(p6.s) = 2) | next(p6.x) < next(delta_invar))) & (!(next(p5.s) = 2) | next(p5.x) < next(delta_invar))) & (!(next(p4.s) = 2) | next(p4.x) < next(delta_invar))) & (!(next(p3.s) = 2) | next(p3.x) < next(delta_invar))) & (!(next(p2.s) = 2) | next(p2.x) < next(delta_invar))) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (((((((p1.EVENT = timed & p2.EVENT = timed) & p3.EVENT = timed) & p4.EVENT = timed) & p5.EVENT = timed) & p6.EVENT = timed) & p7.EVENT = timed) & p8.EVENT = timed)) | (((((((((((((((!(p1.s = 1) | ((((sv = 0 & next(sv) = sv) & p1.s = 1) & next(p1.s) = 2) & next(p1.x) = 0.0)) & (!(p1.s = 2) | (((next(sv) = 1 & p1.s = 2) & next(p1.s) = 3) & next(p1.x) = 0.0))) & (!(p1.s = 3) | ((((((sv != 1 & next(sv) = sv) & p1.s = 3) & p1.x > delta_guard) & next(p1.s) = 1) & next(p1.x) = p1.x) | (((((sv = 1 & next(sv) = sv) & p1.s = 3) & p1.x > delta_guard) & next(p1.s) = 4) & next(p1.x) = p1.x)))) & (!(p1.s = 4) | (((next(sv) = 0 & p1.s = 4) & next(p1.s) = 1) & next(p1.x) = p1.x))) & next(p1.time) = p1.time) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & (next(p3.s) = p3.s & (next(p3.x) = p3.x & next(p3.time) = p3.time))) & (next(p4.s) = p4.s & (next(p4.x) = p4.x & next(p4.time) = p4.time))) & (next(p5.s) = p5.s & (next(p5.x) = p5.x & next(p5.time) = p5.time))) & (next(p6.s) = p6.s & (next(p6.x) = p6.x & next(p6.time) = p6.time))) & (next(p7.s) = p7.s & (next(p7.x) = p7.x & next(p7.time) = p7.time))) & (next(p8.s) = p8.s & (next(p8.x) = p8.x & next(p8.time) = p8.time))) & (((((((((!(p8.s = 2) | p8.x < delta_invar) & (!(p7.s = 2) | p7.x < delta_invar)) & (!(p6.s = 2) | p6.x < delta_invar)) & (!(p5.s = 2) | p5.x < delta_invar)) & (!(p4.s = 2) | p4.x < delta_invar)) & (!(p3.s = 2) | p3.x < delta_invar)) & (!(p2.s = 2) | p2.x < delta_invar)) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((((((((!(next(p8.s) = 2) | next(p8.x) < next(delta_invar)) & (!(next(p7.s) = 2) | next(p7.x) < next(delta_invar))) & (!(next(p6.s) = 2) | next(p6.x) < next(delta_invar))) & (!(next(p5.s) = 2) | next(p5.x) < next(delta_invar))) & (!(next(p4.s) = 2) | next(p4.x) < next(delta_invar))) & (!(next(p3.s) = 2) | next(p3.x) < next(delta_invar))) & (!(next(p2.s) = 2) | next(p2.x) < next(delta_invar))) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (((((((p1.EVENT = not_timed_or_stutter & p2.EVENT = stutter) & p3.EVENT = stutter) & p4.EVENT = stutter) & p5.EVENT = stutter) & p6.EVENT = stutter) & p7.EVENT = stutter) & p8.EVENT = stutter))) | (((((((((((((((!(p2.s = 1) | ((((sv = 0 & next(sv) = sv) & p2.s = 1) & next(p2.s) = 2) & next(p2.x) = 0.0)) & (!(p2.s = 2) | (((next(sv) = 2 & p2.s = 2) & next(p2.s) = 3) & next(p2.x) = 0.0))) & (!(p2.s = 3) | ((((((sv != 2 & next(sv) = sv) & p2.s = 3) & p2.x > delta_guard) & next(p2.s) = 1) & next(p2.x) = p2.x) | (((((sv = 2 & next(sv) = sv) & p2.s = 3) & p2.x > delta_guard) & next(p2.s) = 4) & next(p2.x) = p2.x)))) & (!(p2.s = 4) | (((next(sv) = 0 & p2.s = 4) & next(p2.s) = 1) & next(p2.x) = p2.x))) & (next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time))) & next(p2.time) = p2.time) & (next(p3.s) = p3.s & (next(p3.x) = p3.x & next(p3.time) = p3.time))) & (next(p4.s) = p4.s & (next(p4.x) = p4.x & next(p4.time) = p4.time))) & (next(p5.s) = p5.s & (next(p5.x) = p5.x & next(p5.time) = p5.time))) & (next(p6.s) = p6.s & (next(p6.x) = p6.x & next(p6.time) = p6.time))) & (next(p7.s) = p7.s & (next(p7.x) = p7.x & next(p7.time) = p7.time))) & (next(p8.s) = p8.s & (next(p8.x) = p8.x & next(p8.time) = p8.time))) & (((((((((!(p8.s = 2) | p8.x < delta_invar) & (!(p7.s = 2) | p7.x < delta_invar)) & (!(p6.s = 2) | p6.x < delta_invar)) & (!(p5.s = 2) | p5.x < delta_invar)) & (!(p4.s = 2) | p4.x < delta_invar)) & (!(p3.s = 2) | p3.x < delta_invar)) & (!(p2.s = 2) | p2.x < delta_invar)) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((((((((!(next(p8.s) = 2) | next(p8.x) < next(delta_invar)) & (!(next(p7.s) = 2) | next(p7.x) < next(delta_invar))) & (!(next(p6.s) = 2) | next(p6.x) < next(delta_invar))) & (!(next(p5.s) = 2) | next(p5.x) < next(delta_invar))) & (!(next(p4.s) = 2) | next(p4.x) < next(delta_invar))) & (!(next(p3.s) = 2) | next(p3.x) < next(delta_invar))) & (!(next(p2.s) = 2) | next(p2.x) < next(delta_invar))) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (((((((p2.EVENT = not_timed_or_stutter & p1.EVENT = stutter) & p3.EVENT = stutter) & p4.EVENT = stutter) & p5.EVENT = stutter) & p6.EVENT = stutter) & p7.EVENT = stutter) & p8.EVENT = stutter))) | ((((((((((((((((!(p3.s = 1) | ((((sv = 0 & next(sv) = sv) & p3.s = 1) & next(p3.s) = 2) & next(p3.x) = 0.0)) & (!(p3.s = 2) | (((next(sv) = 3 & p3.s = 2) & next(p3.s) = 3) & next(p3.x) = 0.0))) & (!(p3.s = 3) | ((((((sv != 3 & next(sv) = sv) & p3.s = 3) & p3.x > delta_guard) & next(p3.s) = 1) & next(p3.x) = p3.x) | (((((sv = 3 & next(sv) = sv) & p3.s = 3) & p3.x > delta_guard) & next(p3.s) = 4) & next(p3.x) = p3.x)))) & (!(p3.s = 4) | (((next(sv) = 0 & p3.s = 4) & next(p3.s) = 1) & next(p3.x) = p3.x))) & next(sv) = sv) & (next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time))) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & next(p3.time) = p3.time) & (next(p4.s) = p4.s & (next(p4.x) = p4.x & next(p4.time) = p4.time))) & (next(p5.s) = p5.s & (next(p5.x) = p5.x & next(p5.time) = p5.time))) & (next(p6.s) = p6.s & (next(p6.x) = p6.x & next(p6.time) = p6.time))) & (next(p7.s) = p7.s & (next(p7.x) = p7.x & next(p7.time) = p7.time))) & (next(p8.s) = p8.s & (next(p8.x) = p8.x & next(p8.time) = p8.time))) & (((((((((!(p8.s = 2) | p8.x < delta_invar) & (!(p7.s = 2) | p7.x < delta_invar)) & (!(p6.s = 2) | p6.x < delta_invar)) & (!(p5.s = 2) | p5.x < delta_invar)) & (!(p4.s = 2) | p4.x < delta_invar)) & (!(p3.s = 2) | p3.x < delta_invar)) & (!(p2.s = 2) | p2.x < delta_invar)) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((((((((!(next(p8.s) = 2) | next(p8.x) < next(delta_invar)) & (!(next(p7.s) = 2) | next(p7.x) < next(delta_invar))) & (!(next(p6.s) = 2) | next(p6.x) < next(delta_invar))) & (!(next(p5.s) = 2) | next(p5.x) < next(delta_invar))) & (!(next(p4.s) = 2) | next(p4.x) < next(delta_invar))) & (!(next(p3.s) = 2) | next(p3.x) < next(delta_invar))) & (!(next(p2.s) = 2) | next(p2.x) < next(delta_invar))) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (((((((p3.EVENT = not_timed_or_stutter & p1.EVENT = stutter) & p2.EVENT = stutter) & p4.EVENT = stutter) & p5.EVENT = stutter) & p6.EVENT = stutter) & p7.EVENT = stutter) & p8.EVENT = stutter))) | ((((((((((((((((!(p4.s = 1) | ((((sv = 0 & next(sv) = sv) & p4.s = 1) & next(p4.s) = 2) & next(p4.x) = 0.0)) & (!(p4.s = 2) | (((next(sv) = 4 & p4.s = 2) & next(p4.s) = 3) & next(p4.x) = 0.0))) & (!(p4.s = 3) | ((((((sv != 4 & next(sv) = sv) & p4.s = 3) & p4.x > delta_guard) & next(p4.s) = 1) & next(p4.x) = p4.x) | (((((sv = 4 & next(sv) = sv) & p4.s = 3) & p4.x > delta_guard) & next(p4.s) = 4) & next(p4.x) = p4.x)))) & (!(p4.s = 4) | (((next(sv) = 0 & p4.s = 4) & next(p4.s) = 1) & next(p4.x) = p4.x))) & next(sv) = sv) & (next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time))) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & (next(p3.s) = p3.s & (next(p3.x) = p3.x & next(p3.time) = p3.time))) & next(p4.time) = p4.time) & (next(p5.s) = p5.s & (next(p5.x) = p5.x & next(p5.time) = p5.time))) & (next(p6.s) = p6.s & (next(p6.x) = p6.x & next(p6.time) = p6.time))) & (next(p7.s) = p7.s & (next(p7.x) = p7.x & next(p7.time) = p7.time))) & (next(p8.s) = p8.s & (next(p8.x) = p8.x & next(p8.time) = p8.time))) & (((((((((!(p8.s = 2) | p8.x < delta_invar) & (!(p7.s = 2) | p7.x < delta_invar)) & (!(p6.s = 2) | p6.x < delta_invar)) & (!(p5.s = 2) | p5.x < delta_invar)) & (!(p4.s = 2) | p4.x < delta_invar)) & (!(p3.s = 2) | p3.x < delta_invar)) & (!(p2.s = 2) | p2.x < delta_invar)) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((((((((!(next(p8.s) = 2) | next(p8.x) < next(delta_invar)) & (!(next(p7.s) = 2) | next(p7.x) < next(delta_invar))) & (!(next(p6.s) = 2) | next(p6.x) < next(delta_invar))) & (!(next(p5.s) = 2) | next(p5.x) < next(delta_invar))) & (!(next(p4.s) = 2) | next(p4.x) < next(delta_invar))) & (!(next(p3.s) = 2) | next(p3.x) < next(delta_invar))) & (!(next(p2.s) = 2) | next(p2.x) < next(delta_invar))) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (((((((p4.EVENT = not_timed_or_stutter & p1.EVENT = stutter) & p2.EVENT = stutter) & p3.EVENT = stutter) & p5.EVENT = stutter) & p6.EVENT = stutter) & p7.EVENT = stutter) & p8.EVENT = stutter))) | ((((((((((((((((!(p5.s = 1) | ((((sv = 0 & next(sv) = sv) & p5.s = 1) & next(p5.s) = 2) & next(p5.x) = 0.0)) & (!(p5.s = 2) | (((next(sv) = 5 & p5.s = 2) & next(p5.s) = 3) & next(p5.x) = 0.0))) & (!(p5.s = 3) | ((((((sv != 5 & next(sv) = sv) & p5.s = 3) & p5.x > delta_guard) & next(p5.s) = 1) & next(p5.x) = p5.x) | (((((sv = 5 & next(sv) = sv) & p5.s = 3) & p5.x > delta_guard) & next(p5.s) = 4) & next(p5.x) = p5.x)))) & (!(p5.s = 4) | (((next(sv) = 0 & p5.s = 4) & next(p5.s) = 1) & next(p5.x) = p5.x))) & next(sv) = sv) & (next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time))) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & (next(p3.s) = p3.s & (next(p3.x) = p3.x & next(p3.time) = p3.time))) & (next(p4.s) = p4.s & (next(p4.x) = p4.x & next(p4.time) = p4.time))) & next(p5.time) = p5.time) & (next(p6.s) = p6.s & (next(p6.x) = p6.x & next(p6.time) = p6.time))) & (next(p7.s) = p7.s & (next(p7.x) = p7.x & next(p7.time) = p7.time))) & (next(p8.s) = p8.s & (next(p8.x) = p8.x & next(p8.time) = p8.time))) & (((((((((!(p8.s = 2) | p8.x < delta_invar) & (!(p7.s = 2) | p7.x < delta_invar)) & (!(p6.s = 2) | p6.x < delta_invar)) & (!(p5.s = 2) | p5.x < delta_invar)) & (!(p4.s = 2) | p4.x < delta_invar)) & (!(p3.s = 2) | p3.x < delta_invar)) & (!(p2.s = 2) | p2.x < delta_invar)) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((((((((!(next(p8.s) = 2) | next(p8.x) < next(delta_invar)) & (!(next(p7.s) = 2) | next(p7.x) < next(delta_invar))) & (!(next(p6.s) = 2) | next(p6.x) < next(delta_invar))) & (!(next(p5.s) = 2) | next(p5.x) < next(delta_invar))) & (!(next(p4.s) = 2) | next(p4.x) < next(delta_invar))) & (!(next(p3.s) = 2) | next(p3.x) < next(delta_invar))) & (!(next(p2.s) = 2) | next(p2.x) < next(delta_invar))) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (((((((p5.EVENT = not_timed_or_stutter & p1.EVENT = stutter) & p2.EVENT = stutter) & p3.EVENT = stutter) & p4.EVENT = stutter) & p6.EVENT = stutter) & p7.EVENT = stutter) & p8.EVENT = stutter))) | ((((((((((((((((!(p6.s = 1) | ((((sv = 0 & next(sv) = sv) & p6.s = 1) & next(p6.s) = 2) & next(p6.x) = 0.0)) & (!(p6.s = 2) | (((next(sv) = 6 & p6.s = 2) & next(p6.s) = 3) & next(p6.x) = 0.0))) & (!(p6.s = 3) | ((((((sv != 6 & next(sv) = sv) & p6.s = 3) & p6.x > delta_guard) & next(p6.s) = 1) & next(p6.x) = p6.x) | (((((sv = 6 & next(sv) = sv) & p6.s = 3) & p6.x > delta_guard) & next(p6.s) = 4) & next(p6.x) = p6.x)))) & (!(p6.s = 4) | (((next(sv) = 0 & p6.s = 4) & next(p6.s) = 1) & next(p6.x) = p6.x))) & next(sv) = sv) & (next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time))) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & (next(p3.s) = p3.s & (next(p3.x) = p3.x & next(p3.time) = p3.time))) & (next(p4.s) = p4.s & (next(p4.x) = p4.x & next(p4.time) = p4.time))) & (next(p5.s) = p5.s & (next(p5.x) = p5.x & next(p5.time) = p5.time))) & next(p6.time) = p6.time) & (next(p7.s) = p7.s & (next(p7.x) = p7.x & next(p7.time) = p7.time))) & (next(p8.s) = p8.s & (next(p8.x) = p8.x & next(p8.time) = p8.time))) & (((((((((!(p8.s = 2) | p8.x < delta_invar) & (!(p7.s = 2) | p7.x < delta_invar)) & (!(p6.s = 2) | p6.x < delta_invar)) & (!(p5.s = 2) | p5.x < delta_invar)) & (!(p4.s = 2) | p4.x < delta_invar)) & (!(p3.s = 2) | p3.x < delta_invar)) & (!(p2.s = 2) | p2.x < delta_invar)) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((((((((!(next(p8.s) = 2) | next(p8.x) < next(delta_invar)) & (!(next(p7.s) = 2) | next(p7.x) < next(delta_invar))) & (!(next(p6.s) = 2) | next(p6.x) < next(delta_invar))) & (!(next(p5.s) = 2) | next(p5.x) < next(delta_invar))) & (!(next(p4.s) = 2) | next(p4.x) < next(delta_invar))) & (!(next(p3.s) = 2) | next(p3.x) < next(delta_invar))) & (!(next(p2.s) = 2) | next(p2.x) < next(delta_invar))) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (((((((p6.EVENT = not_timed_or_stutter & p1.EVENT = stutter) & p2.EVENT = stutter) & p3.EVENT = stutter) & p4.EVENT = stutter) & p5.EVENT = stutter) & p7.EVENT = stutter) & p8.EVENT = stutter))) | ((((((((((((((((!(p7.s = 1) | ((((sv = 0 & next(sv) = sv) & p7.s = 1) & next(p7.s) = 2) & next(p7.x) = 0.0)) & (!(p7.s = 2) | (((next(sv) = 7 & p7.s = 2) & next(p7.s) = 3) & next(p7.x) = 0.0))) & (!(p7.s = 3) | ((((((sv != 7 & next(sv) = sv) & p7.s = 3) & p7.x > delta_guard) & next(p7.s) = 1) & next(p7.x) = p7.x) | (((((sv = 7 & next(sv) = sv) & p7.s = 3) & p7.x > delta_guard) & next(p7.s) = 4) & next(p7.x) = p7.x)))) & (!(p7.s = 4) | (((next(sv) = 0 & p7.s = 4) & next(p7.s) = 1) & next(p7.x) = p7.x))) & next(sv) = sv) & (next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time))) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & (next(p3.s) = p3.s & (next(p3.x) = p3.x & next(p3.time) = p3.time))) & (next(p4.s) = p4.s & (next(p4.x) = p4.x & next(p4.time) = p4.time))) & (next(p5.s) = p5.s & (next(p5.x) = p5.x & next(p5.time) = p5.time))) & (next(p6.s) = p6.s & (next(p6.x) = p6.x & next(p6.time) = p6.time))) & next(p7.time) = p7.time) & (next(p8.s) = p8.s & (next(p8.x) = p8.x & next(p8.time) = p8.time))) & (((((((((!(p8.s = 2) | p8.x < delta_invar) & (!(p7.s = 2) | p7.x < delta_invar)) & (!(p6.s = 2) | p6.x < delta_invar)) & (!(p5.s = 2) | p5.x < delta_invar)) & (!(p4.s = 2) | p4.x < delta_invar)) & (!(p3.s = 2) | p3.x < delta_invar)) & (!(p2.s = 2) | p2.x < delta_invar)) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((((((((!(next(p8.s) = 2) | next(p8.x) < next(delta_invar)) & (!(next(p7.s) = 2) | next(p7.x) < next(delta_invar))) & (!(next(p6.s) = 2) | next(p6.x) < next(delta_invar))) & (!(next(p5.s) = 2) | next(p5.x) < next(delta_invar))) & (!(next(p4.s) = 2) | next(p4.x) < next(delta_invar))) & (!(next(p3.s) = 2) | next(p3.x) < next(delta_invar))) & (!(next(p2.s) = 2) | next(p2.x) < next(delta_invar))) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (((((((p7.EVENT = not_timed_or_stutter & p1.EVENT = stutter) & p2.EVENT = stutter) & p3.EVENT = stutter) & p4.EVENT = stutter) & p5.EVENT = stutter) & p6.EVENT = stutter) & p8.EVENT = stutter))) | ((((((((((((((((!(p8.s = 1) | ((((sv = 0 & next(sv) = sv) & p8.s = 1) & next(p8.s) = 2) & next(p8.x) = 0.0)) & (!(p8.s = 2) | (((next(sv) = 8 & p8.s = 2) & next(p8.s) = 3) & next(p8.x) = 0.0))) & (!(p8.s = 3) | ((((((sv != 8 & next(sv) = sv) & p8.s = 3) & p8.x > delta_guard) & next(p8.s) = 1) & next(p8.x) = p8.x) | (((((sv = 8 & next(sv) = sv) & p8.s = 3) & p8.x > delta_guard) & next(p8.s) = 4) & next(p8.x) = p8.x)))) & (!(p8.s = 4) | (((next(sv) = 0 & p8.s = 4) & next(p8.s) = 1) & next(p8.x) = p8.x))) & next(sv) = sv) & (next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time))) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & (next(p3.s) = p3.s & (next(p3.x) = p3.x & next(p3.time) = p3.time))) & (next(p4.s) = p4.s & (next(p4.x) = p4.x & next(p4.time) = p4.time))) & (next(p5.s) = p5.s & (next(p5.x) = p5.x & next(p5.time) = p5.time))) & (next(p6.s) = p6.s & (next(p6.x) = p6.x & next(p6.time) = p6.time))) & (next(p7.s) = p7.s & (next(p7.x) = p7.x & next(p7.time) = p7.time))) & next(p8.time) = p8.time) & (((((((((!(p8.s = 2) | p8.x < delta_invar) & (!(p7.s = 2) | p7.x < delta_invar)) & (!(p6.s = 2) | p6.x < delta_invar)) & (!(p5.s = 2) | p5.x < delta_invar)) & (!(p4.s = 2) | p4.x < delta_invar)) & (!(p3.s = 2) | p3.x < delta_invar)) & (!(p2.s = 2) | p2.x < delta_invar)) & (!(p1.s = 2) | p1.x < delta_invar)) & delta_invar <= delta_guard)) & (((((((((!(next(p8.s) = 2) | next(p8.x) < next(delta_invar)) & (!(next(p7.s) = 2) | next(p7.x) < next(delta_invar))) & (!(next(p6.s) = 2) | next(p6.x) < next(delta_invar))) & (!(next(p5.s) = 2) | next(p5.x) < next(delta_invar))) & (!(next(p4.s) = 2) | next(p4.x) < next(delta_invar))) & (!(next(p3.s) = 2) | next(p3.x) < next(delta_invar))) & (!(next(p2.s) = 2) | next(p2.x) < next(delta_invar))) & (!(next(p1.s) = 2) | next(p1.x) < next(delta_invar))) & next(delta_invar) <= next(delta_guard))) & (((((((p8.EVENT = not_timed_or_stutter & p1.EVENT = stutter) & p2.EVENT = stutter) & p3.EVENT = stutter) & p4.EVENT = stutter) & p5.EVENT = stutter) & p6.EVENT = stutter) & p7.EVENT = stutter)))
+
+
+INVARSPEC
+ !((((((((((((((((((((((((((((p1.TARGET & p2.TARGET) | (p1.TARGET & p3.TARGET)) | (p1.TARGET & p4.TARGET)) | (p1.TARGET & p5.TARGET)) | (p1.TARGET & p6.TARGET)) | (p1.TARGET & p7.TARGET)) | (p1.TARGET & p8.TARGET)) | (p2.TARGET & p3.TARGET)) | (p2.TARGET & p4.TARGET)) | (p2.TARGET & p5.TARGET)) | (p2.TARGET & p6.TARGET)) | (p2.TARGET & p7.TARGET)) | (p2.TARGET & p8.TARGET)) | (p3.TARGET & p4.TARGET)) | (p3.TARGET & p5.TARGET)) | (p3.TARGET & p6.TARGET)) | (p3.TARGET & p7.TARGET)) | (p3.TARGET & p8.TARGET)) | (p4.TARGET & p5.TARGET)) | (p4.TARGET & p6.TARGET)) | (p4.TARGET & p7.TARGET)) | (p4.TARGET & p8.TARGET)) | (p5.TARGET & p6.TARGET)) | (p5.TARGET & p7.TARGET)) | (p5.TARGET & p8.TARGET)) | (p6.TARGET & p7.TARGET)) | (p6.TARGET & p8.TARGET)) | (p7.TARGET & p8.TARGET));
+
+

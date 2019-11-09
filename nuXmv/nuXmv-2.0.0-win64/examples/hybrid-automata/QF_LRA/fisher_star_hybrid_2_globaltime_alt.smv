@@ -1,0 +1,95 @@
+
+-- Dumped layers are: model 
+
+MODULE main
+-- Input variables from layer 'model'
+IVAR
+sv.EVENT : {test_1_1, test_0_1, test_not_1_1, set_1_1, set_0_1, test_2_2, test_0_2, test_not_2_2, set_2_2, set_0_2, timed, stutter};
+p2.EVENT : {test_0_1, test_1_1, test_not_1_1, set_1_1, set_0_1, timed, stutter};
+p1.EVENT : {test_0_1, test_1_1, test_not_1_1, set_1_1, set_0_1, timed, stutter};
+p1.delta : real;
+p2.delta : real;
+sv.delta : real;
+
+-- State variables from layer 'model'
+VAR
+sv.s : {0, 1, 2};
+p2.s : {1, 2, 3, 4};
+p2.x : real;
+p1.s : {1, 2, 3, 4};
+p1.x : real;
+p1.time : real;
+p2.time : real;
+sv.time : real;
+
+-- Frozen variables from layer 'model'
+FROZENVAR
+p2.b : real;
+p2.a : real;
+p1.b : real;
+p1.a : real;
+
+-- Functions from layer 'model'
+-- Defines from layer 'model'
+DEFINE
+sv.TARGET := TRUE;
+p2.TARGET := p2.s = 4;
+p1.TARGET := p1.s = 4;
+
+CONSTANTS
+ test_1_1, test_0_1, test_not_1_1, set_1_1, set_0_1, test_2_2, test_0_2, test_not_2_2, set_2_2, set_0_2, timed, stutter ;
+
+-- Assignments from layer 'model'
+
+INIT
+ p1.time = 0
+
+INIT
+ p1.x = 0.0
+
+INIT
+ p1.s = 1
+
+INIT
+ p2.time = 0
+
+INIT
+ p2.x = 0.0
+
+INIT
+ p2.s = 1
+
+INIT
+ sv.time = 0
+
+INIT
+ sv.s = 0
+
+INIT
+ (p1.s = 2 -> p1.x < p1.a)
+
+INIT
+ p1.a = 1
+
+INIT
+ p1.b = 2
+
+INIT
+ (p2.s = 2 -> p2.x < p2.a)
+
+INIT
+ p2.a = 1
+
+INIT
+ p2.b = 2
+
+
+
+TRANS
+ (((((((((((((((((next(p1.time) = p1.time & ((p1.s = 1 & next(p1.s) = 2) & next(p1.x) = 0.0)) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & next(sv.time) = sv.time) & (sv.s = 0 & next(sv.s) = 0)) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p1.EVENT = test_0_1) & sv.EVENT = test_0_1) & p2.EVENT = stutter)) | (((((((next(p1.time) = p1.time & (((p1.s = 3 & p1.x > 2) & next(p1.s) = 4) & next(p1.x) = p1.x)) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & next(sv.time) = sv.time) & (sv.s = 1 & next(sv.s) = 1)) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p1.EVENT = test_1_1) & sv.EVENT = test_1_1) & p2.EVENT = stutter))) | (((((((next(p1.time) = p1.time & (((p1.s = 3 & p1.x > 2) & next(p1.s) = 1) & next(p1.x) = p1.x)) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & next(sv.time) = sv.time) & (sv.s = 2 & next(sv.s) = 2)) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p1.EVENT = test_not_1_1) & sv.EVENT = test_not_1_1) & p2.EVENT = stutter))) | (((((((next(p1.time) = p1.time & ((p1.s = 2 & next(p1.s) = 3) & next(p1.x) = 0.0)) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & next(sv.time) = sv.time) & next(sv.s) = 1) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p1.EVENT = set_1_1) & sv.EVENT = set_1_1) & p2.EVENT = stutter))) | (((((((next(p1.time) = p1.time & ((p1.s = 4 & next(p1.s) = 1) & next(p1.x) = p1.x)) & (next(p2.s) = p2.s & (next(p2.x) = p2.x & next(p2.time) = p2.time))) & next(sv.time) = sv.time) & next(sv.s) = 0) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p1.EVENT = set_0_1) & sv.EVENT = set_0_1) & p2.EVENT = stutter))) | (((((((((((((next(p1.time) = p1.time + p1.delta & ((next(p1.x) - p1.x >= p1.delta & next(p1.x) - p1.x <= p1.delta * 2) & (!(p1.delta = 0) | next(p1.x) = p1.x))) & next(p1.s) = p1.s) & ((p1.delta >= 0 & p2.delta = p1.delta) & p2.delta = p1.delta)) & next(p2.time) = p2.time + p2.delta) & ((next(p2.x) - p2.x >= p2.delta & next(p2.x) - p2.x <= p2.delta * 2) & (!(p2.delta = 0) | next(p2.x) = p2.x))) & next(p2.s) = p2.s) & ((p2.delta >= 0 & sv.delta = p2.delta) & sv.delta = p2.delta)) & next(sv.time) = sv.time + sv.delta) & next(sv.s) = sv.s) & sv.delta >= 0) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p1.EVENT = timed) & p2.EVENT = timed) & sv.EVENT = timed))) | ((((((((next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time)) & next(p2.time) = p2.time) & ((p2.s = 1 & next(p2.s) = 2) & next(p2.x) = 0.0)) & next(sv.time) = sv.time) & (sv.s = 0 & next(sv.s) = 0)) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p2.EVENT = test_0_1) & sv.EVENT = test_0_2) & p1.EVENT = stutter))) | ((((((((next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time)) & next(p2.time) = p2.time) & (((p2.s = 3 & p2.x > 2) & next(p2.s) = 4) & next(p2.x) = p2.x)) & next(sv.time) = sv.time) & (sv.s = 2 & next(sv.s) = 2)) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p2.EVENT = test_1_1) & sv.EVENT = test_2_2) & p1.EVENT = stutter))) | ((((((((next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time)) & next(p2.time) = p2.time) & (((p2.s = 3 & p2.x > 2) & next(p2.s) = 1) & next(p2.x) = p2.x)) & next(sv.time) = sv.time) & (sv.s = 1 & next(sv.s) = 1)) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p2.EVENT = test_not_1_1) & sv.EVENT = test_not_2_2) & p1.EVENT = stutter))) | ((((((((next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time)) & next(p2.time) = p2.time) & ((p2.s = 2 & next(p2.s) = 3) & next(p2.x) = 0.0)) & next(sv.time) = sv.time) & next(sv.s) = 2) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p2.EVENT = set_1_1) & sv.EVENT = set_2_2) & p1.EVENT = stutter))) | ((((((((next(p1.s) = p1.s & (next(p1.x) = p1.x & next(p1.time) = p1.time)) & next(p2.time) = p2.time) & ((p2.s = 4 & next(p2.s) = 1) & next(p2.x) = p2.x)) & next(sv.time) = sv.time) & next(sv.s) = 0) & ((!(p1.s = 2) | p1.x < 1) & (!(p2.s = 2) | p2.x < 1))) & ((!(next(p1.s) = 2) | next(p1.x) < 1) & (!(next(p2.s) = 2) | next(p2.x) < 1))) & ((((((((((p1.a = 1 & p1.b = 2) & p2.a = 1) & p2.b = 2) & next(p1.a) = 1) & next(p1.b) = 2) & next(p2.a) = 1) & next(p2.b) = 2) & p2.EVENT = set_0_1) & sv.EVENT = set_0_2) & p1.EVENT = stutter)))
+
+
+INVARSPEC
+ !(p1.TARGET & p2.TARGET);
+
+

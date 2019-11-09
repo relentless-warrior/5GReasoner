@@ -1,0 +1,1489 @@
+MODULE main
+
+VAR
+
+
+------------------- Environment and State variables --------------------
+rrc_smcommand_mac_failure	:	boolean;	
+reconf_mac_failure	:	boolean;	
+ul_transfer_required	:	boolean;	
+dlinfotransfer_mac_failure	:	boolean;	
+resume_mac_failure	:	boolean;	
+suspend_mac_failure	:	boolean;	
+reject_mac_failure	:	boolean;	
+release_mac_failure	:	boolean;	
+ue_cap_enq_mac_failure	:	boolean;	
+reestab_mac_failure	:	boolean;	
+ue_bearer_setup_required	:	boolean;	
+ue_rrc_sec_ctx_exist	:	boolean;	
+ue_bearer_established	:	boolean;	
+ue_rrc_sec_ctx_updated	:	boolean;	
+chan_UE_rrc_nas	:	{UE_dl_info_transfer, UE_ctx_release_requested, null};	
+chan_UE_nas_rrc	:	{UE_ul_info_transfer, UE_downgrade_requested, UE_ctx_release_requested, null};	
+power_on	:	boolean;	
+power_off	:	boolean;	
+enable_N1	:	boolean;	
+uederegrequested	:	boolean;	
+dereg_cause_switch_off	:	boolean;	
+ta_changed	:	boolean;	
+authreq_mac_failure	:	boolean;	
+sec_cap_match	:	boolean;	
+regaccept_mac_failure	:	boolean;	
+reg_accept_timer_expired	:	boolean;	
+idreq_mac_failure	:	boolean;	
+smcmd_mac_failure	:	boolean;	
+configupdate_mac_failure	:	boolean;	
+serviceaccept_mac_failure	:	boolean;	
+service_notification	:	boolean;	
+deregaccept_mac_failure	:	boolean;	
+ue_partial_sec_ctx_exist	:	boolean;	
+ue_complete_sec_ctx_exist	:	boolean;	
+ueregcompleted	:	boolean;	
+downgrade	:	boolean;	
+ue_sec_ctx_updated	:	boolean;	
+ue_service_completed	:	boolean;	
+ue_service_started	:	boolean;	
+ue_tau_started	:	boolean;	
+ue_tau_completed	:	boolean;	
+gnb_bearer_setup_required	:	boolean;	
+paging_timer_expired	:	boolean;	
+as_sec_ctx_setup_required	:	boolean;	
+rrc_smcomplete_mac_failure	:	boolean;	
+dl_info_transfer_required	:	boolean;	
+ulinfotransfer_mac_failure	:	boolean;	
+idle_mode_required	:	boolean;	
+resumereq_mac_failure	:	boolean;	
+rrc_suspend_required	:	boolean;	
+resumecomplete_mac_failure	:	boolean;	
+reconf_complete_mac_failure	:	boolean;	
+ue_cap_required	:	boolean;	
+reestabreq_mac_failure	:	boolean;	
+reestabcomplete_mac_failure	:	boolean;	
+dl_data_transfer_required	:	boolean;	
+gnb_rrc_sec_ctx_exist	:	boolean;	
+paging_sent	:	boolean;	
+gnb_bearer_established	:	boolean;	
+gnb_rrc_sec_ctx_updated	:	boolean;	
+chan_AMF_rrc_nas	:	{AMF_ul_info_transfer, null};	
+chan_AMF_nas_rrc	:	{AMF_dl_info_transfer, AMF_paging_requested, AMF_ctx_release_requested, null};	
+amfderegrequested	:	boolean;	
+reg_failure	:	boolean;	
+idrequired	:	boolean;	
+regreq_mac_failure	:	boolean;	
+deregreq_mac_failure	:	boolean;	
+tmsi_imsi_mapping_correct	:	boolean;	
+idres_mac_failure	:	boolean;	
+xres_matched_sres	:	boolean;	
+regcomplete_mac_failure	:	boolean;	
+sec_ctx_update_required	:	boolean;	
+config_update_required	:	boolean;	
+config_response_required	:	boolean;	
+ue_inactivity_detected	:	boolean;	
+paging_required	:	boolean;	
+servicereq_mac_failure	:	boolean;	
+servicereject_required	:	boolean;	
+nas_requested_con_establishment	:	boolean;	
+amf_partial_sec_ctx_exist	:	boolean;	
+amf_complete_sec_ctx_exist	:	boolean;	
+amf_reg_completed	:	boolean;	
+amf_config_updated	:	boolean;	
+amf_sec_ctx_updated	:	boolean;	
+amf_service_completed	:	boolean;	
+amf_service_started	:	boolean;	
+paging_requested	:	boolean;	
+amf_wait_for	:	{null, idresponse, authresponse, smresponse, regacceptresponse, configupdateresponse, servicerequest};	
+uectxreleaserequired	:	boolean;	
+attacker_inject_message_chanUB	:	boolean	;
+attacker_inject_message_chanBU	:	boolean	;
+attacker_inject_message_chanUA	:	boolean	;
+attacker_inject_message_chanAU	:	boolean	;
+
+----------------- Sequence numbers -------------------
+ue_pdcp_ul_count	:	0.. 32	;
+ue_pdcp_dl_count	:	0.. 32	;
+ue_nas_ul_count	:	0.. 32	;
+ue_nas_dl_count	:	0.. 32	;
+ue_auth_fail_count	:	0..6	;
+ue_reg_count	:	0..5	;
+ue_seq	:	0..31	;
+amf_ue_shared_seq	:	0..31	;
+gnb_pdcp_ul_count	:	0.. 32	;
+gnb_pdcp_dl_count	:	0.. 32	;
+amf_nas_ul_count	:	0.. 32	;
+amf_nas_dl_count	:	0.. 32	;
+amf_auth_fail_count	:	0..5	;
+amf_seq	:	0.. 32	;
+
+---------------- state for UE_RRC state machine ----------------
+
+ue_rrc_state	:
+{
+	ue_rrc_idle,
+	ue_rrc_setup_requested,
+	ue_rrc_inactive,
+	ue_rrc_resume_requested,
+	ue_rrc_connected,
+	ue_rrc_reestab_requested
+};
+
+---------------- state for UE_NAS state machine ----------------
+
+ue_nas_state	:
+{
+	ue_null,
+	ue_reg_inited,
+	ue_registered,
+	ue_deregistered,
+	ue_dereg_inited,
+	ue_service_inited,
+	ue_idle
+};
+
+---------------- state for BS_RRC state machine ----------------
+
+bs_rrc_state	:
+{
+	gnb_rrc_idle,
+	gnb_rrc_inactive,
+	gnb_rrc_wait_for_setup_req,
+	gnb_rrc_wait_for_resume_req,
+	gnb_rrc_connected,
+	gnb_rrc_wait_for_setup_complete,
+	gnb_rrc_wait_for_reconf_complete,
+	gnb_rrc_wait_for_resume_complete,
+	gnb_rrc_wait_for_reestab_complete
+};
+
+---------------- state for AMF_NAS state machine ----------------
+
+amf_nas_state	:
+{
+	amf_deregistered,
+	amf_com_proc_inited,
+	amf_registered,
+	amf_idle,
+	amf_dereg_inited
+};
+------------ Possible UE_RRC actions ----------------
+
+ue_rrc_action	:
+{
+	null_action,
+	rrc_setup_req,
+	rrc_setup_complete,
+	rrc_sm_complete,
+	rrc_sm_failure,
+	rrc_reconf_complete,
+	rrc_reestab_req,
+	ul_info_transfer,
+	ue_cap_info,
+	ul_user_data,
+	rrc_resume_req,
+	rrc_resume_complete,
+	rrc_reestab_complete
+};
+------------ Possible UE_NAS actions ----------------
+
+ue_nas_action	:
+{
+	dereg_req_switch_off,
+	reg_req,
+	ue_dereg_accept,
+	dereg_req_not_switch_off,
+	id_res,
+	auth_response,
+	auth_failure_mac,
+	auth_failure_seq,
+	sm_complete,
+	sm_reject,
+	reg_complete,
+	config_update_complete,
+	service_req,
+	null_action
+};
+------------ Possible BS_RRC actions ----------------
+
+bs_rrc_action	:
+{
+	rrc_setup,
+	paging_tmsi,
+	null_action,
+	rrc_release,
+	rrc_release_suspend,
+	rrc_sm_command,
+	rrc_reconf,
+	dl_info_transfer,
+	ue_cap_enquiry,
+	rrc_reestab,
+	dl_user_data,
+	rrc_resume,
+	rrc_reject,
+	paging_irnti
+};
+------------ Possible AMF_NAS actions ----------------
+
+amf_nas_action	:
+{
+	nwk_dereg_req,
+	reg_reject,
+	auth_req,
+	id_req,
+	nwk_dereg_accept,
+	reg_accept,
+	auth_reject,
+	sm_command,
+	config_update_cmd,
+	service_reject,
+	service_accept,
+	null_action
+};
+
+--------------- Adversarial channel from UE_RRC to BS_RRC ---------------
+
+chan_UB	:
+{
+	chanUB_null_action,
+	chanUB_rrc_setup_req,
+	chanUB_rrc_setup_complete,
+	chanUB_rrc_sm_complete,
+	chanUB_rrc_sm_failure,
+	chanUB_rrc_reconf_complete,
+	chanUB_rrc_reestab_req,
+	chanUB_ul_info_transfer,
+	chanUB_ue_cap_info,
+	chanUB_ul_user_data,
+	chanUB_rrc_resume_req,
+	chanUB_rrc_resume_complete,
+	chanUB_rrc_reestab_complete
+};
+
+--------------- Adversarial channel from BS_RRC to UE_RRC ---------------
+
+chan_BU	:
+{
+	chanBU_rrc_setup,
+	chanBU_paging_tmsi,
+	chanBU_null_action,
+	chanBU_rrc_release,
+	chanBU_rrc_release_suspend,
+	chanBU_rrc_sm_command,
+	chanBU_rrc_reconf,
+	chanBU_dl_info_transfer,
+	chanBU_ue_cap_enquiry,
+	chanBU_rrc_reestab,
+	chanBU_dl_user_data,
+	chanBU_rrc_resume,
+	chanBU_rrc_reject,
+	chanBU_paging_irnti
+};
+
+--------------- Adversarial channel from UE_NAS to AMF_NAS ---------------
+
+chan_UA	:
+{
+	chanUA_dereg_req_switch_off,
+	chanUA_reg_req,
+	chanUA_ue_dereg_accept,
+	chanUA_dereg_req_not_switch_off,
+	chanUA_id_res,
+	chanUA_auth_response,
+	chanUA_auth_failure_mac,
+	chanUA_auth_failure_seq,
+	chanUA_sm_complete,
+	chanUA_sm_reject,
+	chanUA_reg_complete,
+	chanUA_config_update_complete,
+	chanUA_service_req,
+	chanUA_null_action
+};
+
+--------------- Adversarial channel from AMF_NAS to UE_NAS ---------------
+
+chan_AU	:
+{
+	chanAU_nwk_dereg_req,
+	chanAU_reg_reject,
+	chanAU_auth_req,
+	chanAU_id_req,
+	chanAU_nwk_dereg_accept,
+	chanAU_reg_accept,
+	chanAU_auth_reject,
+	chanAU_sm_command,
+	chanAU_config_update_cmd,
+	chanAU_service_reject,
+	chanAU_service_accept,
+	chanAU_null_action
+};
+
+--------------- Injective adversary action for channel chan_UB ---------------
+
+inj_adv_act_UB	:
+{
+	adv_UB_null_action,
+	adv_UB_rrc_setup_req,
+	adv_UB_rrc_setup_complete,
+	adv_UB_rrc_sm_complete,
+	adv_UB_rrc_sm_failure,
+	adv_UB_rrc_reconf_complete,
+	adv_UB_rrc_reestab_req,
+	adv_UB_ul_info_transfer,
+	adv_UB_ue_cap_info,
+	adv_UB_ul_user_data,
+	adv_UB_rrc_resume_req,
+	adv_UB_rrc_resume_complete,
+	adv_UB_rrc_reestab_complete
+};
+
+--------------- Injective adversary action for channel chan_BU ---------------
+
+inj_adv_act_BU	:
+{
+	adv_BU_rrc_setup,
+	adv_BU_paging_tmsi,
+	adv_BU_null_action,
+	adv_BU_rrc_release,
+	adv_BU_rrc_release_suspend,
+	adv_BU_rrc_sm_command,
+	adv_BU_rrc_reconf,
+	adv_BU_dl_info_transfer,
+	adv_BU_ue_cap_enquiry,
+	adv_BU_rrc_reestab,
+	adv_BU_dl_user_data,
+	adv_BU_rrc_resume,
+	adv_BU_rrc_reject,
+	adv_BU_paging_irnti
+};
+
+--------------- Injective adversary action for channel chan_UA ---------------
+
+inj_adv_act_UA	:
+{
+	adv_UA_dereg_req_switch_off,
+	adv_UA_reg_req,
+	adv_UA_ue_dereg_accept,
+	adv_UA_dereg_req_not_switch_off,
+	adv_UA_id_res,
+	adv_UA_auth_response,
+	adv_UA_auth_failure_mac,
+	adv_UA_auth_failure_seq,
+	adv_UA_sm_complete,
+	adv_UA_sm_reject,
+	adv_UA_reg_complete,
+	adv_UA_config_update_complete,
+	adv_UA_service_req
+};
+
+--------------- Injective adversary action for channel chan_AU ---------------
+
+inj_adv_act_AU	:
+{
+	adv_AU_nwk_dereg_req,
+	adv_AU_reg_reject,
+	adv_AU_auth_req,
+	adv_AU_id_req,
+	adv_AU_nwk_dereg_accept,
+	adv_AU_reg_accept,
+	adv_AU_auth_reject,
+	adv_AU_sm_command,
+	adv_AU_config_update_cmd,
+	adv_AU_service_reject,
+	adv_AU_service_accept
+};
+
+
+DEFINE
+
+-----------------UE_RRC transitions --------------------
+UE_RRC_T1	:=	 (ue_rrc_state = ue_rrc_idle & chan_UE_nas_rrc=UE_downgrade_requested )	;
+UE_RRC_T2	:=	 (ue_rrc_state = ue_rrc_setup_requested & chan_UE_nas_rrc=UE_downgrade_requested )	;
+UE_RRC_T3	:=	 (ue_rrc_state = ue_rrc_inactive & chan_UE_nas_rrc=UE_downgrade_requested )	;
+UE_RRC_T4	:=	 (ue_rrc_state = ue_rrc_resume_requested & chan_UE_nas_rrc=UE_downgrade_requested )	;
+UE_RRC_T5	:=	 (ue_rrc_state = ue_rrc_connected & chan_UE_nas_rrc=UE_downgrade_requested )	;
+UE_RRC_T6	:=	 (ue_rrc_state = ue_rrc_reestab_requested & chan_UE_nas_rrc=UE_downgrade_requested )	;
+UE_RRC_T7	:=	 (ue_rrc_state = ue_rrc_idle & (chan_UE_nas_rrc = UE_ul_info_transfer | chan_BU=chanBU_paging_tmsi) )	;
+UE_RRC_T8	:=	 (ue_rrc_state = ue_rrc_setup_requested & chan_BU=chanBU_rrc_release )	;
+UE_RRC_T9	:=	 (ue_rrc_state = ue_rrc_setup_requested & chan_BU=chanBU_rrc_reject )	;
+UE_RRC_T10	:=	 (ue_rrc_state = ue_rrc_setup_requested & chan_BU=chanBU_rrc_setup)	;
+UE_RRC_T11	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_rrc_setup)	;
+UE_RRC_T12	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_rrc_release )	;
+UE_RRC_T13	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_rrc_reject )	;
+UE_RRC_T14	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_rrc_release_suspend & ue_rrc_sec_ctx_exist &    !suspend_mac_failure)	;
+UE_RRC_T15	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_rrc_release_suspend )	;
+UE_RRC_T16	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_rrc_sm_command & !rrc_smcommand_mac_failure)	;
+UE_RRC_T17	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_rrc_sm_command & rrc_smcommand_mac_failure)	;
+UE_RRC_T18	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_rrc_reconf & ue_rrc_sec_ctx_exist & !reconf_mac_failure)	;
+UE_RRC_T19	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_rrc_reconf &    ue_rrc_sec_ctx_exist & reconf_mac_failure)	;
+UE_RRC_T20	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_rrc_reconf &    !ue_rrc_sec_ctx_exist )	;
+UE_RRC_T21	:=	 (ue_rrc_state = ue_rrc_connected & chan_UE_nas_rrc = UE_ul_info_transfer &  ue_rrc_sec_ctx_exist )	;
+UE_RRC_T22	:=	 (ue_rrc_state = ue_rrc_connected & chan_UE_nas_rrc = UE_ul_info_transfer )	;
+UE_RRC_T23	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_dl_info_transfer & dlinfotransfer_mac_failure & chan_UE_rrc_nas =null )	;
+UE_RRC_T24	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_dl_info_transfer &  dlinfotransfer_mac_failure )	;
+UE_RRC_T25	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_ue_cap_enquiry & !ue_rrc_sec_ctx_exist    )	;
+UE_RRC_T26	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_ue_cap_enquiry & ue_rrc_sec_ctx_exist &    !ue_cap_enq_mac_failure )	;
+UE_RRC_T27	:=	 (ue_rrc_state = ue_rrc_connected & chan_BU=chanBU_ue_cap_enquiry & ue_rrc_sec_ctx_exist &    ue_cap_enq_mac_failure )	;
+UE_RRC_T28	:=	 (ue_rrc_state = ue_rrc_connected & chan_UE_nas_rrc = UE_ul_info_transfer )	;
+UE_RRC_T29	:=	 (ue_rrc_state = ue_rrc_connected & ue_bearer_established )	;
+UE_RRC_T30	:=	 (ue_rrc_state = ue_rrc_connected & ue_bearer_established &  chan_BU=chanBU_dl_user_data )	;
+UE_RRC_T31	:=	 (ue_rrc_state = ue_rrc_inactive & (chan_UE_nas_rrc = UE_ul_info_transfer | chan_BU=chanBU_paging_irnti) )	;
+UE_RRC_T32	:=	 (ue_rrc_state = ue_rrc_inactive & chan_BU=chanBU_rrc_resume & !resume_mac_failure )	;
+UE_RRC_T33	:=	 (ue_rrc_state = ue_rrc_inactive & chan_BU=chanBU_rrc_resume & resume_mac_failure )	;
+UE_RRC_T34	:=	 (ue_rrc_state = ue_rrc_inactive & chan_BU=chanBU_rrc_setup )	;
+UE_RRC_T35	:=	 (ue_rrc_state = ue_rrc_inactive & chan_BU=chanBU_rrc_release & !ue_rrc_sec_ctx_exist )	;
+UE_RRC_T36	:=	 (ue_rrc_state = ue_rrc_inactive & chan_BU=chanBU_rrc_release & ue_rrc_sec_ctx_exist & !release_mac_failure )	;
+UE_RRC_T37	:=	 (ue_rrc_state = ue_rrc_inactive & chan_BU=chanBU_rrc_reject & !ue_rrc_sec_ctx_exist )	;
+UE_RRC_T38	:=	 (ue_rrc_state = ue_rrc_inactive & chan_BU=chanBU_rrc_reject & ue_rrc_sec_ctx_exist & !reject_mac_failure )	;
+UE_RRC_T39	:=	 (ue_rrc_state = ue_rrc_resume_requested & chan_BU=chanBU_rrc_resume & !resume_mac_failure )	;
+UE_RRC_T40	:=	 (ue_rrc_state = ue_rrc_resume_requested & chan_BU=chanBU_rrc_resume & resume_mac_failure )	;
+UE_RRC_T41	:=	 (ue_rrc_state = ue_rrc_resume_requested & chan_BU=chanBU_rrc_setup )	;
+UE_RRC_T42	:=	 (ue_rrc_state = ue_rrc_resume_requested & chan_BU=chanBU_rrc_release & !ue_rrc_sec_ctx_exist )	;
+UE_RRC_T43	:=	 (ue_rrc_state = ue_rrc_resume_requested & chan_BU=chanBU_rrc_release & ue_rrc_sec_ctx_exist & !release_mac_failure )	;
+UE_RRC_T44	:=	 (ue_rrc_state = ue_rrc_resume_requested & chan_BU=chanBU_rrc_reject & !ue_rrc_sec_ctx_exist )	;
+UE_RRC_T45	:=	 (ue_rrc_state = ue_rrc_resume_requested & chan_BU=chanBU_rrc_reject & ue_rrc_sec_ctx_exist & !reject_mac_failure )	;
+UE_RRC_T46	:=	 (ue_rrc_state = ue_rrc_resume_requested & chan_BU=chanBU_rrc_release_suspend & !suspend_mac_failure)	;
+UE_RRC_T47	:=	 (ue_rrc_state = ue_rrc_reestab_requested & chan_BU=chanBU_rrc_reestab & !reestab_mac_failure )	;
+UE_RRC_T48	:=	 (ue_rrc_state = ue_rrc_reestab_requested & chan_BU=chanBU_rrc_reestab & reestab_mac_failure )	;
+UE_RRC_T49	:=	 (ue_rrc_state = ue_rrc_reestab_requested & chan_BU=chanBU_rrc_setup )	;
+UE_RRC_T50	:=	 (ue_rrc_state = ue_rrc_reestab_requested & chan_BU=chanBU_rrc_release & !ue_rrc_sec_ctx_exist )	;
+UE_RRC_T51	:=	 (ue_rrc_state = ue_rrc_reestab_requested & chan_BU=chanBU_rrc_release & ue_rrc_sec_ctx_exist & !release_mac_failure )	;
+UE_RRC_T52	:=	 (ue_rrc_state = ue_rrc_reestab_requested & chan_BU=chanBU_rrc_reject & !ue_rrc_sec_ctx_exist )	;
+UE_RRC_T53	:=	 (ue_rrc_state = ue_rrc_reestab_requested & chan_BU=chanBU_rrc_reject & ue_rrc_sec_ctx_exist & !reject_mac_failure )	;
+UE_RRC_T54	:=	 (ue_rrc_state = ue_rrc_reestab_requested & chan_BU=chanBU_rrc_release_suspend & !suspend_mac_failure)	;
+
+-----------------UE_NAS transitions --------------------
+UE_NAS_T1	:=	 (ue_nas_state = ue_null & power_on)	;
+UE_NAS_T2	:=	 (ue_nas_state = ue_deregistered & power_off & chan_UE_nas_rrc = null)	;
+UE_NAS_T3	:=	 (ue_nas_state = ue_deregistered & enable_N1 & chan_UE_nas_rrc = null)	;
+UE_NAS_T4	:=	 (ue_nas_state = ue_deregistered & (chan_AU = chanAU_auth_reject | chan_AU = chanAU_reg_reject | chan_AU = chanAU_nwk_dereg_req | chan_AU = chanAU_service_reject) )	;
+UE_NAS_T5	:=	 (ue_nas_state = ue_deregistered & chan_AU = chanAU_nwk_dereg_req  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T6	:=	 (ue_nas_state = ue_deregistered & chan_UE_rrc_nas=UE_ctx_release_requested)	;
+UE_NAS_T7	:=	 (ue_nas_state = ue_reg_inited & power_off  & chan_UE_nas_rrc = null)	;
+UE_NAS_T8	:=	 (ue_nas_state = ue_reg_inited & (chan_AU = chanAU_auth_reject | chan_AU = chanAU_reg_reject | chan_AU = chanAU_service_reject) )	;
+UE_NAS_T9	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_nwk_dereg_req  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T10	:=	 (ue_nas_state = ue_reg_inited & uederegrequested & dereg_cause_switch_off & chan_UE_nas_rrc = null)	;
+UE_NAS_T11	:=	 (ue_nas_state = ue_reg_inited & uederegrequested & !dereg_cause_switch_off & chan_UE_nas_rrc = null)	;
+UE_NAS_T12	:=	 (ue_nas_state = ue_reg_inited & chan_UE_rrc_nas=UE_ctx_release_requested)	;
+UE_NAS_T13	:=	 (ue_nas_state = ue_reg_inited & enable_N1 & reg_count_check & chan_UE_nas_rrc = null)	;
+UE_NAS_T14	:=	 (ue_nas_state = ue_reg_inited & enable_N1 & !reg_count_check)	;
+UE_NAS_T15	:=	 (ue_nas_state = ue_reg_inited & ta_changed  & chan_UE_nas_rrc = null)	;
+UE_NAS_T16	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_id_req  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T17	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_auth_req & !authreq_mac_failure & !ue_auth_seq_check  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T18	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_auth_req & authreq_mac_failure & ue_auth_fail_count_check  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T19	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_auth_req & authreq_mac_failure & !ue_auth_fail_count_check  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T20	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_auth_req & !authreq_mac_failure & ue_auth_seq_check &    ue_auth_fail_count_check  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T21	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_auth_req & authreq_mac_failure & !ue_auth_seq_check &    !ue_auth_fail_count_check  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T22	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_sm_command & ue_partial_sec_ctx_exist=TRUE & !smcmd_mac_failure &sec_cap_match & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T23	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_sm_command & ue_partial_sec_ctx_exist=TRUE & smcmd_mac_failure &    sec_cap_match & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T24	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_sm_command & ue_partial_sec_ctx_exist=TRUE & !smcmd_mac_failure &    !sec_cap_match & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T25	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_reg_accept & !regaccept_mac_failure & ue_tau_started& !ue_tau_completed  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T26	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_reg_accept & !regaccept_mac_failure  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T27	:=	 (ue_nas_state = ue_reg_inited & chan_AU = chanAU_reg_accept & regaccept_mac_failure )	;
+UE_NAS_T28	:=	 (ue_nas_state = ue_reg_inited & reg_accept_timer_expired  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T29	:=	 (ue_nas_state = ue_registered & power_off  & chan_UE_nas_rrc = null)	;
+UE_NAS_T30	:=	 (ue_nas_state = ue_registered & (chan_AU = chanAU_auth_reject | chan_AU = chanAU_reg_reject | chan_AU = chanAU_service_reject) )	;
+UE_NAS_T31	:=	 (ue_nas_state = ue_registered & chan_AU = chanAU_nwk_dereg_req  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T32	:=	 (ue_nas_state = ue_registered & chan_UE_rrc_nas=UE_ctx_release_requested)	;
+UE_NAS_T33	:=	 (ue_nas_state = ue_registered & enable_N1 & reg_count_check & chan_UE_nas_rrc = null)	;
+UE_NAS_T34	:=	 (ue_nas_state = ue_registered & enable_N1 & !reg_count_check)	;
+UE_NAS_T35	:=	 (ue_nas_state = ue_registered & uederegrequested & dereg_cause_switch_off  & chan_UE_nas_rrc = null)	;
+UE_NAS_T36	:=	 (ue_nas_state = ue_registered & uederegrequested & !dereg_cause_switch_off & chan_UE_nas_rrc = null)	;
+UE_NAS_T37	:=	 (ue_nas_state = ue_registered & chan_AU = chanAU_id_req & !idreq_mac_failure & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T38	:=	 (ue_nas_state = ue_registered & chan_AU = chanAU_id_req & idreq_mac_failure & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T39	:=	 (ue_nas_state = ue_registered & chan_AU = chanAU_sm_command & !smcmd_mac_failure & sec_cap_match & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T40	:=	 (ue_nas_state = ue_registered & chan_AU = chanAU_sm_command & smcmd_mac_failure & sec_cap_match & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T41	:=	 (ue_nas_state = ue_registered & chan_AU = chanAU_sm_command & !smcmd_mac_failure & !sec_cap_match & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T42	:=	 (ue_nas_state = ue_registered & chan_AU = chanAU_config_update_cmd & !configupdate_mac_failure & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T43	:=	 (ue_nas_state = ue_registered & chan_AU = chanAU_config_update_cmd & configupdate_mac_failure & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T44	:=	 (ue_nas_state = ue_registered & ta_changed  & chan_UE_nas_rrc = null)	;
+UE_NAS_T45	:=	 (ue_nas_state = ue_registered & service_notification & ue_complete_sec_ctx_exist  & chan_UE_nas_rrc = null)	;
+UE_NAS_T46	:=	 (ue_nas_state = ue_registered & ueregcompleted & ue_service_started & !ue_service_completed  & chan_AU = chanAU_service_accept &    !serviceaccept_mac_failure)	;
+UE_NAS_T47	:=	 (ue_nas_state = ue_dereg_inited & power_off  & chan_UE_nas_rrc = null)	;
+UE_NAS_T48	:=	 (ue_nas_state = ue_dereg_inited & (chan_AU = chanAU_auth_reject | chan_AU = chanAU_reg_reject | chan_AU = chanAU_service_reject) )	;
+UE_NAS_T49	:=	 (ue_nas_state = ue_dereg_inited & chan_AU = chanAU_nwk_dereg_req  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T50	:=	 (ue_nas_state = ue_dereg_inited & chan_UE_rrc_nas=UE_ctx_release_requested)	;
+UE_NAS_T51	:=	 (ue_nas_state = ue_dereg_inited & uederegrequested & dereg_cause_switch_off  & chan_UE_nas_rrc = null)	;
+UE_NAS_T52	:=	 (ue_nas_state = ue_dereg_inited & uederegrequested & !dereg_cause_switch_off & chan_UE_nas_rrc = null)	;
+UE_NAS_T53	:=	 (ue_nas_state = ue_dereg_inited & enable_N1 & reg_count_check & chan_UE_nas_rrc = null)	;
+UE_NAS_T54	:=	 (ue_nas_state = ue_dereg_inited & enable_N1 & !reg_count_check)	;
+UE_NAS_T55	:=	 (ue_nas_state = ue_dereg_inited & chan_AU = chanAU_nwk_dereg_accept & !deregaccept_mac_failure)	;
+UE_NAS_T56	:=	 (ue_nas_state = ue_dereg_inited & chan_AU = chanAU_nwk_dereg_accept & deregaccept_mac_failure & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T57	:=	 (ue_nas_state = ue_dereg_inited & ta_changed  & chan_UE_nas_rrc = null)	;
+UE_NAS_T58	:=	 (ue_nas_state = ue_dereg_inited & chan_AU = chanAU_id_req & ue_complete_sec_ctx_exist & !idreq_mac_failure & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T59	:=	 (ue_nas_state = ue_dereg_inited & chan_AU = chanAU_auth_req & !authreq_mac_failure & !ue_auth_seq_check  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T60	:=	 (ue_nas_state = ue_dereg_inited & chan_AU = chanAU_auth_req & authreq_mac_failure & ue_auth_fail_count_check  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T61	:=	 (ue_nas_state = ue_dereg_inited & chan_AU = chanAU_auth_req & authreq_mac_failure & !ue_auth_fail_count_check  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T62	:=	 (ue_nas_state = ue_dereg_inited & chan_AU = chanAU_auth_req & !authreq_mac_failure & ue_auth_seq_check &    ue_auth_fail_count_check  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T63	:=	 (ue_nas_state = ue_dereg_inited & chan_AU = chanAU_auth_req & authreq_mac_failure & !ue_auth_seq_check &    !ue_auth_fail_count_check  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T64	:=	 (ue_nas_state = ue_idle & service_notification & ue_complete_sec_ctx_exist  & chan_UE_nas_rrc = null)	;
+UE_NAS_T65	:=	 (ue_nas_state = ue_idle & service_notification & !ue_complete_sec_ctx_exist  & chan_UE_nas_rrc = null)	;
+UE_NAS_T66	:=	 (ue_nas_state = ue_service_inited & power_off  & chan_UE_nas_rrc = null)	;
+UE_NAS_T67	:=	 (ue_nas_state = ue_service_inited & (chan_AU = chanAU_auth_reject | chan_AU = chanAU_reg_reject | chan_AU = chanAU_service_reject) )	;
+UE_NAS_T68	:=	 (ue_nas_state = ue_service_inited & chan_AU = chanAU_nwk_dereg_req  & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T69	:=	 (ue_nas_state = ue_service_inited & chan_UE_rrc_nas=UE_ctx_release_requested)	;
+UE_NAS_T70	:=	 (ue_nas_state = ue_service_inited & uederegrequested & dereg_cause_switch_off & chan_UE_nas_rrc = null)	;
+UE_NAS_T71	:=	 (ue_nas_state = ue_service_inited & uederegrequested & !dereg_cause_switch_off & chan_UE_nas_rrc = null)	;
+UE_NAS_T72	:=	 (ue_nas_state = ue_service_inited & enable_N1 & reg_count_check & chan_UE_nas_rrc = null)	;
+UE_NAS_T73	:=	 (ue_nas_state = ue_service_inited & enable_N1 & !reg_count_check)	;
+UE_NAS_T74	:=	 (ue_nas_state = ue_service_inited & ta_changed  & chan_UE_nas_rrc = null)	;
+UE_NAS_T75	:=	 (ue_nas_state = ue_service_inited & chan_AU = chanAU_id_req & !idreq_mac_failure & chan_UE_rrc_nas=UE_dl_info_transfer & chan_UE_nas_rrc=null)	;
+UE_NAS_T76	:=	 (ue_nas_state = ue_service_inited & ue_service_started & !ue_service_completed & chan_AU = chanAU_service_accept    & !serviceaccept_mac_failure )	;
+
+-----------------BS_RRC transitions --------------------
+BS_RRC_T1	:=	 (bs_rrc_state = gnb_rrc_idle & chan_UB=chanUB_rrc_setup_req )	;
+BS_RRC_T2	:=	 (bs_rrc_state = gnb_rrc_idle & chan_AMF_nas_rrc = AMF_paging_requested )	;
+BS_RRC_T3	:=	 (bs_rrc_state = gnb_rrc_wait_for_setup_req & paging_sent & paging_timer_expired )	;
+BS_RRC_T4	:=	 (bs_rrc_state = gnb_rrc_wait_for_setup_complete & chan_UB=chanUB_rrc_setup_req )	;
+BS_RRC_T5	:=	 (bs_rrc_state = gnb_rrc_wait_for_setup_complete & chan_UB=chanUB_rrc_setup_complete )	;
+BS_RRC_T6	:=	 (bs_rrc_state = gnb_rrc_connected & chan_UB=chanUB_rrc_setup_req)	;
+BS_RRC_T7	:=	 (bs_rrc_state = gnb_rrc_connected & chan_AMF_nas_rrc=AMF_ctx_release_requested)	;
+BS_RRC_T8	:=	 (bs_rrc_state = gnb_rrc_connected & rrc_suspend_required )	;
+BS_RRC_T9	:=	 (bs_rrc_state = gnb_rrc_connected & as_sec_ctx_setup_required )	;
+BS_RRC_T10	:=	 (bs_rrc_state = gnb_rrc_connected & chan_UB=chanUB_rrc_sm_complete & !rrc_smcomplete_mac_failure )	;
+BS_RRC_T11	:=	 (bs_rrc_state = gnb_rrc_connected & chan_UB=chanUB_rrc_sm_complete & rrc_smcomplete_mac_failure )	;
+BS_RRC_T12	:=	 (bs_rrc_state = gnb_rrc_connected & gnb_bearer_setup_required )	;
+BS_RRC_T13	:=	 (bs_rrc_state = gnb_rrc_connected & chan_AMF_nas_rrc = AMF_dl_info_transfer )	;
+BS_RRC_T14	:=	 (bs_rrc_state = gnb_rrc_connected & chan_UB=chanUB_ul_info_transfer & ulinfotransfer_mac_failure)	;
+BS_RRC_T15	:=	 (bs_rrc_state = gnb_rrc_connected & chan_UB=chanUB_ul_info_transfer & !ulinfotransfer_mac_failure )	;
+BS_RRC_T16	:=	 (bs_rrc_state = gnb_rrc_connected & ue_cap_required )	;
+BS_RRC_T17	:=	 (bs_rrc_state = gnb_rrc_connected & chan_UB=chanUB_ue_cap_info )	;
+BS_RRC_T18	:=	 (bs_rrc_state = gnb_rrc_connected & chan_UB=chanUB_rrc_reestab_req    & gnb_rrc_sec_ctx_exist & !reestabreq_mac_failure )	;
+BS_RRC_T19	:=	 (bs_rrc_state = gnb_rrc_connected & chan_UB=chanUB_rrc_reestab_req &    (!gnb_rrc_sec_ctx_exist | reestabreq_mac_failure)  )	;
+BS_RRC_T20	:=	 (bs_rrc_state = gnb_rrc_connected & gnb_bearer_established &  dl_data_transfer_required      )	;
+BS_RRC_T21	:=	 (bs_rrc_state = gnb_rrc_connected & gnb_bearer_established &  chan_UB=chanUB_ul_user_data      )	;
+BS_RRC_T22	:=	 (bs_rrc_state = gnb_rrc_inactive & chan_AMF_nas_rrc=AMF_ctx_release_requested)	;
+BS_RRC_T23	:=	 (bs_rrc_state = gnb_rrc_inactive & chan_UB=chanUB_rrc_resume_req & (!gnb_rrc_sec_ctx_exist | resumereq_mac_failure) )	;
+BS_RRC_T24	:=	 (bs_rrc_state = gnb_rrc_inactive & chan_UB=chanUB_rrc_resume_req & gnb_rrc_sec_ctx_exist & !resumereq_mac_failure )	;
+BS_RRC_T25	:=	 (bs_rrc_state = gnb_rrc_inactive & chan_UB=chanUB_rrc_resume_req & gnb_rrc_sec_ctx_exist & resumereq_mac_failure )	;
+BS_RRC_T26	:=	 (bs_rrc_state = gnb_rrc_inactive & chan_UB=chanUB_rrc_resume_req & rrc_suspend_required )	;
+BS_RRC_T27	:=	 (bs_rrc_state = gnb_rrc_inactive & chan_AMF_nas_rrc = AMF_paging_requested )	;
+BS_RRC_T28	:=	 (bs_rrc_state = gnb_rrc_wait_for_resume_req & chan_AMF_nas_rrc=AMF_ctx_release_requested)	;
+BS_RRC_T29	:=	 (bs_rrc_state = gnb_rrc_wait_for_resume_req & paging_timer_expired )	;
+BS_RRC_T30	:=	 (bs_rrc_state = gnb_rrc_wait_for_resume_req & chan_UB=chanUB_rrc_resume_req &    (!gnb_rrc_sec_ctx_exist | resumereq_mac_failure))	;
+BS_RRC_T31	:=	 (bs_rrc_state = gnb_rrc_wait_for_resume_req & chan_UB=chanUB_rrc_resume_req &    gnb_rrc_sec_ctx_exist & !resumereq_mac_failure )	;
+BS_RRC_T32	:=	 (bs_rrc_state = gnb_rrc_wait_for_resume_req & chan_UB=chanUB_rrc_resume_req &    gnb_rrc_sec_ctx_exist & resumereq_mac_failure )	;
+BS_RRC_T33	:=	 (bs_rrc_state = gnb_rrc_wait_for_resume_req & chan_UB=chanUB_rrc_setup_req )	;
+BS_RRC_T34	:=	 (bs_rrc_state = gnb_rrc_wait_for_resume_complete & chan_AMF_nas_rrc=AMF_ctx_release_requested)	;
+BS_RRC_T35	:=	 (bs_rrc_state = gnb_rrc_wait_for_resume_complete & chan_UB=chanUB_rrc_resume_complete &    gnb_rrc_sec_ctx_exist & !resumecomplete_mac_failure )	;
+BS_RRC_T36	:=	 (bs_rrc_state = gnb_rrc_wait_for_resume_complete & chan_UB=chanUB_rrc_resume_complete &    (!gnb_rrc_sec_ctx_exist | resumecomplete_mac_failure) )	;
+BS_RRC_T37	:=	 (bs_rrc_state = gnb_rrc_wait_for_reestab_complete & chan_AMF_nas_rrc=AMF_ctx_release_requested)	;
+BS_RRC_T38	:=	 (bs_rrc_state = gnb_rrc_wait_for_reestab_complete & chan_UB=chanUB_rrc_reestab_complete    & gnb_rrc_sec_ctx_exist & !resumecomplete_mac_failure )	;
+BS_RRC_T39	:=	 (bs_rrc_state = gnb_rrc_wait_for_reestab_complete & chan_UB=chanUB_rrc_reestab_complete &    (!gnb_rrc_sec_ctx_exist | resumecomplete_mac_failure) )	;
+BS_RRC_T40	:=	 (bs_rrc_state = gnb_rrc_wait_for_reconf_complete & chan_AMF_nas_rrc=AMF_ctx_release_requested)	;
+BS_RRC_T41	:=	 (bs_rrc_state = gnb_rrc_wait_for_reconf_complete & chan_UB=chanUB_rrc_reconf_complete &    !reconf_complete_mac_failure)	;
+BS_RRC_T42	:=	 (bs_rrc_state = gnb_rrc_wait_for_reconf_complete & chan_UB=chanUB_rrc_reconf_complete &    (!gnb_rrc_sec_ctx_exist | reconf_complete_mac_failure ) )	;
+
+-----------------AMF_NAS transitions --------------------
+AMF_NAS_T1	:=	 (amf_nas_state = amf_deregistered & uectxreleaserequired )	;
+AMF_NAS_T2	:=	 (amf_nas_state = amf_dereg_inited & uectxreleaserequired )	;
+AMF_NAS_T3	:=	 (amf_nas_state = amf_com_proc_inited & uectxreleaserequired )	;
+AMF_NAS_T4	:=	 (amf_nas_state = amf_registered & uectxreleaserequired )	;
+AMF_NAS_T5	:=	 (amf_nas_state = amf_idle & uectxreleaserequired )	;
+AMF_NAS_T6	:=	 (amf_nas_state = amf_deregistered & amfderegrequested )	;
+AMF_NAS_T7	:=	 (amf_nas_state = amf_deregistered & chan_UA=chanUA_reg_req & reg_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T8	:=	 (amf_nas_state = amf_deregistered & chan_UA=chanUA_reg_req & !reg_failure & !idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T9	:=	 (amf_nas_state = amf_deregistered & chan_UA=chanUA_reg_req & !reg_failure & idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T10	:=	 (amf_nas_state = amf_com_proc_inited & amfderegrequested )	;
+AMF_NAS_T11	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_dereg_req_switch_off  & chan_AMF_rrc_nas=AMF_ul_info_transfer)	;
+AMF_NAS_T12	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_dereg_req_not_switch_off & amf_complete_sec_ctx_exist& !deregreq_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T13	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_reg_req  & reg_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T14	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_reg_req & !reg_failure & idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T15	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_reg_req & !reg_failure & !idrequired & amf_complete_sec_ctx_exist& amf_reg_completed & !regreq_mac_failure & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T16	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_reg_req & !reg_failure & !idrequired  & !amf_complete_sec_ctx_exist& !amf_reg_completed & regreq_mac_failure & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T17	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_reg_req & !amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T18	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_auth_failure_mac & amf_wait_for = authresponse& tmsi_imsi_mapping_correct  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T19	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_auth_failure_mac & amf_wait_for = authresponse & !tmsi_imsi_mapping_correct     & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T20	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_id_res  & amf_wait_for = idresponse &amf_complete_sec_ctx_exist=TRUE & !idres_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T21	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_auth_failure_seq & amf_wait_for = authresponse& amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T22	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_auth_failure_seq & amf_wait_for = authresponse& !amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T23	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_auth_response & amf_wait_for = authresponse& xres_matched_sres  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T24	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_auth_response & amf_wait_for = authresponse& !xres_matched_sres  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T25	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_sm_reject & amf_wait_for = smresponse     & amf_complete_sec_ctx_exist  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T26	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_sm_reject & amf_wait_for = smresponse& !amf_complete_sec_ctx_exist  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T27	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_sm_complete & amf_wait_for = smresponse  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T28	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_reg_complete & amf_wait_for = regacceptresponse    & !regcomplete_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer)	;
+AMF_NAS_T29	:=	 (amf_nas_state = amf_com_proc_inited & chan_UA=chanUA_reg_complete & amf_wait_for = regacceptresponse & regcomplete_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer)	;
+AMF_NAS_T30	:=	 (amf_nas_state = amf_registered & amfderegrequested )	;
+AMF_NAS_T31	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_dereg_req_switch_off  & chan_AMF_rrc_nas=AMF_ul_info_transfer)	;
+AMF_NAS_T32	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_dereg_req_not_switch_off & amf_complete_sec_ctx_exist & !deregreq_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T33	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_reg_req  & reg_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T34	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_reg_req & !reg_failure & idrequired   & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T35	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_reg_req & !reg_failure &!idrequired & amf_complete_sec_ctx_exist & amf_reg_completed & !regreq_mac_failure & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T36	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_reg_req & !reg_failure &!idrequired  & !amf_complete_sec_ctx_exist & !amf_reg_completed & regreq_mac_failure & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T37	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_reg_req & !amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T38	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_auth_failure_mac & amf_wait_for = authresponse & tmsi_imsi_mapping_correct  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T39	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_auth_failure_mac & amf_wait_for = authresponse &!tmsi_imsi_mapping_correct  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T40	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_id_res  & amf_wait_for = idresponse & amf_complete_sec_ctx_exist=TRUE& !idres_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T41	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_auth_failure_seq & amf_wait_for = authresponse & amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T42	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_auth_failure_seq & amf_wait_for = authresponse& !amf_auth_fail_count_check  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T43	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_auth_response & amf_wait_for = authresponse & xres_matched_sres  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T44	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_auth_response & amf_wait_for = authresponse & !xres_matched_sres  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T45	:=	 (amf_nas_state = amf_registered & sec_ctx_update_required )	;
+AMF_NAS_T46	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_sm_reject & amf_wait_for = smresponse     & amf_complete_sec_ctx_exist  & chan_AMF_rrc_nas=AMF_ul_info_transfer)	;
+AMF_NAS_T47	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_sm_reject & amf_wait_for = smresponse     & !amf_complete_sec_ctx_exist  & chan_AMF_rrc_nas=AMF_ul_info_transfer)	;
+AMF_NAS_T48	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_sm_complete & amf_wait_for = smresponse  & chan_AMF_rrc_nas=AMF_ul_info_transfer)	;
+AMF_NAS_T49	:=	 (amf_nas_state = amf_registered & config_update_required & config_response_required)	;
+AMF_NAS_T50	:=	 (amf_nas_state = amf_registered & config_update_required & !config_response_required & !amf_config_updated)	;
+AMF_NAS_T51	:=	 (amf_nas_state = amf_registered & amf_wait_for = configupdateresponse & chan_UA=chanUA_config_update_complete  & chan_AMF_rrc_nas=AMF_ul_info_transfer)	;
+AMF_NAS_T52	:=	 (amf_nas_state = amf_registered & ue_inactivity_detected )	;
+AMF_NAS_T53	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_service_req & !servicereject_required  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T54	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_service_req & !servicereq_mac_failure & !idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T55	:=	 (amf_nas_state = amf_registered & chan_UA=chanUA_service_req & servicereq_mac_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T56	:=	 (amf_nas_state = amf_registered & amf_reg_completed & amf_service_started & !amf_service_completed & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T57	:=	 (amf_nas_state = amf_idle & paging_required )	;
+AMF_NAS_T58	:=	 (amf_nas_state = amf_idle & amf_wait_for=servicerequest & paging_timer_expired )	;
+AMF_NAS_T59	:=	 (amf_nas_state = amf_idle & amf_wait_for = servicerequest & chan_UA=chanUA_service_req & !servicereq_mac_failure &idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T60	:=	 (amf_nas_state = amf_registered & amf_wait_for = servicerequest & chan_UA=chanUA_service_req &!servicereq_mac_failure & !idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T61	:=	 (amf_nas_state = amf_registered & amf_wait_for = servicerequest & chan_UA=chanUA_service_req &!servicereq_mac_failure & amf_service_started & !amf_service_completed     & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T62	:=	 (amf_nas_state = amf_dereg_inited & amfderegrequested )	;
+AMF_NAS_T63	:=	 (amf_nas_state = amf_dereg_inited & chan_UA=chanUA_reg_req & reg_failure  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T64	:=	 (amf_nas_state = amf_dereg_inited & chan_UA=chanUA_reg_req & !reg_failure & !idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T65	:=	 (amf_nas_state = amf_dereg_inited & chan_UA=chanUA_reg_req & !reg_failure & idrequired  & chan_AMF_rrc_nas=AMF_ul_info_transfer & chan_AMF_nas_rrc=null)	;
+AMF_NAS_T66	:=	 (amf_nas_state = amf_dereg_inited & chan_UA=chanUA_ue_dereg_accept  & chan_AMF_rrc_nas=AMF_ul_info_transfer)	;
+
+------------------- Adversary enabled or not --------------------
+inj_adv_UB_enabled:=	TRUE;
+inj_adv_BU_enabled:=	FALSE;
+inj_adv_UA_enabled:=	FALSE;
+inj_adv_AU_enabled:=	FALSE;
+ue_auth_seq_check  := (ue_seq < amf_ue_shared_seq & amf_ue_shared_seq < (ue_seq + range));
+reg_count_check  := (ue_reg_count < 5);
+ue_auth_fail_count_check  := (ue_auth_fail_count < 3);
+range := 8;
+amf_auth_fail_count_check  := (amf_auth_fail_count < 3);
+
+
+ASSIGN
+
+
+------------------- Adversarial state machines --------------------
+
+init(inj_adv_act_UB)	:=
+{
+	adv_UB_null_action,
+	adv_UB_rrc_setup_req,
+	adv_UB_rrc_setup_complete,
+	adv_UB_rrc_sm_complete,
+	adv_UB_rrc_sm_failure,
+	adv_UB_rrc_reconf_complete,
+	adv_UB_rrc_reestab_req,
+	adv_UB_ul_info_transfer,
+	adv_UB_ue_cap_info,
+	adv_UB_ul_user_data,
+	adv_UB_rrc_resume_req,
+	adv_UB_rrc_resume_complete,
+	adv_UB_rrc_reestab_complete
+};
+
+next(inj_adv_act_UB)	:=	case
+TRUE	:	{
+	adv_UB_null_action,
+	adv_UB_rrc_setup_req,
+	adv_UB_rrc_setup_complete,
+	adv_UB_rrc_sm_complete,
+	adv_UB_rrc_sm_failure,
+	adv_UB_rrc_reconf_complete,
+	adv_UB_rrc_reestab_req,
+	adv_UB_ul_info_transfer,
+	adv_UB_ue_cap_info,
+	adv_UB_ul_user_data,
+	adv_UB_rrc_resume_req,
+	adv_UB_rrc_resume_complete,
+	adv_UB_rrc_reestab_complete
+};
+esac	;
+
+init(inj_adv_act_BU)	:=
+{
+	adv_BU_rrc_setup,
+	adv_BU_paging_tmsi,
+	adv_BU_null_action,
+	adv_BU_rrc_release,
+	adv_BU_rrc_release_suspend,
+	adv_BU_rrc_sm_command,
+	adv_BU_rrc_reconf,
+	adv_BU_dl_info_transfer,
+	adv_BU_ue_cap_enquiry,
+	adv_BU_rrc_reestab,
+	adv_BU_dl_user_data,
+	adv_BU_rrc_resume,
+	adv_BU_rrc_reject,
+	adv_BU_paging_irnti
+};
+
+next(inj_adv_act_BU)	:=	case
+TRUE	:	{
+	adv_BU_rrc_setup,
+	adv_BU_paging_tmsi,
+	adv_BU_null_action,
+	adv_BU_rrc_release,
+	adv_BU_rrc_release_suspend,
+	adv_BU_rrc_sm_command,
+	adv_BU_rrc_reconf,
+	adv_BU_dl_info_transfer,
+	adv_BU_ue_cap_enquiry,
+	adv_BU_rrc_reestab,
+	adv_BU_dl_user_data,
+	adv_BU_rrc_resume,
+	adv_BU_rrc_reject,
+	adv_BU_paging_irnti
+};
+esac	;
+
+init(inj_adv_act_UA)	:=
+{
+	adv_UA_dereg_req_switch_off,
+	adv_UA_reg_req,
+	adv_UA_ue_dereg_accept,
+	adv_UA_dereg_req_not_switch_off,
+	adv_UA_id_res,
+	adv_UA_auth_response,
+	adv_UA_auth_failure_mac,
+	adv_UA_auth_failure_seq,
+	adv_UA_sm_complete,
+	adv_UA_sm_reject,
+	adv_UA_reg_complete,
+	adv_UA_config_update_complete,
+	adv_UA_service_req
+};
+
+next(inj_adv_act_UA)	:=	case
+TRUE	:	{
+	adv_UA_dereg_req_switch_off,
+	adv_UA_reg_req,
+	adv_UA_ue_dereg_accept,
+	adv_UA_dereg_req_not_switch_off,
+	adv_UA_id_res,
+	adv_UA_auth_response,
+	adv_UA_auth_failure_mac,
+	adv_UA_auth_failure_seq,
+	adv_UA_sm_complete,
+	adv_UA_sm_reject,
+	adv_UA_reg_complete,
+	adv_UA_config_update_complete,
+	adv_UA_service_req
+};
+esac	;
+
+init(inj_adv_act_AU)	:=
+{
+	adv_AU_nwk_dereg_req,
+	adv_AU_reg_reject,
+	adv_AU_auth_req,
+	adv_AU_id_req,
+	adv_AU_nwk_dereg_accept,
+	adv_AU_reg_accept,
+	adv_AU_auth_reject,
+	adv_AU_sm_command,
+	adv_AU_config_update_cmd,
+	adv_AU_service_reject,
+	adv_AU_service_accept
+};
+
+next(inj_adv_act_AU)	:=	case
+TRUE	:	{
+	adv_AU_nwk_dereg_req,
+	adv_AU_reg_reject,
+	adv_AU_auth_req,
+	adv_AU_id_req,
+	adv_AU_nwk_dereg_accept,
+	adv_AU_reg_accept,
+	adv_AU_auth_reject,
+	adv_AU_sm_command,
+	adv_AU_config_update_cmd,
+	adv_AU_service_reject,
+	adv_AU_service_accept
+};
+esac	;
+
+
+---------------UE_RRC state machine ------------------
+
+init(ue_rrc_state)	:=ue_rrc_idle;
+
+next(ue_rrc_state)	:=	 case
+
+(UE_RRC_T1 | UE_RRC_T2 | UE_RRC_T3 | UE_RRC_T4 | UE_RRC_T5 | UE_RRC_T6 | UE_RRC_T8 | UE_RRC_T9 | UE_RRC_T12 | UE_RRC_T13 | UE_RRC_T20 | UE_RRC_T33 | UE_RRC_T35 | UE_RRC_T36 | UE_RRC_T38 | UE_RRC_T40 | UE_RRC_T42 | UE_RRC_T43 | UE_RRC_T44 | UE_RRC_T45 | UE_RRC_T48 | UE_RRC_T50 | UE_RRC_T51 | UE_RRC_T52 | UE_RRC_T53 )	:	ue_rrc_idle	;
+(UE_RRC_T7 )	:	ue_rrc_setup_requested	;
+(UE_RRC_T14 | UE_RRC_T15 | UE_RRC_T37 | UE_RRC_T46 | UE_RRC_T54 )	:	ue_rrc_inactive	;
+(UE_RRC_T31 )	:	ue_rrc_resume_requested	;
+(UE_RRC_T10 | UE_RRC_T11 | UE_RRC_T16 | UE_RRC_T17 | UE_RRC_T18 | UE_RRC_T19 | UE_RRC_T22 | UE_RRC_T23 | UE_RRC_T24 | UE_RRC_T25 | UE_RRC_T26 | UE_RRC_T27 | UE_RRC_T29 | UE_RRC_T30 | UE_RRC_T32 | UE_RRC_T34 | UE_RRC_T39 | UE_RRC_T41 | UE_RRC_T47 | UE_RRC_T49 )	:	ue_rrc_connected	;
+(UE_RRC_T21 | UE_RRC_T28 )	:	ue_rrc_reestab_requested	;
+TRUE	:	ue_rrc_state	;
+esac	;
+
+---------------UE_NAS state machine ------------------
+
+init(ue_nas_state)	:=ue_null;
+
+next(ue_nas_state)	:=	 case
+
+(UE_NAS_T2 | UE_NAS_T7 | UE_NAS_T14 | UE_NAS_T19 | UE_NAS_T21 | UE_NAS_T29 | UE_NAS_T34 | UE_NAS_T47 | UE_NAS_T54 | UE_NAS_T61 | UE_NAS_T63 | UE_NAS_T66 | UE_NAS_T73 )	:	ue_null	;
+(UE_NAS_T3 | UE_NAS_T13 | UE_NAS_T15 | UE_NAS_T16 | UE_NAS_T17 | UE_NAS_T18 | UE_NAS_T20 | UE_NAS_T22 | UE_NAS_T23 | UE_NAS_T24 | UE_NAS_T27 | UE_NAS_T28 | UE_NAS_T33 | UE_NAS_T44 | UE_NAS_T53 | UE_NAS_T57 | UE_NAS_T59 | UE_NAS_T60 | UE_NAS_T62 | UE_NAS_T65 | UE_NAS_T72 | UE_NAS_T74 | UE_NAS_T75 )	:	ue_reg_inited	;
+(UE_NAS_T25 | UE_NAS_T26 | UE_NAS_T37 | UE_NAS_T38 | UE_NAS_T39 | UE_NAS_T40 | UE_NAS_T41 | UE_NAS_T42 | UE_NAS_T43 | UE_NAS_T46 | UE_NAS_T76 )	:	ue_registered	;
+(UE_NAS_T1 | UE_NAS_T4 | UE_NAS_T5 | UE_NAS_T6 | UE_NAS_T8 | UE_NAS_T9 | UE_NAS_T10 | UE_NAS_T30 | UE_NAS_T31 | UE_NAS_T35 | UE_NAS_T48 | UE_NAS_T49 | UE_NAS_T50 | UE_NAS_T51 | UE_NAS_T55 | UE_NAS_T67 | UE_NAS_T68 | UE_NAS_T70 )	:	ue_deregistered	;
+(UE_NAS_T11 | UE_NAS_T36 | UE_NAS_T52 | UE_NAS_T56 | UE_NAS_T58 | UE_NAS_T71 )	:	ue_dereg_inited	;
+(UE_NAS_T45 | UE_NAS_T64 )	:	ue_service_inited	;
+(UE_NAS_T12 | UE_NAS_T32 | UE_NAS_T69 )	:	ue_idle	;
+TRUE	:	ue_nas_state	;
+esac	;
+
+---------------BS_RRC state machine ------------------
+
+init(bs_rrc_state)	:=gnb_rrc_idle;
+
+next(bs_rrc_state)	:=	 case
+
+(BS_RRC_T7 | BS_RRC_T22 | BS_RRC_T25 | BS_RRC_T28 | BS_RRC_T34 | BS_RRC_T37 | BS_RRC_T40 )	:	gnb_rrc_idle	;
+(BS_RRC_T8 | BS_RRC_T23 | BS_RRC_T26 )	:	gnb_rrc_inactive	;
+(BS_RRC_T2 | BS_RRC_T3 | BS_RRC_T29 )	:	gnb_rrc_wait_for_setup_req	;
+(BS_RRC_T27 )	:	gnb_rrc_wait_for_resume_req	;
+(BS_RRC_T5 | BS_RRC_T9 | BS_RRC_T10 | BS_RRC_T11 | BS_RRC_T13 | BS_RRC_T14 | BS_RRC_T15 | BS_RRC_T16 | BS_RRC_T17 | BS_RRC_T20 | BS_RRC_T21 | BS_RRC_T35 | BS_RRC_T36 | BS_RRC_T38 | BS_RRC_T39 | BS_RRC_T41 | BS_RRC_T42 )	:	gnb_rrc_connected	;
+(BS_RRC_T1 | BS_RRC_T4 | BS_RRC_T6 | BS_RRC_T19 | BS_RRC_T30 | BS_RRC_T32 | BS_RRC_T33 )	:	gnb_rrc_wait_for_setup_complete	;
+(BS_RRC_T12 )	:	gnb_rrc_wait_for_reconf_complete	;
+(BS_RRC_T24 | BS_RRC_T31 )	:	gnb_rrc_wait_for_resume_complete	;
+(BS_RRC_T18 )	:	gnb_rrc_wait_for_reestab_complete	;
+TRUE	:	bs_rrc_state	;
+esac	;
+
+---------------AMF_NAS state machine ------------------
+
+init(amf_nas_state)	:=amf_deregistered;
+
+next(amf_nas_state)	:=	 case
+
+(AMF_NAS_T1 | AMF_NAS_T2 | AMF_NAS_T3 | AMF_NAS_T4 | AMF_NAS_T5 | AMF_NAS_T7 | AMF_NAS_T11 | AMF_NAS_T12 | AMF_NAS_T13 | AMF_NAS_T17 | AMF_NAS_T18 | AMF_NAS_T22 | AMF_NAS_T24 | AMF_NAS_T31 | AMF_NAS_T32 | AMF_NAS_T33 | AMF_NAS_T37 | AMF_NAS_T38 | AMF_NAS_T42 | AMF_NAS_T44 | AMF_NAS_T63 | AMF_NAS_T66 )	:	amf_deregistered	;
+(AMF_NAS_T8 | AMF_NAS_T9 | AMF_NAS_T14 | AMF_NAS_T15 | AMF_NAS_T16 | AMF_NAS_T19 | AMF_NAS_T20 | AMF_NAS_T21 | AMF_NAS_T23 | AMF_NAS_T25 | AMF_NAS_T26 | AMF_NAS_T27 | AMF_NAS_T34 | AMF_NAS_T35 | AMF_NAS_T36 | AMF_NAS_T39 | AMF_NAS_T40 | AMF_NAS_T41 | AMF_NAS_T43 | AMF_NAS_T48 | AMF_NAS_T55 | AMF_NAS_T59 | AMF_NAS_T60 | AMF_NAS_T64 | AMF_NAS_T65 )	:	amf_com_proc_inited	;
+(AMF_NAS_T28 | AMF_NAS_T29 | AMF_NAS_T45 | AMF_NAS_T46 | AMF_NAS_T47 | AMF_NAS_T49 | AMF_NAS_T50 | AMF_NAS_T51 | AMF_NAS_T53 | AMF_NAS_T54 | AMF_NAS_T56 | AMF_NAS_T61 )	:	amf_registered	;
+(AMF_NAS_T52 | AMF_NAS_T57 | AMF_NAS_T58 )	:	amf_idle	;
+(AMF_NAS_T6 | AMF_NAS_T10 | AMF_NAS_T30 | AMF_NAS_T62 )	:	amf_dereg_inited	;
+TRUE	:	amf_nas_state	;
+esac	;
+
+
+init(ue_rrc_action)	:= null_action	;
+
+next(ue_rrc_action)	:=	 case
+
+(UE_RRC_T1 | UE_RRC_T2 | UE_RRC_T3 | UE_RRC_T4 | UE_RRC_T5 | UE_RRC_T6 | UE_RRC_T14 | UE_RRC_T15 | UE_RRC_T24 | UE_RRC_T27 | UE_RRC_T46 | UE_RRC_T54 )	:	null_action	;
+(UE_RRC_T7 )	:	rrc_setup_req	;
+(UE_RRC_T10 | UE_RRC_T11 | UE_RRC_T34 | UE_RRC_T41 | UE_RRC_T49 )	:	rrc_setup_complete	;
+(UE_RRC_T16 )	:	rrc_sm_complete	;
+(UE_RRC_T17 )	:	rrc_sm_failure	;
+(UE_RRC_T18 )	:	rrc_reconf_complete	;
+(UE_RRC_T19 | UE_RRC_T21 | UE_RRC_T28 )	:	rrc_reestab_req	;
+(UE_RRC_T22 )	:	ul_info_transfer	;
+(UE_RRC_T25 | UE_RRC_T26 )	:	ue_cap_info	;
+(UE_RRC_T29 )	:	ul_user_data	;
+(UE_RRC_T31 )	:	rrc_resume_req	;
+(UE_RRC_T32 | UE_RRC_T39 )	:	rrc_resume_complete	;
+(UE_RRC_T47 )	:	rrc_reestab_complete	;
+TRUE	:	 null_action	;
+esac	;
+
+
+init(ue_nas_action)	:= null_action	;
+
+next(ue_nas_action)	:=	 case
+
+(UE_NAS_T2 | UE_NAS_T7 | UE_NAS_T10 | UE_NAS_T29 | UE_NAS_T35 | UE_NAS_T47 | UE_NAS_T51 | UE_NAS_T66 | UE_NAS_T70 )	:	dereg_req_switch_off	;
+(UE_NAS_T3 | UE_NAS_T13 | UE_NAS_T15 | UE_NAS_T28 | UE_NAS_T33 | UE_NAS_T44 | UE_NAS_T53 | UE_NAS_T57 | UE_NAS_T65 | UE_NAS_T72 | UE_NAS_T74 )	:	reg_req	;
+(UE_NAS_T5 | UE_NAS_T9 | UE_NAS_T31 | UE_NAS_T49 | UE_NAS_T68 )	:	ue_dereg_accept	;
+(UE_NAS_T11 | UE_NAS_T36 | UE_NAS_T52 | UE_NAS_T71 )	:	dereg_req_not_switch_off	;
+(UE_NAS_T16 | UE_NAS_T37 | UE_NAS_T58 | UE_NAS_T75 )	:	id_res	;
+(UE_NAS_T17 | UE_NAS_T59 )	:	auth_response	;
+(UE_NAS_T18 | UE_NAS_T19 | UE_NAS_T60 | UE_NAS_T61 )	:	auth_failure_mac	;
+(UE_NAS_T20 | UE_NAS_T21 | UE_NAS_T62 | UE_NAS_T63 )	:	auth_failure_seq	;
+(UE_NAS_T22 | UE_NAS_T39 )	:	sm_complete	;
+(UE_NAS_T23 | UE_NAS_T24 | UE_NAS_T40 | UE_NAS_T41 )	:	sm_reject	;
+(UE_NAS_T25 | UE_NAS_T26 )	:	reg_complete	;
+(UE_NAS_T42 )	:	config_update_complete	;
+(UE_NAS_T45 | UE_NAS_T64 )	:	service_req	;
+TRUE	:	 null_action	;
+esac	;
+
+
+init(bs_rrc_action)	:= null_action	;
+
+next(bs_rrc_action)	:=	 case
+
+(BS_RRC_T1 | BS_RRC_T4 | BS_RRC_T6 | BS_RRC_T19 | BS_RRC_T23 | BS_RRC_T30 | BS_RRC_T33 )	:	rrc_setup	;
+(BS_RRC_T2 | BS_RRC_T3 )	:	paging_tmsi	;
+(BS_RRC_T5 | BS_RRC_T15 | BS_RRC_T17 | BS_RRC_T35 | BS_RRC_T36 | BS_RRC_T38 | BS_RRC_T39 | BS_RRC_T42 )	:	null_action	;
+(BS_RRC_T7 | BS_RRC_T22 | BS_RRC_T28 | BS_RRC_T34 | BS_RRC_T37 | BS_RRC_T40 )	:	rrc_release	;
+(BS_RRC_T8 | BS_RRC_T26 )	:	rrc_release_suspend	;
+(BS_RRC_T9 )	:	rrc_sm_command	;
+(BS_RRC_T12 )	:	rrc_reconf	;
+(BS_RRC_T13 )	:	dl_info_transfer	;
+(BS_RRC_T16 )	:	ue_cap_enquiry	;
+(BS_RRC_T18 )	:	rrc_reestab	;
+(BS_RRC_T20 )	:	dl_user_data	;
+(BS_RRC_T24 | BS_RRC_T31 )	:	rrc_resume	;
+(BS_RRC_T25 | BS_RRC_T32 )	:	rrc_reject	;
+(BS_RRC_T27 | BS_RRC_T29 )	:	paging_irnti	;
+TRUE	:	 null_action	;
+esac	;
+
+
+init(amf_nas_action)	:= null_action	;
+
+next(amf_nas_action)	:=	 case
+
+(AMF_NAS_T6 | AMF_NAS_T10 | AMF_NAS_T30 | AMF_NAS_T62 )	:	nwk_dereg_req	;
+(AMF_NAS_T7 | AMF_NAS_T13 | AMF_NAS_T17 | AMF_NAS_T33 | AMF_NAS_T37 | AMF_NAS_T63 )	:	reg_reject	;
+(AMF_NAS_T8 | AMF_NAS_T16 | AMF_NAS_T20 | AMF_NAS_T21 | AMF_NAS_T36 | AMF_NAS_T40 | AMF_NAS_T41 | AMF_NAS_T55 | AMF_NAS_T60 | AMF_NAS_T64 )	:	auth_req	;
+(AMF_NAS_T9 | AMF_NAS_T14 | AMF_NAS_T19 | AMF_NAS_T34 | AMF_NAS_T39 | AMF_NAS_T59 | AMF_NAS_T65 )	:	id_req	;
+(AMF_NAS_T12 | AMF_NAS_T32 )	:	nwk_dereg_accept	;
+(AMF_NAS_T15 | AMF_NAS_T25 | AMF_NAS_T26 | AMF_NAS_T27 | AMF_NAS_T35 )	:	reg_accept	;
+(AMF_NAS_T18 | AMF_NAS_T22 | AMF_NAS_T24 | AMF_NAS_T38 | AMF_NAS_T42 | AMF_NAS_T44 )	:	auth_reject	;
+(AMF_NAS_T23 | AMF_NAS_T43 | AMF_NAS_T45 )	:	sm_command	;
+(AMF_NAS_T49 | AMF_NAS_T50 )	:	config_update_cmd	;
+(AMF_NAS_T53 )	:	service_reject	;
+(AMF_NAS_T54 | AMF_NAS_T56 | AMF_NAS_T61 )	:	service_accept	;
+TRUE	:	 null_action	;
+esac	;
+
+init(chan_UB)	:=	chanUB_null_action;
+
+next(chan_UB)	:=	 case
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_null_action	:	chanUB_null_action	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_rrc_setup_req	:	chanUB_rrc_setup_req	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_rrc_setup_complete	:	chanUB_rrc_setup_complete	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_rrc_sm_complete	:	chanUB_rrc_sm_complete	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_rrc_sm_failure	:	chanUB_rrc_sm_failure	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_rrc_reconf_complete	:	chanUB_rrc_reconf_complete	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_rrc_reestab_req	:	chanUB_rrc_reestab_req	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_ul_info_transfer	:	chanUB_ul_info_transfer	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_ue_cap_info	:	chanUB_ue_cap_info	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_ul_user_data	:	chanUB_ul_user_data	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_rrc_resume_req	:	chanUB_rrc_resume_req	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_rrc_resume_complete	:	chanUB_rrc_resume_complete	;
+attacker_inject_message_chanUB	&	inj_adv_UB_enabled	&	inj_adv_act_UB	=	adv_UB_rrc_reestab_complete	:	chanUB_rrc_reestab_complete	;
+ue_rrc_action	=	 null_action	:	chanUB_null_action	;
+ue_rrc_action	=	 rrc_setup_req	:	chanUB_rrc_setup_req	;
+ue_rrc_action	=	 rrc_setup_complete	:	chanUB_rrc_setup_complete	;
+ue_rrc_action	=	 rrc_sm_complete	:	chanUB_rrc_sm_complete	;
+ue_rrc_action	=	 rrc_sm_failure	:	chanUB_rrc_sm_failure	;
+ue_rrc_action	=	 rrc_reconf_complete	:	chanUB_rrc_reconf_complete	;
+ue_rrc_action	=	 rrc_reestab_req	:	chanUB_rrc_reestab_req	;
+ue_rrc_action	=	 ul_info_transfer	:	chanUB_ul_info_transfer	;
+ue_rrc_action	=	 ue_cap_info	:	chanUB_ue_cap_info	;
+ue_rrc_action	=	 ul_user_data	:	chanUB_ul_user_data	;
+ue_rrc_action	=	 rrc_resume_req	:	chanUB_rrc_resume_req	;
+ue_rrc_action	=	 rrc_resume_complete	:	chanUB_rrc_resume_complete	;
+ue_rrc_action	=	 rrc_reestab_complete	:	chanUB_rrc_reestab_complete	;
+TRUE	: {chanUB_null_action}	;
+esac	;
+
+
+init(chan_BU)	:=	chanBU_null_action;
+
+next(chan_BU)	:=	 case
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_rrc_setup	:	chanBU_rrc_setup	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_paging_tmsi	:	chanBU_paging_tmsi	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_null_action	:	chanBU_null_action	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_rrc_release	:	chanBU_rrc_release	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_rrc_release_suspend	:	chanBU_rrc_release_suspend	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_rrc_sm_command	:	chanBU_rrc_sm_command	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_rrc_reconf	:	chanBU_rrc_reconf	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_dl_info_transfer	:	chanBU_dl_info_transfer	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_ue_cap_enquiry	:	chanBU_ue_cap_enquiry	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_rrc_reestab	:	chanBU_rrc_reestab	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_dl_user_data	:	chanBU_dl_user_data	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_rrc_resume	:	chanBU_rrc_resume	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_rrc_reject	:	chanBU_rrc_reject	;
+attacker_inject_message_chanBU	&	inj_adv_BU_enabled	&	inj_adv_act_BU	=	adv_BU_paging_irnti	:	chanBU_paging_irnti	;
+bs_rrc_action	=	 rrc_setup	:	chanBU_rrc_setup	;
+bs_rrc_action	=	 paging_tmsi	:	chanBU_paging_tmsi	;
+bs_rrc_action	=	 null_action	:	chanBU_null_action	;
+bs_rrc_action	=	 rrc_release	:	chanBU_rrc_release	;
+bs_rrc_action	=	 rrc_release_suspend	:	chanBU_rrc_release_suspend	;
+bs_rrc_action	=	 rrc_sm_command	:	chanBU_rrc_sm_command	;
+bs_rrc_action	=	 rrc_reconf	:	chanBU_rrc_reconf	;
+bs_rrc_action	=	 dl_info_transfer	:	chanBU_dl_info_transfer	;
+bs_rrc_action	=	 ue_cap_enquiry	:	chanBU_ue_cap_enquiry	;
+bs_rrc_action	=	 rrc_reestab	:	chanBU_rrc_reestab	;
+bs_rrc_action	=	 dl_user_data	:	chanBU_dl_user_data	;
+bs_rrc_action	=	 rrc_resume	:	chanBU_rrc_resume	;
+bs_rrc_action	=	 rrc_reject	:	chanBU_rrc_reject	;
+bs_rrc_action	=	 paging_irnti	:	chanBU_paging_irnti	;
+TRUE	: {chanBU_null_action}	;
+esac	;
+
+
+init(chan_UA)	:=	chanUA_null_action;
+
+next(chan_UA)	:=	 case
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_dereg_req_switch_off	:	chanUA_dereg_req_switch_off	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_reg_req	:	chanUA_reg_req	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_ue_dereg_accept	:	chanUA_ue_dereg_accept	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_dereg_req_not_switch_off	:	chanUA_dereg_req_not_switch_off	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_id_res	:	chanUA_id_res	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_auth_response	:	chanUA_auth_response	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_auth_failure_mac	:	chanUA_auth_failure_mac	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_auth_failure_seq	:	chanUA_auth_failure_seq	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_sm_complete	:	chanUA_sm_complete	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_sm_reject	:	chanUA_sm_reject	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_reg_complete	:	chanUA_reg_complete	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_config_update_complete	:	chanUA_config_update_complete	;
+attacker_inject_message_chanUA	&	inj_adv_UA_enabled	&	inj_adv_act_UA	=	adv_UA_service_req	:	chanUA_service_req	;
+ue_nas_action	=	 dereg_req_switch_off	:	chanUA_dereg_req_switch_off	;
+ue_nas_action	=	 reg_req	:	chanUA_reg_req	;
+ue_nas_action	=	 ue_dereg_accept	:	chanUA_ue_dereg_accept	;
+ue_nas_action	=	 dereg_req_not_switch_off	:	chanUA_dereg_req_not_switch_off	;
+ue_nas_action	=	 id_res	:	chanUA_id_res	;
+ue_nas_action	=	 auth_response	:	chanUA_auth_response	;
+ue_nas_action	=	 auth_failure_mac	:	chanUA_auth_failure_mac	;
+ue_nas_action	=	 auth_failure_seq	:	chanUA_auth_failure_seq	;
+ue_nas_action	=	 sm_complete	:	chanUA_sm_complete	;
+ue_nas_action	=	 sm_reject	:	chanUA_sm_reject	;
+ue_nas_action	=	 reg_complete	:	chanUA_reg_complete	;
+ue_nas_action	=	 config_update_complete	:	chanUA_config_update_complete	;
+ue_nas_action	=	 service_req	:	chanUA_service_req	;
+TRUE	: {chanUA_null_action}	;
+esac	;
+
+
+init(chan_AU)	:=	chanAU_null_action;
+
+next(chan_AU)	:=	 case
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_nwk_dereg_req	:	chanAU_nwk_dereg_req	;
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_reg_reject	:	chanAU_reg_reject	;
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_auth_req	:	chanAU_auth_req	;
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_id_req	:	chanAU_id_req	;
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_nwk_dereg_accept	:	chanAU_nwk_dereg_accept	;
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_reg_accept	:	chanAU_reg_accept	;
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_auth_reject	:	chanAU_auth_reject	;
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_sm_command	:	chanAU_sm_command	;
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_config_update_cmd	:	chanAU_config_update_cmd	;
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_service_reject	:	chanAU_service_reject	;
+attacker_inject_message_chanAU	&	inj_adv_AU_enabled	&	inj_adv_act_AU	=	adv_AU_service_accept	:	chanAU_service_accept	;
+amf_nas_action	=	 nwk_dereg_req	:	chanAU_nwk_dereg_req	;
+amf_nas_action	=	 reg_reject	:	chanAU_reg_reject	;
+amf_nas_action	=	 auth_req	:	chanAU_auth_req	;
+amf_nas_action	=	 id_req	:	chanAU_id_req	;
+amf_nas_action	=	 nwk_dereg_accept	:	chanAU_nwk_dereg_accept	;
+amf_nas_action	=	 reg_accept	:	chanAU_reg_accept	;
+amf_nas_action	=	 auth_reject	:	chanAU_auth_reject	;
+amf_nas_action	=	 sm_command	:	chanAU_sm_command	;
+amf_nas_action	=	 config_update_cmd	:	chanAU_config_update_cmd	;
+amf_nas_action	=	 service_reject	:	chanAU_service_reject	;
+amf_nas_action	=	 service_accept	:	chanAU_service_accept	;
+TRUE	: {chanAU_null_action}	;
+esac	;
+
+
+--------------- State Variables state machine ------------------
+
+
+
+init(ue_rrc_sec_ctx_exist)	:= FALSE	;
+
+next(ue_rrc_sec_ctx_exist)	:=	 case
+(UE_RRC_T16 )	:	TRUE	;
+(UE_RRC_T7 | UE_RRC_T8 | UE_RRC_T9 | UE_RRC_T10 | UE_RRC_T11 | UE_RRC_T12 | UE_RRC_T13 | UE_RRC_T20 | UE_RRC_T33 | UE_RRC_T34 | UE_RRC_T35 | UE_RRC_T36 | UE_RRC_T37 | UE_RRC_T38 | UE_RRC_T40 | UE_RRC_T41 | UE_RRC_T42 | UE_RRC_T43 | UE_RRC_T44 | UE_RRC_T45 | UE_RRC_T48 | UE_RRC_T49 | UE_RRC_T50 | UE_RRC_T51 | UE_RRC_T52 | UE_RRC_T53 )	:	FALSE	;
+TRUE	:	ue_rrc_sec_ctx_exist	;
+esac	;
+
+
+
+init(ue_bearer_established)	:= FALSE	;
+
+next(ue_bearer_established)	:=	 case
+(UE_RRC_T18 )	:	TRUE	;
+TRUE	:	ue_bearer_established	;
+esac	;
+
+
+
+init(ue_rrc_sec_ctx_updated)	:= FALSE	;
+
+next(ue_rrc_sec_ctx_updated)	:=	 case
+(UE_RRC_T16 | UE_RRC_T17 )	:	FALSE	;
+TRUE	:	ue_rrc_sec_ctx_updated	;
+esac	;
+
+
+
+init(chan_UE_rrc_nas)	:= null	;
+
+next(chan_UE_rrc_nas)	:=	 case
+(UE_RRC_T23 )	:	UE_dl_info_transfer	;
+(UE_RRC_T8 | UE_RRC_T12 | UE_RRC_T35 | UE_RRC_T36 | UE_RRC_T41 | UE_RRC_T42 | UE_RRC_T50 | UE_RRC_T51 )	:	UE_ctx_release_requested	;
+(UE_NAS_T5 | UE_NAS_T6 | UE_NAS_T9 | UE_NAS_T12 | UE_NAS_T16 | UE_NAS_T17 | UE_NAS_T18 | UE_NAS_T19 | UE_NAS_T20 | UE_NAS_T21 | UE_NAS_T22 | UE_NAS_T23 | UE_NAS_T24 | UE_NAS_T25 | UE_NAS_T26 | UE_NAS_T28 | UE_NAS_T31 | UE_NAS_T32 | UE_NAS_T37 | UE_NAS_T38 | UE_NAS_T39 | UE_NAS_T40 | UE_NAS_T41 | UE_NAS_T42 | UE_NAS_T43 | UE_NAS_T49 | UE_NAS_T50 | UE_NAS_T56 | UE_NAS_T58 | UE_NAS_T59 | UE_NAS_T60 | UE_NAS_T61 | UE_NAS_T62 | UE_NAS_T63 | UE_NAS_T68 | UE_NAS_T69 | UE_NAS_T75 )	:	null	;
+TRUE	:	chan_UE_rrc_nas	;
+esac	;
+
+
+
+init(chan_UE_nas_rrc)	:= null	;
+
+next(chan_UE_nas_rrc)	:=	 case
+(UE_NAS_T2 | UE_NAS_T3 | UE_NAS_T5 | UE_NAS_T7 | UE_NAS_T9 | UE_NAS_T10 | UE_NAS_T11 | UE_NAS_T13 | UE_NAS_T15 | UE_NAS_T16 | UE_NAS_T17 | UE_NAS_T18 | UE_NAS_T19 | UE_NAS_T20 | UE_NAS_T21 | UE_NAS_T22 | UE_NAS_T23 | UE_NAS_T24 | UE_NAS_T25 | UE_NAS_T26 | UE_NAS_T28 | UE_NAS_T29 | UE_NAS_T31 | UE_NAS_T33 | UE_NAS_T35 | UE_NAS_T36 | UE_NAS_T37 | UE_NAS_T38 | UE_NAS_T39 | UE_NAS_T40 | UE_NAS_T41 | UE_NAS_T42 | UE_NAS_T43 | UE_NAS_T44 | UE_NAS_T45 | UE_NAS_T47 | UE_NAS_T49 | UE_NAS_T51 | UE_NAS_T52 | UE_NAS_T53 | UE_NAS_T56 | UE_NAS_T57 | UE_NAS_T58 | UE_NAS_T59 | UE_NAS_T60 | UE_NAS_T61 | UE_NAS_T62 | UE_NAS_T63 | UE_NAS_T64 | UE_NAS_T65 | UE_NAS_T66 | UE_NAS_T68 | UE_NAS_T70 | UE_NAS_T71 | UE_NAS_T72 | UE_NAS_T74 | UE_NAS_T75 )	:	UE_ul_info_transfer	;
+(UE_NAS_T14 | UE_NAS_T19 | UE_NAS_T21 | UE_NAS_T34 | UE_NAS_T54 | UE_NAS_T61 | UE_NAS_T63 | UE_NAS_T73 )	:	UE_downgrade_requested	;
+(UE_RRC_T22 )	:	null	;
+TRUE	:	chan_UE_nas_rrc	;
+esac	;
+
+
+
+init(ue_partial_sec_ctx_exist)	:= FALSE	;
+
+next(ue_partial_sec_ctx_exist)	:=	 case
+(UE_NAS_T17 | UE_NAS_T59 )	:	TRUE	;
+(UE_NAS_T1 | UE_NAS_T4 | UE_NAS_T5 | UE_NAS_T8 | UE_NAS_T9 | UE_NAS_T18 | UE_NAS_T19 | UE_NAS_T20 | UE_NAS_T21 | UE_NAS_T30 | UE_NAS_T31 | UE_NAS_T47 | UE_NAS_T48 | UE_NAS_T49 | UE_NAS_T60 | UE_NAS_T61 | UE_NAS_T62 | UE_NAS_T63 | UE_NAS_T66 | UE_NAS_T67 | UE_NAS_T68 )	:	FALSE	;
+TRUE	:	ue_partial_sec_ctx_exist	;
+esac	;
+
+
+
+init(ue_complete_sec_ctx_exist)	:= FALSE	;
+
+next(ue_complete_sec_ctx_exist)	:=	 case
+(UE_NAS_T22 | UE_NAS_T39 | UE_NAS_T40 | UE_NAS_T41 | UE_NAS_T47 )	:	TRUE	;
+(UE_NAS_T1 | UE_NAS_T4 | UE_NAS_T5 | UE_NAS_T8 | UE_NAS_T9 | UE_NAS_T18 | UE_NAS_T19 | UE_NAS_T20 | UE_NAS_T21 | UE_NAS_T30 | UE_NAS_T31 | UE_NAS_T48 | UE_NAS_T49 | UE_NAS_T60 | UE_NAS_T61 | UE_NAS_T62 | UE_NAS_T63 | UE_NAS_T66 | UE_NAS_T67 | UE_NAS_T68 )	:	FALSE	;
+TRUE	:	ue_complete_sec_ctx_exist	;
+esac	;
+
+
+
+init(ueregcompleted)	:= FALSE	;
+
+next(ueregcompleted)	:=	 case
+(UE_NAS_T25 | UE_NAS_T26 )	:	TRUE	;
+(UE_NAS_T1 | UE_NAS_T3 | UE_NAS_T4 | UE_NAS_T5 | UE_NAS_T8 | UE_NAS_T9 | UE_NAS_T15 | UE_NAS_T27 | UE_NAS_T30 | UE_NAS_T31 | UE_NAS_T33 | UE_NAS_T35 | UE_NAS_T44 | UE_NAS_T48 | UE_NAS_T49 | UE_NAS_T51 | UE_NAS_T53 | UE_NAS_T55 | UE_NAS_T57 | UE_NAS_T65 | UE_NAS_T66 | UE_NAS_T67 | UE_NAS_T68 | UE_NAS_T70 | UE_NAS_T72 | UE_NAS_T74 )	:	FALSE	;
+TRUE	:	ueregcompleted	;
+esac	;
+
+
+
+init(downgrade)	:= FALSE	;
+
+next(downgrade)	:=	 case
+(UE_NAS_T14 | UE_NAS_T19 | UE_NAS_T21 | UE_NAS_T34 | UE_NAS_T54 | UE_NAS_T61 | UE_NAS_T63 | UE_NAS_T73 )	:	TRUE	;
+(UE_NAS_T3 | UE_NAS_T7 | UE_NAS_T13 | UE_NAS_T15 | UE_NAS_T28 | UE_NAS_T33 | UE_NAS_T44 | UE_NAS_T53 | UE_NAS_T57 | UE_NAS_T65 | UE_NAS_T72 | UE_NAS_T74 )	:	FALSE	;
+TRUE	:	downgrade	;
+esac	;
+
+
+
+init(ue_sec_ctx_updated)	:= FALSE	;
+
+next(ue_sec_ctx_updated)	:=	 case
+(UE_NAS_T22 | UE_NAS_T39 )	:	TRUE	;
+(UE_NAS_T23 | UE_NAS_T24 | UE_NAS_T40 | UE_NAS_T41 )	:	FALSE	;
+TRUE	:	ue_sec_ctx_updated	;
+esac	;
+
+
+
+init(ue_service_completed)	:= TRUE	;
+
+next(ue_service_completed)	:=	 case
+(UE_NAS_T46 | UE_NAS_T76 | AMF_NAS_T56 | AMF_NAS_T61 )	:	TRUE	;
+(UE_NAS_T45 | UE_NAS_T64 )	:	FALSE	;
+TRUE	:	ue_service_completed	;
+esac	;
+
+
+
+init(ue_service_started)	:= FALSE	;
+
+next(ue_service_started)	:=	 case
+(UE_NAS_T45 | UE_NAS_T64 )	:	TRUE	;
+(UE_NAS_T46 | UE_NAS_T76 )	:	FALSE	;
+TRUE	:	ue_service_started	;
+esac	;
+
+
+
+init(ue_tau_started)	:= FALSE	;
+
+next(ue_tau_started)	:=	 case
+(UE_NAS_T15 | UE_NAS_T57 | UE_NAS_T74 )	:	TRUE	;
+(UE_NAS_T25 )	:	FALSE	;
+TRUE	:	ue_tau_started	;
+esac	;
+
+
+
+init(ue_tau_completed)	:= FALSE	;
+
+next(ue_tau_completed)	:=	 case
+(UE_NAS_T25 )	:	TRUE	;
+(UE_NAS_T15 | UE_NAS_T57 | UE_NAS_T74 )	:	FALSE	;
+TRUE	:	ue_tau_completed	;
+esac	;
+
+
+
+init(gnb_rrc_sec_ctx_exist)	:= FALSE	;
+
+next(gnb_rrc_sec_ctx_exist)	:=	 case
+(BS_RRC_T10 )	:	TRUE	;
+(BS_RRC_T1 | BS_RRC_T4 | BS_RRC_T6 | BS_RRC_T19 | BS_RRC_T30 | BS_RRC_T33 )	:	FALSE	;
+TRUE	:	gnb_rrc_sec_ctx_exist	;
+esac	;
+
+
+
+init(paging_sent)	:= FALSE	;
+
+next(paging_sent)	:=	 case
+(BS_RRC_T2 | BS_RRC_T3 | BS_RRC_T27 | BS_RRC_T29 )	:	TRUE	;
+(BS_RRC_T4 | BS_RRC_T6 | BS_RRC_T24 | BS_RRC_T31 | BS_RRC_T32 | BS_RRC_T33 )	:	FALSE	;
+TRUE	:	paging_sent	;
+esac	;
+
+
+
+init(gnb_bearer_established)	:= FALSE	;
+
+next(gnb_bearer_established)	:=	 case
+(BS_RRC_T12 | BS_RRC_T41 )	:	TRUE	;
+TRUE	:	gnb_bearer_established	;
+esac	;
+
+
+
+init(gnb_rrc_sec_ctx_updated)	:= FALSE	;
+
+next(gnb_rrc_sec_ctx_updated)	:=	 case
+(BS_RRC_T10 )	:	TRUE	;
+(BS_RRC_T11 )	:	FALSE	;
+TRUE	:	gnb_rrc_sec_ctx_updated	;
+esac	;
+
+
+
+init(chan_AMF_rrc_nas)	:= null	;
+
+next(chan_AMF_rrc_nas)	:=	 case
+(BS_RRC_T14 )	:	AMF_ul_info_transfer	;
+(AMF_NAS_T7 | AMF_NAS_T8 | AMF_NAS_T9 | AMF_NAS_T11 | AMF_NAS_T12 | AMF_NAS_T13 | AMF_NAS_T14 | AMF_NAS_T15 | AMF_NAS_T16 | AMF_NAS_T17 | AMF_NAS_T18 | AMF_NAS_T19 | AMF_NAS_T20 | AMF_NAS_T21 | AMF_NAS_T22 | AMF_NAS_T23 | AMF_NAS_T24 | AMF_NAS_T25 | AMF_NAS_T26 | AMF_NAS_T27 | AMF_NAS_T28 | AMF_NAS_T29 | AMF_NAS_T31 | AMF_NAS_T32 | AMF_NAS_T33 | AMF_NAS_T34 | AMF_NAS_T35 | AMF_NAS_T36 | AMF_NAS_T37 | AMF_NAS_T38 | AMF_NAS_T39 | AMF_NAS_T40 | AMF_NAS_T41 | AMF_NAS_T42 | AMF_NAS_T43 | AMF_NAS_T44 | AMF_NAS_T46 | AMF_NAS_T47 | AMF_NAS_T48 | AMF_NAS_T51 | AMF_NAS_T53 | AMF_NAS_T54 | AMF_NAS_T55 | AMF_NAS_T56 | AMF_NAS_T59 | AMF_NAS_T60 | AMF_NAS_T61 | AMF_NAS_T63 | AMF_NAS_T64 | AMF_NAS_T65 | AMF_NAS_T66 )	:	null	;
+TRUE	:	chan_AMF_rrc_nas	;
+esac	;
+
+
+
+init(chan_AMF_nas_rrc)	:= null	;
+
+next(chan_AMF_nas_rrc)	:=	 case
+(AMF_NAS_T7 | AMF_NAS_T8 | AMF_NAS_T9 | AMF_NAS_T12 | AMF_NAS_T13 | AMF_NAS_T14 | AMF_NAS_T15 | AMF_NAS_T16 | AMF_NAS_T17 | AMF_NAS_T18 | AMF_NAS_T19 | AMF_NAS_T20 | AMF_NAS_T21 | AMF_NAS_T22 | AMF_NAS_T23 | AMF_NAS_T24 | AMF_NAS_T25 | AMF_NAS_T26 | AMF_NAS_T27 | AMF_NAS_T32 | AMF_NAS_T33 | AMF_NAS_T34 | AMF_NAS_T35 | AMF_NAS_T36 | AMF_NAS_T37 | AMF_NAS_T38 | AMF_NAS_T39 | AMF_NAS_T40 | AMF_NAS_T41 | AMF_NAS_T42 | AMF_NAS_T43 | AMF_NAS_T44 | AMF_NAS_T53 | AMF_NAS_T54 | AMF_NAS_T55 | AMF_NAS_T56 | AMF_NAS_T59 | AMF_NAS_T60 | AMF_NAS_T61 | AMF_NAS_T63 | AMF_NAS_T64 | AMF_NAS_T65 )	:	AMF_dl_info_transfer	;
+(AMF_NAS_T57 | AMF_NAS_T58 )	:	AMF_paging_requested	;
+(AMF_NAS_T1 | AMF_NAS_T2 | AMF_NAS_T3 | AMF_NAS_T4 | AMF_NAS_T5 )	:	AMF_ctx_release_requested	;
+(BS_RRC_T2 | BS_RRC_T7 | BS_RRC_T13 | BS_RRC_T22 | BS_RRC_T27 | BS_RRC_T28 | BS_RRC_T34 | BS_RRC_T37 | BS_RRC_T40 )	:	null	;
+TRUE	:	chan_AMF_nas_rrc	;
+esac	;
+
+
+
+init(amf_partial_sec_ctx_exist)	:= FALSE	;
+
+next(amf_partial_sec_ctx_exist)	:=	 case
+(AMF_NAS_T23 | AMF_NAS_T43 )	:	TRUE	;
+(AMF_NAS_T7 | AMF_NAS_T13 | AMF_NAS_T17 | AMF_NAS_T18 | AMF_NAS_T22 | AMF_NAS_T24 | AMF_NAS_T33 | AMF_NAS_T37 | AMF_NAS_T38 | AMF_NAS_T42 | AMF_NAS_T44 | AMF_NAS_T55 | AMF_NAS_T60 | AMF_NAS_T63 )	:	FALSE	;
+TRUE	:	amf_partial_sec_ctx_exist	;
+esac	;
+
+
+
+init(amf_complete_sec_ctx_exist)	:= FALSE	;
+
+next(amf_complete_sec_ctx_exist)	:=	 case
+(AMF_NAS_T27 | AMF_NAS_T48 )	:	TRUE	;
+(AMF_NAS_T7 | AMF_NAS_T13 | AMF_NAS_T16 | AMF_NAS_T17 | AMF_NAS_T18 | AMF_NAS_T20 | AMF_NAS_T22 | AMF_NAS_T24 | AMF_NAS_T33 | AMF_NAS_T36 | AMF_NAS_T37 | AMF_NAS_T38 | AMF_NAS_T40 | AMF_NAS_T42 | AMF_NAS_T44 | AMF_NAS_T47 | AMF_NAS_T55 | AMF_NAS_T60 | AMF_NAS_T63 )	:	FALSE	;
+TRUE	:	amf_complete_sec_ctx_exist	;
+esac	;
+
+
+
+init(amf_reg_completed)	:= FALSE	;
+
+next(amf_reg_completed)	:=	 case
+(AMF_NAS_T28 )	:	TRUE	;
+(AMF_NAS_T7 | AMF_NAS_T8 | AMF_NAS_T10 | AMF_NAS_T11 | AMF_NAS_T12 | AMF_NAS_T13 | AMF_NAS_T17 | AMF_NAS_T18 | AMF_NAS_T22 | AMF_NAS_T24 | AMF_NAS_T30 | AMF_NAS_T31 | AMF_NAS_T32 | AMF_NAS_T33 | AMF_NAS_T37 | AMF_NAS_T38 | AMF_NAS_T42 | AMF_NAS_T44 | AMF_NAS_T63 | AMF_NAS_T64 )	:	FALSE	;
+TRUE	:	amf_reg_completed	;
+esac	;
+
+
+
+init(amf_config_updated)	:= FALSE	;
+
+next(amf_config_updated)	:=	 case
+(AMF_NAS_T50 | AMF_NAS_T51 )	:	TRUE	;
+(AMF_NAS_T49 )	:	FALSE	;
+TRUE	:	amf_config_updated	;
+esac	;
+
+
+
+init(amf_sec_ctx_updated)	:= FALSE	;
+
+next(amf_sec_ctx_updated)	:=	 case
+(AMF_NAS_T27 | AMF_NAS_T48 )	:	TRUE	;
+(AMF_NAS_T7 | AMF_NAS_T13 | AMF_NAS_T16 | AMF_NAS_T17 | AMF_NAS_T18 | AMF_NAS_T20 | AMF_NAS_T22 | AMF_NAS_T24 | AMF_NAS_T25 | AMF_NAS_T26 | AMF_NAS_T33 | AMF_NAS_T36 | AMF_NAS_T37 | AMF_NAS_T38 | AMF_NAS_T40 | AMF_NAS_T42 | AMF_NAS_T44 | AMF_NAS_T45 | AMF_NAS_T46 | AMF_NAS_T47 | AMF_NAS_T55 | AMF_NAS_T60 | AMF_NAS_T63 )	:	FALSE	;
+TRUE	:	amf_sec_ctx_updated	;
+esac	;
+
+
+
+init(amf_service_completed)	:= TRUE	;
+
+next(amf_service_completed)	:=	 case
+(AMF_NAS_T53 )	:	TRUE	;
+(AMF_NAS_T7 | AMF_NAS_T13 | AMF_NAS_T17 | AMF_NAS_T18 | AMF_NAS_T22 | AMF_NAS_T24 | AMF_NAS_T33 | AMF_NAS_T37 | AMF_NAS_T38 | AMF_NAS_T42 | AMF_NAS_T44 | AMF_NAS_T55 | AMF_NAS_T55 | AMF_NAS_T59 | AMF_NAS_T60 | AMF_NAS_T60 | AMF_NAS_T63 )	:	FALSE	;
+TRUE	:	amf_service_completed	;
+esac	;
+
+
+
+init(amf_service_started)	:= FALSE	;
+
+next(amf_service_started)	:=	 case
+(AMF_NAS_T55 | AMF_NAS_T59 | AMF_NAS_T60 )	:	TRUE	;
+(AMF_NAS_T7 | AMF_NAS_T13 | AMF_NAS_T17 | AMF_NAS_T18 | AMF_NAS_T22 | AMF_NAS_T24 | AMF_NAS_T33 | AMF_NAS_T37 | AMF_NAS_T38 | AMF_NAS_T42 | AMF_NAS_T44 | AMF_NAS_T53 | AMF_NAS_T56 | AMF_NAS_T61 | AMF_NAS_T63 )	:	FALSE	;
+TRUE	:	amf_service_started	;
+esac	;
+
+
+
+init(paging_requested)	:= FALSE	;
+
+next(paging_requested)	:=	 case
+(AMF_NAS_T57 | AMF_NAS_T58 )	:	TRUE	;
+(AMF_NAS_T6 | AMF_NAS_T8 | AMF_NAS_T9 | AMF_NAS_T10 | AMF_NAS_T11 | AMF_NAS_T12 | AMF_NAS_T13 | AMF_NAS_T14 | AMF_NAS_T15 | AMF_NAS_T16 | AMF_NAS_T17 | AMF_NAS_T30 | AMF_NAS_T31 | AMF_NAS_T32 | AMF_NAS_T33 | AMF_NAS_T34 | AMF_NAS_T35 | AMF_NAS_T36 | AMF_NAS_T37 | AMF_NAS_T53 | AMF_NAS_T54 | AMF_NAS_T55 | AMF_NAS_T59 | AMF_NAS_T60 | AMF_NAS_T61 | AMF_NAS_T62 | AMF_NAS_T64 | AMF_NAS_T65 | AMF_NAS_T66 )	:	FALSE	;
+TRUE	:	paging_requested	;
+esac	;
+
+
+
+init(amf_wait_for)	:= null	;
+
+next(amf_wait_for)	:=	 case
+(AMF_NAS_T28 | AMF_NAS_T48 | AMF_NAS_T50 | AMF_NAS_T51 )	:	null	;
+(AMF_NAS_T9 | AMF_NAS_T14 | AMF_NAS_T19 | AMF_NAS_T34 | AMF_NAS_T39 | AMF_NAS_T59 | AMF_NAS_T65 )	:	idresponse	;
+(AMF_NAS_T8 | AMF_NAS_T16 | AMF_NAS_T20 | AMF_NAS_T21 | AMF_NAS_T36 | AMF_NAS_T40 | AMF_NAS_T41 | AMF_NAS_T55 | AMF_NAS_T60 | AMF_NAS_T64 )	:	authresponse	;
+(AMF_NAS_T23 | AMF_NAS_T43 | AMF_NAS_T45 )	:	smresponse	;
+(AMF_NAS_T15 | AMF_NAS_T25 | AMF_NAS_T26 | AMF_NAS_T27 | AMF_NAS_T35 )	:	regacceptresponse	;
+(AMF_NAS_T49 )	:	configupdateresponse	;
+(AMF_NAS_T57 | AMF_NAS_T58 )	:	servicerequest	;
+TRUE	:	amf_wait_for	;
+esac	;
+
+
+
+init(uectxreleaserequired)	:= FALSE	;
+
+next(uectxreleaserequired)	:=	 case
+(AMF_NAS_T6 | AMF_NAS_T7 | AMF_NAS_T10 | AMF_NAS_T11 | AMF_NAS_T12 | AMF_NAS_T13 | AMF_NAS_T30 | AMF_NAS_T31 | AMF_NAS_T62 | AMF_NAS_T62 | AMF_NAS_T63 | AMF_NAS_T66 )	:	TRUE	;
+(AMF_NAS_T1 | AMF_NAS_T2 | AMF_NAS_T3 | AMF_NAS_T4 | AMF_NAS_T5 | AMF_NAS_T15 | AMF_NAS_T29 )	:	FALSE	;
+TRUE	:	uectxreleaserequired	;
+esac	;
+
+
+init(ue_pdcp_ul_count)	:= 0	;
+init(ue_pdcp_dl_count)	:= 0	;
+init(ue_nas_ul_count)	:= 0	;
+init(ue_nas_dl_count)	:= 0	;
+init(ue_auth_fail_count)	:= 0	;
+init(ue_reg_count)	:= 0	;
+init(ue_seq)	:= 0	;
+init(amf_ue_shared_seq)	:= 0	;
+init(gnb_pdcp_ul_count)	:= 0	;
+init(gnb_pdcp_dl_count)	:= 0	;
+init(amf_nas_ul_count)	:= 0	;
+init(amf_nas_dl_count)	:= 0	;
+init(amf_auth_fail_count)	:= 0	;
+init(amf_seq)	:= 0	;
+
+TRANS
+case
+(UE_RRC_T18 )	:	next(ue_pdcp_ul_count)	=	0	;
+(UE_RRC_T29 )	:	next(ue_pdcp_ul_count)	=	((ue_pdcp_ul_count + 1) mod 32)	;
+TRUE	:	next(ue_pdcp_ul_count)	=	ue_pdcp_ul_count	;
+esac	;
+
+TRANS
+case
+(UE_RRC_T18 )	:	next(ue_pdcp_dl_count)	=	0	;
+(UE_RRC_T30 )	:	next(ue_pdcp_dl_count)	=	((ue_pdcp_dl_count + 1) mod 32)	;
+TRUE	:	next(ue_pdcp_dl_count)	=	ue_pdcp_dl_count	;
+esac	;
+
+TRANS
+case
+(UE_NAS_T3 | UE_NAS_T22 | UE_NAS_T39 )	:	next(ue_nas_ul_count)	=	0	;
+(UE_NAS_T25 | UE_NAS_T26 | UE_NAS_T26 )	:	next(ue_nas_ul_count)	=	((ue_nas_ul_count + 1) mod 32)	;
+TRUE	:	next(ue_nas_ul_count)	=	ue_nas_ul_count	;
+esac	;
+
+TRANS
+case
+(UE_NAS_T3 | UE_NAS_T22 | UE_NAS_T39 )	:	next(ue_nas_dl_count)	=	0	;
+(UE_NAS_T25 )	:	next(ue_nas_dl_count)	=	((ue_nas_dl_count + 1) mod 32)	;
+TRUE	:	next(ue_nas_dl_count)	=	ue_nas_dl_count	;
+esac	;
+
+TRANS
+case
+(UE_NAS_T17 | UE_NAS_T59 )	:	next(ue_auth_fail_count)	=	0	;
+TRUE	:	next(ue_auth_fail_count)	=	ue_auth_fail_count	;
+esac	;
+
+TRANS
+case
+(UE_NAS_T4 | UE_NAS_T5 | UE_NAS_T8 | UE_NAS_T9 | UE_NAS_T25 | UE_NAS_T26 | UE_NAS_T30 | UE_NAS_T31 | UE_NAS_T48 | UE_NAS_T49 | UE_NAS_T67 | UE_NAS_T68 )	:	next(ue_reg_count)	=	0	;
+(UE_NAS_T15 | UE_NAS_T44 | UE_NAS_T57 )	:	next(ue_reg_count)	=	1	;
+(UE_NAS_T3 | UE_NAS_T13 | UE_NAS_T28 | UE_NAS_T33 | UE_NAS_T53 | UE_NAS_T72 )	:	next(ue_reg_count)	=	ue_reg_count+1	;
+TRUE	:	next(ue_reg_count)	=	ue_reg_count	;
+esac	;
+
+TRANS
+case
+(AMF_NAS_T8 | AMF_NAS_T16 | AMF_NAS_T20 | AMF_NAS_T21 | AMF_NAS_T36 | AMF_NAS_T40 | AMF_NAS_T41 | AMF_NAS_T55 | AMF_NAS_T60 | AMF_NAS_T64 )	:	next(amf_ue_shared_seq)	=	next(amf_seq)	;
+TRUE	:	next(amf_ue_shared_seq)	=	amf_ue_shared_seq	;
+esac	;
+
+TRANS
+case
+(BS_RRC_T12 | BS_RRC_T41 )	:	next(gnb_pdcp_ul_count)	=	0	;
+(BS_RRC_T21 )	:	next(gnb_pdcp_ul_count)	=	((gnb_pdcp_ul_count + 1) mod 32)	;
+TRUE	:	next(gnb_pdcp_ul_count)	=	gnb_pdcp_ul_count	;
+esac	;
+
+TRANS
+case
+(BS_RRC_T12 | BS_RRC_T41 )	:	next(gnb_pdcp_dl_count)	=	0	;
+(BS_RRC_T20 )	:	next(gnb_pdcp_dl_count)	=	((gnb_pdcp_dl_count + 1) mod 32)	;
+TRUE	:	next(gnb_pdcp_dl_count)	=	gnb_pdcp_dl_count	;
+esac	;
+
+TRANS
+case
+(AMF_NAS_T23 | AMF_NAS_T27 | AMF_NAS_T43 | AMF_NAS_T45 | AMF_NAS_T48 )	:	next(amf_nas_ul_count)	=	0	;
+(AMF_NAS_T56 | AMF_NAS_T56 )	:	next(amf_nas_ul_count)	=	((amf_nas_ul_count + 1) mod 32)	;
+TRUE	:	next(amf_nas_ul_count)	=	amf_nas_ul_count	;
+esac	;
+
+TRANS
+case
+(AMF_NAS_T23 | AMF_NAS_T27 | AMF_NAS_T43 | AMF_NAS_T45 | AMF_NAS_T48 )	:	next(amf_nas_dl_count)	=	0	;
+TRUE	:	next(amf_nas_dl_count)	=	amf_nas_dl_count	;
+esac	;
+
+TRANS
+case
+(AMF_NAS_T8 | AMF_NAS_T10 | AMF_NAS_T11 | AMF_NAS_T12 | AMF_NAS_T13 | AMF_NAS_T16 | AMF_NAS_T20 | AMF_NAS_T22 | AMF_NAS_T24 | AMF_NAS_T30 | AMF_NAS_T31 | AMF_NAS_T32 | AMF_NAS_T36 | AMF_NAS_T40 | AMF_NAS_T55 | AMF_NAS_T60 | AMF_NAS_T64 )	:	next(amf_auth_fail_count)	=	0	;
+TRUE	:	next(amf_auth_fail_count)	=	amf_auth_fail_count	;
+esac	;
+
+TRANS
+case
+(AMF_NAS_T8 | AMF_NAS_T16 | AMF_NAS_T20 | AMF_NAS_T21 | AMF_NAS_T36 | AMF_NAS_T40 | AMF_NAS_T41 | AMF_NAS_T55 | AMF_NAS_T60 | AMF_NAS_T64 )	:	next(amf_seq)	=	((amf_seq + 1) mod 32)	;
+TRUE	:	next(amf_seq)	=	amf_seq	;
+esac	;
+LTLSPEC
+	G( 
+		(bs_rrc_state = gnb_rrc_connected & gnb_rrc_sec_ctx_exist & 
+		(gnb_pdcp_dl_count > 0)) 
+			->  F (bs_rrc_state = gnb_rrc_connected & gnb_pdcp_dl_count !=0)
+	);

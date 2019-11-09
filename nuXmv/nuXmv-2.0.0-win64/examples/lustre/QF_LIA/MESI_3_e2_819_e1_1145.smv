@@ -1,0 +1,186 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE Abs (_X_)
+VAR
+Abs: integer;
+ite: integer;
+
+ASSIGN
+Abs := ite;
+
+INVAR
+(((_X_ < 0) -> (ite = - (_X_))) & (! ((_X_ < 0)) -> (ite = _X_)));
+
+
+
+
+MODULE excludes4 (_X1_,_X2_,_X3_,_X4_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := ! (((((((_X1_ & _X2_) | (_X1_ & _X3_)) | (_X1_ & _X4_)) | (_X2_ & _X3_)) | (_X2_ & _X4_)) | (_X3_ & _X4_)));
+
+
+
+
+MODULE mesi (etat_me1,etat_me2,etat_me3,etat_me4)
+VAR
+modified_me: integer;
+exclusive_me: integer;
+shared_me: integer;
+invalid_me: integer;
+garde_me1: boolean;
+garde_me2: boolean;
+garde_me3: boolean;
+garde_me4: boolean;
+ite: integer;
+ite2: integer;
+ite3: integer;
+ite4: integer;
+ite5: integer;
+ite6: integer;
+ite7: integer;
+ite8: integer;
+flby: integer;
+ite9: integer;
+ite10: integer;
+ite11: integer;
+ite12: integer;
+ite13: integer;
+ite14: integer;
+ite15: integer;
+ite16: integer;
+flby2: integer;
+ite17: integer;
+ite18: integer;
+ite19: integer;
+ite20: integer;
+ite21: integer;
+ite22: integer;
+ite23: integer;
+ite24: integer;
+flby3: integer;
+ite25: integer;
+ite26: integer;
+ite27: integer;
+ite28: integer;
+ite29: integer;
+ite30: integer;
+ite31: integer;
+ite32: integer;
+flby4: integer;
+
+ASSIGN
+modified_me := flby;
+exclusive_me := flby2;
+shared_me := flby3;
+invalid_me := flby4;
+next(garde_me1) := (invalid_me >= 1);
+next(garde_me2) := (exclusive_me >= 1);
+next(garde_me3) := (shared_me >= 1);
+next(garde_me4) := (invalid_me >= 1);
+init(flby) := 0;
+next(flby) := next(ite8);
+init(flby2) := 0;
+next(flby2) := next(ite16);
+init(flby3) := 0;
+next(flby3) := next(ite24);
+init(flby4) := 3;
+next(flby4) := next(ite32);
+
+INIT
+(garde_me1 -> (ite = 0)) &
+(garde_me3 -> (ite3 = 0)) &
+(garde_me4 -> (ite4 = 0)) &
+(etat_me4 -> (ite5 = ite4)) &
+(garde_me1 -> (ite9 = 0)) &
+(garde_me3 -> (ite11 = 1)) &
+(garde_me4 -> (ite12 = 1)) &
+(etat_me4 -> (ite13 = ite12)) &
+(garde_me3 -> (ite19 = 0)) &
+(garde_me4 -> (ite20 = 0)) &
+(etat_me4 -> (ite21 = ite20)) &
+(etat_me4 -> (ite29 = ite28));
+
+TRANS
+((next(garde_me1) -> (next(ite) = 0)) & (! (next(garde_me1)) -> (next(ite) = modified_me))) &
+((next(garde_me2) -> (next(ite2) = (modified_me - 1))) & (! (next(garde_me2)) -> (next(ite2) = modified_me))) &
+((next(garde_me3) -> (next(ite3) = 0)) & (! (next(garde_me3)) -> (next(ite3) = modified_me))) &
+((next(garde_me4) -> (next(ite4) = 0)) & (! (next(garde_me4)) -> (next(ite4) = modified_me))) &
+((next(etat_me4) -> (next(ite5) = next(ite4))) & (! (next(etat_me4)) -> (next(ite5) = modified_me))) &
+((next(garde_me1) -> (next(ite9) = 0)) & (! (next(garde_me1)) -> (next(ite9) = exclusive_me))) &
+((next(garde_me2) -> (next(ite10) = (exclusive_me - 1))) & (! (next(garde_me2)) -> (next(ite10) = exclusive_me))) &
+((next(garde_me3) -> (next(ite11) = 1)) & (! (next(garde_me3)) -> (next(ite11) = exclusive_me))) &
+((next(garde_me4) -> (next(ite12) = 1)) & (! (next(garde_me4)) -> (next(ite12) = exclusive_me))) &
+((next(etat_me4) -> (next(ite13) = next(ite12))) & (! (next(etat_me4)) -> (next(ite13) = exclusive_me))) &
+((next(garde_me1) -> (next(ite17) = (((((shared_me - 1) + exclusive_me) + 1) + modified_me) - 1))) & (! (next(garde_me1)) -> (next(ite17) = shared_me))) &
+((next(garde_me2) -> (next(ite18) = shared_me)) & (! (next(garde_me2)) -> (next(ite18) = shared_me))) &
+((next(garde_me3) -> (next(ite19) = 0)) & (! (next(garde_me3)) -> (next(ite19) = shared_me))) &
+((next(garde_me4) -> (next(ite20) = 0)) & (! (next(garde_me4)) -> (next(ite20) = shared_me))) &
+((next(etat_me4) -> (next(ite21) = next(ite20))) & (! (next(etat_me4)) -> (next(ite21) = shared_me))) &
+((next(garde_me1) -> (next(ite25) = (invalid_me - 1))) & (! (next(garde_me1)) -> (next(ite25) = invalid_me))) &
+((next(garde_me2) -> (next(ite26) = invalid_me)) & (! (next(garde_me2)) -> (next(ite26) = invalid_me))) &
+((next(garde_me3) -> (next(ite27) = ((((invalid_me + modified_me) + exclusive_me) + shared_me) - 1))) & (! (next(garde_me3)) -> (next(ite27) = invalid_me))) &
+((next(garde_me4) -> (next(ite28) = ((((invalid_me + modified_me) + exclusive_me) + shared_me) - 1))) & (! (next(garde_me4)) -> (next(ite28) = invalid_me))) &
+((next(etat_me4) -> (next(ite29) = next(ite28))) & (! (next(etat_me4)) -> (next(ite29) = invalid_me)));
+
+INVAR
+((etat_me3 -> (ite6 = ite3)) & (! (etat_me3) -> (ite6 = ite5))) &
+((etat_me2 -> (ite7 = ite2)) & (! (etat_me2) -> (ite7 = ite6))) &
+((etat_me1 -> (ite8 = ite)) & (! (etat_me1) -> (ite8 = ite7))) &
+((etat_me3 -> (ite14 = ite11)) & (! (etat_me3) -> (ite14 = ite13))) &
+((etat_me2 -> (ite15 = ite10)) & (! (etat_me2) -> (ite15 = ite14))) &
+((etat_me1 -> (ite16 = ite9)) & (! (etat_me1) -> (ite16 = ite15))) &
+((etat_me3 -> (ite22 = ite19)) & (! (etat_me3) -> (ite22 = ite21))) &
+((etat_me2 -> (ite23 = ite18)) & (! (etat_me2) -> (ite23 = ite22))) &
+((etat_me1 -> (ite24 = ite17)) & (! (etat_me1) -> (ite24 = ite23))) &
+((etat_me3 -> (ite30 = ite27)) & (! (etat_me3) -> (ite30 = ite29))) &
+((etat_me2 -> (ite31 = ite26)) & (! (etat_me2) -> (ite31 = ite30))) &
+((etat_me1 -> (ite32 = ite25)) & (! (etat_me1) -> (ite32 = ite31)));
+
+
+
+
+MODULE main
+VAR
+param_etat_me2: boolean;
+param_etat_me3: boolean;
+param_etat_me4: boolean;
+_OK_: boolean;
+modified_me: integer;
+exclusive_me: integer;
+shared_me: integer;
+invalid_me: integer;
+env: boolean;
+param_etat_me1: boolean;
+call_mesi: mesi (param_etat_me1,param_etat_me2,param_etat_me3,param_etat_me4);
+call_excludes4: excludes4 (param_etat_me1,param_etat_me2,param_etat_me3,param_etat_me4);
+call_Sofar: Sofar (call_excludes4.excludes);
+call_Abs: Abs (modified_me);
+call_Abs2: Abs (exclusive_me);
+call_Abs3: Abs (shared_me);
+call_Abs4: Abs (invalid_me);
+
+ASSIGN
+_OK_ := (env -> ((((call_Abs.Abs + call_Abs2.Abs) + call_Abs3.Abs) + call_Abs4.Abs) <= 3));
+modified_me := call_mesi.modified_me;
+exclusive_me := call_mesi.exclusive_me;
+shared_me := call_mesi.shared_me;
+invalid_me := call_mesi.invalid_me;
+env := call_Sofar.Sofar;
+
+INVARSPEC (_OK_ = TRUE)
+
+

@@ -1,0 +1,102 @@
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) | Sofar);
+
+
+
+
+MODULE Environment (diff,plus,minus)
+VAR
+ok: boolean;
+flby: boolean;
+ite: boolean;
+flby2: boolean;
+ite2: boolean;
+
+ASSIGN
+ok := ((((- (4) <= diff) & (diff <= 4)) & ite) & ite2);
+init(flby) := TRUE;
+next(flby) := plus;
+init(flby2) := FALSE;
+next(flby2) := minus;
+
+INVAR
+((flby -> (ite = (diff >= 1))) & (! (flby) -> (ite = TRUE))) &
+((flby2 -> (ite2 = (diff <= - (1)))) & (! (flby2) -> (ite2 = TRUE)));
+
+
+
+
+MODULE Controller (diff)
+VAR
+speed: integer;
+plus: boolean;
+minus: boolean;
+flby: integer;
+
+ASSIGN
+speed := flby;
+plus := (speed <= 9);
+minus := (speed >= 11);
+init(flby) := 0;
+next(flby) := (speed + next(diff));
+
+
+
+
+MODULE Property (speed)
+VAR
+ok: boolean;
+cpt: integer;
+acceptable: boolean;
+ite: integer;
+flby: integer;
+flby2: boolean;
+
+ASSIGN
+ok := flby2;
+cpt := flby;
+acceptable := ((8 <= speed) & (speed <= 12));
+init(flby) := 0;
+next(flby) := next(ite);
+init(flby2) := TRUE;
+next(flby2) := (cpt <= 7);
+
+INIT
+(acceptable -> (ite = 0));
+
+TRANS
+((next(acceptable) -> (next(ite) = 0)) & (! (next(acceptable)) -> (next(ite) = (cpt + 1))));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+speed: integer;
+plus: boolean;
+minus: boolean;
+realistic: boolean;
+param_diff: integer;
+call_Controller: Controller (param_diff);
+call_Environment: Environment (param_diff,plus,minus);
+call_Sofar: Sofar (((realistic & (0 <= speed)) & (speed < 16)));
+call_Property: Property (speed);
+
+ASSIGN
+_OK_ := (call_Sofar.Sofar -> call_Property.ok);
+speed := call_Controller.speed;
+plus := call_Controller.plus;
+minus := call_Controller.minus;
+realistic := call_Environment.ok;
+
+INVARSPEC (_OK_ = TRUE)
+
+

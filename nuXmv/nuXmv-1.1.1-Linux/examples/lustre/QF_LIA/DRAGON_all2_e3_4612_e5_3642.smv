@@ -1,0 +1,317 @@
+MODULE First (_X_)
+VAR
+First: integer;
+flby: integer;
+
+ASSIGN
+First := flby;
+init(flby) := _X_;
+next(flby) := First;
+
+
+
+
+MODULE Sofar (_X_)
+VAR
+Sofar: boolean;
+flby: boolean;
+
+ASSIGN
+Sofar := flby;
+init(flby) := _X_;
+next(flby) := (next(_X_) & Sofar);
+
+
+
+
+MODULE excludes12 (_X1_,_X2_,_X3_,_X4_,_X5_,_X6_,_X7_,_X8_,_X9_,_X10_,_X11_,_X12_)
+VAR
+excludes: boolean;
+
+ASSIGN
+excludes := (((((((((((((((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_)) | (((((((((((_X1_ & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & _X2_) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & _X3_) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & _X4_) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & _X5_) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & _X6_) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & _X7_) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & _X8_) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & _X9_) & ! (_X10_)) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & _X10_) & ! (_X11_)) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & _X11_) & ! (_X12_))) | (((((((((((! (_X1_) & ! (_X2_)) & ! (_X3_)) & ! (_X4_)) & ! (_X5_)) & ! (_X6_)) & ! (_X7_)) & ! (_X8_)) & ! (_X9_)) & ! (_X10_)) & ! (_X11_)) & _X12_));
+
+
+
+
+MODULE _DRAGON_ (e01,e02,e03,e04,e05,e06,e07,e08,e09,e10,e11,e12,init_invalid)
+VAR
+ite41: integer;
+ite42: integer;
+ite43: integer;
+ite44: integer;
+ite45: integer;
+flby5: integer;
+ite46: integer;
+ite47: integer;
+ite48: integer;
+ite49: integer;
+ite50: integer;
+ite51: integer;
+ite52: integer;
+ite53: integer;
+ite54: integer;
+ite55: integer;
+ite56: integer;
+ite57: integer;
+ite58: integer;
+ite59: integer;
+ite60: integer;
+ite61: integer;
+flby6: integer;
+exclusive: integer;
+shared: integer;
+shared_dirty: integer;
+dirty: integer;
+invalid: integer;
+erreur: boolean;
+g01: boolean;
+g02: boolean;
+g03: boolean;
+g04: boolean;
+g05: boolean;
+g06: boolean;
+g07: boolean;
+g08: boolean;
+g09: boolean;
+g10: boolean;
+g11: boolean;
+g12: boolean;
+mem_init: integer;
+flby: integer;
+ite: boolean;
+ite2: integer;
+ite3: integer;
+ite4: integer;
+ite5: integer;
+ite6: integer;
+ite7: integer;
+ite8: integer;
+ite9: integer;
+ite10: integer;
+ite11: integer;
+flby2: integer;
+ite12: integer;
+ite13: integer;
+ite14: integer;
+ite15: integer;
+ite16: integer;
+ite17: integer;
+ite18: integer;
+ite19: integer;
+ite20: integer;
+ite21: integer;
+flby3: integer;
+ite22: integer;
+ite23: integer;
+ite24: integer;
+ite25: integer;
+ite26: integer;
+ite27: integer;
+ite28: integer;
+ite29: integer;
+ite30: integer;
+ite31: integer;
+flby4: integer;
+ite32: integer;
+ite33: integer;
+ite34: integer;
+ite35: integer;
+ite36: integer;
+ite37: integer;
+ite38: integer;
+ite39: integer;
+ite40: integer;
+
+ASSIGN
+init(flby5) := 0;
+next(flby5) := next(ite45);
+init(flby6) := mem_init;
+next(flby6) := next(ite61);
+exclusive := flby2;
+shared := flby3;
+shared_dirty := flby4;
+dirty := flby5;
+invalid := flby6;
+erreur := ite;
+next(g01) := (((((invalid >= 1) & (dirty = 0)) & (shared = 0)) & (exclusive = 0)) & (shared_dirty = 0));
+next(g02) := ((invalid >= 1) & (((((dirty - 1) - shared) + exclusive) + shared_dirty) >= 1));
+next(g03) := (exclusive >= 1);
+next(g04) := ((shared_dirty = 1) & (shared = 0));
+next(g05) := ((shared_dirty = 0) & (shared = 1));
+next(g06) := ((shared_dirty + shared) >= 2);
+next(g07) := (((((invalid >= 1) & (dirty = 0)) & (shared = 0)) & (exclusive = 0)) & (shared_dirty = 0));
+next(g08) := ((invalid >= 1) & ((((dirty + shared) + exclusive) + shared_dirty) >= 1));
+next(g09) := (dirty >= 1);
+next(g10) := (shared >= 1);
+next(g11) := (shared_dirty >= 1);
+next(g12) := (exclusive >= 1);
+mem_init := flby;
+init(flby) := init_invalid;
+next(flby) := mem_init;
+init(flby2) := 0;
+next(flby2) := next(ite11);
+init(flby3) := 0;
+next(flby3) := next(ite21);
+init(flby4) := 0;
+next(flby4) := next(ite31);
+
+INIT
+(e12 -> (ite54 = ite53)) &
+(g02 -> (ite3 = 0)) &
+(g08 -> (ite5 = 0)) &
+(e12 -> (ite7 = ite6)) &
+(g05 -> (ite13 = 0)) &
+(e10 -> (ite17 = ite16)) &
+(g04 -> (ite23 = 0)) &
+(g06 -> (ite24 = 1)) &
+(g08 -> (ite25 = 1)) &
+(e11 -> (ite27 = ite26)) &
+(g02 -> (ite32 = 0)) &
+(g08 -> (ite37 = 0)) &
+(e09 -> (ite39 = ite38));
+
+TRANS
+((next(g01) -> (next(ite46) = (invalid - 1))) & (! (next(g01)) -> (next(ite46) = invalid))) &
+((next(g02) -> (next(ite47) = (invalid - 1))) & (! (next(g02)) -> (next(ite47) = invalid))) &
+((next(g07) -> (next(ite48) = (invalid - 1))) & (! (next(g07)) -> (next(ite48) = invalid))) &
+((next(g08) -> (next(ite49) = (invalid - 1))) & (! (next(g08)) -> (next(ite49) = invalid))) &
+((next(g09) -> (next(ite50) = (invalid + 1))) & (! (next(g09)) -> (next(ite50) = invalid))) &
+((next(g10) -> (next(ite51) = (invalid + 1))) & (! (next(g10)) -> (next(ite51) = invalid))) &
+((next(g11) -> (next(ite52) = (invalid + 1))) & (! (next(g11)) -> (next(ite52) = invalid))) &
+((next(g12) -> (next(ite53) = (invalid + 1))) & (! (next(g12)) -> (next(ite53) = invalid))) &
+((next(e12) -> (next(ite54) = next(ite53))) & (! (next(e12)) -> (next(ite54) = invalid))) &
+((next(g01) -> (next(ite2) = (exclusive + 1))) & (! (next(g01)) -> (next(ite2) = exclusive))) &
+((next(g02) -> (next(ite3) = 0)) & (! (next(g02)) -> (next(ite3) = exclusive))) &
+((next(g03) -> (next(ite4) = (exclusive - 1))) & (! (next(g03)) -> (next(ite4) = exclusive))) &
+((next(g08) -> (next(ite5) = 0)) & (! (next(g08)) -> (next(ite5) = exclusive))) &
+((next(g12) -> (next(ite6) = (exclusive - 1))) & (! (next(g12)) -> (next(ite6) = exclusive))) &
+((next(e12) -> (next(ite7) = next(ite6))) & (! (next(e12)) -> (next(ite7) = exclusive))) &
+((next(g02) -> (next(ite12) = ((shared + exclusive) + 1))) & (! (next(g02)) -> (next(ite12) = shared))) &
+((next(g05) -> (next(ite13) = 0)) & (! (next(g05)) -> (next(ite13) = shared))) &
+((next(g06) -> (next(ite14) = ((shared + shared_dirty) - 1))) & (! (next(g06)) -> (next(ite14) = shared))) &
+((next(g08) -> (next(ite15) = (((shared + exclusive) + shared_dirty) + dirty))) & (! (next(g08)) -> (next(ite15) = shared))) &
+((next(g10) -> (next(ite16) = (shared - 1))) & (! (next(g10)) -> (next(ite16) = shared))) &
+((next(e10) -> (next(ite17) = next(ite16))) & (! (next(e10)) -> (next(ite17) = shared))) &
+((next(g02) -> (next(ite22) = (shared_dirty + dirty))) & (! (next(g02)) -> (next(ite22) = shared_dirty))) &
+((next(g04) -> (next(ite23) = 0)) & (! (next(g04)) -> (next(ite23) = shared_dirty))) &
+((next(g06) -> (next(ite24) = 1)) & (! (next(g06)) -> (next(ite24) = shared_dirty))) &
+((next(g08) -> (next(ite25) = 1)) & (! (next(g08)) -> (next(ite25) = shared_dirty))) &
+((next(g11) -> (next(ite26) = (shared_dirty - 1))) & (! (next(g11)) -> (next(ite26) = shared_dirty))) &
+((next(e11) -> (next(ite27) = next(ite26))) & (! (next(e11)) -> (next(ite27) = shared_dirty))) &
+((next(g02) -> (next(ite32) = 0)) & (! (next(g02)) -> (next(ite32) = dirty))) &
+((next(g03) -> (next(ite33) = (dirty + 1))) & (! (next(g03)) -> (next(ite33) = dirty))) &
+((next(g04) -> (next(ite34) = (dirty + 1))) & (! (next(g04)) -> (next(ite34) = dirty))) &
+((next(g05) -> (next(ite35) = (dirty + 1))) & (! (next(g05)) -> (next(ite35) = dirty))) &
+((next(g07) -> (next(ite36) = (dirty + 1))) & (! (next(g07)) -> (next(ite36) = dirty))) &
+((next(g08) -> (next(ite37) = 0)) & (! (next(g08)) -> (next(ite37) = dirty))) &
+((next(g09) -> (next(ite38) = (dirty - 1))) & (! (next(g09)) -> (next(ite38) = dirty))) &
+((next(e09) -> (next(ite39) = next(ite38))) & (! (next(e09)) -> (next(ite39) = dirty)));
+
+INVAR
+((e07 -> (ite41 = ite36)) & (! (e07) -> (ite41 = ite40))) &
+((e05 -> (ite42 = ite35)) & (! (e05) -> (ite42 = ite41))) &
+((e04 -> (ite43 = ite34)) & (! (e04) -> (ite43 = ite42))) &
+((e03 -> (ite44 = ite33)) & (! (e03) -> (ite44 = ite43))) &
+((e02 -> (ite45 = ite32)) & (! (e02) -> (ite45 = ite44))) &
+((e11 -> (ite55 = ite52)) & (! (e11) -> (ite55 = ite54))) &
+((e10 -> (ite56 = ite51)) & (! (e10) -> (ite56 = ite55))) &
+((e09 -> (ite57 = ite50)) & (! (e09) -> (ite57 = ite56))) &
+((e08 -> (ite58 = ite49)) & (! (e08) -> (ite58 = ite57))) &
+((e07 -> (ite59 = ite48)) & (! (e07) -> (ite59 = ite58))) &
+((e02 -> (ite60 = ite47)) & (! (e02) -> (ite60 = ite59))) &
+((e01 -> (ite61 = ite46)) & (! (e01) -> (ite61 = ite60))) &
+(((exclusive >= 2) -> (ite = TRUE)) & (! ((exclusive >= 2)) -> (ite = FALSE))) &
+((e08 -> (ite8 = ite5)) & (! (e08) -> (ite8 = ite7))) &
+((e03 -> (ite9 = ite4)) & (! (e03) -> (ite9 = ite8))) &
+((e02 -> (ite10 = ite3)) & (! (e02) -> (ite10 = ite9))) &
+((e01 -> (ite11 = ite2)) & (! (e01) -> (ite11 = ite10))) &
+((e08 -> (ite18 = ite15)) & (! (e08) -> (ite18 = ite17))) &
+((e06 -> (ite19 = ite14)) & (! (e06) -> (ite19 = ite18))) &
+((e05 -> (ite20 = ite13)) & (! (e05) -> (ite20 = ite19))) &
+((e02 -> (ite21 = ite12)) & (! (e02) -> (ite21 = ite20))) &
+((e08 -> (ite28 = ite25)) & (! (e08) -> (ite28 = ite27))) &
+((e06 -> (ite29 = ite24)) & (! (e06) -> (ite29 = ite28))) &
+((e04 -> (ite30 = ite23)) & (! (e04) -> (ite30 = ite29))) &
+((e02 -> (ite31 = ite22)) & (! (e02) -> (ite31 = ite30))) &
+((e08 -> (ite40 = ite37)) & (! (e08) -> (ite40 = ite39)));
+
+
+
+
+MODULE main
+VAR
+param_init_invalid: integer;
+param_e03: boolean;
+param_e04: boolean;
+param_e05: boolean;
+param_e06: boolean;
+_OK_: boolean;
+exclusive: integer;
+shared: integer;
+shared_dirty: integer;
+dirty: integer;
+invalid: integer;
+_R1_: boolean;
+param_e07: boolean;
+_R2_: boolean;
+_R3_: boolean;
+_R4_: boolean;
+_R5_: boolean;
+_R6_: boolean;
+_R7_: boolean;
+_R8_: boolean;
+_R9_: boolean;
+_R10_: boolean;
+_R11_: boolean;
+param_e08: boolean;
+_R12_: boolean;
+_R13_: boolean;
+_R14_: boolean;
+erreur: boolean;
+env: boolean;
+param_e09: boolean;
+flby: boolean;
+param_e10: boolean;
+param_e11: boolean;
+param_e01: boolean;
+param_e12: boolean;
+param_e02: boolean;
+call__DRAGON_: _DRAGON_ (param_e01,param_e02,param_e03,param_e04,param_e05,param_e06,param_e07,param_e08,param_e09,param_e10,param_e11,param_e12,param_init_invalid);
+call_excludes12: excludes12 (param_e01,param_e02,param_e03,param_e04,param_e05,param_e06,param_e07,param_e08,param_e09,param_e10,param_e11,param_e12);
+call_Sofar: Sofar ((call_excludes12.excludes & (param_init_invalid > 0)));
+call_First: First (param_init_invalid);
+call_First2: First (param_init_invalid);
+call_First3: First (param_init_invalid);
+call_First4: First (param_init_invalid);
+call_First5: First (param_init_invalid);
+
+ASSIGN
+_OK_ := (((((((((((((_R1_ & _R2_) & _R3_) & _R4_) & _R5_) & _R6_) & _R7_) & _R8_) & _R9_) & _R10_) & _R11_) & _R12_) & _R13_) & _R14_);
+exclusive := call__DRAGON_.exclusive;
+shared := call__DRAGON_.shared;
+shared_dirty := call__DRAGON_.shared_dirty;
+dirty := call__DRAGON_.dirty;
+invalid := call__DRAGON_.invalid;
+_R1_ := (env -> ! (erreur));
+_R2_ := (env -> flby);
+_R3_ := (env -> (((((exclusive + shared) + shared_dirty) + dirty) + invalid) = call_First.First));
+_R4_ := (env -> (dirty <= 1));
+_R5_ := (env -> ((dirty < 1) | (shared < 1)));
+_R6_ := (env -> (shared >= 0));
+_R7_ := (env -> (exclusive >= 0));
+_R8_ := (env -> (shared_dirty >= 0));
+_R9_ := (env -> (dirty >= 0));
+_R10_ := (env -> (invalid >= 0));
+_R11_ := (env -> (shared <= call_First2.First));
+_R12_ := (env -> (shared_dirty <= call_First3.First));
+_R13_ := (env -> (dirty <= call_First4.First));
+_R14_ := (env -> (invalid <= call_First5.First));
+erreur := call__DRAGON_.erreur;
+env := call_Sofar.Sofar;
+init(flby) := TRUE;
+next(flby) := (((((next(exclusive) + next(shared)) + next(shared_dirty)) + next(dirty)) + next(invalid)) = ((((exclusive + shared) + shared_dirty) + dirty) + invalid));
+
+INVARSPEC (_OK_ = TRUE)
+
+

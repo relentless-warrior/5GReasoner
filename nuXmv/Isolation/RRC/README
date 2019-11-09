@@ -1,0 +1,17 @@
+Models:
+FSM/BS-RRC-5G.dot: Finite state machine (FSM) for Base station.
+FSM/UE-RRC-5G.dot: Finite state machine (FSM) for RRC layer of UE.
+
+
+dot2smv.py : Converter to nuXmv from UE-RRC and base station finite state machines.
+RRC_poperty.smv: Properties and counter-examples for RRC layer.
+
+How To Run:
+First need to run dot2smv.py to generate nuXmv model(5G-RRC.smv) from BS-RRC-5G.dot and UE-RRC-5G.dot.
+Then copy a property from RRC_poperty.smv to 5G-RRC.smv and run the commands:
+./nuXmv -int 5G-NAS.smv
+read_model
+flatten_hierarchy
+encode_variables
+build_boolean_model
+check_ltlspec_klive

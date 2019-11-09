@@ -1,0 +1,95 @@
+MODULE redge (signal)
+VAR
+r: boolean;
+flby: boolean;
+
+ASSIGN
+r := flby;
+init(flby) := signal;
+next(flby) := (next(signal) | ! (signal));
+
+
+
+
+MODULE fedge (signal)
+VAR
+f: boolean;
+call_redge: redge (! (signal));
+
+ASSIGN
+f := call_redge.r;
+
+
+
+
+MODULE sustain (on,off)
+VAR
+s: boolean;
+ite: boolean;
+ite2: boolean;
+flby: boolean;
+
+ASSIGN
+s := flby;
+init(flby) := on;
+next(flby) := next(ite2);
+
+INIT
+(off -> (ite = FALSE));
+
+TRANS
+((next(off) -> (next(ite) = FALSE)) & (! (next(off)) -> (next(ite) = s)));
+
+INVAR
+((on -> (ite2 = TRUE)) & (! (on) -> (ite2 = ite)));
+
+
+
+
+MODULE main
+VAR
+_OK_: boolean;
+MayMove1: boolean;
+MayMove2: boolean;
+start1: boolean;
+start2: boolean;
+stop: boolean;
+moving: boolean;
+flby: boolean;
+flby2: boolean;
+ite: boolean;
+ite2: boolean;
+flby3: boolean;
+param_MaySafelyMove: boolean;
+param_TryToMove1: boolean;
+param_TryToMove2: boolean;
+call_sustain: sustain ((start1 | start2),stop);
+call_redge: redge ((MayMove1 & flby));
+call_redge2: redge ((MayMove2 & flby2));
+call_fedge: fedge (MayMove1);
+call_fedge2: fedge (MayMove2);
+call_redge3: redge (param_TryToMove1);
+call_redge4: redge (param_TryToMove2);
+
+ASSIGN
+_OK_ := flby3;
+MayMove1 := (param_TryToMove1 | param_MaySafelyMove);
+MayMove2 := (param_TryToMove2 & param_MaySafelyMove);
+start1 := call_redge.r;
+start2 := call_redge2.r;
+stop := (call_fedge.f | call_fedge2.f);
+moving := call_sustain.s;
+init(flby) := TRUE;
+next(flby) := ! (param_TryToMove2);
+init(flby2) := TRUE;
+next(flby2) := ! (param_TryToMove1);
+init(flby3) := TRUE;
+next(flby3) := next(ite2);
+
+INVAR
+((moving -> (ite = param_MaySafelyMove)) & (! (moving) -> (ite = TRUE))) &
+(((! (call_redge3.r) | ! (call_redge4.r)) -> (ite2 = (((((! (start1) & ! (start2)) | (! (start2) & ! (stop))) | (! (start1) & ! (stop))) & ! (((start1 & start2) & stop))) & ite))) & (! ((! (call_redge3.r) | ! (call_redge4.r))) -> (ite2 = TRUE)));
+
+INVARSPEC (_OK_ = TRUE)
+
+
